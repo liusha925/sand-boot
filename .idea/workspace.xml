@@ -1,0 +1,731 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="GROUP_BY_SEVERITY" value="true" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7fc03d78-d560-4031-b03b-d38c1916aacb" name="Default Changelist" comment="" />
+    <ignored path="$PROJECT_DIR$/SAND-Base/target/" />
+    <ignored path="$PROJECT_DIR$/SAND-Base/parent/target/" />
+    <ignored path="$PROJECT_DIR$/SAND-Base/lsbase/target/" />
+    <ignored path="$PROJECT_DIR$/SAND-Bussiness/target/" />
+    <ignored path="$PROJECT_DIR$/SAND-Base/ls-base/target/" />
+    <ignored path="$PROJECT_DIR$/SAND-Bussiness/ls-sys/target/" />
+    <ignored path="$PROJECT_DIR$/SAND-Bussiness/ls-sys/sys-api/target/" />
+    <ignored path="$PROJECT_DIR$/SAND-Other/target/" />
+    <ignored path="$PROJECT_DIR$/SAND-Webapp/target/" />
+    <ignored path="$PROJECT_DIR$/SAND-Bussiness/ls-sys/sys-provider/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="sand" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/number/NumberUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="40" column="38" lean-forward="true" selection-start-line="40" selection-start-column="38" selection-end-line="40" selection-end-column="38" />
+              <folding>
+                <element signature="e#469#470#0" expanded="true" />
+                <element signature="e#499#500#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/number/Operation.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="16" column="2" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="AnnotationType" />
+        <option value="Class" />
+        <option value="Enum" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>XX有限公司</find>
+      <find>FileName</find>
+      <find>FilePath</find>
+      <find>lePath</find>
+      <find>inFiC</find>
+      <find>huangshaohua</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>流沙~~</replace>
+      <replace>FilePath</replace>
+      <replace>FilePathName</replace>
+      <replace>lePathName</replace>
+      <replace>inFileChannel</replace>
+      <replace>nevercoming</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>C:\HuangShaohua\WorkSpace\sand</dir>
+    </dirStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/SAND-Base/Base.BasePom.iml" />
+        <option value="$PROJECT_DIR$/SAND-Base/parent/parent.iml" />
+        <option value="$PROJECT_DIR$/SAND-Base/lsbase/src/main/java/com/sand/base/util/common/RequestInfoUtil.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/lsbase/src/main/java/com/sand/base/annotation/Sss.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/lsbase/src/main/java/com/sand/base/annotation/LogAnnotation.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/lsbase/src/main/java/com/sand/base/constant/Constant.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/lsbase/src/main/java/com/sand/base/util/common/AnnotationUtil.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/lsbase/src/main/java/com/sand/base/util/common/ServletUtil.java" />
+        <option value="$PROJECT_DIR$/SAND-Bussiness/Bussiness.iml" />
+        <option value="$PROJECT_DIR$/SAND-Base/lsbase/pom.xml" />
+        <option value="$PROJECT_DIR$/SAND-Base/parent/pom.xml" />
+        <option value="$PROJECT_DIR$/SAND-Bussiness/ls-sys/ls-sys.iml" />
+        <option value="$PROJECT_DIR$/SAND-Base/ls-base/pom.xml" />
+        <option value="$PROJECT_DIR$/SAND-Bussiness/ls-sys/sys-api/pom.xml" />
+        <option value="$PROJECT_DIR$/SAND-Bussiness/ls-sys/pom.xml" />
+        <option value="$PROJECT_DIR$/SAND-Other/Other.iml" />
+        <option value="$PROJECT_DIR$/SAND-Bussiness/pom.xml" />
+        <option value="$PROJECT_DIR$/SAND-Base/pom.xml" />
+        <option value="$PROJECT_DIR$/SAND-Other/pom.xml" />
+        <option value="$PROJECT_DIR$/SAND-Webapp/Webapp.iml" />
+        <option value="$PROJECT_DIR$/SAND-Webapp/pom.xml" />
+        <option value="$PROJECT_DIR$/SAND-Bussiness/ls-sys/sys-provider/pom.xml" />
+        <option value="$PROJECT_DIR$/SAND-Bussiness/ls-sys/sys-api/src/main/java/com/sand/sys/JavaBean.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/JavaBean.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/file/IFileExcutor.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/annotation/LogAnnotation.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/common/AnnotationUtil.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/constant/Constant.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/file/concrete/ZipExecutor.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/file/concrete/NIOFileExecutor.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/file/IFileExecutor.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/enums/OperationEnum.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/others/IOperation.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/number/OperationEnum.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/file/AbstractFileExecutor.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/number/Operation.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/number/OperationUtil.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/number/MathOperation.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/number/MathOperationUtil.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/number/NumberOperationUtil.java" />
+        <option value="$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/number/NumberUtil.java" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="C:\HuangShaohua\DevTools\apache-maven-3.5.3\repo" />
+        <option name="mavenHome" value="$PROJECT_DIR$/../../DevTools/apache-maven-3.5.3" />
+        <option name="userSettingsFile" value="C:\HuangShaohua\DevTools\apache-maven-3.5.3\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="lsbase" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-12" />
+    <option name="width" value="1308" />
+    <option name="height" value="1212" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="sand" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sand" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sand" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sand" type="462c0819:PsiDirectoryNode" />
+              <item name="SAND-Base" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sand" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sand" type="462c0819:PsiDirectoryNode" />
+              <item name="SAND-Base" type="462c0819:PsiDirectoryNode" />
+              <item name="ls-base" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sand" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sand" type="462c0819:PsiDirectoryNode" />
+              <item name="SAND-Base" type="462c0819:PsiDirectoryNode" />
+              <item name="ls-base" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sand" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sand" type="462c0819:PsiDirectoryNode" />
+              <item name="SAND-Base" type="462c0819:PsiDirectoryNode" />
+              <item name="ls-base" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sand" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sand" type="462c0819:PsiDirectoryNode" />
+              <item name="SAND-Base" type="462c0819:PsiDirectoryNode" />
+              <item name="ls-base" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sand" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sand" type="462c0819:PsiDirectoryNode" />
+              <item name="SAND-Base" type="462c0819:PsiDirectoryNode" />
+              <item name="ls-base" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sand" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sand" type="462c0819:PsiDirectoryNode" />
+              <item name="SAND-Base" type="462c0819:PsiDirectoryNode" />
+              <item name="ls-base" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sand" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sand" type="462c0819:PsiDirectoryNode" />
+              <item name="SAND-Base" type="462c0819:PsiDirectoryNode" />
+              <item name="ls-base" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+              <item name="file" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sand" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sand" type="462c0819:PsiDirectoryNode" />
+              <item name="SAND-Base" type="462c0819:PsiDirectoryNode" />
+              <item name="ls-base" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+              <item name="number" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="MyBatisLogPluginparameters" value="Parameters:" />
+    <property name="MyBatisLogPluginpreparing" value="Preparing:" />
+    <property name="MyBatisLogPluginrunning" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../regTech" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="fileTemplates" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.sand.base.util.common" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7fc03d78-d560-4031-b03b-d38c1916aacb" name="Default Changelist" comment="" />
+      <created>1565069945553</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1565069945553</updated>
+      <workItem from="1565069949354" duration="6246000" />
+      <workItem from="1565095333947" duration="847000" />
+      <workItem from="1565096285008" duration="4062000" />
+      <workItem from="1565100605352" duration="88000" />
+      <workItem from="1565100752399" duration="6365000" />
+      <workItem from="1565136938319" duration="13713000" />
+      <workItem from="1565231705052" duration="3451000" />
+      <workItem from="1565602184446" duration="2807000" />
+      <workItem from="1565611692886" duration="9122000" />
+      <workItem from="1565675793121" duration="3734000" />
+      <workItem from="1565689193322" duration="682000" />
+      <workItem from="1565749092942" duration="2526000" />
+      <workItem from="1565849304401" duration="4786000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="58429000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1215" height="775" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4984472" visible="true" weight="0.34083045" />
+      <window_info id="Structure" order="1" sideWeight="0.5015528" side_tool="true" weight="0.31747404" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" weight="0.32958478" />
+      <window_info id="Web" order="7" side_tool="true" />
+      <window_info id="MyBatis Builder" order="8" side_tool="true" weight="0.32958478" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="CheckStyle" order="6" weight="0.32919255" />
+      <window_info anchor="bottom" id="FindBugs-IDEA" internal_type="SLIDING" order="7" type="SLIDING" weight="0.32919255" />
+      <window_info anchor="bottom" id="TODO" order="8" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Analysis" order="11" />
+      <window_info anchor="bottom" id="Database Changes" order="12" />
+      <window_info anchor="bottom" id="Terminal" order="13" />
+      <window_info anchor="bottom" id="Event Log" order="14" side_tool="true" weight="0.32919255" />
+      <window_info anchor="bottom" id="Spring" order="15" />
+      <window_info anchor="bottom" id="Java Enterprise" order="16" />
+      <window_info anchor="bottom" id="Messages" order="17" />
+      <window_info anchor="bottom" id="MyBatis Log" order="18" weight="0.32919255" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Theme Preview" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Maven" order="6" weight="0.32929993" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Database" order="8" />
+      <window_info anchor="right" id="Bean Validation" order="9" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/SAND-Base/SAND-Base.iml" />
+    <entry file="file://$PROJECT_DIR$/SAND-Base/parent/parent.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="39" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../DevTools/apache-maven-3.5.3/repo/org/projectlombok/lombok/1.16.20/lombok-1.16.20.jar!/lombok/extern/slf4j/Slf4j.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../DevTools/apache-maven-3.5.3/repo/org/springframework/boot/spring-boot-dependencies/1.5.10.RELEASE/spring-boot-dependencies-1.5.10.RELEASE.pom">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="536" column="12" selection-start-line="536" selection-start-column="12" selection-end-line="536" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Base/lsbase/src/main/java/com/sand/base/annotation/Sss.java" />
+    <entry file="file://$PROJECT_DIR$/SAND-Base/Base.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="56" selection-start-line="6" selection-start-column="56" selection-end-line="6" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Bussiness/Bussiness.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Bussiness/ls-sys/ls-sys.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="39" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Bussiness/ls-sys/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="35" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
+        </state>
+      </provider>
+      <provider editor-type-id="MavenHelperPluginDependencyAnalyzer" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Other/Other.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Bussiness/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
+        </state>
+      </provider>
+      <provider editor-type-id="MavenHelperPluginDependencyAnalyzer" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Base/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+        </state>
+      </provider>
+      <provider editor-type-id="MavenHelperPluginDependencyAnalyzer" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Other/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+        </state>
+      </provider>
+      <provider editor-type-id="MavenHelperPluginDependencyAnalyzer" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Webapp/Webapp.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Bussiness/ls-sys/sys-provider/sys-provider.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/jshell/jshell_console.snippet">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Bussiness/ls-sys/sys-api/src/main/java/com/sand/sys/JavaBean.java" />
+    <entry file="file://$PROJECT_DIR$/SAND-Bussiness/ls-sys/sys-provider/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="41" lean-forward="true" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
+        </state>
+      </provider>
+      <provider editor-type-id="MavenHelperPluginDependencyAnalyzer" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Webapp/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+      <provider editor-type-id="MavenHelperPluginDependencyAnalyzer" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/JavaBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="14" column="23" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Bussiness/ls-sys/sys-api/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="36" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
+        </state>
+      </provider>
+      <provider editor-type-id="MavenHelperPluginDependencyAnalyzer" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Base/parent/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1311">
+          <caret line="69" column="49" selection-start-line="69" selection-start-column="49" selection-end-line="69" selection-end-column="49" />
+        </state>
+      </provider>
+      <provider editor-type-id="MavenHelperPluginDependencyAnalyzer" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/common/AnnotationUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="3" lean-forward="true" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/annotation/LogAnnotation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="12" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Base/ls-base/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="38" column="43" lean-forward="true" selection-start-line="38" selection-start-column="43" selection-end-line="38" selection-end-column="43" />
+        </state>
+      </provider>
+      <provider editor-type-id="MavenHelperPluginDependencyAnalyzer" />
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../DevTools/java/jdk1.8.0_202/src.zip!/java/io/File.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="1307" column="19" selection-start-line="1307" selection-start-column="19" selection-end-line="1307" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/constant/Constant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="19" column="49" selection-start-line="19" selection-start-column="49" selection-end-line="19" selection-end-column="49" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../DevTools/java/jdk1.8.0_202/src.zip!/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="2938" column="25" selection-start-line="2938" selection-start-column="25" selection-end-line="2938" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../DevTools/java/jdk1.8.0_202/src.zip!/java/nio/file/Files.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="2738" column="23" selection-start-line="2738" selection-start-column="23" selection-end-line="2738" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../DevTools/java/jdk1.8.0_202/src.zip!/java/nio/file/SimpleFileVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-687">
+          <caret line="43" column="7" lean-forward="true" selection-start-line="43" selection-start-column="7" selection-end-line="43" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/file/concrete/ZipExecutor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="25" column="30" lean-forward="true" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/file/concrete/NIOFileExecutor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="684">
+          <caret line="47" column="7" lean-forward="true" selection-start-line="47" selection-start-column="7" selection-end-line="47" selection-end-column="7" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/common/ServletUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="32" column="26" lean-forward="true" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="26" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../DevTools/java/jdk1.8.0_202/src.zip!/java/util/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="522" column="37" lean-forward="true" selection-start-line="522" selection-start-column="37" selection-end-line="522" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../DevTools/java/jdk1.8.0_202/src.zip!/java/util/Collection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5415">
+          <caret line="310" column="12" selection-start-line="310" selection-start-column="12" selection-end-line="310" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/file/IFileExecutor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/file/AbstractFileExecutor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2603">
+          <caret line="161" column="46" lean-forward="true" selection-start-line="161" selection-start-column="46" selection-end-line="161" selection-end-column="46" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../DevTools/apache-maven-3.5.3/repo/org/springframework/spring-core/4.3.14.RELEASE/spring-core-4.3.14.RELEASE.jar!/org/springframework/util/StringUtils.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="52" column="57" lean-forward="true" selection-start-line="52" selection-start-column="57" selection-end-line="52" selection-end-column="57" />
+          <folding>
+            <element signature="e#912#913#0" expanded="true" />
+            <element signature="e#958#959#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../DevTools/java/jdk1.8.0_202/src.zip!/java/lang/Double.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="202" column="25" selection-start-line="202" selection-start-column="25" selection-end-line="202" selection-end-column="25" />
+          <folding>
+            <element signature="e#7471#7472#0" expanded="true" />
+            <element signature="e#7531#7532#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/number/Operation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="16" column="2" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../DevTools/java/jdk1.8.0_202/src.zip!/java/math/BigDecimal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="807" column="11" selection-start-line="807" selection-start-column="11" selection-end-line="807" selection-end-column="11" />
+          <folding>
+            <element signature="e#34202#34203#0" expanded="true" />
+            <element signature="e#34258#34259#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAND-Base/ls-base/src/main/java/com/sand/base/util/number/NumberUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="40" column="38" lean-forward="true" selection-start-line="40" selection-start-column="38" selection-end-line="40" selection-end-column="38" />
+          <folding>
+            <element signature="e#469#470#0" expanded="true" />
+            <element signature="e#499#500#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/SAND-Base/ls-base" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SAND-Base/parent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SAND-Bussiness/ls-sys" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SAND-Bussiness/ls-sys/sys-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SAND-Bussiness/ls-sys/sys-provider" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>
