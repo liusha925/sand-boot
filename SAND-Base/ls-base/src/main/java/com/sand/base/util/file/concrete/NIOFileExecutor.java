@@ -41,8 +41,8 @@ public class NIOFileExecutor extends AbstractFileExecutor {
         }
         inFileChannel.transferTo(inFileChannel.position(), buffSize, outFileChannel);
         // 内存映像复制
-//        MappedByteBuffer inBuffer = inFileChannel.map(FileChannel.MapMode.READ_ONLY, inFileChannel.position(), buffSize);
-//        outFileChannel.write(inBuffer);
+        MappedByteBuffer inBuffer = inFileChannel.map(FileChannel.MapMode.READ_ONLY, inFileChannel.position(), buffSize);
+        outFileChannel.write(inBuffer);
 
         inFileChannel.position(inFileChannel.position() + buffSize);
       }

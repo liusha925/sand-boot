@@ -18,7 +18,7 @@ import java.io.OutputStream;
  * 开发日期：2019/8/10 20:15
  * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
  */
-public interface IFileExecutor {
+public interface FileExecutor {
   /**
    * 复制文件，可以复制单个文件或文件夹
    *
@@ -77,6 +77,22 @@ public interface IFileExecutor {
    * @return 如果删除成功 ，则返回true，否是返回false
    */
   boolean deleteFile(String filePathName);
+
+  /**
+   * 删除目录及目录下的文件
+   *
+   * @param dirPathName 被删除的目录所在的文件路径
+   * @return 如果目录删除成功 ，则返回true，否则返回false
+   */
+  boolean deleteDirectory(String dirPathName);
+
+  /**
+   * 清空目录
+   *
+   * @param folder 目标目录
+   * @return 是否清除成功
+   */
+  boolean clearFolder(File folder);
 
   /**
    * 压缩文件

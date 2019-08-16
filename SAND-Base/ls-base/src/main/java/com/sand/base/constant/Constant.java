@@ -15,7 +15,11 @@ package com.sand.base.constant;
  */
 public final class Constant {
   /**
-   * Buff Size
+   * 未知的信息
+   */
+  public static final String UNKNOWN = "unknown";
+  /**
+   * Buff Size的容量大小
    */
   public static final int BUFF_SIZE = 1024 * 100;
   /**

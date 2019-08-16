@@ -24,6 +24,8 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface LogAnnotation {
   String symbol() default "none";
-  String remark() default "default";
+
   String service() default "logService";
+
+  String description() default "default";
 }

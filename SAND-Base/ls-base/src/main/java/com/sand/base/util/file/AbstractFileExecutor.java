@@ -32,7 +32,7 @@ import java.util.zip.ZipOutputStream;
  * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
  */
 @Slf4j
-public abstract class AbstractFileExecutor implements IFileExecutor {
+public abstract class AbstractFileExecutor implements FileExecutor {
 
   /**
    * 模板方法：第一步，预定义操作（文件拷贝或者文件夹拷贝）
@@ -164,6 +164,7 @@ public abstract class AbstractFileExecutor implements IFileExecutor {
 
   /**
    * 模板方法：第三步，对文件夹操作
+   *
    * @param folder     源目录
    * @param tarDirName 目的地址
    * @return
@@ -174,11 +175,11 @@ public abstract class AbstractFileExecutor implements IFileExecutor {
     File[] files = folder.listFiles();
     if (files != null) {
       for (File file : files) {
-        // 如果是一个单个文件，则直接复制
+        // 如果是一个文件，则复制文件
         if (file.isFile() && !copyFile(file.getAbsolutePath(), tarDirName + file.getName(), false)) {
           return false;
         }
-        // 单个文件夹的情况，也直接复制
+        // 如果是一个文件夹，则复制文件夹
         if (file.isDirectory() && !copyDirectory(file.getAbsolutePath(), tarDirName + file.getName(), false)) {
           return false;
         }
@@ -198,10 +199,47 @@ public abstract class AbstractFileExecutor implements IFileExecutor {
         // 具体实现由子类完成
         return subDeleteFile(filePathName);
       } else {
-        return false;
-//        return deleteDirectory(filePathName);
+        return deleteDirectory(filePathName);
       }
     }
+  }
+
+  @Override
+  public boolean deleteDirectory(String dirPathName) {
+    String dirPathNames = dirPathName;
+    if (!dirPathNames.endsWith(File.separator)) {
+      dirPathNames = dirPathNames + File.separator;
+    }
+    File dirFile = new File(dirPathNames);
+    if (!dirFile.exists() || !dirFile.isDirectory()) {
+      log.debug("{} 目录不存在!", dirPathNames);
+      return true;
+    }
+    if (clearFolder(dirFile) && dirFile.delete()) {
+      log.debug("删除目录 {} 成功!", dirPathName);
+      return true;
+    } else {
+      log.debug("删除目录 {} 失败!", dirPathName);
+      return false;
+    }
+  }
+
+  @Override
+  public boolean clearFolder(File folder) {
+    File[] files = folder.listFiles();
+    if (files != null) {
+      for (File file : files) {
+        // 如果是一个文件，则删除文件
+        if (file.isFile() && !deleteFile(file.getAbsolutePath())) {
+          return false;
+        }
+        // 如果是一个文件，则删除文件夹
+        if (file.isDirectory() && !deleteDirectory(file.getAbsolutePath())) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   @Override
