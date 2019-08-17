@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  * 功能说明：数字操作工具类
  * 开发人员：@author nevercoming
  * 开发日期：2019/8/15 14:11
- * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
+ * 功能描述：数字操作工具类
  */
 @Getter
 @AllArgsConstructor
@@ -161,14 +161,6 @@ public enum NumberUtil {
     return a.divide(b, scale, BigDecimal.ROUND_HALF_UP).doubleValue();
   }
 
-  /**
-   * 除法运算
-   *
-   * @param x
-   * @param y
-   * @param scale
-   * @return
-   */
   public static String divide(String x, String y, int scale) {
     if (isNumeric(x) || isNumeric(y)) {
       throw new IllegalArgumentException("illegal arguments");

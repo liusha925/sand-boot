@@ -14,7 +14,7 @@ import lombok.Getter;
  * 功能说明：操作类型枚举类
  * 开发人员：@author nevercoming
  * 开发日期：2019/8/16 9:36
- * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
+ * 功能描述：操作类型枚举类
  */
 @Getter
 @AllArgsConstructor

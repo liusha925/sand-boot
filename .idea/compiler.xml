@@ -6,18 +6,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ls-base" />
         <module name="sys-api" />
         <module name="sys-provider" />
+        <module name="ls-base" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Base" target="1.5" />
+      <module name="base-parent" target="1.8" />
       <module name="Bussiness" target="1.5" />
       <module name="ls-base" target="1.8" />
       <module name="ls-sys" target="1.5" />
       <module name="Other" target="1.5" />
-      <module name="parent" target="1.8" />
       <module name="sys-api" target="1.8" />
       <module name="sys-provider" target="1.8" />
       <module name="Webapp" target="1.5" />

@@ -28,7 +28,7 @@ import java.util.Map;
  * 功能说明：servlet工具类
  * 开发人员：@author nevercoming <br>
  * 开发时间：2019/8/6 21:52 <br>
- * 功能描述：写明作用，调用方式，使用场景，以及特殊情况 <br>
+ * 功能描述：servlet工具类 <br>
  */
 @Slf4j
 public class ServletUtil {

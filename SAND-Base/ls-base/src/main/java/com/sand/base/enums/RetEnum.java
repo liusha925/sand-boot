@@ -14,14 +14,16 @@ import lombok.Getter;
  * 功能说明：返回结果枚举类
  * 开发人员：@author nevercoming
  * 开发日期：2019/8/16 10:34
- * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
+ * 功能描述：返回结果枚举类
  */
 @Getter
 @AllArgsConstructor
-public enum ResultEnum {
+public enum RetEnum {
   // 通用结果集
   SUCCESS(200, "成功"),
-  ERROR(1001, "服务器错误");
+  ERROR(1001, "未知错误"),
+  PARAM_MISSING_ERROR(1002, "缺少必要参数"),
+  PARAM_CHECK_ERROR(1003, "参数校验不通过");
 
   private int code;
   private String msg;

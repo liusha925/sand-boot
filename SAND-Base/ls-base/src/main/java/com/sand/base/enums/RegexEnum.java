@@ -14,7 +14,7 @@ import lombok.Getter;
  * 功能说明：正则表达式枚举类
  * 开发人员：@author nevercoming
  * 开发日期：2019/8/16 8:40
- * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
+ * 功能描述：正则表达式枚举类
  */
 @Getter
 @AllArgsConstructor

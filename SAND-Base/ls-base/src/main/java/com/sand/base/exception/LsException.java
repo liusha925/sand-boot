@@ -7,37 +7,37 @@
  */
 package com.sand.base.exception;
 
-import com.sand.base.enums.ResultEnum;
+import com.sand.base.enums.RetEnum;
 import lombok.Data;
 
 /**
- * 功能说明：异常类
+ * 功能说明：自定义异常类
  * 开发人员：@author nevercoming
  * 开发日期：2019/8/16 10:32
- * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
+ * 功能描述：自定义异常类
  */
 @Data
 public class LsException extends RuntimeException {
   private int code;
 
   public LsException() {
-    super(ResultEnum.ERROR.getMsg());
-    this.code = ResultEnum.ERROR.getCode();
+    super(RetEnum.ERROR.getMsg());
+    this.code = RetEnum.ERROR.getCode();
   }
 
-  public LsException(ResultEnum resultEnum) {
-    super(resultEnum.getMsg());
-    this.code = resultEnum.getCode();
+  public LsException(RetEnum retEnum) {
+    super(retEnum.getMsg());
+    this.code = retEnum.getCode();
   }
 
-  public LsException(ResultEnum resultEnum, String msg) {
+  public LsException(RetEnum retEnum, String msg) {
     super(msg);
-    this.code = resultEnum.getCode();
+    this.code = retEnum.getCode();
   }
 
   public LsException(String msg) {
     super(msg);
-    this.code = ResultEnum.ERROR.getCode();
+    this.code = RetEnum.ERROR.getCode();
   }
 
   public LsException(int code, String msg) {
@@ -47,17 +47,17 @@ public class LsException extends RuntimeException {
 
   public LsException(String msg, Exception e) {
     super(msg, e);
-    this.code = ResultEnum.ERROR.getCode();
+    this.code = RetEnum.ERROR.getCode();
   }
 
-  public LsException(ResultEnum resultEnum, Exception e) {
-    super(resultEnum.getMsg(), e);
-    this.code = resultEnum.getCode();
+  public LsException(RetEnum retEnum, Exception e) {
+    super(retEnum.getMsg(), e);
+    this.code = retEnum.getCode();
   }
 
-  public LsException(ResultEnum resultEnum, String msg, Exception e) {
+  public LsException(RetEnum retEnum, String msg, Exception e) {
     super(msg, e);
-    this.code = resultEnum.getCode();
+    this.code = retEnum.getCode();
   }
 
   public LsException(int code, String msg, Exception e) {

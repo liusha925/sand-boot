@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
     <description>基础模块建设</description>
     <modules>
-        <module>parent</module>
+        <module>base-parent</module>
         <module>ls-base</module>
     </modules>
 

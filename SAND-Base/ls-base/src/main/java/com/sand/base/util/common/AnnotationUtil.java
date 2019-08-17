@@ -23,9 +23,9 @@ import java.util.Set;
 
 /**
  * 功能说明：注解工具类
- * 开发人员：@author nevercoming <br>
- * 开发时间：2019/8/6 23:08 <br>
- * 功能描述：写明作用，调用方式，使用场景，以及特殊情况 <br>
+ * 开发人员：@author nevercoming
+ * 开发时间：2019/8/6 23:08
+ * 功能描述：注解工具类
  */
 public class AnnotationUtil {
 

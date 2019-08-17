@@ -12,7 +12,7 @@
     <!-- 父级工程 -->
     <parent>
         <groupId>com.sand</groupId>
-        <artifactId>parent</artifactId>
+        <artifactId>base-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <dependencies>
@@ -46,6 +46,19 @@
         <dependency>
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

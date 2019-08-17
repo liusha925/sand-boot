@@ -15,14 +15,14 @@ import java.lang.annotation.Target;
 
 /**
  * 功能说明：系统日志注解
- * 开发人员：@author nevercoming <br>
- * 开发时间：2019/8/6 23:45 <br>
- * 功能描述：日志系统注解 <br>
+ * 开发人员：@author nevercoming
+ * 开发时间：2019/8/6 23:45
+ * 功能描述：日志系统注解
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-public @interface LogAnnotation {
+public @interface Log {
   String symbol() default "none";
 
   String service() default "logService";
