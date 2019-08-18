@@ -18,7 +18,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum RetEnum {
+public enum ResultEnum {
   // 通用结果集
   SUCCESS(200, "成功"),
   ERROR(1001, "未知错误"),

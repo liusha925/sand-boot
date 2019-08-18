@@ -7,7 +7,7 @@
  */
 package com.sand.base.exception;
 
-import com.sand.base.enums.RetEnum;
+import com.sand.base.enums.ResultEnum;
 import lombok.Data;
 
 /**
@@ -21,23 +21,23 @@ public class LsException extends RuntimeException {
   private int code;
 
   public LsException() {
-    super(RetEnum.ERROR.getMsg());
-    this.code = RetEnum.ERROR.getCode();
+    super(ResultEnum.ERROR.getMsg());
+    this.code = ResultEnum.ERROR.getCode();
   }
 
-  public LsException(RetEnum retEnum) {
-    super(retEnum.getMsg());
-    this.code = retEnum.getCode();
+  public LsException(ResultEnum resultEnum) {
+    super(resultEnum.getMsg());
+    this.code = resultEnum.getCode();
   }
 
-  public LsException(RetEnum retEnum, String msg) {
+  public LsException(ResultEnum resultEnum, String msg) {
     super(msg);
-    this.code = retEnum.getCode();
+    this.code = resultEnum.getCode();
   }
 
   public LsException(String msg) {
     super(msg);
-    this.code = RetEnum.ERROR.getCode();
+    this.code = ResultEnum.ERROR.getCode();
   }
 
   public LsException(int code, String msg) {
@@ -47,17 +47,17 @@ public class LsException extends RuntimeException {
 
   public LsException(String msg, Exception e) {
     super(msg, e);
-    this.code = RetEnum.ERROR.getCode();
+    this.code = ResultEnum.ERROR.getCode();
   }
 
-  public LsException(RetEnum retEnum, Exception e) {
-    super(retEnum.getMsg(), e);
-    this.code = retEnum.getCode();
+  public LsException(ResultEnum resultEnum, Exception e) {
+    super(resultEnum.getMsg(), e);
+    this.code = resultEnum.getCode();
   }
 
-  public LsException(RetEnum retEnum, String msg, Exception e) {
+  public LsException(ResultEnum resultEnum, String msg, Exception e) {
     super(msg, e);
-    this.code = retEnum.getCode();
+    this.code = resultEnum.getCode();
   }
 
   public LsException(int code, String msg, Exception e) {

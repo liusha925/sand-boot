@@ -41,6 +41,9 @@ public class ServletUtil {
    **/
   public static final String BROWSER = "browser";
 
+  public ServletUtil() {
+  }
+
   /**
    * 获取request
    *

@@ -5,7 +5,7 @@
  * 2019/8/16   nevercoming   新增
  * =========  ===========  =====================
  */
-package com.sand.base;
+package com.sand.base.util.result;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Ret<T> {
+public class Result<T> {
   private int code;
 
   private String msg;

@@ -9,7 +9,6 @@ package com.sand.base.util.http;
 
 import com.alibaba.fastjson.JSON;
 import com.sand.base.exception.LsException;
-import com.sand.base.util.common.SpringUtil;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.Headers;
 import okhttp3.MediaType;
@@ -40,6 +39,9 @@ import java.util.concurrent.TimeUnit;
 public class OkHttp3Util {
 
   public static final String HEADER_PREFIX = "Header:";
+
+  public OkHttp3Util() {
+  }
 
   private static OkHttpClient client = new OkHttpClient.Builder()
       .connectTimeout(100000, TimeUnit.MILLISECONDS)

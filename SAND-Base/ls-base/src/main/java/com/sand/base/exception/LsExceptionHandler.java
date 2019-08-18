@@ -7,9 +7,9 @@
  */
 package com.sand.base.exception;
 
-import com.sand.base.Ret;
-import com.sand.base.enums.RetEnum;
-import com.sand.base.util.RetUtil;
+import com.sand.base.util.result.Result;
+import com.sand.base.enums.ResultEnum;
+import com.sand.base.util.result.ResultUtil;
 import com.sand.base.util.common.SpringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
@@ -47,13 +47,13 @@ public class LsExceptionHandler {
    * @return
    */
   @ExceptionHandler(Exception.class)
-  public Ret handleException(Exception e) {
+  public Result handleException(Exception e) {
     if (e.getCause() instanceof LsException) {
       return handleLsException((LsException) e.getCause());
     }
     errorLog(e);
     log.error("错误信息：{}", e);
-    return RetUtil.error();
+    return ResultUtil.error();
   }
 
   /**
@@ -63,9 +63,9 @@ public class LsExceptionHandler {
    * @return
    */
   @ExceptionHandler(LsException.class)
-  public Ret handleLsException(LsException e) {
+  public Result handleLsException(LsException e) {
     errorLog(e);
-    return RetUtil.result(null, e.getCode(), e.getMessage());
+    return ResultUtil.result(null, e.getCode(), e.getMessage());
   }
 
   /**
@@ -75,9 +75,9 @@ public class LsExceptionHandler {
    * @return
    */
   @ExceptionHandler({MissingServletRequestParameterException.class, HttpMessageNotReadableException.class})
-  public Ret handleMissingParamException(Exception e) {
+  public Result handleMissingParamException(Exception e) {
     errorLog(e);
-    return RetUtil.error(RetEnum.PARAM_MISSING_ERROR);
+    return ResultUtil.error(ResultEnum.PARAM_MISSING_ERROR);
   }
 
   /**
@@ -101,14 +101,14 @@ public class LsExceptionHandler {
   /**
    * 通用异常之外
    *
-   * @param retEnum
+   * @param resultEnum
    * @throws IOException
    */
-  public static void commonException(RetEnum retEnum) {
+  public static void commonException(ResultEnum resultEnum) {
     HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
     HttpMessageConverter httpMessageConverter = SpringUtil.getBean("httpMessageConverter", HttpMessageConverter.class);
     try {
-      httpMessageConverter.write(RetUtil.error(retEnum), MediaType.APPLICATION_JSON, new ServletServerHttpResponse(response));
+      httpMessageConverter.write(ResultUtil.error(resultEnum), MediaType.APPLICATION_JSON, new ServletServerHttpResponse(response));
     } catch (IOException e) {
       log.error("系统异常", e);
     }

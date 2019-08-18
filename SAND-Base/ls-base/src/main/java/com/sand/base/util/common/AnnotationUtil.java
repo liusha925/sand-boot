@@ -8,6 +8,7 @@
 package com.sand.base.util.common;
 
 import com.sand.base.constant.Constant;
+import org.apache.commons.lang3.AnnotationUtils;
 import org.aspectj.lang.JoinPoint;
 import org.reflections.Reflections;
 
@@ -25,9 +26,13 @@ import java.util.Set;
  * 功能说明：注解工具类
  * 开发人员：@author nevercoming
  * 开发时间：2019/8/6 23:08
- * 功能描述：注解工具类
+ * 功能描述：继承org.apache.commons.lang3.AnnotationUtils类
  */
-public class AnnotationUtil {
+public class AnnotationUtil extends AnnotationUtils {
+
+  public AnnotationUtil() {
+    super();
+  }
 
   /**
    * 获取某个包下被clazz注解的类

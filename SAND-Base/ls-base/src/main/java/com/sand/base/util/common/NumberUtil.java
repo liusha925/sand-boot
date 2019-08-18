@@ -8,8 +8,7 @@
 package com.sand.base.util.common;
 
 import com.sand.base.enums.RegexEnum;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
@@ -19,126 +18,82 @@ import java.util.regex.Pattern;
  * 功能说明：数字操作工具类
  * 开发人员：@author nevercoming
  * 开发日期：2019/8/15 14:11
- * 功能描述：数字操作工具类
+ * 功能描述：继承org.apache.commons.lang3.math.NumberUtils类
  */
-@Getter
-@AllArgsConstructor
-public enum NumberUtil {
+public class NumberUtil extends NumberUtils {
+  /**
+   * 默认精确位数
+   */
+  public static final int DEFAULT_SCALE = 10;
+
+  public NumberUtil() {
+    super();
+  }
 
   /**
    * 加法运算
+   *
+   * @param x
+   * @param y
+   * @return
    */
-  PLUS("+") {
-    @Override
-    public double apply(double x, double y) {
-      BigDecimal a = BigDecimal.valueOf(x);
-      BigDecimal b = BigDecimal.valueOf(y);
-      return a.add(b).doubleValue();
-    }
+  public double add(double x, double y) {
+    BigDecimal a = BigDecimal.valueOf(x);
+    BigDecimal b = BigDecimal.valueOf(y);
+    return a.add(b).doubleValue();
+  }
 
-    @Override
-    public String apply(String x, String y) {
-      if (isNumeric(x) || isNumeric(y)) {
-        throw new IllegalArgumentException("illegal arguments");
-      }
-      BigDecimal a = new BigDecimal(x);
-      BigDecimal b = new BigDecimal(y);
-      return a.add(b).toPlainString();
+  public String add(String x, String y) {
+    if (isNumeric(x) || isNumeric(y)) {
+      throw new IllegalArgumentException("illegal arguments");
     }
-  },
+    BigDecimal a = new BigDecimal(x);
+    BigDecimal b = new BigDecimal(y);
+    return a.add(b).toPlainString();
+  }
+
   /**
    * 减法运算
+   *
+   * @param x
+   * @param y
+   * @return
    */
-  MINUS("-") {
-    @Override
-    public double apply(double x, double y) {
-      BigDecimal a = BigDecimal.valueOf(x);
-      BigDecimal b = BigDecimal.valueOf(y);
-      return a.subtract(b).doubleValue();
-    }
+  public double subtract(double x, double y) {
+    BigDecimal a = BigDecimal.valueOf(x);
+    BigDecimal b = BigDecimal.valueOf(y);
+    return a.subtract(b).doubleValue();
+  }
 
-    @Override
-    public String apply(String x, String y) {
-      if (isNumeric(x) || isNumeric(y)) {
-        throw new IllegalArgumentException("illegal arguments");
-      }
-      BigDecimal a = new BigDecimal(x);
-      BigDecimal b = new BigDecimal(y);
-      return a.subtract(b).toPlainString();
+  public String subtract(String x, String y) {
+    if (isNumeric(x) || isNumeric(y)) {
+      throw new IllegalArgumentException("illegal arguments");
     }
-  },
+    BigDecimal a = new BigDecimal(x);
+    BigDecimal b = new BigDecimal(y);
+    return a.subtract(b).toPlainString();
+  }
+
   /**
    * 乘法运算
-   */
-  TIMES("*") {
-    @Override
-    public double apply(double x, double y) {
-      BigDecimal a = BigDecimal.valueOf(x);
-      BigDecimal b = BigDecimal.valueOf(y);
-      return a.multiply(b).doubleValue();
-    }
-
-    @Override
-    public String apply(String x, String y) {
-      if (isNumeric(x) || isNumeric(y)) {
-        throw new IllegalArgumentException("illegal arguments");
-      }
-      BigDecimal a = new BigDecimal(x);
-      BigDecimal b = new BigDecimal(y);
-      return a.multiply(b).toPlainString();
-    }
-  },
-  /**
-   * 除法运算
-   */
-  DIVIDE("/") {
-    @Override
-    public double apply(double x, double y) {
-      return divide(x, y, 10);
-    }
-
-    @Override
-    public String apply(String x, String y) {
-      return divide(x, y, 10);
-    }
-  },
-  ;
-
-  /**
-   * 操作标识
-   */
-  private final String symbol;
-
-  /**
-   * double类型
    *
    * @param x
    * @param y
    * @return
    */
-  public abstract double apply(double x, double y);
+  public double multiply(double x, double y) {
+    BigDecimal a = BigDecimal.valueOf(x);
+    BigDecimal b = BigDecimal.valueOf(y);
+    return a.multiply(b).doubleValue();
+  }
 
-  /**
-   * String类型
-   *
-   * @param x
-   * @param y
-   * @return
-   */
-  public abstract String apply(String x, String y);
-
-  /**
-   * 判断是否为数字
-   *
-   * @param str
-   * @return
-   */
-  public static boolean isNumeric(String str) {
-    if (StringUtils.isEmpty(str)) {
-      return false;
+  public String multiply(String x, String y) {
+    if (isNumeric(x) || isNumeric(y)) {
+      throw new IllegalArgumentException("illegal arguments");
     }
-    Pattern pattern = Pattern.compile(RegexEnum.NUMBER.getExpression());
-    return pattern.matcher(str).matches();
+    BigDecimal a = new BigDecimal(x);
+    BigDecimal b = new BigDecimal(y);
+    return a.multiply(b).toPlainString();
   }
 
   /**
@@ -146,9 +101,16 @@ public enum NumberUtil {
    *
    * @param x
    * @param y
-   * @param scale
    * @return
    */
+  public double divide(double x, double y) {
+    return divide(x, y, DEFAULT_SCALE);
+  }
+
+  public String divide(String x, String y) {
+    return divide(x, y, DEFAULT_SCALE);
+  }
+
   public static double divide(double x, double y, int scale) {
     if (scale < 0) {
       throw new IllegalArgumentException("The scale must be a positive integer or zero");
@@ -174,6 +136,20 @@ public enum NumberUtil {
       return BigDecimal.ZERO.toPlainString();
     }
     return a.divide(b, scale, BigDecimal.ROUND_HALF_UP).toPlainString();
+  }
+
+  /**
+   * 判断是否为数字
+   *
+   * @param str
+   * @return
+   */
+  public static boolean isNumeric(String str) {
+    if (StringUtils.isEmpty(str)) {
+      return false;
+    }
+    Pattern pattern = Pattern.compile(RegexEnum.NUMBER.getExpression());
+    return pattern.matcher(str).matches();
   }
 
 }

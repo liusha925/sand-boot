@@ -23,31 +23,27 @@ import java.util.Objects;
 import java.util.TimeZone;
 
 /**
- * 功能说明：日期工具类, 继承org.apache.commons.lang.time.DateUtils类
+ * 功能说明：日期工具类
  * 开发人员：@author nevercoming
  * 开发日期：2019/8/16 13:43
- * 功能描述：需要DateEnum辅助使用
+ * 功能描述：继承org.apache.commons.lang.time.DateUtils类，需要DateEnum辅助使用
  */
 public class DateUtil extends DateUtils {
 
-  /**
-   * 时间单位
-   */
-  public enum TimeUnit {
-    YEAR, MONTH, DAY, HOUR, MINUTE, SECOND
+  public DateUtil() {
+    super();
   }
 
-  /**
-   * 时间换算成毫秒
-   */
   @Getter
   @AllArgsConstructor
   public enum TimeMillis {
+    // 时间换算成毫秒
+    SECOND(1000),
     MINUTE(60 * 1000),
     HOUR(60 * 60 * 1000),
     DAY(24 * 60 * 60 * 1000),
     WEEK(7 * 24 * 60 * 60 * 1000);
-    private final long millis;
+    private final long convert;
   }
 
   /**
@@ -56,17 +52,17 @@ public class DateUtil extends DateUtils {
    * @return the date
    */
   public static String getNow() {
-    return getNow(DateEnum.F1_YYYY_MM_DD.getPattern());
+    return getNow(DateEnum.F1_YYYY_MM_DD);
   }
 
   /**
    * 得到当前时间字符串 格式取自 DateEnum
    *
-   * @param pattern the pattern from DateEnum
+   * @param dateEnum the pattern from DateEnum
    * @return the date
    */
-  public static String getNow(String pattern) {
-    return DateFormatUtils.format(new Date(), getPattern(pattern));
+  public static String getNow(DateEnum dateEnum) {
+    return DateFormatUtils.format(new Date(), dateEnum.getPattern());
   }
 
   /**
@@ -76,18 +72,18 @@ public class DateUtil extends DateUtils {
    * @return the string
    */
   public static String formatDate(Date date) {
-    return formatDate(date, DateEnum.F1_YYYY_MM_DD.getPattern());
+    return formatDate(date, DateEnum.F1_YYYY_MM_DD);
   }
 
   /**
    * 得到日期字符串 格式取自 DateEnum
    *
-   * @param date    the date
-   * @param pattern the pattern
+   * @param date     the date
+   * @param dateEnum the pattern from DateEnum
    * @return the string
    */
-  public static String formatDate(Date date, String pattern) {
-    return DateFormatUtils.format(date, getPattern(pattern));
+  public static String formatDate(Date date, DateEnum dateEnum) {
+    return DateFormatUtils.format(date, dateEnum.getPattern());
   }
 
   /**
@@ -108,27 +104,13 @@ public class DateUtil extends DateUtils {
   }
 
   /**
-   * 日期格式必须取自 DateEnum
-   *
-   * @param pattern
-   * @return
-   */
-  public static String getPattern(String pattern) {
-    DateEnum dateEnum = DateEnum.getDateEnum(pattern);
-    if (Objects.isNull(dateEnum)) {
-      throw new IllegalArgumentException("pattern必须从DateEnum类中获取.");
-    }
-    return dateEnum.getPattern();
-  }
-
-  /**
    * 获取过去的天数
    *
    * @param date 对比日期
    * @return long past days
    */
   public static long getPastDays(Date date) {
-    return getPastTimes(date, TimeMillis.DAY.millis);
+    return getPastTimes(date, TimeMillis.DAY);
   }
 
   /**
@@ -138,59 +120,8 @@ public class DateUtil extends DateUtils {
    * @param millis 时间单位
    * @return long past times
    */
-  public static long getPastTimes(Date date, long millis) {
-    return (System.currentTimeMillis() - date.getTime()) / millis;
-  }
-
-  /**
-   * 转换为时间（天,时:分:秒.毫秒）
-   *
-   * @param millis 毫秒数
-   * @return 天, 时:分:秒.毫秒
-   */
-  public static String formatMillis(long millis) {
-    long day = millis / TimeMillis.DAY.millis;
-    long hour = millis / TimeMillis.HOUR.millis - day * 24;
-    long minute = millis / TimeMillis.MINUTE.millis - day * 24 * 60 - hour * 60;
-    long second = millis / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - minute * 60;
-    long millisecond = millis - day * TimeMillis.DAY.millis - hour * TimeMillis.HOUR.millis - minute * TimeMillis.MINUTE.millis - second * 1000;
-    return (day > 0 ? day + "" : "") + hour + ":" + minute + ":" + second + "." + millisecond;
-  }
-
-  /**
-   * 计算时间前/后
-   *
-   * @param date 操作时间
-   * @param num  加/减？时间单位
-   * @param unit 时间单位
-   * @return
-   */
-  public static Date dateAdd(Date date, int num, TimeUnit unit) {
-    Calendar now = Calendar.getInstance();
-    now.setTime(date);
-    switch (unit) {
-      case YEAR:
-        now.set(Calendar.YEAR, now.get(Calendar.YEAR) + num);
-        break;
-      case MONTH:
-        now.set(Calendar.MONTH, now.get(Calendar.MONTH) + num);
-        break;
-      case DAY:
-        now.set(Calendar.DATE, now.get(Calendar.DATE) + num);
-        break;
-      case HOUR:
-        now.set(Calendar.HOUR, now.get(Calendar.HOUR) + num);
-        break;
-      case MINUTE:
-        now.set(Calendar.MINUTE, now.get(Calendar.MINUTE) + num);
-        break;
-      case SECOND:
-        now.set(Calendar.SECOND, now.get(Calendar.SECOND) + num);
-        break;
-      default:
-        throw new IllegalArgumentException("时间单位不正确！");
-    }
-    return now.getTime();
+  public static long getPastTimes(Date date, TimeMillis millis) {
+    return (System.currentTimeMillis() - date.getTime()) / millis.convert;
   }
 
   /**
@@ -213,20 +144,30 @@ public class DateUtil extends DateUtils {
    * @return
    */
   public static long getNowTimestamp() {
-    return getTimestamp(new Date(), DateEnum.F1_YYYY_MM_DD.getPattern());
+    return getTimestamp(new Date(), DateEnum.F1_YYYY_MM_DD);
+  }
+
+  /**
+   * 将时间戳转换成时间字符串
+   *
+   * @param timestamp 需要转换的时间戳
+   * @param dateEnum  the pattern from DateEnum
+   * @return
+   */
+  public static String formatTimestamp(long timestamp, DateEnum dateEnum) {
+    return DateFormatUtils.format(timestamp * 1000, dateEnum.getPattern());
   }
 
   /**
    * 获取时间戳
    *
-   * @param date    需要转换的日期
-   * @param pattern 格式取自 DateEnum
+   * @param date     需要转换的日期
+   * @param dateEnum the pattern from DateEnum
    * @return
    */
-  public static long getTimestamp(Date date, String pattern) {
-    SimpleDateFormat format = new SimpleDateFormat(getPattern(pattern));
-    long time = format.parse(formatDate(date, pattern), new ParsePosition(0)).getTime() / 1000;
-    return time;
+  public static long getTimestamp(Date date, DateEnum dateEnum) {
+    SimpleDateFormat sdf = new SimpleDateFormat(dateEnum.getPattern());
+    return sdf.parse(formatDate(date, dateEnum), new ParsePosition(0)).getTime() / 1000;
   }
 
   /**
@@ -237,27 +178,28 @@ public class DateUtil extends DateUtils {
    * @return
    */
   public static long daysBetween(Date startDate, Date endDate) {
-    return timesBetween(startDate, endDate, DateEnum.F1_YYYY_MM_DD.getPattern());
+    return timesBetween(startDate, endDate, TimeMillis.DAY);
   }
 
   /**
    * 计算两个日期之间相差？时间单位
    *
-   * @param startDate
-   * @param endDate
+   * @param startDate 起始时间
+   * @param endDate   结束时间
+   * @param millis    换算单位 按四舍五入处理
    * @return
    */
-  public static long timesBetween(Date startDate, Date endDate, String pattern) {
-    DateFormat sdf = new SimpleDateFormat(getPattern(pattern));
-    Calendar cal = Calendar.getInstance();
+  public static long timesBetween(Date startDate, Date endDate, TimeMillis millis) {
     try {
-      Date start = sdf.parse(formatDate(startDate, pattern));
-      Date end = sdf.parse(formatDate(endDate, pattern));
+      DateFormat sdf = new SimpleDateFormat(DateEnum.F1_YYYY_MM_DD_HH_MM_SS_SSS.getPattern());
+      Calendar cal = Calendar.getInstance();
+      Date start = sdf.parse(formatDate(startDate, DateEnum.F1_YYYY_MM_DD_HH_MM_SS_SSS));
+      Date end = sdf.parse(formatDate(endDate, DateEnum.F1_YYYY_MM_DD_HH_MM_SS_SSS));
       cal.setTime(start);
-      long time1 = cal.getTimeInMillis();
+      long startTime = cal.getTimeInMillis();
       cal.setTime(end);
-      long time2 = cal.getTimeInMillis();
-      return (time2 - time1) / 86400000L;
+      long endTime = cal.getTimeInMillis();
+      return (endTime - startTime) / millis.convert;
     } catch (ParseException e) {
       e.printStackTrace();
       return 0;
@@ -267,13 +209,23 @@ public class DateUtil extends DateUtils {
   /**
    * 校验日期格式
    *
-   * @param dateStr
-   * @param pattern 日期格式必须取自 DateEnum
+   * @param pattern 需要校验的日期格式
    * @return
    */
-  public static boolean isValidDate(String dateStr, String pattern) {
+  public static boolean isValidPattern(String pattern) {
+    return Objects.nonNull(DateEnum.getDateEnum(pattern));
+  }
+
+  /**
+   * 校验日期字符串
+   *
+   * @param dateStr  需要校验的日期字符串
+   * @param dateEnum the pattern from DateEnum
+   * @return
+   */
+  public static boolean isValidDate(String dateStr, DateEnum dateEnum) {
     boolean convertSuccess = true;
-    SimpleDateFormat format = new SimpleDateFormat(getPattern(pattern));
+    SimpleDateFormat format = new SimpleDateFormat(dateEnum.getPattern());
     try {
       format.setLenient(false);
       format.parse(dateStr);
@@ -287,11 +239,11 @@ public class DateUtil extends DateUtils {
    * 判断选择的日期是否是今日或本月或本周或...
    *
    * @param date
-   * @param pattern 今日判断(yyyy-MM-dd),本月判断(yyyy-MM)，本周（E）
+   * @param dateEnum 今日判断(yyyy-MM-dd),本月判断(yyyy-MM)，本周（E）
    * @return
    */
-  public static boolean isThisTime(Date date, String pattern) {
-    SimpleDateFormat sdf = new SimpleDateFormat(getPattern(pattern));
+  public static boolean isThisTime(Date date, DateEnum dateEnum) {
+    SimpleDateFormat sdf = new SimpleDateFormat(dateEnum.getPattern());
     String param = sdf.format(date);
     String now = sdf.format(parseDate(getNow()));
     if (param.equals(now)) {
@@ -300,9 +252,4 @@ public class DateUtil extends DateUtils {
     return false;
   }
 
-  public static void main(String[] args) {
-    for (DateEnum item : DateEnum.values()) {
-      System.out.println(getNow(item.getPattern()));
-    }
-  }
 }

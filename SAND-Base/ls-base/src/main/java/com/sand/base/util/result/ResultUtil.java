@@ -5,11 +5,10 @@
  * 2019/8/16   nevercoming   新增
  * =========  ===========  =====================
  */
-package com.sand.base.util;
+package com.sand.base.util.result;
 
-import com.sand.base.Ret;
 import com.sand.base.constant.Constant;
-import com.sand.base.enums.RetEnum;
+import com.sand.base.enums.ResultEnum;
 import com.sand.base.exception.LsException;
 import com.sand.base.util.common.StringUtil;
 import lombok.AllArgsConstructor;
@@ -34,7 +33,7 @@ import java.util.stream.Collectors;
  * 功能描述：controller统一处理工具类
  */
 @Slf4j
-public class RetUtil {
+public class ResultUtil {
   @Data
   @Builder
   @NoArgsConstructor
@@ -50,43 +49,46 @@ public class RetUtil {
   private static final String GET_PREFIX = "get";
   private static final String ASC = "asc";
 
-  public static Ret success() {
+  public ResultUtil() {
+  }
+
+  public static Result success() {
     return success(null);
   }
 
-  public static Ret success(Object object) {
-    return success(object, RetEnum.SUCCESS.getMsg());
+  public static Result success(Object object) {
+    return success(object, ResultEnum.SUCCESS.getMsg());
   }
 
-  public static Ret success(Object object, String msg) {
-    return result(object, RetEnum.SUCCESS.getCode(), msg);
+  public static Result success(Object object, String msg) {
+    return result(object, ResultEnum.SUCCESS.getCode(), msg);
   }
 
-  public static Ret error() {
-    return error(RetEnum.ERROR.getMsg());
+  public static Result error() {
+    return error(ResultEnum.ERROR.getMsg());
   }
 
-  public static Ret error(String msg) {
-    return result(null, RetEnum.ERROR.getCode(), msg);
+  public static Result error(String msg) {
+    return result(null, ResultEnum.ERROR.getCode(), msg);
   }
 
-  public static Ret error(RetEnum retEnum) {
-    return result(null, retEnum);
+  public static Result error(ResultEnum resultEnum) {
+    return result(null, resultEnum);
   }
 
-  public static Ret result(Object object, RetEnum retEnum) {
-    return result(object, retEnum.getCode(), retEnum.getMsg());
+  public static Result result(Object object, ResultEnum resultEnum) {
+    return result(object, resultEnum.getCode(), resultEnum.getMsg());
   }
 
-  public static Ret result(Object obj, int code, String msg) {
+  public static Result result(Object obj, int code, String msg) {
     try {
       obj = formatSelectData(obj);
     } catch (Exception e) {
       log.error("下拉框数据格式化异常：{}", e.getMessage());
-      return Ret.builder().code(RetEnum.ERROR.getCode()).msg(RetEnum.ERROR.getMsg()).data(null).build();
+      return Result.builder().code(ResultEnum.ERROR.getCode()).msg(ResultEnum.ERROR.getMsg()).data(null).build();
     }
-    Ret Ret = com.sand.base.Ret.builder().code(code).msg(msg).data(obj).build();
-    return Ret;
+    Result Result = com.sand.base.util.result.Result.builder().code(code).msg(msg).data(obj).build();
+    return Result;
   }
 
   private static Object formatSelectData(Object object) throws Exception {
@@ -106,9 +108,9 @@ public class RetUtil {
         // 排序及转换
         if (!collection.isEmpty()) {
           Class clazz = collection.iterator().next().getClass();
-          Method getKeyMethod = clazz.getMethod(GET_PREFIX + StringUtil.upperCaseFirstLetter(keyFieldName));
-          Method getValueMethod = clazz.getMethod(GET_PREFIX + StringUtil.upperCaseFirstLetter(valueFieldName));
-          Method getSortMethod = StringUtil.isBlank(sortFieldName) ? null : clazz.getMethod(GET_PREFIX + StringUtil.upperCaseFirstLetter(sortFieldName));
+          Method getKeyMethod = clazz.getMethod(GET_PREFIX + StringUtil.firstToUpperCase(keyFieldName));
+          Method getValueMethod = clazz.getMethod(GET_PREFIX + StringUtil.firstToUpperCase(valueFieldName));
+          Method getSortMethod = StringUtil.isBlank(sortFieldName) ? null : clazz.getMethod(GET_PREFIX + StringUtil.firstToUpperCase(sortFieldName));
           List<SelectData> selectData = (List<SelectData>) collection.stream()
               .map(obj -> {
                 try {

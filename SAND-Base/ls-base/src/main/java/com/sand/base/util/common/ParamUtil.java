@@ -10,7 +10,7 @@ package com.sand.base.util.common;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.sand.base.enums.RetEnum;
+import com.sand.base.enums.ResultEnum;
 import com.sand.base.exception.LsException;
 import org.apache.commons.lang3.StringUtils;
 
@@ -38,6 +38,9 @@ public class ParamUtil {
    * 分页最大条数
    **/
   private static final int MAX_PAGE_SIZE = 200;
+
+  public ParamUtil() {
+  }
 
   /**
    * 获取整型参数（非必须），默认DEFAULT_INT_PARAM = 0
@@ -160,7 +163,7 @@ public class ParamUtil {
         k = null;
       }
     } catch (Exception e) {
-      throw new LsException(RetEnum.PARAM_CHECK_ERROR, e);
+      throw new LsException(ResultEnum.PARAM_CHECK_ERROR, e);
     }
     return k;
   }
@@ -181,7 +184,7 @@ public class ParamUtil {
         obj = JSONObject.parseObject(value, type);
       }
     } catch (Exception e) {
-      throw new LsException(RetEnum.PARAM_CHECK_ERROR, e);
+      throw new LsException(ResultEnum.PARAM_CHECK_ERROR, e);
     }
     return obj;
   }
@@ -221,18 +224,18 @@ public class ParamUtil {
   public static Object getValue(Map<String, Object> map, String key, Object defaultValue, boolean required) {
     if (Objects.isNull(map)) {
       if (required) {
-        throw new LsException(RetEnum.PARAM_MISSING_ERROR, "请求参数【" + key + "】不能为空");
+        throw new LsException(ResultEnum.PARAM_MISSING_ERROR, "请求参数【" + key + "】不能为空");
       }
       return defaultValue;
     }
     if (map.containsKey(key)) {
       Object value = map.get(key);
       if (required && StringUtil.isBlank(StringUtil.isNull(value))) {
-        throw new LsException(RetEnum.PARAM_MISSING_ERROR, "请求参数【" + key + "】不能为空");
+        throw new LsException(ResultEnum.PARAM_MISSING_ERROR, "请求参数【" + key + "】不能为空");
       }
       return value;
     } else if (required) {
-      throw new LsException(RetEnum.PARAM_MISSING_ERROR, "请求参数【" + key + "】不能为空");
+      throw new LsException(ResultEnum.PARAM_MISSING_ERROR, "请求参数【" + key + "】不能为空");
     }
     return defaultValue;
   }

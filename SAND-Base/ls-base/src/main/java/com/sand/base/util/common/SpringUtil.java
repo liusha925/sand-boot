@@ -29,6 +29,9 @@ public class SpringUtil implements ApplicationContextAware {
   private static ApplicationContext applicationContext;
   private static DefaultListableBeanFactory beanFactory;
 
+  public SpringUtil() {
+  }
+
   /**
    * 获取applicationContext
    *
