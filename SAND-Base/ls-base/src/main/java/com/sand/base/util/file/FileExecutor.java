@@ -104,14 +104,6 @@ public interface FileExecutor {
   void zipFile(String srcFilePathName, String tarFilePathName) throws IOException;
 
   /**
-   * 删除单个文件
-   *
-   * @param filePathName 被删除的文件名
-   * @return 如果删除成功 ，则返回true，否则返回false
-   */
-  boolean subDeleteFile(String filePathName);
-
-  /**
    * 文件最终都是通过流操作的
    *
    * @param is       输入流
@@ -120,4 +112,21 @@ public interface FileExecutor {
    * @throws IOException the io exception
    */
   void subCopyStream(InputStream is, OutputStream os, int buffSize) throws IOException;
+
+  /**
+   * 文件下载
+   *
+   * @param filePath 文件路径
+   * @param fileName 文件名称
+   * @throws IOException the io exception
+   */
+  void subDownLoadFile(String filePath, String fileName) throws IOException;
+
+  /**
+   * 删除单个文件
+   *
+   * @param filePathName 被删除的文件名
+   * @return 如果删除成功 ，则返回true，否则返回false
+   */
+  boolean subDeleteFile(String filePathName);
 }

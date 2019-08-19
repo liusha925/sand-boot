@@ -60,6 +60,20 @@
             <artifactId>okhttp</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!--easypoi包引入S-->
+        <dependency>
+            <groupId>cn.afterturn</groupId>
+            <artifactId>easypoi-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.afterturn</groupId>
+            <artifactId>easypoi-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.afterturn</groupId>
+            <artifactId>easypoi-annotation</artifactId>
+        </dependency>
+        <!--easypoi包引入E-->
     </dependencies>
 
 </project>

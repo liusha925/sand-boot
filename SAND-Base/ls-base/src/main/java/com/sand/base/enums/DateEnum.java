@@ -56,6 +56,10 @@ public enum DateEnum {
   F4_YYYY_MM_DD_HH_MM_SS_SSS("yyyy/MM/dd HH:mm:ss.SSS"),
   // Date Format Five
   F5_YYYY_MM_DD_HH_MM_SS_SSS("yyyyMMddHHmmssSSS"),
+  // Date Format Six
+  F6_MM_DD("MM月dd日"),
+  F6_YYYY_MM("yyyy年MM月"),
+  F6_YYYY_MM_DD("yyyy年MM月dd日"),
   ;
   private final String pattern;
 

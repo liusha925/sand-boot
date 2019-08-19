@@ -34,8 +34,9 @@ public enum RegexEnum {
   DECIMAL("^([0-9]\\d*\\.?\\d*)|(0\\.\\d*[1-9])?$", "小数"),
   EMAIL("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*", "电子邮箱"),
   TEL_NUMBER("^[1-9]{1}[0-9]{5,8}$", "电话号码"),
-  AREA_TEL_NUMBER("^[0][1-9]{2,3}-[1-9]{1}[0-9]{5,8}$", "电话号码-带区号");
+  AREA_TEL_NUMBER("^[0][1-9]{2,3}-[1-9]{1}[0-9]{5,8}$", "电话号码-带区号"),
+  UNIFY_CODE("^([0-9ABCDEFGHJKLMNPQRTUWXY]{2})([0-9]{6})([0-9ABCDEFGHJKLMNPQRTUWXY]{10})$", "统一社会信用代码");
 
-  private final String description;
   private final String expression;
+  private final String description;
 }

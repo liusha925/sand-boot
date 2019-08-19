@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
  * 功能说明：OkHttp3工具类
  * 开发人员：@author nevercoming
  * 开发日期：2019/8/16 15:27
- * 功能描述：OkHttp3工具类
+ * 功能描述：使用okhttp3共享同一个socket，通过连接池来减小响应延迟
  */
 @Slf4j
 public class OkHttp3Util {
@@ -44,16 +44,17 @@ public class OkHttp3Util {
   }
 
   private static OkHttpClient client = new OkHttpClient.Builder()
-      .connectTimeout(100000, TimeUnit.MILLISECONDS)
-      .readTimeout(100000, TimeUnit.MILLISECONDS)
+      .connectTimeout(100, TimeUnit.SECONDS)
+      .writeTimeout(100, TimeUnit.SECONDS)
+      .readTimeout(100, TimeUnit.SECONDS)
       .build();
 
   /**
    * @param url      下载连接
    * @param saveDir  储存下载文件的SDCard目录
-   * @param listener 下载监听
+   * @param listener 下载监听，模拟下载进度条
    */
-  public synchronized static String download(final String url, final String saveDir, final FileDownloadListener listener) {
+  public static synchronized String download(final String url, final String saveDir, final FileDownloadListener listener) {
     Request request = new Request.Builder().url(url).build();
     String fileName = null;
     try {
