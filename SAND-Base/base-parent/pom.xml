@@ -8,105 +8,133 @@
     <artifactId>base-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <!-- 创建springboot工程 -->
+
+    <!-- SpringBoot 父级启动器 -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.10.RELEASE</version>
+        <version>2.1.3.RELEASE</version>
     </parent>
 
     <properties>
-        <!-- 基础版本控制 -->
-        <spring.boot.version>1.5.10.RELEASE</spring.boot.version>
-        <spring.cloud.version>Edgware.SR3</spring.cloud.version>
-        <spring.io.version>Brussels-SR7</spring.io.version>
-        <jwt.version>0.6.0</jwt.version>
         <java.version>1.8</java.version>
-        <maven.compiler.version>3.1</maven.compiler.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.encoding>utf8</maven.compiler.encoding>
-        <maven.surefire.version>2.5</maven.surefire.version>
+        <!-- 框架版本控制 -->
+        <spring-boot-dependencies.version>2.1.3.RELEASE</spring-boot-dependencies.version>
+        <platform-bom.version>Brussels-SR7</platform-bom.version>
+        <mybatis-plus.version>2.1.9</mybatis-plus.version>
+        <jjwt.version>0.6.0</jjwt.version>
+        <easypoi.version>3.1.0</easypoi.version>
+        <fastjson.version>1.2.41</fastjson.version>
+        <reflections.version>0.9.11</reflections.version>
+        <UserAgentUtils.version>1.21</UserAgentUtils.version>
+        <!-- Maven插件版本，继承自spring-boot-dependencies -->
+        <maven.skip>true</maven.skip>
+        <maven-compiler-plugin.source>1.8</maven-compiler-plugin.source>
+        <maven-compiler-plugin.target>1.8</maven-compiler-plugin.target>
+        <maven-compiler-plugin.encoding>utf8</maven-compiler-plugin.encoding>
         <!-- 模块版本控制 -->
         <com.sand.ls-base.version>1.0.0-SNAPSHOT</com.sand.ls-base.version>
-        <com.sand.ls-sys.version>1.0.0-SNAPSHOT</com.sand.ls-sys.version>
+        <com.sand.sys-api.version>1.0.0-SNAPSHOT</com.sand.sys-api.version>
+        <com.sand.sys-provider.version>1.0.0-SNAPSHOT</com.sand.sys-provider.version>
+        <com.sand.ls-backend.version>1.0.0-SNAPSHOT</com.sand.ls-backend.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- Spring Boot集成框架 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.boot.version}</version>
+                <version>${spring-boot-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring.cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+            <!-- IO操作框架 -->
             <dependency>
                 <groupId>io.spring.platform</groupId>
                 <artifactId>platform-bom</artifactId>
-                <version>${spring.io.version}</version>
+                <version>${platform-bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
-                <version>${jwt.version}</version>
+                <version>${jjwt.version}</version>
             </dependency>
-            <dependency>
-                <groupId>eu.bitwalker</groupId>
-                <artifactId>UserAgentUtils</artifactId>
-                <version>1.21</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>1.2.41</version>
-            </dependency>
-            <dependency>
-                <groupId>org.reflections</groupId>
-                <artifactId>reflections</artifactId>
-                <version>0.9.11</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>3.5</version>
-            </dependency>
+            <!-- Mybatis Plus集成框架-->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus</artifactId>
-                <version>2.1.9</version>
+                <version>${mybatis-plus.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatisplus-spring-boot-starter</artifactId>
-                <version>1.0.5</version>
-            </dependency>
-            <!--easypoi包引入S-->
+            <!-- easy poi开源框架-->
             <dependency>
                 <groupId>cn.afterturn</groupId>
                 <artifactId>easypoi-base</artifactId>
-                <version>3.1.0</version>
+                <version>${easypoi.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.afterturn</groupId>
                 <artifactId>easypoi-web</artifactId>
-                <version>3.1.0</version>
+                <version>${easypoi.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.afterturn</groupId>
                 <artifactId>easypoi-annotation</artifactId>
-                <version>3.1.0</version>
+                <version>${easypoi.version}</version>
             </dependency>
-            <!--easypoi包引入E-->
+            <!-- 阿里巴巴fast json -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <!-- 反射工具 -->
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>${reflections.version}</version>
+            </dependency>
+            <!-- 解析User-Agent -->
+            <dependency>
+                <groupId>eu.bitwalker</groupId>
+                <artifactId>UserAgentUtils</artifactId>
+                <version>${UserAgentUtils.version}</version>
+            </dependency>
+            <!-- Maven插件安装 -->
+            <dependency>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven-dependency-plugin.version</version>
+            </dependency>
+            <!-- >>>>>>>>>>>>>>>>>>>>>产品或项目业务-S<<<<<<<<<<<<<<<<<<<<<< -->
+            <dependency>
+                <groupId>com.sand</groupId>
+                <artifactId>ls-base</artifactId>
+                <version>${com.sand.ls-base.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sand</groupId>
+                <artifactId>sys-api</artifactId>
+                <version>${com.sand.sys-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sand</groupId>
+                <artifactId>sys-provider</artifactId>
+                <version>${com.sand.sys-provider.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sand</groupId>
+                <artifactId>ls-backend</artifactId>
+                <version>${com.sand.ls-backend.version}</version>
+            </dependency>
+            <!-- >>>>>>>>>>>>>>>>>>>>>产品或项目业务-E<<<<<<<<<<<<<<<<<<<<<< -->
         </dependencies>
     </dependencyManagement>
 
@@ -129,20 +157,20 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.version}</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                    <encoding>${maven.compiler.encoding}</encoding>
-                    <skip>true</skip>
+                    <source>${maven-compiler-plugin.source}</source>
+                    <target>${maven-compiler-plugin.target}</target>
+                    <encoding>${maven-compiler-plugin.encoding}</encoding>
+                    <skip>${maven.skip}</skip>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven.surefire.version}</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <skip>true</skip>
+                    <skip>${maven.skip}</skip>
                 </configuration>
             </plugin>
         </plugins>

@@ -7,23 +7,21 @@
  */
 package com.sand.base.util.result;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 功能说明：
+ * 功能说明：返回结果集
  * 开发人员：@author nevercoming
  * 开发日期：2019/8/16 13:31
- * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
+ * 功能描述：返回结果集
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Result<T> {
   private int code;
 
