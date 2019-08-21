@@ -10,4 +10,8 @@
     <packaging>pom</packaging>
     <description>启动容器</description>
 
+    <modules>
+        <module>ls-backend</module>
+    </modules>
+
 </project>
