@@ -23,6 +23,10 @@ public final class Constant {
    */
   public static final int BUFF_SIZE = 1024 * 100;
   /**
+   * 默认编码
+   */
+  public static final String DEFAULT_CHARSET = "utf-8";
+  /**
    * 类名与成员变量之间的分隔符
    */
   public static final String CLASS_FIELD_SPLIT_SYMBOL = "#";
@@ -46,4 +50,8 @@ public final class Constant {
    * 选择下拉框保留原始数据
    */
   public static final String SELECT_REQUEST_RAW = "raw";
+  /**
+   * XML报文头
+   */
+  public static final String XML_HEADER = "<?xml version=\"1.0\" encoding = \"UTF-8\"?>";
 }

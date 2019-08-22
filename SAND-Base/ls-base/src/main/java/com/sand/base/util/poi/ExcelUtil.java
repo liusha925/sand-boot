@@ -60,6 +60,9 @@ public class ExcelUtil {
    */
   public static final String XLSX = ".xlsx";
 
+  public ExcelUtil() {
+  }
+
   /**
    * excel导出
    *
