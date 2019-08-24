@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
  * 功能描述：controller统一处理工具类
  */
 @Slf4j
-public class ResultUtil {
+public class RetUtil {
   @Data
   @Builder
   @NoArgsConstructor
@@ -49,46 +49,46 @@ public class ResultUtil {
   private static final String GET_PREFIX = "get";
   private static final String ASC = "asc";
 
-  public ResultUtil() {
+  public RetUtil() {
   }
 
-  public static Result success() {
-    return success(null);
+  public static Ret ok() {
+    return ok(null);
   }
 
-  public static Result success(Object object) {
-    return success(object, ResultEnum.SUCCESS.getMsg());
+  public static Ret ok(Object object) {
+    return ok(object, ResultEnum.SUCCESS.getMsg());
   }
 
-  public static Result success(Object object, String msg) {
+  public static Ret ok(Object object, String msg) {
     return result(object, ResultEnum.SUCCESS.getCode(), msg);
   }
 
-  public static Result error() {
-    return error(ResultEnum.ERROR.getMsg());
+  public static Ret fail() {
+    return fail(ResultEnum.ERROR.getMsg());
   }
 
-  public static Result error(String msg) {
+  public static Ret fail(String msg) {
     return result(null, ResultEnum.ERROR.getCode(), msg);
   }
 
-  public static Result error(ResultEnum resultEnum) {
+  public static Ret fail(ResultEnum resultEnum) {
     return result(null, resultEnum);
   }
 
-  public static Result result(Object object, ResultEnum resultEnum) {
+  public static Ret result(Object object, ResultEnum resultEnum) {
     return result(object, resultEnum.getCode(), resultEnum.getMsg());
   }
 
-  public static Result result(Object obj, int code, String msg) {
+  public static Ret result(Object obj, int code, String msg) {
     try {
       obj = formatSelectData(obj);
     } catch (Exception e) {
       log.error("下拉框数据格式化异常：{}", e.getMessage());
-      return Result.builder().code(ResultEnum.ERROR.getCode()).msg(ResultEnum.ERROR.getMsg()).data(null).build();
+      return Ret.builder().code(ResultEnum.ERROR.getCode()).msg(ResultEnum.ERROR.getMsg()).data(null).build();
     }
-    Result Result = com.sand.base.util.result.Result.builder().code(code).msg(msg).data(obj).build();
-    return Result;
+    Ret Ret = com.sand.base.util.result.Ret.builder().code(code).msg(msg).data(obj).build();
+    return Ret;
   }
 
   private static Object formatSelectData(Object object) throws Exception {

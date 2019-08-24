@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Result<T> {
+public class Ret<T> {
   private int code;
 
   private String msg;

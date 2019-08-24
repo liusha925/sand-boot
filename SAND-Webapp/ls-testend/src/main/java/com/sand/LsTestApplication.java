@@ -8,6 +8,7 @@
 package com.sand;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -18,7 +19,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 功能描述：测试启动器
  */
 @Slf4j
-@SpringBootApplication(scanBasePackages = "com.sand")
+@SpringBootApplication(scanBasePackages = {"com.sand"})
+@MapperScan("com.sand.demo.mapper")
 public class LsTestApplication {
 
   public static void main(String[] args) {
