@@ -2,7 +2,7 @@
  * 软件版权：流沙~~
  * 修改日期   修改人员     修改说明
  * =========  ===========  =====================
- * 2019/8/16   nevercoming   新增
+ * 2019/8/16   liusha   新增
  * =========  ===========  =====================
  */
 package com.sand.base.util.result;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 功能说明：返回结果集
- * 开发人员：@author nevercoming
+ * 开发人员：@author liusha
  * 开发日期：2019/8/16 13:31
  * 功能描述：返回结果集
  */

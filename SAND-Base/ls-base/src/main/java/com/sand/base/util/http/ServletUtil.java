@@ -2,7 +2,7 @@
  * 软件版权：流沙~~
  * 修改日期   修改人员     修改说明
  * =========  ===========  =====================
- * 2019/8/6   nevercoming      新增
+ * 2019/8/6   liusha      新增
  * =========  ===========  =====================
  */
 package com.sand.base.util.http;
@@ -26,7 +26,7 @@ import java.util.Map;
 
 /**
  * 功能说明：servlet工具类
- * 开发人员：@author nevercoming <br>
+ * 开发人员：@author liusha <br>
  * 开发时间：2019/8/6 21:52 <br>
  * 功能描述：servlet工具类 <br>
  */

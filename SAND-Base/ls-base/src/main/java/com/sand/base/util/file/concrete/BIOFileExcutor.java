@@ -2,7 +2,7 @@
  * 软件版权：流沙~~
  * 修改日期   修改人员     修改说明
  * =========  ===========  =====================
- * 2019/8/19   nevercoming   新增
+ * 2019/8/19   liusha   新增
  * =========  ===========  =====================
  */
 package com.sand.base.util.file.concrete;
@@ -19,7 +19,7 @@ import java.util.Objects;
 
 /**
  * 功能说明：阻塞IO
- * 开发人员：@author nevercoming
+ * 开发人员：@author liusha
  * 开发日期：2019/8/19 17:53
  * 功能描述：非阻塞IO
  */

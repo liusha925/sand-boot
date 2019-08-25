@@ -2,7 +2,7 @@
  * 软件版权：流沙~~
  * 修改日期   修改人员     修改说明
  * =========  ===========  =====================
- * 2019/8/16   nevercoming   新增
+ * 2019/8/16   liusha   新增
  * =========  ===========  =====================
  */
 package com.sand.base.util.common;
@@ -24,7 +24,7 @@ import java.util.TimeZone;
 
 /**
  * 功能说明：日期工具类
- * 开发人员：@author nevercoming
+ * 开发人员：@author liusha
  * 开发日期：2019/8/16 13:43
  * 功能描述：继承org.apache.commons.lang.time.DateUtils类，需要DateEnum辅助使用
  */

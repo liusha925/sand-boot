@@ -2,7 +2,7 @@
  * 软件版权：流沙~~
  * 修改日期   修改人员     修改说明
  * =========  ===========  =====================
- * 2019/8/6   nevercoming      新增
+ * 2019/8/6   liusha      新增
  * =========  ===========  =====================
  */
 package com.sand.base.util.common;
@@ -24,7 +24,7 @@ import java.util.Set;
 
 /**
  * 功能说明：注解工具类
- * 开发人员：@author nevercoming
+ * 开发人员：@author liusha
  * 开发时间：2019/8/6 23:08
  * 功能描述：继承org.apache.commons.lang3.AnnotationUtils类
  */

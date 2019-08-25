@@ -2,7 +2,7 @@
  * 软件版权：流沙~~
  * 修改日期   修改人员     修改说明
  * =========  ===========  =====================
- * 2019/8/22   nevercoming   新增
+ * 2019/8/22   liusha   新增
  * =========  ===========  =====================
  */
 package com.sand.base.util.crypt.base;
@@ -16,7 +16,7 @@ import java.io.PrintStream;
 
 /**
  * 功能说明：初始化
- * 开发人员：@author nevercoming
+ * 开发人员：@author liusha
  * 开发日期：2019/8/22 13:53
  * 功能描述：初始化
  */

@@ -2,7 +2,7 @@
  * 软件版权：流沙~~
  * 修改日期   修改人员     修改说明
  * =========  ===========  =====================
- * 2019/8/15   nevercoming   新增
+ * 2019/8/15   liusha   新增
  * =========  ===========  =====================
  */
 package com.sand.base.util.common;
@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 
 /**
  * 功能说明：数字操作工具类
- * 开发人员：@author nevercoming
+ * 开发人员：@author liusha
  * 开发日期：2019/8/15 14:11
  * 功能描述：继承org.apache.commons.lang3.math.NumberUtils类
  */

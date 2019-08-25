@@ -2,7 +2,7 @@
  * 软件版权：流沙~~
  * 修改日期   修改人员     修改说明
  * =========  ===========  =====================
- * 2019/8/16   nevercoming   新增
+ * 2019/8/16   liusha   新增
  * =========  ===========  =====================
  */
 package com.sand.base.util.result;
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 /**
  * 功能说明：controller统一处理工具类
- * 开发人员：@author nevercoming
+ * 开发人员：@author liusha
  * 开发日期：2019/8/16 13:30
  * 功能描述：controller统一处理工具类
  */

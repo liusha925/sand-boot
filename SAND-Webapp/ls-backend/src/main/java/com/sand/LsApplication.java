@@ -2,7 +2,7 @@
  * 软件版权：流沙~~
  * 修改日期   修改人员     修改说明
  * =========  ===========  =====================
- * 2019/8/20   nevercoming   新增
+ * 2019/8/20   liusha   新增
  * =========  ===========  =====================
  */
 package com.sand;
@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * 功能说明：管理后台启动类
- * 开发人员：@author nevercoming
+ * 开发人员：@author liusha
  * 开发日期：2019/8/20 20:15
  * 功能描述：管理后台启动类
  */
