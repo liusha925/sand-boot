@@ -7,14 +7,14 @@
  */
 package com.sand.demo.entity;
 
-import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 /**
  * 功能说明：用户信息
  * 开发人员：@author nevercoming
  * 开发日期：2019/8/23 13:12
- * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
+ * 功能描述：用户信息
  */
 @Data
 @TableName(value = "user")
@@ -22,13 +22,17 @@ public class UserEntity {
   /**
    * 用户id
    */
-  private String id;
+  private Long id;
   /**
    * 用户名
    */
-  private String userName;
+  private String name;
   /**
    * 年龄
    */
-  private int age;
+  private Integer age;
+  /**
+   * 邮箱
+   */
+  private String email;
 }

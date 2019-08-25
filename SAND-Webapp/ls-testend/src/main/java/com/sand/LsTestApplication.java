@@ -20,7 +20,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @Slf4j
 @SpringBootApplication(scanBasePackages = {"com.sand"})
-@MapperScan("com.sand.demo.mapper")
+@MapperScan(basePackages = {"com.sand.*.mapper"})
 public class LsTestApplication {
 
   public static void main(String[] args) {

@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
 public @interface Log {
   String symbol() default "none";
 
-  String service() default "logService";
+  String service() default "logServiceImpl";
 
   String description() default "default";
 }

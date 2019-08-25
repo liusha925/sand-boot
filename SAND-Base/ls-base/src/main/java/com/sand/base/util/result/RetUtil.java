@@ -56,12 +56,12 @@ public class RetUtil {
     return ok(null);
   }
 
-  public static Ret ok(Object object) {
-    return ok(object, ResultEnum.SUCCESS.getMsg());
+  public static Ret ok(Object obj) {
+    return ok(obj, ResultEnum.SUCCESS.getMsg());
   }
 
-  public static Ret ok(Object object, String msg) {
-    return result(object, ResultEnum.SUCCESS.getCode(), msg);
+  public static Ret ok(Object obj, String msg) {
+    return result(obj, ResultEnum.SUCCESS.getCode(), msg);
   }
 
   public static Ret fail() {
@@ -76,8 +76,8 @@ public class RetUtil {
     return result(null, resultEnum);
   }
 
-  public static Ret result(Object object, ResultEnum resultEnum) {
-    return result(object, resultEnum.getCode(), resultEnum.getMsg());
+  public static Ret result(Object obj, ResultEnum resultEnum) {
+    return result(obj, resultEnum.getCode(), resultEnum.getMsg());
   }
 
   public static Ret result(Object obj, int code, String msg) {
@@ -91,7 +91,7 @@ public class RetUtil {
     return Ret;
   }
 
-  private static Object formatSelectData(Object object) throws Exception {
+  private static Object formatSelectData(Object obj) throws Exception {
     HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
     if (!Objects.isNull(request.getHeader(Constant.SELECT_REQUEST_FORMAT))) {
       try {
@@ -104,7 +104,7 @@ public class RetUtil {
         int index = sortFieldName.indexOf(" ");
         final int asc = index > -1 ? (Objects.equals(sortFieldName.substring(index + 1), ASC) ? 1 : -1) : 1;
         sortFieldName = index > -1 ? sortFieldName.substring(0, index) : sortFieldName;
-        Collection collection = (Collection) object;
+        Collection collection = (Collection) obj;
         // 排序及转换
         if (!collection.isEmpty()) {
           Class clazz = collection.iterator().next().getClass();
@@ -112,15 +112,15 @@ public class RetUtil {
           Method getValueMethod = clazz.getMethod(GET_PREFIX + StringUtil.firstToUpperCase(valueFieldName));
           Method getSortMethod = StringUtil.isBlank(sortFieldName) ? null : clazz.getMethod(GET_PREFIX + StringUtil.firstToUpperCase(sortFieldName));
           List<SelectData> selectData = (List<SelectData>) collection.stream()
-              .map(obj -> {
+              .map(object -> {
                 try {
                   SelectData data = SelectData.builder()
-                      .key(getKeyMethod.invoke(obj))
-                      .value(getValueMethod.invoke(obj))
-                      .sort(Objects.isNull(getSortMethod) ? 0 : (Comparable) getSortMethod.invoke(obj))
+                      .key(getKeyMethod.invoke(object))
+                      .value(getValueMethod.invoke(object))
+                      .sort(Objects.isNull(getSortMethod) ? 0 : (Comparable) getSortMethod.invoke(object))
                       .build();
                   if (raw) {
-                    data.setRaw(obj);
+                    data.setRaw(object);
                   }
                   return data;
                 } catch (Exception e) {
@@ -135,6 +135,6 @@ public class RetUtil {
         throw e;
       }
     }
-    return object;
+    return obj;
   }
 }

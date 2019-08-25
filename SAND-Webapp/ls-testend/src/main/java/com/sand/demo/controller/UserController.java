@@ -7,8 +7,8 @@
  */
 package com.sand.demo.controller;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sand.base.util.result.Ret;
 import com.sand.base.util.result.RetUtil;
 import com.sand.demo.entity.UserEntity;
@@ -20,12 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- * 功能说明：
+ * 功能说明：用户信息
  * 开发人员：@author nevercoming
  * 开发日期：2019/8/23 13:27
- * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
+ * 功能描述：用户CRUD
  */
 @Slf4j
 @RestController
@@ -35,11 +36,11 @@ public class UserController {
   private IUserService userService;
 
   @RequestMapping("/pageList")
-  public Ret pageList(@RequestBody UserEntity user) {
-    log.info("pageList param：{}", user);
-    Wrapper<UserEntity> wrapper = new EntityWrapper<>();
-    List<UserEntity> userList = userService.selectList(wrapper);
-    userList.forEach(System.out::println);
+  public Ret pageList(@RequestBody Map<String, Object> map) {
+    log.info("pageList param：{}", map);
+    Wrapper<UserEntity> wrapper = new QueryWrapper<>();
+    List<UserEntity> userList = userService.list(wrapper);
+    userList.forEach(dbUser -> log.info(dbUser.toString()));
     return RetUtil.ok(userList);
   }
 }

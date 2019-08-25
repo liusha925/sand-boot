@@ -9,7 +9,7 @@ package com.sand.base.util.common;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sand.base.enums.ResultEnum;
 import com.sand.base.exception.LsException;
 import org.apache.commons.lang3.StringUtils;

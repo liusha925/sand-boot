@@ -16,10 +16,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
- * 功能说明：
+ * 功能说明：单元测试基类
  * 开发人员：@author nevercoming
  * 开发日期：2019/8/23 13:45
- * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
+ * 功能描述：单元测试基类
  */
 @Slf4j
 @SpringBootTest
@@ -28,11 +28,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class JunitTest {
 
   @Before
-  public void before(){
+  public void before() {
     log.info(">>>>>>>>>>>>>>>>>>>>>>测试开始<<<<<<<<<<<<<<<<<<<<<<<<<<<");
   }
+
   @After
-  public void after(){
+  public void after() {
     log.info(">>>>>>>>>>>>>>>>>>>>>>测试结束<<<<<<<<<<<<<<<<<<<<<<<<<<<");
   }
 }
