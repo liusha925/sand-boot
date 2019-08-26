@@ -2,10 +2,10 @@
  * 软件版权：流沙~~
  * 修改日期   修改人员     修改说明
  * =========  ===========  =====================
- * 2019/8/16   liusha   新增
+ * 2019/8/26    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.util.ret;
+package com.sand.base.core.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,12 +22,21 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Ret<T> {
+public class ResultEntity<T> {
+  /**
+   * 返回码
+   */
   private int code;
-
+  /**
+   * 返回描述
+   */
   private String msg;
-
+  /**
+   * 返回类型
+   */
   private String type;
-
+  /**
+   * 返回数据
+   */
   private T data;
 }

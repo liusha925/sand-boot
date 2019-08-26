@@ -96,7 +96,7 @@ public class StringUtil extends StringUtils {
   }
 
   /**
-   * 产生唯一的序列号。
+   * 产生唯一的序列号（27位）
    *
    * @return
    */
@@ -198,7 +198,7 @@ public class StringUtil extends StringUtils {
   }
 
   /**
-   * 替换掉HTML标签方法
+   * 替换掉HTML标签
    *
    * @param html the html
    * @return the string
@@ -207,10 +207,10 @@ public class StringUtil extends StringUtils {
     if (isBlank(html)) {
       return "";
     }
-    String regEx = "<.+?>";
-    Pattern p = Pattern.compile(regEx);
-    Matcher m = p.matcher(html);
-    return m.replaceAll("");
+    String regex = "<.+?>";
+    Pattern pattern = Pattern.compile(regex);
+    Matcher matcher = pattern.matcher(html);
+    return matcher.replaceAll("");
   }
 
 }

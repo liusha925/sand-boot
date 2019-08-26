@@ -6,7 +6,7 @@
 
     <groupId>com.sand</groupId>
     <artifactId>sys-provider</artifactId>
-    <version>${com.sand.ls-sys.version}</version>
+    <version>${com.sand.sys-provider.version}</version>
     <packaging>jar</packaging>
     <description>系统provider</description>
 
@@ -15,5 +15,12 @@
         <artifactId>base-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.sand</groupId>
+            <artifactId>sys-api</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

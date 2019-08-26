@@ -15,6 +15,10 @@ package com.sand.base.constant;
  */
 public final class Constant {
   /**
+   * 系统表前缀
+   */
+  public static final String TABLE_PREFIX_SYS = "sys_";
+  /**
    * 未知的信息
    */
   public static final String UNKNOWN = "unknown";
@@ -22,10 +26,6 @@ public final class Constant {
    * Buff Size的容量大小
    */
   public static final int BUFF_SIZE = 1024 * 100;
-  /**
-   * 默认编码
-   */
-  public static final String DEFAULT_CHARSET = "utf-8";
   /**
    * 类名与成员变量之间的分隔符
    */

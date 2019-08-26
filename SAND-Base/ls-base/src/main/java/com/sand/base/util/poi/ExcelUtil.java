@@ -12,6 +12,7 @@ import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.TemplateExportParams;
+import cn.afterturn.easypoi.excel.export.styler.IExcelExportStyler;
 import com.sand.base.constant.Constant;
 import com.sand.base.enums.DateEnum;
 import com.sand.base.enums.ResultEnum;
@@ -70,6 +71,18 @@ public class ExcelUtil {
   /**
    * excel导出
    *
+   * @param pojoClass   实体对象
+   * @param dataSet     数据集合
+   * @param templateUrl 模板路径
+   * @return
+   */
+  public static String exportExcel(Class<?> pojoClass, Collection<?> dataSet, String templateUrl) {
+    return exportExcel(pojoClass, dataSet, templateUrl, Constant.SHEET_MAX_NUM);
+  }
+
+  /**
+   * excel导出
+   *
    * @param pojoClass 实体对象
    * @param dataSet   数据集合
    * @param maxNum    单sheet最大值
@@ -85,10 +98,11 @@ public class ExcelUtil {
    * @param pojoClass   实体对象
    * @param dataSet     数据集合
    * @param templateUrl 模板路径
+   * @param maxNum      单sheet最大值
    * @return
    */
-  public static String exportExcel(Class<?> pojoClass, Collection<?> dataSet, String templateUrl) {
-    return exportExcel(pojoClass, dataSet, templateUrl, Constant.SHEET_MAX_NUM);
+  public static String exportExcel(Class<?> pojoClass, Collection<?> dataSet, String templateUrl, int maxNum) {
+    return exportExcel(pojoClass, dataSet, templateUrl, maxNum, ExcelExportStyler.class);
   }
 
   /**
@@ -98,9 +112,10 @@ public class ExcelUtil {
    * @param dataSet     数据集合
    * @param templateUrl 模板路径
    * @param maxNum      单sheet最大值
+   * @param style       excel样式选择器
    * @return
    */
-  public static String exportExcel(Class<?> pojoClass, Collection<?> dataSet, String templateUrl, int maxNum) {
+  public static String exportExcel(Class<?> pojoClass, Collection<?> dataSet, String templateUrl, int maxNum, Class<?> style) {
     String saveFolder;
     String savePath = "-";
     FileOutputStream fos;
@@ -118,14 +133,14 @@ public class ExcelUtil {
       if (!templateFile.exists()) {
         ExportParams exportParams = new ExportParams();
         exportParams.setMaxNum(maxNum);
-        exportParams.setStyle(ExcelExportStyler.class);
+        exportParams.setStyle(style);
         workbook = ExcelExportUtil.exportExcel(exportParams, pojoClass, dataSet);
       } else {
         Map<String, Object> templateMap = new HashMap<>();
         templateMap.put("entityList", dataSet);
         TemplateExportParams templateParams = new TemplateExportParams();
         templateParams.setTemplateUrl(templateUrl);
-        templateParams.setStyle(ExcelExportStyler.class);
+        templateParams.setStyle(style);
         workbook = ExcelExportUtil.exportExcel(templateParams, templateMap);
       }
       log.info("excel导出耗时 = {}", (System.currentTimeMillis() - start) + "毫秒");

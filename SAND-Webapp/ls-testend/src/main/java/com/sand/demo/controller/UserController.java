@@ -9,8 +9,8 @@ package com.sand.demo.controller;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sand.base.util.ret.Ret;
-import com.sand.base.util.ret.RetUtil;
+import com.sand.base.core.entity.ResultEntity;
+import com.sand.base.util.result.ResultUtil;
 import com.sand.demo.entity.UserEntity;
 import com.sand.demo.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,11 +36,11 @@ public class UserController {
   private IUserService userService;
 
   @RequestMapping("/pageList")
-  public Ret pageList(@RequestBody Map<String, Object> map) {
+  public ResultEntity pageList(@RequestBody Map<String, Object> map) {
     log.info("pageList param：{}", map);
     Wrapper<UserEntity> wrapper = new QueryWrapper<>();
     List<UserEntity> userList = userService.list(wrapper);
     userList.forEach(dbUser -> log.info(dbUser.toString()));
-    return RetUtil.ok(userList);
+    return ResultUtil.ok(userList);
   }
 }

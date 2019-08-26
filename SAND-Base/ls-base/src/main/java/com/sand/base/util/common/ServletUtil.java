@@ -117,8 +117,8 @@ public class ServletUtil {
    *
    * @return
    */
-  public static String getAddIp() {
-    return getAddIp(getRequest());
+  public static String getIp() {
+    return getIp(getRequest());
   }
 
   /**
@@ -126,7 +126,7 @@ public class ServletUtil {
    *
    * @return
    */
-  public static String getAddIp(HttpServletRequest request) {
+  public static String getIp(HttpServletRequest request) {
     String addIp = null;
     // X-Forwarded-For：Squid 服务代理
     String ipAddresses = request.getHeader("X-Forwarded-For");

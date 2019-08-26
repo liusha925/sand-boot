@@ -8,7 +8,7 @@
 package com.sand.base.util.poi;
 
 import com.sand.base.constant.Constant;
-import com.sand.base.util.ret.Ret;
+import com.sand.base.core.entity.ResultEntity;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.naming.NoNameCoder;
 import com.thoughtworks.xstream.io.xml.Xpp3Driver;
@@ -119,12 +119,12 @@ public class XmlUtil {
   }
 
   public static void main(String[] args) {
-    Ret ret = Ret.builder().code(200).msg("成功").build();
+    ResultEntity ret = ResultEntity.builder().code(200).msg("成功").build();
     System.out.println(obj2Xml(ret));
     System.out.println(xml2Obj("<?xml version=\"1.0\" encoding = \"UTF-8\"?>\n" +
-        "<Ret>\n" +
+        "<ResultEntity>\n" +
         "  <code>200</code>\n" +
         "  <msg>成功</msg>\n" +
-        "</Ret>", ret));
+        "</ResultEntity>", ret));
   }
 }

@@ -5,11 +5,13 @@
  * 2019/8/16   liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.util.ret;
+package com.sand.base.util.result;
 
 import com.sand.base.constant.Constant;
+import com.sand.base.core.entity.ResultEntity;
 import com.sand.base.enums.ResultEnum;
 import com.sand.base.exception.LsException;
+import com.sand.base.util.common.ServletUtil;
 import com.sand.base.util.common.StringUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,66 +35,74 @@ import java.util.stream.Collectors;
  * 功能描述：controller统一处理工具类
  */
 @Slf4j
-public class RetUtil {
+public class ResultUtil {
   @Data
   @Builder
   @NoArgsConstructor
   @AllArgsConstructor
   static class SelectData {
+    /**
+     * 请求key
+     */
     private Object key;
+    /**
+     * 请求value
+     */
     private Object value;
+    /**
+     * 排序
+     */
     private Comparable sort;
     private Object raw;
   }
 
-  private static final String SET_PREFIX = "set";
   private static final String GET_PREFIX = "get";
   private static final String ASC = "asc";
 
-  public RetUtil() {
+  public ResultUtil() {
   }
 
-  public static Ret ok() {
+  public static ResultEntity ok() {
     return ok(null);
   }
 
-  public static Ret ok(Object obj) {
+  public static ResultEntity ok(Object obj) {
     return ok(obj, ResultEnum.SUCCESS.getMsg());
   }
 
-  public static Ret ok(Object obj, String msg) {
+  public static ResultEntity ok(Object obj, String msg) {
     return result(obj, ResultEnum.SUCCESS.getCode(), msg);
   }
 
-  public static Ret fail() {
+  public static ResultEntity fail() {
     return fail(ResultEnum.ERROR.getMsg());
   }
 
-  public static Ret fail(String msg) {
+  public static ResultEntity fail(String msg) {
     return result(null, ResultEnum.ERROR.getCode(), msg);
   }
 
-  public static Ret fail(ResultEnum resultEnum) {
+  public static ResultEntity fail(ResultEnum resultEnum) {
     return result(null, resultEnum);
   }
 
-  public static Ret result(Object obj, ResultEnum resultEnum) {
+  public static ResultEntity result(Object obj, ResultEnum resultEnum) {
     return result(obj, resultEnum.getCode(), resultEnum.getMsg());
   }
 
-  public static Ret result(Object obj, int code, String msg) {
+  public static ResultEntity result(Object obj, int code, String msg) {
     try {
       obj = formatSelectData(obj);
     } catch (Exception e) {
       log.error("下拉框数据格式化异常：{}", e.getMessage());
-      return Ret.builder().code(ResultEnum.ERROR.getCode()).msg(ResultEnum.ERROR.getMsg()).data(null).build();
+      return ResultEntity.builder().code(ResultEnum.ERROR.getCode()).msg(ResultEnum.ERROR.getMsg()).data(null).build();
     }
-    Ret Ret = com.sand.base.util.ret.Ret.builder().code(code).msg(msg).data(obj).build();
-    return Ret;
+    ResultEntity ret = ResultEntity.builder().code(code).msg(msg).data(obj).build();
+    return ret;
   }
 
   private static Object formatSelectData(Object obj) throws Exception {
-    HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+    HttpServletRequest request = ServletUtil.getRequest();
     if (!Objects.isNull(request.getHeader(Constant.SELECT_REQUEST_FORMAT))) {
       try {
         // 获取域方法
