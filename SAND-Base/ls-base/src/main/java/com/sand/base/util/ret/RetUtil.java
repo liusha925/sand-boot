@@ -5,7 +5,7 @@
  * 2019/8/16   liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.util.result;
+package com.sand.base.util.ret;
 
 import com.sand.base.constant.Constant;
 import com.sand.base.enums.ResultEnum;
@@ -87,7 +87,7 @@ public class RetUtil {
       log.error("下拉框数据格式化异常：{}", e.getMessage());
       return Ret.builder().code(ResultEnum.ERROR.getCode()).msg(ResultEnum.ERROR.getMsg()).data(null).build();
     }
-    Ret Ret = com.sand.base.util.result.Ret.builder().code(code).msg(msg).data(obj).build();
+    Ret Ret = com.sand.base.util.ret.Ret.builder().code(code).msg(msg).data(obj).build();
     return Ret;
   }
 

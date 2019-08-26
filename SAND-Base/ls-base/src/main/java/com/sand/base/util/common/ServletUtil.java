@@ -5,7 +5,7 @@
  * 2019/8/6   liusha      新增
  * =========  ===========  =====================
  */
-package com.sand.base.util.http;
+package com.sand.base.util.common;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sand.base.constant.Constant;

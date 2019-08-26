@@ -12,6 +12,7 @@ import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.TemplateExportParams;
+import com.sand.base.constant.Constant;
 import com.sand.base.enums.DateEnum;
 import com.sand.base.enums.ResultEnum;
 import com.sand.base.exception.LsException;
@@ -51,14 +52,6 @@ import java.util.Objects;
  */
 @Slf4j
 public class ExcelUtil {
-  /**
-   * 以.xls结尾的excel文件
-   */
-  public static final String XLS = ".xls";
-  /**
-   * 以.xlsx结尾的excel文件
-   */
-  public static final String XLSX = ".xlsx";
 
   public ExcelUtil() {
   }
@@ -66,63 +59,75 @@ public class ExcelUtil {
   /**
    * excel导出
    *
-   * @param pojoClass Excel对象Class
-   * @param dataSet   Excel对象数据List
-   * @param maxNum    单sheet最大值
+   * @param pojoClass 实体对象
+   * @param dataSet   数据集合
+   * @return
    */
-  public static String exportExcel(Class<?> pojoClass, Collection<?> dataSet, int maxNum) {
-    FileOutputStream fos;
-    String saveFolder = OkHttp3Util.getServicePath() + File.separator + "excel";
-    String savePath = saveFolder + File.separator + System.currentTimeMillis() + XLS;
-    try {
-      File createFolder = new File(saveFolder);
-      if (!createFolder.exists()) {
-        createFolder.mkdirs();
-      }
-      ExportParams exportParams = new ExportParams();
-      exportParams.setMaxNum(maxNum == 0 ? 10000 : maxNum);
-      exportParams.setStyle(ExcelExportStyler.class);
-      long start = System.currentTimeMillis();
-      Workbook workbook = ExcelExportUtil.exportExcel(exportParams, pojoClass, dataSet);
-      log.info("excel导出耗时 = {}", (System.currentTimeMillis() - start) + "毫秒");
-      fos = new FileOutputStream(savePath);
-      workbook.write(fos);
-      fos.close();
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return savePath;
+  public static String exportExcel(Class<?> pojoClass, Collection<?> dataSet) {
+    return exportExcel(pojoClass, dataSet, Constant.SHEET_MAX_NUM);
   }
 
   /**
-   * 通过excel模板导出
+   * excel导出
    *
-   * @param templateFilePath 模板位置
-   * @param pojoClass        Excel对象Class
-   * @param dataSet          Excel对象数据List
-   * @param otherData        对象外的数据
+   * @param pojoClass 实体对象
+   * @param dataSet   数据集合
+   * @param maxNum    单sheet最大值
    * @return
    */
-  public static String exportExcelByTemplate(String templateFilePath, Class<?> pojoClass, Collection<?> dataSet, Map<String, Object> otherData) {
+  public static String exportExcel(Class<?> pojoClass, Collection<?> dataSet, int maxNum) {
+    return exportExcel(pojoClass, dataSet, null, maxNum);
+  }
+
+  /**
+   * excel导出
+   *
+   * @param pojoClass   实体对象
+   * @param dataSet     数据集合
+   * @param templateUrl 模板路径
+   * @return
+   */
+  public static String exportExcel(Class<?> pojoClass, Collection<?> dataSet, String templateUrl) {
+    return exportExcel(pojoClass, dataSet, templateUrl, Constant.SHEET_MAX_NUM);
+  }
+
+  /**
+   * excel导出
+   *
+   * @param pojoClass   实体对象
+   * @param dataSet     数据集合
+   * @param templateUrl 模板路径
+   * @param maxNum      单sheet最大值
+   * @return
+   */
+  public static String exportExcel(Class<?> pojoClass, Collection<?> dataSet, String templateUrl, int maxNum) {
+    String saveFolder;
+    String savePath = "-";
     FileOutputStream fos;
-    String saveFolder = OkHttp3Util.getServicePath() + File.separator + "excel";
-    String savePath = saveFolder + File.separator + System.currentTimeMillis() + XLS;
     try {
+      saveFolder = OkHttp3Util.getServicePath() + File.separator + "excel";
+      savePath = saveFolder + File.separator + System.currentTimeMillis() + Constant.XLS;
       File createFolder = new File(saveFolder);
       if (!createFolder.exists()) {
         createFolder.mkdirs();
       }
-      File templateFile = new File(templateFilePath);
+      Workbook workbook;
+      File templateFile = new File(templateUrl);
+      long start = System.currentTimeMillis();
       // 模板不存在用普通导出
       if (!templateFile.exists()) {
-        return exportExcel(pojoClass, dataSet, 65536);
+        ExportParams exportParams = new ExportParams();
+        exportParams.setMaxNum(maxNum);
+        exportParams.setStyle(ExcelExportStyler.class);
+        workbook = ExcelExportUtil.exportExcel(exportParams, pojoClass, dataSet);
+      } else {
+        Map<String, Object> templateMap = new HashMap<>();
+        templateMap.put("entityList", dataSet);
+        TemplateExportParams templateParams = new TemplateExportParams();
+        templateParams.setTemplateUrl(templateUrl);
+        templateParams.setStyle(ExcelExportStyler.class);
+        workbook = ExcelExportUtil.exportExcel(templateParams, templateMap);
       }
-      TemplateExportParams params = new TemplateExportParams(templateFilePath);
-      otherData.put("entityList", dataSet);
-      long start = System.currentTimeMillis();
-      Workbook workbook = ExcelExportUtil.exportExcel(params, otherData);
       log.info("excel导出耗时 = {}", (System.currentTimeMillis() - start) + "毫秒");
       fos = new FileOutputStream(savePath);
       workbook.write(fos);
@@ -138,9 +143,8 @@ public class ExcelUtil {
   /**
    * excel导入
    *
-   * @param file      需要导入的文件
-   * @param pojoClass Excel对象Class
-   * @param <T>       Excel对象Class
+   * @param file      导入文件
+   * @param pojoClass 实体对象
    * @return
    */
   public static <T> List<T> importExcel(File file, Class<?> pojoClass) {
@@ -154,7 +158,7 @@ public class ExcelUtil {
   }
 
   /**
-   * 读取导入excel
+   * excel导入
    *
    * @param file
    * @param saveFileFlag
@@ -167,9 +171,9 @@ public class ExcelUtil {
       List<String[]> result = new ArrayList<>();
       String fileName = file.getOriginalFilename();
       Workbook workbook;
-      if (fileName.endsWith(XLS)) {
+      if (fileName.endsWith(Constant.XLS)) {
         workbook = new HSSFWorkbook(file.getInputStream());
-      } else if (fileName.endsWith(XLSX)) {
+      } else if (fileName.endsWith(Constant.XLSX)) {
         workbook = new XSSFWorkbook(file.getInputStream());
       } else {
         throw new LsException(ResultEnum.ERROR, "读取文件类型异常");
@@ -177,10 +181,10 @@ public class ExcelUtil {
       // 保存文件
       if (saveFileFlag) {
         String saveFileName = fileName.substring(0, fileName.lastIndexOf(".")) + "-" + StringUtil.getUniqueSerialNo();
-        if (fileName.endsWith(XLS)) {
-          saveFileName = saveFileName + XLS;
-        } else if (fileName.endsWith(XLSX)) {
-          saveFileName = saveFileName + XLSX;
+        if (fileName.endsWith(Constant.XLS)) {
+          saveFileName = saveFileName + Constant.XLS;
+        } else if (fileName.endsWith(Constant.XLSX)) {
+          saveFileName = saveFileName + Constant.XLSX;
         } else {
           throw new LsException(ResultEnum.ERROR, "读取文件类型异常");
         }

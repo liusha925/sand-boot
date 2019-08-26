@@ -5,7 +5,7 @@
  * 2019/8/16   liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.util.common;
+package com.sand.base.util.spring;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;

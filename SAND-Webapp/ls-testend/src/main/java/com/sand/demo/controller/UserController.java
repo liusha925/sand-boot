@@ -9,8 +9,8 @@ package com.sand.demo.controller;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sand.base.util.result.Ret;
-import com.sand.base.util.result.RetUtil;
+import com.sand.base.util.ret.Ret;
+import com.sand.base.util.ret.RetUtil;
 import com.sand.demo.entity.UserEntity;
 import com.sand.demo.service.IUserService;
 import lombok.extern.slf4j.Slf4j;

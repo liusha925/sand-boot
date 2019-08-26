@@ -8,7 +8,7 @@
 package com.sand.base.util.poi;
 
 import com.sand.base.constant.Constant;
-import com.sand.base.util.result.Ret;
+import com.sand.base.util.ret.Ret;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.naming.NoNameCoder;
 import com.thoughtworks.xstream.io.xml.Xpp3Driver;

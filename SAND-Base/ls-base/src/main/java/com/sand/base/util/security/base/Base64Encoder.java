@@ -5,7 +5,7 @@
  * 2019/8/22   liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.util.crypt.base;
+package com.sand.base.util.security.base;
 
 import java.io.IOException;
 import java.io.OutputStream;

@@ -5,7 +5,7 @@
  * 2019/8/16   liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.util.result;
+package com.sand.base.util.ret;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
