@@ -30,8 +30,8 @@ public class SysMenuControllerTest extends JunitTest {
   public void page() {
     Map<String, Object> userMap = new HashMap<>();
     // 测试@InitBinder
-    userMap.put("date", new Date());
-    String result = OkHttp3Util.httpPostJson(ACTIVE_LOCAL + "/sys/menu/page", userMap);
+    userMap.put("createTime", new Date());
+    String result = OkHttp3Util.httpPostJson(ACTIVE_LOCAL + "/sys/menu/tree", userMap);
     log.info("返回结果：{}", result);
   }
 }

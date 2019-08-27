@@ -60,7 +60,7 @@ public class Tree extends AbstractTree {
   private Object content;
 
   @Override
-  public void add(Tree tree) {
+  public void addBranch(Tree tree) {
     if (this.type == TreeEnum.LEAF) {
       this.type = TreeEnum.BRANCH;
     }
@@ -102,14 +102,14 @@ public class Tree extends AbstractTree {
         children.add(tree);
       } else {
         // 下挂到根节点
-        tempTree.get(tree.getPid()).add(tree);
+        tempTree.get(tree.getPid()).addBranch(tree);
       }
       // 判断是否为根节点
       for (int i = children.size() - 1; i >= 0; i--) {
         Tree root = children.get(i);
         if (Objects.equals(root.getPid(), tree.getId())) {
           // 原有根节点下挂到新的根，并变成分支节点
-          tree.add(root);
+          tree.addBranch(root);
           root.setType(TreeEnum.BRANCH);
           children.remove(root);
         }

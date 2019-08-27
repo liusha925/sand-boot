@@ -11,8 +11,6 @@ import com.sand.base.core.controller.BaseController;
 import com.sand.base.core.entity.ResultEntity;
 import com.sand.base.util.result.ResultUtil;
 import com.sand.base.util.tree.Tree;
-import com.sand.base.util.tree.TreeUtil;
-import com.sand.base.util.tree.builder.ITreeBuilder;
 import com.sand.sys.entity.SysMenu;
 import com.sand.sys.service.ISysMenuService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * 功能说明：系统菜单
@@ -38,38 +33,12 @@ public class SysMenuController extends BaseController {
   @Autowired
   private ISysMenuService menuService;
 
-  @RequestMapping("page")
-  public ResultEntity page(@RequestBody Map<String, Object> map) {
-    log.info("page params：{}", map);
-    List<SysMenu> menuList = menuService.list();
-    Tree menuTree = buildTree(menuList);
-    TreeUtil.addRoot(menuTree, "菜单树");
+  @RequestMapping("/tree")
+  public ResultEntity tree(@RequestBody SysMenu menu) {
+    log.info("page params：{}", menu);
+    Tree menuTree = menuService.buildMenuTree();
 
     return ResultUtil.ok(menuTree.getChildren());
   }
 
-  /**
-   * 构建树
-   *
-   * @param menuList
-   * @return
-   */
-  private Tree buildTree(List<SysMenu> menuList) {
-    return new Tree().buildTree(menuList, new ITreeBuilder<SysMenu>() {
-      @Override
-      public String getId(SysMenu menu) {
-        return menu.getMenuId();
-      }
-
-      @Override
-      public String getPid(SysMenu menu) {
-        return menu.getParentId();
-      }
-
-      @Override
-      public String getName(SysMenu menu) {
-        return menu.getMenuName();
-      }
-    });
-  }
 }

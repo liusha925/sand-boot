@@ -8,6 +8,7 @@
 package com.sand.sys.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sand.base.util.tree.Tree;
 import com.sand.sys.entity.SysMenu;
 
 /**
@@ -17,4 +18,10 @@ import com.sand.sys.entity.SysMenu;
  * 功能描述：系统菜单
  */
 public interface ISysMenuService extends IService<SysMenu> {
+  /**
+   * 构建菜单树
+   *
+   * @return
+   */
+  Tree buildMenuTree();
 }

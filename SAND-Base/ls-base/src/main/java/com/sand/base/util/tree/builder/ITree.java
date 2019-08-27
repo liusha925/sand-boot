@@ -40,11 +40,11 @@ public interface ITree {
   int getLeafAmount();
 
   /**
-   * 添加节点数据
+   * 添加分支
    *
    * @param tree
    */
-  void add(Tree tree);
+  void addBranch(Tree tree);
 
   /**
    * 构建平级的树

@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.sand.base.constant.Constant;
 import com.sand.base.core.entity.BaseEntity;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ import java.util.List;
  * 功能描述：系统菜单
  */
 @Data
+@ToString(callSuper = true)
 @TableName(Constant.TABLE_PREFIX_SYS + "menu")
 public class SysMenu extends BaseEntity {
   private static final long serialVersionUID = -2854114810573968874L;
