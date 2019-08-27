@@ -18,8 +18,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
@@ -84,6 +82,10 @@ public class ResultUtil {
 
   public static ResultEntity fail(ResultEnum resultEnum) {
     return result(null, resultEnum);
+  }
+
+  public static ResultEntity result(int code, String msg) {
+    return result(null, code, msg);
   }
 
   public static ResultEntity result(Object obj, ResultEnum resultEnum) {

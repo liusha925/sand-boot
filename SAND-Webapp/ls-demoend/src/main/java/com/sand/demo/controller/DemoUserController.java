@@ -1,0 +1,50 @@
+/**
+ * 软件版权：流沙~~
+ * 修改日期   修改人员     修改说明
+ * =========  ===========  =====================
+ * 2019/8/23   liusha   新增
+ * =========  ===========  =====================
+ */
+package com.sand.demo.controller;
+
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.sand.base.core.controller.BaseController;
+import com.sand.base.core.entity.ResultEntity;
+import com.sand.base.util.result.ResultUtil;
+import com.sand.demo.entity.DemoUser;
+import com.sand.demo.service.IDemoUserService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 功能说明：用户信息
+ * 开发人员：@author liusha
+ * 开发日期：2019/8/23 13:27
+ * 功能描述：用户CRUD
+ */
+@Slf4j
+@RestController
+@RequestMapping("/user")
+public class DemoUserController extends BaseController {
+  @Autowired
+  private IDemoUserService userService;
+
+  @RequestMapping("/pageList")
+  public ResultEntity pageList(@RequestBody Map<String, Object> map) {
+//    System.out.println(1/0);
+    log.info("访问IP：{}", getIp());
+    log.info("访问系统：{}", getOSAndBrowserInfo());
+    log.info("pageList param：{}", map);
+    Wrapper<DemoUser> wrapper = new QueryWrapper<>();
+    List<DemoUser> userList = userService.list(wrapper);
+    userList.forEach(dbUser -> log.info(dbUser.toString()));
+    return ResultUtil.ok(userList);
+  }
+}
