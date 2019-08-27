@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>com.sand</groupId>
-            <artifactId>ls-base</artifactId>
+            <artifactId>sys-provider</artifactId>
         </dependency>
     </dependencies>
 

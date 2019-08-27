@@ -14,23 +14,22 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * 功能说明：演示启动器
+ * 功能说明：测试启动器
  * 开发人员：@author liusha
  * 开发日期：2019/8/20 20:15
- * 功能描述：演示启动器
+ * 功能描述：测试启动器
  */
 @Slf4j
-@SpringBootApplication(scanBasePackages = {"com.sand"})
-@MapperScan(basePackages = {"com.sand.*.mapper"})
-public class LsDemoApplication {
+@SpringBootApplication
+public class LsTestApplication {
 
   public static void main(String[] args) {
-    SpringApplication application = new SpringApplication(LsDemoApplication.class);
+    SpringApplication application = new SpringApplication(LsTestApplication.class);
     // 开启/关闭启动logo
     application.setBannerMode(Banner.Mode.CONSOLE);
     application.run(args);
     log.info("                                   \n" +
-        "【LsDemoApplication】启动成功 ლ(´ڡ`ლ)ﾞ \n" +
+        "【LsTestApplication】启动成功 ლ(´ڡ`ლ)ﾞ \n" +
         "   _____         _   _ _____            \n" +
         "  / ____|  /\\   | \\ | |  __ \\        \n" +
         " | (___   /  \\  |  \\| | |  | |        \n" +

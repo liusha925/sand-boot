@@ -31,20 +31,22 @@ import java.util.Map;
  */
 @Slf4j
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/demo/user")
 public class DemoUserController extends BaseController {
   @Autowired
   private IDemoUserService userService;
 
-  @RequestMapping("/pageList")
-  public ResultEntity pageList(@RequestBody Map<String, Object> map) {
-//    System.out.println(1/0);
+  @RequestMapping("/page")
+  public ResultEntity page(@RequestBody Map<String, Object> map) {
+    // 测试@ModelAttribute
     log.info("访问IP：{}", getIp());
     log.info("访问系统：{}", getOSAndBrowserInfo());
-    log.info("pageList param：{}", map);
+    log.info("page param：{}", map);
     Wrapper<DemoUser> wrapper = new QueryWrapper<>();
     List<DemoUser> userList = userService.list(wrapper);
     userList.forEach(dbUser -> log.info(dbUser.toString()));
+    // 测试@ExceptionHandler
+    System.out.println(1/0);
     return ResultUtil.ok(userList);
   }
 }
