@@ -14,6 +14,10 @@ package com.sand.base.enums;
  * 功能描述：树节点类型枚举
  */
 public enum TreeEnum {
-  // 节点等级
-  ROOT, BRANCH, LEAF
+  // 根节点
+  ROOT,
+  // 分支节点
+  BRANCH,
+  // 叶子节点
+  LEAF
 }

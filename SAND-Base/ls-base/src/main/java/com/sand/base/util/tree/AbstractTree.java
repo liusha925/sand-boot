@@ -7,12 +7,15 @@
  */
 package com.sand.base.util.tree;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sand.base.enums.TreeEnum;
 import com.sand.base.util.tree.builder.ITree;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 功能说明：树抽象类
@@ -22,21 +25,47 @@ import java.util.List;
  */
 @Data
 public abstract class AbstractTree implements ITree {
-
+  /**
+   * 除根节点外的子节点树
+   */
   protected List<Tree> children = new ArrayList<>();
+  /**
+   * 构建树警戒时间
+   */
+  protected static final long BUILD_WARN_TIME = 1000;
+  /**
+   * 临时存放平级树
+   * 此处不做展示，要展示设置JsonProperty.Access.READ_WRITE或直接注释
+   */
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+  protected Map<String, Tree> tempTree = new HashMap<>();
 
+  /**
+   * 树高度
+   * 如果不想展示，设置JsonProperty.Access.WRITE_ONLY
+   *
+   * @return
+   */
   @Override
-  public int getLength() {
+  @JsonProperty(access = JsonProperty.Access.READ_WRITE)
+  public int getHeight() {
     int temp;
     int length = 0;
     for (Tree tree : children) {
-      temp = (tree.getType() == TreeEnum.LEAF ? 1 : tree.getLength());
+      temp = (tree.getType() == TreeEnum.LEAF ? 1 : tree.getHeight());
       length = length < temp ? temp : length;
     }
     return length + 1;
   }
 
+  /**
+   * 节点数量
+   * 如果不想展示，设置JsonProperty.Access.WRITE_ONLY
+   *
+   * @return
+   */
   @Override
+  @JsonProperty(access = JsonProperty.Access.READ_WRITE)
   public int getAmount() {
     int amount = 0;
     for (Tree tree : children) {
@@ -45,11 +74,18 @@ public abstract class AbstractTree implements ITree {
     return amount + 1;
   }
 
+  /**
+   * 叶子节点数量
+   * 如果不想展示，设置JsonProperty.Access.WRITE_ONLY
+   *
+   * @return
+   */
   @Override
-  public int getSubAmount() {
+  @JsonProperty(access = JsonProperty.Access.READ_WRITE)
+  public int getLeafAmount() {
     int amount = 0;
     for (Tree tree : children) {
-      amount += (tree.getType() == TreeEnum.LEAF ? 1 : tree.getSubAmount());
+      amount += (tree.getType() == TreeEnum.LEAF ? 1 : tree.getLeafAmount());
     }
     return amount;
   }

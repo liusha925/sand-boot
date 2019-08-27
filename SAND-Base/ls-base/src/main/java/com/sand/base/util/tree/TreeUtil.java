@@ -25,39 +25,30 @@ import java.util.stream.Collectors;
  * 功能描述：树形静态工具
  */
 public final class TreeUtil {
+  /**
+   * 跟节点标识
+   */
   private static final String TREE_ROOT = "treeRoot";
 
   /**
-   * 树合成
+   * 添加根节点
    *
    * @param trees
+   * @param rootName
    * @return
    */
-  public static final Tree combine(List<Tree> trees) {
-    if (trees.size() == 1) {
-      return trees.get(0);
-    }
-    List<Tree> treeComponents = trees.stream()
-        .flatMap(tree -> tree.getTreeMap().values().stream())
-        .collect(Collectors.toList());
-    treeComponents.forEach(component -> component.setChildren(new ArrayList<>()));
-    Tree tree = new Tree();
-    tree.add(treeComponents);
-    return tree;
+  public static final Tree addRoot(Collection<Tree> trees, String rootName) {
+    Tree tree = reBuildTree(trees);
+    return addRoot(tree, rootName);
   }
 
   /**
    * 添加根节点
    *
-   * @param components
+   * @param tree
    * @param rootName
    * @return
    */
-  public static final Tree addRoot(Collection<Tree> components, String rootName) {
-    Tree tree = rebuildTree(components);
-    return addRoot(tree, rootName);
-  }
-
   public static final Tree addRoot(Tree tree, String rootName) {
     Map<String, Object> rootContent = new HashMap<>();
     rootContent.put("name", rootName);
@@ -65,43 +56,80 @@ public final class TreeUtil {
     Tree root = Tree.builder()
         .id(TREE_ROOT)
         .name(rootName)
-        .content(rootContent)
+        .content(rootName)
         .build();
-    return addRoot(tree, root);
+    return buildTree(tree, root);
   }
 
-  public static final Tree addRoot(Collection<Tree> components, Tree root) {
-    Tree tree = rebuildTree(components);
-    return addRoot(tree, root);
+  /**
+   * 添加根节点
+   *
+   * @param trees
+   * @param root
+   * @return
+   */
+  public static final Tree reBuildTree(Collection<Tree> trees, Tree root) {
+    Tree tree = reBuildTree(trees);
+    return buildTree(tree, root);
   }
 
-  public static final Tree addRoot(Tree tree, Tree root) {
-    List<Tree> components = tree.getChildren();
-    if (components.size() > 0) {
-      components.forEach(e -> e.setPid(root.getId()));
+  /**
+   * 构建有根的树
+   *
+   * @param tree
+   * @param root
+   * @return
+   */
+  public static final Tree buildTree(Tree tree, Tree root) {
+    List<Tree> trees = tree.getChildren();
+    if (trees.size() > 0) {
+      trees.forEach(e -> e.setPid(root.getId()));
     }
-
-    tree.add(Arrays.asList(root));
+    tree.buildTree(Arrays.asList(root));
     return tree;
   }
 
-  private static final Tree rebuildTree(Collection<Tree> components) {
+  /**
+   * 重新构建树
+   *
+   * @param trees
+   * @return
+   */
+  private static final Tree reBuildTree(Collection<Tree> trees) {
     Tree tree = new Tree();
-    if (Objects.nonNull(components) && components.size() > 0) {
+    if (Objects.nonNull(trees) && trees.size() > 0) {
       Set<Tree> allNodes = new HashSet<>();
       while (true) {
-        allNodes.addAll(components);
-        components = components.stream()
+        allNodes.addAll(trees);
+        trees = trees.stream()
             .flatMap(e -> e.getChildren().stream())
             .collect(Collectors.toList());
-        if (components.size() == 0) {
+        if (trees.size() == 0) {
           break;
         }
       }
       allNodes.forEach(e -> e.setChildren(new ArrayList<>()));
-
-      tree.add(allNodes);
+      tree.buildTree(allNodes);
     }
+    return tree;
+  }
+
+  /**
+   * 树合成
+   *
+   * @param trees
+   * @return
+   */
+  public static final Tree complex(List<Tree> trees) {
+    if (trees.size() == 1) {
+      return trees.get(0);
+    }
+    List<Tree> treeNodes = trees.stream()
+        .flatMap(tree -> tree.getTempTree().values().stream())
+        .collect(Collectors.toList());
+    treeNodes.forEach(node -> node.setChildren(new ArrayList<>()));
+    Tree tree = new Tree();
+    tree.buildTree(treeNodes);
     return tree;
   }
 }

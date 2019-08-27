@@ -32,10 +32,6 @@ public class ResultEntity<T> {
    */
   private String msg;
   /**
-   * 返回类型
-   */
-  private String type;
-  /**
    * 返回数据
    */
   private T data;

@@ -12,7 +12,7 @@ import com.sand.base.util.common.DateUtil;
 import java.beans.PropertyEditorSupport;
 
 /**
- * 功能说明：日期转换器
+ * 功能说明：日期编辑器
  * 开发人员：@author liusha
  * 开发日期：2019/8/26 22:29
  * 功能描述：格式化日期类型,无需配置，spring容器会自动加载PropertyEditor
