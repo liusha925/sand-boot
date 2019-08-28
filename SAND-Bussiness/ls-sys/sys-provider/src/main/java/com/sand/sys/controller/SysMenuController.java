@@ -11,11 +11,9 @@ import com.sand.base.core.controller.BaseController;
 import com.sand.base.core.entity.ResultEntity;
 import com.sand.base.util.result.ResultUtil;
 import com.sand.base.util.tree.Tree;
-import com.sand.sys.entity.SysMenu;
 import com.sand.sys.service.ISysMenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,8 +32,7 @@ public class SysMenuController extends BaseController {
   private ISysMenuService menuService;
 
   @RequestMapping("/tree")
-  public ResultEntity tree(@RequestBody SysMenu menu) {
-    log.info("page params：{}", menu);
+  public ResultEntity tree() {
     Tree menuTree = menuService.buildMenuTree();
 
     return ResultUtil.ok(menuTree.getChildren());

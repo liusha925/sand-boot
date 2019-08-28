@@ -34,28 +34,14 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class ResultUtil {
-  @Data
-  @Builder
-  @NoArgsConstructor
-  @AllArgsConstructor
-  static class SelectData {
-    /**
-     * 请求key
-     */
-    private Object key;
-    /**
-     * 请求value
-     */
-    private Object value;
-    /**
-     * 排序
-     */
-    private Comparable sort;
-    private Object raw;
-  }
-
-  private static final String GET_PREFIX = "get";
-  private static final String ASC = "asc";
+  /**
+   * get方法
+   */
+  private static final String PREFIX_GET = "get";
+  /**
+   * 升序
+   */
+  private static final String SORT_ASC = "asc";
 
   public ResultUtil() {
   }
@@ -64,12 +50,12 @@ public class ResultUtil {
     return ok(null);
   }
 
-  public static ResultEntity ok(Object obj) {
-    return ok(obj, ResultEnum.SUCCESS.getMsg());
+  public static ResultEntity ok(Object data) {
+    return ok(data, ResultEnum.SUCCESS.getMsg());
   }
 
-  public static ResultEntity ok(Object obj, String msg) {
-    return result(obj, ResultEnum.SUCCESS.getCode(), msg);
+  public static ResultEntity ok(Object data, String msg) {
+    return result(data, ResultEnum.SUCCESS.getCode(), msg);
   }
 
   public static ResultEntity fail() {
@@ -88,22 +74,22 @@ public class ResultUtil {
     return result(null, code, msg);
   }
 
-  public static ResultEntity result(Object obj, ResultEnum resultEnum) {
-    return result(obj, resultEnum.getCode(), resultEnum.getMsg());
+  public static ResultEntity result(Object data, ResultEnum resultEnum) {
+    return result(data, resultEnum.getCode(), resultEnum.getMsg());
   }
 
-  public static ResultEntity result(Object obj, int code, String msg) {
+  public static ResultEntity result(Object data, int code, String msg) {
     try {
-      obj = formatSelectData(obj);
+      data = formatSelectData(data);
     } catch (Exception e) {
       log.error("下拉框数据格式化异常：{}", e.getMessage());
       return ResultEntity.builder().code(ResultEnum.ERROR.getCode()).msg(ResultEnum.ERROR.getMsg()).data(null).build();
     }
-    ResultEntity ret = ResultEntity.builder().code(code).msg(msg).data(obj).build();
+    ResultEntity ret = ResultEntity.builder().code(code).msg(msg).data(data).build();
     return ret;
   }
 
-  private static Object formatSelectData(Object obj) throws Exception {
+  private static Object formatSelectData(Object data) throws Exception {
     HttpServletRequest request = ServletUtil.getRequest();
     if (!Objects.isNull(request.getHeader(Constant.SELECT_REQUEST_FORMAT))) {
       try {
@@ -114,39 +100,62 @@ public class ResultUtil {
         // 是否保留原始数据
         boolean raw = Objects.equals("true", request.getHeader(Constant.SELECT_REQUEST_RAW).trim());
         int index = sortFieldName.indexOf(" ");
-        final int asc = index > -1 ? (Objects.equals(sortFieldName.substring(index + 1), ASC) ? 1 : -1) : 1;
+        final int asc = index > -1 ? (Objects.equals(sortFieldName.substring(index + 1), SORT_ASC) ? 1 : -1) : 1;
         sortFieldName = index > -1 ? sortFieldName.substring(0, index) : sortFieldName;
-        Collection collection = (Collection) obj;
+        Collection collection = (Collection) data;
         // 排序及转换
         if (!collection.isEmpty()) {
           Class clazz = collection.iterator().next().getClass();
-          Method getKeyMethod = clazz.getMethod(GET_PREFIX + StringUtil.firstToUpperCase(keyFieldName));
-          Method getValueMethod = clazz.getMethod(GET_PREFIX + StringUtil.firstToUpperCase(valueFieldName));
-          Method getSortMethod = StringUtil.isBlank(sortFieldName) ? null : clazz.getMethod(GET_PREFIX + StringUtil.firstToUpperCase(sortFieldName));
-          List<SelectData> selectData = (List<SelectData>) collection.stream()
+          Method getKeyMethod = clazz.getMethod(PREFIX_GET + StringUtil.firstToUpperCase(keyFieldName));
+          Method getValueMethod = clazz.getMethod(PREFIX_GET + StringUtil.firstToUpperCase(valueFieldName));
+          Method getSortMethod = StringUtil.isBlank(sortFieldName) ? null : clazz.getMethod(PREFIX_GET + StringUtil.firstToUpperCase(sortFieldName));
+          List<SelectData> selectDataList = (List<SelectData>) collection.stream()
               .map(object -> {
                 try {
-                  SelectData data = SelectData.builder()
+                  SelectData selectData = SelectData.builder()
                       .key(getKeyMethod.invoke(object))
                       .value(getValueMethod.invoke(object))
                       .sort(Objects.isNull(getSortMethod) ? 0 : (Comparable) getSortMethod.invoke(object))
                       .build();
                   if (raw) {
-                    data.setRaw(object);
+                    selectData.setRaw(object);
                   }
-                  return data;
+                  return selectData;
                 } catch (Exception e) {
                   throw new LsException(e.getMessage());
                 }
               })
               .sorted((a, b) -> asc * ((SelectData) a).getSort().compareTo(((SelectData) b).getSort()))
               .collect(Collectors.toList());
-          return selectData;
+          return selectDataList;
         }
       } catch (Exception e) {
         throw e;
       }
     }
-    return obj;
+    return data;
+  }
+
+  @Data
+  @Builder
+  @NoArgsConstructor
+  @AllArgsConstructor
+  static class SelectData {
+    /**
+     * 请求key
+     */
+    private Object key;
+    /**
+     * 请求value
+     */
+    private Object value;
+    /**
+     * 排序
+     */
+    private Comparable sort;
+    /**
+     * 原始数据
+     */
+    private Object raw;
   }
 }

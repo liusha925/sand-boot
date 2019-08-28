@@ -48,6 +48,7 @@ public interface ITree {
 
   /**
    * 构建平级的树
+   * 无根无支的叶子树
    *
    * @param children
    * @param builder
@@ -58,6 +59,7 @@ public interface ITree {
 
   /**
    * 构建真正的树
+   * 无根的分支叶子树
    *
    * @param trees
    * @return

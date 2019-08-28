@@ -21,7 +21,7 @@ import java.util.Objects;
  * 功能说明：阻塞IO
  * 开发人员：@author liusha
  * 开发日期：2019/8/19 17:53
- * 功能描述：非阻塞IO
+ * 功能描述：阻塞IO
  */
 @Slf4j
 public class BIOFileExcutor extends AbstractFileExecutor {

@@ -170,8 +170,8 @@ public class ServletUtil {
    *
    * @return
    */
-  public static Map<String, Object> getOSAndBrowserInfo() {
-    return getOSAndBrowserInfo(getRequest());
+  public static Map<String, Object> getOSAndBrowser() {
+    return getOSAndBrowser(getRequest());
   }
 
   /**
@@ -180,7 +180,7 @@ public class ServletUtil {
    * @param request
    * @return
    */
-  public static Map<String, Object> getOSAndBrowserInfo(HttpServletRequest request) {
+  public static Map<String, Object> getOSAndBrowser(HttpServletRequest request) {
     // 获取User-Agent字符串
     String agent = request.getHeader("User-Agent");
     // 解析User-Agent字符串

@@ -37,15 +37,15 @@ public final class Constant {
   /**
    * 选择下拉框值
    */
-  public static final String SELECT_REQUEST_KEY = "rkey";
+  public static final String SELECT_REQUEST_KEY = "key";
   /**
    * 选择下拉框显示名称
    */
-  public static final String SELECT_REQUEST_VALUE = "rvalue";
+  public static final String SELECT_REQUEST_VALUE = "value";
   /**
    * 选择下拉框排序
    */
-  public static final String SELECT_REQUEST_SORT = "rsort";
+  public static final String SELECT_REQUEST_SORT = "sort";
   /**
    * 选择下拉框保留原始数据
    */

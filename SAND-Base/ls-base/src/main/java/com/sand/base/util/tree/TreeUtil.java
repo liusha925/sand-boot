@@ -10,10 +10,8 @@ package com.sand.base.util.tree;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -50,9 +48,6 @@ public final class TreeUtil {
    * @return
    */
   public static final Tree addRoot(Tree tree, String rootName) {
-    Map<String, Object> rootContent = new HashMap<>();
-    rootContent.put("name", rootName);
-    rootContent.put("id", TREE_ROOT);
     Tree root = Tree.builder()
         .id(TREE_ROOT)
         .name(rootName)
@@ -68,7 +63,7 @@ public final class TreeUtil {
    * @param root
    * @return
    */
-  public static final Tree reBuildTree(Collection<Tree> trees, Tree root) {
+  public static final Tree addRoot(Collection<Tree> trees, Tree root) {
     Tree tree = reBuildTree(trees);
     return buildTree(tree, root);
   }
