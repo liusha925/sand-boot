@@ -12,7 +12,11 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.sand.base.constant.Constant;
 import com.sand.base.core.entity.BaseEntity;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
@@ -23,7 +27,11 @@ import java.util.List;
  * 开发日期：2019/8/26 13:38
  * 功能描述：系统菜单
  */
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString(callSuper = true)
 @TableName(Constant.TABLE_PREFIX_SYS + "menu")
 public class SysMenu extends BaseEntity {
@@ -35,14 +43,10 @@ public class SysMenu extends BaseEntity {
   private String menuId;
 
   /**
-   * 菜单名称
-   */
-  private String menuName;
-
-  /**
    * 父菜单ID
    */
   private String parentId;
+
   /**
    * 父菜单名称
    */
@@ -50,9 +54,14 @@ public class SysMenu extends BaseEntity {
   private String parentName;
 
   /**
-   * 显示顺序
+   * 菜单名称
    */
-  private String orderNum;
+  private String menuName;
+
+  /**
+   * 菜单类型（M目录 C菜单 F按钮）
+   */
+  private String menuType;
 
   /**
    * 菜单URL
@@ -60,14 +69,14 @@ public class SysMenu extends BaseEntity {
   private String menuUrl;
 
   /**
-   * 打开方式（menuItem页签 menuBlank新窗口）
+   * 显示顺序
    */
-  private String target;
+  private String order;
 
   /**
-   * 菜单类型（M目录 C菜单 F按钮）
+   * 打开方式（_item 页签中打开，_blank 新窗口打开，_current 当前窗口打开）
    */
-  private String menuType;
+  private String target;
 
   /**
    * 菜单状态（0显示 1隐藏）

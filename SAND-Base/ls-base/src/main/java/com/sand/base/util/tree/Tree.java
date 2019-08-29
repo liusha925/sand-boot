@@ -53,7 +53,7 @@ public class Tree extends AbstractTree {
    */
   private TreeEnum type;
   /**
-   * 树对象信息（菜单树、角色树等）
+   * 树对象信息（菜单树、角色树、机构树等）
    * 如果不想展示，设置JsonProperty.Access.WRITE_ONLY
    */
   @JsonProperty(access = JsonProperty.Access.READ_WRITE)

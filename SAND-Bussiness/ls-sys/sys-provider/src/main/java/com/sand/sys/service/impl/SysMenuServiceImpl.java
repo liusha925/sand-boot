@@ -12,11 +12,14 @@ import com.sand.base.util.tree.Tree;
 import com.sand.base.util.tree.TreeUtil;
 import com.sand.base.util.tree.builder.ITreeBuilder;
 import com.sand.sys.entity.SysMenu;
+import com.sand.sys.enums.MenuEnum;
 import com.sand.sys.mapper.SysMenuMapper;
 import com.sand.sys.service.ISysMenuService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 功能说明：系统菜单
@@ -29,6 +32,10 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
   @Override
   public Tree buildMenuTree() {
     List<SysMenu> menuList = this.list();
+    // 筛选出除按钮级别的菜单
+    menuList = menuList.stream()
+        .filter(menu -> !Objects.equals(menu.getMenuType(), MenuEnum.MenuType.F.getType()))
+        .collect(Collectors.toList());
     Tree menuTree = buildTree(menuList);
     TreeUtil.addRoot(menuTree, "菜单树");
     return menuTree;
