@@ -8,7 +8,6 @@
 package com.sand.base.util.tree;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sand.base.enums.TreeEnum;
 import com.sand.base.util.tree.builder.ITree;
 import lombok.Data;
 
@@ -52,7 +51,7 @@ public abstract class AbstractTree implements ITree {
     int temp;
     int length = 0;
     for (Tree tree : children) {
-      temp = (tree.getType() == TreeEnum.LEAF ? 1 : tree.getHeight());
+      temp = (tree.getType() == Tree.TreeType.LEAF ? 1 : tree.getHeight());
       length = length < temp ? temp : length;
     }
     return length + 1;
@@ -69,7 +68,7 @@ public abstract class AbstractTree implements ITree {
   public int getAmount() {
     int amount = 0;
     for (Tree tree : children) {
-      amount += (tree.getType() == TreeEnum.LEAF ? 1 : tree.getAmount());
+      amount += (tree.getType() == Tree.TreeType.LEAF ? 1 : tree.getAmount());
     }
     return amount + 1;
   }
@@ -85,7 +84,7 @@ public abstract class AbstractTree implements ITree {
   public int getLeafAmount() {
     int amount = 0;
     for (Tree tree : children) {
-      amount += (tree.getType() == TreeEnum.LEAF ? 1 : tree.getLeafAmount());
+      amount += (tree.getType() == Tree.TreeType.LEAF ? 1 : tree.getLeafAmount());
     }
     return amount;
   }

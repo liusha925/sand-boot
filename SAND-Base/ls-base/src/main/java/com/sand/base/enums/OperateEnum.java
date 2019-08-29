@@ -20,7 +20,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum OperateEnum {
   // 操作类型与说明
-  ADD("add", "新增"),
+  INSERT("insert", "新增"),
   DELETE("delete", "删除"),
   UPDATE("update", "修改"),
   SELECT("select", "查询"),

@@ -24,9 +24,9 @@ import java.util.stream.Collectors;
  */
 public final class TreeUtil {
   /**
-   * 跟节点标识
+   * 根节点标识
    */
-  private static final String TREE_ROOT = "treeRoot";
+  public static final String TREE_ROOT = "treeRoot";
 
   /**
    * 添加根节点

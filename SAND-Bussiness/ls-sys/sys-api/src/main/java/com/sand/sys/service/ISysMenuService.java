@@ -21,7 +21,24 @@ public interface ISysMenuService extends IService<SysMenu> {
   /**
    * 构建菜单树
    *
+   * @param needButton 是否需要按钮菜单
    * @return
    */
-  Tree buildMenuTree();
+  Tree buildMenuTree(boolean needButton);
+
+  /**
+   * 新增菜单
+   *
+   * @param menu dto
+   * @return
+   */
+  int add(SysMenu menu);
+
+  /**
+   * 修改菜单
+   *
+   * @param menu dto
+   * @return
+   */
+  int edit(SysMenu menu);
 }

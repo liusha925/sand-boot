@@ -9,7 +9,6 @@ package com.sand.base.util.tree;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.sand.base.enums.TreeEnum;
 import com.sand.base.util.common.StringUtil;
 import com.sand.base.util.tree.builder.ITreeBuilder;
 import lombok.AllArgsConstructor;
@@ -36,6 +35,10 @@ import java.util.Objects;
 @NoArgsConstructor
 @JsonPropertyOrder({"id", "pid", "name", "type", "height", "amount", "leafAmount", "content", "children"})
 public class Tree extends AbstractTree {
+  public enum TreeType {
+    // 根节点，分支节点，叶子节点
+    ROOT, BRANCH, LEAF
+  }
   /**
    * 节点ID
    */
@@ -51,7 +54,7 @@ public class Tree extends AbstractTree {
   /**
    * 节点类型
    */
-  private TreeEnum type;
+  private TreeType type;
   /**
    * 树对象信息（菜单树、角色树、机构树等）
    * 如果不想展示，设置JsonProperty.Access.WRITE_ONLY
@@ -61,8 +64,8 @@ public class Tree extends AbstractTree {
 
   @Override
   public void addBranch(Tree tree) {
-    if (this.type == TreeEnum.LEAF) {
-      this.type = TreeEnum.BRANCH;
+    if (this.type == TreeType.LEAF) {
+      this.type = TreeType.BRANCH;
     }
     children.add(tree);
   }
@@ -93,12 +96,12 @@ public class Tree extends AbstractTree {
     // 全部看作叶子节点
     trees.forEach(tree -> {
       tempTree.put(tree.getId(), tree);
-      tree.setType(TreeEnum.LEAF);
+      tree.setType(TreeType.LEAF);
     });
     for (Tree tree : trees) {
       // 寻找根节点
       if (StringUtil.isBlank(tree.getPid()) || !tempTree.containsKey(tree.getPid())) {
-        tree.setType(TreeEnum.ROOT);
+        tree.setType(TreeType.ROOT);
         children.add(tree);
       } else {
         // 下挂到根节点
@@ -110,7 +113,7 @@ public class Tree extends AbstractTree {
         if (Objects.equals(root.getPid(), tree.getId())) {
           // 原有根节点下挂到新的根，并变成分支节点
           tree.addBranch(root);
-          root.setType(TreeEnum.BRANCH);
+          root.setType(TreeType.BRANCH);
           children.remove(root);
         }
       }

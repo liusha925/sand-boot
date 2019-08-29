@@ -10,6 +10,8 @@ package com.sand.sys.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Objects;
+
 /**
  * 功能说明：存放菜单枚举类
  * 开发人员：@author liusha
@@ -26,6 +28,15 @@ public final class MenuEnum {
     F("F", "按钮");
     private String type;
     private String description;
+
+    public static MenuType getByType(String type) {
+      for (MenuType item : MenuType.values()) {
+        if (Objects.equals(type, item.getType())) {
+          return item;
+        }
+      }
+      return null;
+    }
   }
 
   @Getter
