@@ -71,7 +71,7 @@ public class SysMenu extends BaseEntity {
   /**
    * 显示顺序
    */
-  private String order;
+  private int order;
 
   /**
    * 打开方式（_item 页签中打开，_blank 新窗口打开，_current 当前窗口打开）

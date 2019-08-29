@@ -8,10 +8,10 @@ CREATE TABLE sys_menu
     `parent_id`   varchar(32) NOT NULL COMMENT '父菜单ID',
     `menu_name`   varchar(64) NOT NULL COMMENT '菜单名称',
     `menu_type`   char(1)     NOT NULL COMMENT '菜单类型（M目录 C菜单 F按钮）',
-    `menu_url`    varchar(200) DEFAULT '#' COMMENT '菜单URL',
+    `menu_url`    varchar(128) DEFAULT '#' COMMENT '菜单URL',
     `order`       int(4)       DEFAULT 0 COMMENT '显示顺序',
     `target`      varchar(16)  DEFAULT '_item' COMMENT '打开方式（_item 页签中打开，_blank 新窗口打开，_current 当前窗口打开）',
-    `visible`     char(1)      DEFAULT 0 COMMENT '菜单状态（0显示 1隐藏）',
+    `visible`     char(1)      DEFAULT '0' COMMENT '菜单状态（0显示 1隐藏）',
     `permission`  varchar(128) DEFAULT NULL COMMENT '权限标识',
     `icon`        varchar(128) DEFAULT '#' COMMENT '菜单图标',
     `create_by`   varchar(64)  DEFAULT NULL COMMENT '创建者',
@@ -21,7 +21,7 @@ CREATE TABLE sys_menu
     `remark`      varchar(512) DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`menu_id`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8 COMMENT = '菜单权限表';
+  DEFAULT CHARSET = utf8 COMMENT = '菜单表';
 -- ----------------------------
 -- 初始化-菜单信息表数据
 -- ----------------------------
