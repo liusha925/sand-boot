@@ -9,7 +9,7 @@ CREATE TABLE sys_menu
     `menu_name`   varchar(64) NOT NULL COMMENT '菜单名称',
     `menu_type`   char(1)     NOT NULL COMMENT '菜单类型（M目录 C菜单 F按钮）',
     `menu_url`    varchar(128) DEFAULT '#' COMMENT '菜单URL',
-    `order`       int(4)       DEFAULT 0 COMMENT '显示顺序',
+    `order_num`   int(4)       DEFAULT 0 COMMENT '显示顺序',
     `target`      varchar(16)  DEFAULT '_item' COMMENT '打开方式（_item 页签中打开，_blank 新窗口打开，_current 当前窗口打开）',
     `visible`     char(1)      DEFAULT '0' COMMENT '菜单状态（0显示 1隐藏）',
     `permission`  varchar(128) DEFAULT NULL COMMENT '权限标识',
