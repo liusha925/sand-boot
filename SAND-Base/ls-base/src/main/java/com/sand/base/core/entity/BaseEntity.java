@@ -8,6 +8,7 @@
 package com.sand.base.core.entity;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -19,6 +20,7 @@ import java.util.Date;
  * 功能描述：实体对象的功能字段
  */
 @Data
+@Accessors(chain = true)
 public class BaseEntity implements Serializable {
   private static final long serialVersionUID = 2367225182033538004L;
   /**

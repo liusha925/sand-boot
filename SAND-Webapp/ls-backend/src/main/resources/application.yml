@@ -3,6 +3,7 @@ logging:
   level:
     com.sand: debug
     org.springframework: warn
+    com.baomidou.mybatisplus.: warn
 # 数据源配置
 spring:
   datasource:
@@ -12,7 +13,9 @@ spring:
     password: root
 # mybatis-plus配置
 mybatis-plus:
-  # 扫描所有的mapper.xml映射文件
+  # 扫描表实体注册别名，参考https://mp.baomidou.com/config/#typealiasespackage
+  type-aliases-package: com.sand.*.entity
+  # 扫描通用枚举注入，参考https://mp.baomidou.com/config/#typeenumspackage
+  type-enums-package: com.sand.**.enums
+  # 扫描映射文件，参考https://mp.baomidou.com/config/#mapperlocations
   mapper-locations: classpath*:/mapper/**/*Mapper.xml
-  # 扫描实体对象
-  typeAliasesPackage: com.sand.*.entity

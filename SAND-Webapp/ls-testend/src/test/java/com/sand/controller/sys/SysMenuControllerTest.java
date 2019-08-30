@@ -27,9 +27,8 @@ public class SysMenuControllerTest extends JunitTest {
   private static final String ACTIVE_LOCAL = "http://localhost:8080";
 
   @Test
-  public void page() {
+  public void tree() {
     Map<String, Object> userMap = new HashMap<>();
-    // 测试@InitBinder
     userMap.put("createTime", new Date());
     String result = OkHttp3Util.httpPostJson(ACTIVE_LOCAL + "/sys/menu/tree", userMap);
     log.info("返回结果：{}", result);
