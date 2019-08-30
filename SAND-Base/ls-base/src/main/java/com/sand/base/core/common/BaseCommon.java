@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 
 /**
  * 功能说明：提供公共服务
@@ -41,7 +40,7 @@ public class BaseCommon {
    *
    * @return 系统和浏览器信息
    */
-  protected Map<String, Object> getOSAndBrowser() {
+  protected Map<String, Object> getOsAndBrowser() {
     return ServletUtil.getOSAndBrowser();
   }
 
@@ -53,17 +52,6 @@ public class BaseCommon {
    */
   protected Map<String, Object> page2map(Page page) {
     return page2map(page, page.getRecords());
-  }
-
-  /**
-   * 将mybatis-plus的分页插件转换成需要的展示格式
-   *
-   * @param page     分页信息
-   * @param function 构建分页
-   * @return 分页信息
-   */
-  protected Map<String, Object> page2map(Page page, Function<List, List> function) {
-    return page2map(page, function.apply(page.getRecords()));
   }
 
   /**

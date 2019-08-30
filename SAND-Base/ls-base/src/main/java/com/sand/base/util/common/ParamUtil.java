@@ -243,6 +243,16 @@ public class ParamUtil {
   /**
    * 获取分页参数，默认一页10
    *
+   * @param entity
+   * @return
+   */
+  public static Page pageParam(Object entity) {
+    return pageParam(new ConvertUtil<Object, Map<String, Object>>().convert(entity), DEFAULT_PAGE_SIZE);
+  }
+
+  /**
+   * 获取分页参数，默认一页10
+   *
    * @param map
    * @return
    */

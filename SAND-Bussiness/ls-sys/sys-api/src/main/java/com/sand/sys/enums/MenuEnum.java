@@ -15,7 +15,7 @@ import lombok.Getter;
 import java.util.Objects;
 
 /**
- * 功能说明：存放菜单枚举类
+ * 功能说明：存放系统菜单枚举类
  * 开发人员：@author liusha
  * 开发日期：2019/8/28 19:48
  * 功能描述：申明通用枚举属性将字段响应值返给客户端，参考https://mp.baomidou.com/guide/enum.html
@@ -28,9 +28,9 @@ public final class MenuEnum {
     M("M", "目录"),
     C("C", "菜单"),
     F("F", "按钮");
-    private String type;
+    private final String type;
     @JsonValue
-    private String description;
+    private final String description;
 
     @Override
     public String getValue() {
@@ -55,9 +55,9 @@ public final class MenuEnum {
     ITEM("_item", "页签中打开"),
     BLANK("_blank", "新窗口打开"),
     CURRENT("_current", "当前窗口打开");
-    private String target;
+    private final String target;
     @JsonValue
-    private String description;
+    private final String description;
 
     @Override
     public String getValue() {
@@ -71,13 +71,13 @@ public final class MenuEnum {
     // 菜单状态
     SHOW("0", "显示"),
     HIDE("1", "隐藏");
-    private String status;
+    private final String visible;
     @JsonValue
-    private String description;
+    private final String description;
 
     @Override
     public String getValue() {
-      return this.status;
+      return this.visible;
     }
   }
 

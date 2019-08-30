@@ -25,6 +25,6 @@ public enum ResultEnum {
   PARAM_MISSING_ERROR(1002, "缺少必要参数"),
   PARAM_CHECK_ERROR(1003, "参数校验不通过");
 
-  private int code;
-  private String msg;
+  private final int code;
+  private final String msg;
 }
