@@ -13,7 +13,7 @@ import com.sand.base.enums.ResultEnum;
 import com.sand.base.exception.LsException;
 import com.sand.base.util.editor.DateEditor;
 import com.sand.base.util.editor.StringEditor;
-import com.sand.base.util.result.ResultUtil;
+import com.sand.base.util.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -69,7 +69,7 @@ public class BaseController extends BaseCommon {
   @ExceptionHandler(Exception.class)
   public ResultEntity handleException(Exception e) {
     errorLog(e);
-    return ResultUtil.fail();
+    return ResultUtil.error();
   }
 
   /**
@@ -81,7 +81,7 @@ public class BaseController extends BaseCommon {
   @ExceptionHandler(LsException.class)
   public ResultEntity handleLsException(LsException e) {
     errorLog(e);
-    return ResultUtil.result(e.getCode(), e.getMessage());
+    return ResultUtil.info(e.getCode(), e.getMessage());
   }
 
   /**
@@ -93,7 +93,7 @@ public class BaseController extends BaseCommon {
   @ExceptionHandler({MissingServletRequestParameterException.class, HttpMessageNotReadableException.class})
   public ResultEntity handleMissingParamException(Exception e) {
     errorLog(e);
-    return ResultUtil.fail(ResultEnum.PARAM_MISSING_ERROR);
+    return ResultUtil.error(ResultEnum.PARAM_MISSING_ERROR);
   }
 
   /**

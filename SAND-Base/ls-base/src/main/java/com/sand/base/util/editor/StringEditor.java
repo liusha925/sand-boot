@@ -7,7 +7,7 @@
  */
 package com.sand.base.util.editor;
 
-import com.sand.base.util.common.StringUtil;
+import com.sand.base.util.lang3.StringUtil;
 
 import java.beans.PropertyEditorSupport;
 

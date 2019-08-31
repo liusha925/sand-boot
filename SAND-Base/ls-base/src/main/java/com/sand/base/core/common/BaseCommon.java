@@ -8,7 +8,7 @@
 package com.sand.base.core.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sand.base.util.common.ServletUtil;
+import com.sand.base.util.ServletUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -51,7 +51,7 @@ public final class TreeUtil {
     Tree root = Tree.builder()
         .id(TREE_ROOT)
         .name(rootName)
-        .content(rootName)
+        .entity(rootName)
         .build();
     return buildTree(tree, root);
   }

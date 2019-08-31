@@ -58,6 +58,18 @@ public interface ITree {
   <K> Tree buildTree(Collection<K> children, ITreeBuilder<K> builder);
 
   /**
+   * 构建平级的树（附带权限）
+   * 无根无支的叶子树
+   *
+   * @param children
+   * @param viewIds
+   * @param builder
+   * @param <K>
+   * @return
+   */
+  <K> Tree buildTree(Collection<K> children, String[] viewIds, ITreeBuilder<K> builder);
+
+  /**
    * 构建真正的树
    * 无根的分支叶子树
    *

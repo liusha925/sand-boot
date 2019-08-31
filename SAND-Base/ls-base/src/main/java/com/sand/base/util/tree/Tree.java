@@ -9,7 +9,7 @@ package com.sand.base.util.tree;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.sand.base.util.common.StringUtil;
+import com.sand.base.util.lang3.StringUtil;
 import com.sand.base.util.tree.builder.ITreeBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -33,12 +34,13 @@ import java.util.Objects;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonPropertyOrder({"id", "pid", "name", "type", "height", "amount", "leafAmount", "content", "children"})
+@JsonPropertyOrder({"id", "pid", "name", "type", "checked", "height", "amount", "leafAmount", "entity", "children"})
 public class Tree extends AbstractTree {
   public enum TreeType {
     // 根节点，分支节点，叶子节点
     ROOT, BRANCH, LEAF
   }
+
   /**
    * 节点ID
    */
@@ -56,11 +58,15 @@ public class Tree extends AbstractTree {
    */
   private TreeType type;
   /**
-   * 树对象信息（菜单树、角色树、机构树等）
+   * 是否勾选
+   */
+  private boolean checked = false;
+  /**
+   * 树实体信息（菜单树、角色树、机构树等）
    * 如果不想展示，设置JsonProperty.Access.WRITE_ONLY
    */
   @JsonProperty(access = JsonProperty.Access.READ_WRITE)
-  private Object content;
+  private Object entity;
 
   @Override
   public void addBranch(Tree tree) {
@@ -72,18 +78,26 @@ public class Tree extends AbstractTree {
 
   @Override
   public <K> Tree buildTree(Collection<K> children, ITreeBuilder<K> builder) {
+    return buildTree(children, new String[0], builder);
+  }
+
+  @Override
+  public <K> Tree buildTree(Collection<K> children, String[] viewIds, ITreeBuilder<K> builder) {
     if (Objects.isNull(children) || children.size() == 0) {
       return this;
     }
     List<Tree> trees = new ArrayList<>();
     children.stream()
-        .forEach(e -> {
+        .forEach(entity -> {
           Tree tree = Tree.builder()
-              .id(builder.getId(e))
-              .pid(builder.getPid(e))
-              .name(builder.getName(e))
-              .content(e)
+              .id(builder.getId(entity))
+              .pid(builder.getPid(entity))
+              .name(builder.getName(entity))
+              .entity(entity)
               .build();
+          Arrays.stream(viewIds)
+              .filter(viewId -> Objects.equals(tree.getId(), viewId))
+              .forEach(viewId -> tree.setChecked(true));
           trees.add(tree);
         });
     this.buildTree(trees);

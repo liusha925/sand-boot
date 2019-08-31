@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sand.base.core.controller.BaseController;
 import com.sand.base.core.entity.ResultEntity;
-import com.sand.base.util.result.ResultUtil;
+import com.sand.base.util.ResultUtil;
 import com.sand.demo.entity.DemoUser;
 import com.sand.demo.service.IDemoUserService;
 import lombok.extern.slf4j.Slf4j;

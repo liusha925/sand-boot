@@ -7,7 +7,7 @@
  */
 package com.sand.base.util.editor;
 
-import com.sand.base.util.common.DateUtil;
+import com.sand.base.util.lang3.DateUtil;
 
 import java.beans.PropertyEditorSupport;
 

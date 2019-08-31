@@ -5,7 +5,7 @@
  * 2019/8/6   liusha      新增
  * =========  ===========  =====================
  */
-package com.sand.base.util.common;
+package com.sand.base.util.lang3;
 
 import com.sand.base.constant.Constant;
 import org.apache.commons.lang3.AnnotationUtils;

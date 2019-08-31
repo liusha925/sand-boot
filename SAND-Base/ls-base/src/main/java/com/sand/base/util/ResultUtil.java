@@ -5,14 +5,14 @@
  * 2019/8/16   liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.util.result;
+package com.sand.base.util;
 
 import com.sand.base.constant.Constant;
 import com.sand.base.core.entity.ResultEntity;
 import com.sand.base.enums.ResultEnum;
 import com.sand.base.exception.LsException;
-import com.sand.base.util.common.ServletUtil;
-import com.sand.base.util.common.StringUtil;
+import com.sand.base.util.ServletUtil;
+import com.sand.base.util.lang3.StringUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -51,34 +51,34 @@ public class ResultUtil {
   }
 
   public static ResultEntity ok(Object data) {
-    return ok(data, ResultEnum.SUCCESS.getMsg());
+    return ok(data, ResultEnum.OK.getMsg());
   }
 
   public static ResultEntity ok(Object data, String msg) {
-    return result(data, ResultEnum.SUCCESS.getCode(), msg);
+    return info(data, ResultEnum.OK.getCode(), msg);
   }
 
-  public static ResultEntity fail() {
-    return fail(ResultEnum.ERROR.getMsg());
+  public static ResultEntity error() {
+    return error(ResultEnum.ERROR.getMsg());
   }
 
-  public static ResultEntity fail(String msg) {
-    return result(null, ResultEnum.ERROR.getCode(), msg);
+  public static ResultEntity error(String msg) {
+    return info(null, ResultEnum.ERROR.getCode(), msg);
   }
 
-  public static ResultEntity fail(ResultEnum resultEnum) {
-    return result(null, resultEnum);
+  public static ResultEntity error(ResultEnum resultEnum) {
+    return info(null, resultEnum);
   }
 
-  public static ResultEntity result(int code, String msg) {
-    return result(null, code, msg);
+  public static ResultEntity info(int code, String msg) {
+    return info(null, code, msg);
   }
 
-  public static ResultEntity result(Object data, ResultEnum resultEnum) {
-    return result(data, resultEnum.getCode(), resultEnum.getMsg());
+  public static ResultEntity info(Object data, ResultEnum resultEnum) {
+    return info(data, resultEnum.getCode(), resultEnum.getMsg());
   }
 
-  public static ResultEntity result(Object data, int code, String msg) {
+  public static ResultEntity info(Object data, int code, String msg) {
     try {
       data = formatSelectData(data);
     } catch (Exception e) {

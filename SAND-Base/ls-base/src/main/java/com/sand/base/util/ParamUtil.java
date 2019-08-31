@@ -5,13 +5,14 @@
  * 2019/8/16   liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.util.common;
+package com.sand.base.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sand.base.enums.ResultEnum;
 import com.sand.base.exception.LsException;
+import com.sand.base.util.lang3.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
@@ -163,7 +164,7 @@ public class ParamUtil {
         k = null;
       }
     } catch (Exception e) {
-      throw new LsException(ResultEnum.PARAM_CHECK_ERROR, e);
+      throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, e);
     }
     return k;
   }
@@ -184,7 +185,7 @@ public class ParamUtil {
         obj = JSONObject.parseObject(value, type);
       }
     } catch (Exception e) {
-      throw new LsException(ResultEnum.PARAM_CHECK_ERROR, e);
+      throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, e);
     }
     return obj;
   }

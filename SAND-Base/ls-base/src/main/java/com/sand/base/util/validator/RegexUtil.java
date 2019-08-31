@@ -5,7 +5,7 @@
  * 2019/8/19   liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.util.common;
+package com.sand.base.util.validator;
 
 import com.sand.base.enums.RegexEnum;
 import org.springframework.util.StringUtils;
@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
  * 开发日期：2019/8/19 13:43
  * 功能描述：正则校验工具类，需要RegexEnum辅助使用
  */
-public final class RegexUtil {
+public class RegexUtil {
   /**
    * 统一社会性用代码基础字符
    */
@@ -37,7 +37,7 @@ public final class RegexUtil {
    * @param loginName
    * @return
    */
-  public static final boolean isLoginName(String loginName) {
+  public static boolean isLoginName(String loginName) {
     return isLoginName(loginName, RegexEnum.LOGIN_NAME);
   }
 
@@ -48,8 +48,8 @@ public final class RegexUtil {
    * @param regexEnum
    * @return
    */
-  public static final boolean isLoginName(String loginName, RegexEnum regexEnum) {
-    return matchers(objectToStr(loginName), regexEnum);
+  public static boolean isLoginName(String loginName, RegexEnum regexEnum) {
+    return matchers(obj2Str(loginName), regexEnum);
   }
 
   /**
@@ -58,7 +58,7 @@ public final class RegexUtil {
    * @param password
    * @return
    */
-  public static final boolean isPassword(String password) {
+  public static boolean isPassword(String password) {
     return isPassword(password, RegexEnum.PASSWORD);
   }
 
@@ -69,8 +69,8 @@ public final class RegexUtil {
    * @param regexEnum
    * @return
    */
-  public static final boolean isPassword(String password, RegexEnum regexEnum) {
-    return matchers(objectToStr(password), regexEnum);
+  public static boolean isPassword(String password, RegexEnum regexEnum) {
+    return matchers(obj2Str(password), regexEnum);
   }
 
   /**
@@ -79,7 +79,7 @@ public final class RegexUtil {
    * @param payPassword
    * @return
    */
-  public static final boolean isPayPassword(String payPassword) {
+  public static boolean isPayPassword(String payPassword) {
     return isPayPassword(payPassword, RegexEnum.PAY_PASSWORD);
   }
 
@@ -90,8 +90,8 @@ public final class RegexUtil {
    * @param regexEnum
    * @return
    */
-  public static final boolean isPayPassword(String payPassword, RegexEnum regexEnum) {
-    return matchers(objectToStr(payPassword), regexEnum);
+  public static boolean isPayPassword(String payPassword, RegexEnum regexEnum) {
+    return matchers(obj2Str(payPassword), regexEnum);
   }
 
   /**
@@ -100,7 +100,7 @@ public final class RegexUtil {
    * @param mobilePhone
    * @return
    */
-  public static final boolean isMobilePhone(String mobilePhone) {
+  public static boolean isMobilePhone(String mobilePhone) {
     return isMobilePhone(mobilePhone, RegexEnum.MOBILE_NUMBER);
   }
 
@@ -111,8 +111,8 @@ public final class RegexUtil {
    * @param regexEnum
    * @return
    */
-  public static final boolean isMobilePhone(String mobilePhone, RegexEnum regexEnum) {
-    return matchers(objectToStr(mobilePhone), regexEnum);
+  public static boolean isMobilePhone(String mobilePhone, RegexEnum regexEnum) {
+    return matchers(obj2Str(mobilePhone), regexEnum);
   }
 
   /**
@@ -121,7 +121,7 @@ public final class RegexUtil {
    * @param telPhone
    * @return
    */
-  public static final boolean isTelPhone(String telPhone) {
+  public static boolean isTelPhone(String telPhone) {
     if (telPhone.length() > 9) {
       return isTelPhone(telPhone, RegexEnum.AREA_TEL_NUMBER);
     } else {
@@ -136,8 +136,8 @@ public final class RegexUtil {
    * @param regexEnum
    * @return
    */
-  public static final boolean isTelPhone(String telPhone, RegexEnum regexEnum) {
-    return matchers(objectToStr(telPhone), regexEnum);
+  public static boolean isTelPhone(String telPhone, RegexEnum regexEnum) {
+    return matchers(obj2Str(telPhone), regexEnum);
   }
 
   /**
@@ -146,7 +146,7 @@ public final class RegexUtil {
    * @param bankCard
    * @return
    */
-  public static final boolean isBankCard(String bankCard) {
+  public static boolean isBankCard(String bankCard) {
     return isBankCard(bankCard, RegexEnum.BANK_NUMBER);
   }
 
@@ -157,8 +157,8 @@ public final class RegexUtil {
    * @param regexEnum
    * @return
    */
-  public static final boolean isBankCard(String bankCard, RegexEnum regexEnum) {
-    return matchers(objectToStr(bankCard), regexEnum);
+  public static boolean isBankCard(String bankCard, RegexEnum regexEnum) {
+    return matchers(obj2Str(bankCard), regexEnum);
   }
 
   /**
@@ -167,7 +167,7 @@ public final class RegexUtil {
    * @param cardId
    * @return
    */
-  public static final boolean isCardId(String cardId) {
+  public static boolean isCardId(String cardId) {
     return isCardId(cardId, RegexEnum.ID_NUMBER);
   }
 
@@ -178,8 +178,8 @@ public final class RegexUtil {
    * @param regexEnum
    * @return
    */
-  public static final boolean isCardId(String cardId, RegexEnum regexEnum) {
-    return matchers(objectToStr(cardId), regexEnum);
+  public static boolean isCardId(String cardId, RegexEnum regexEnum) {
+    return matchers(obj2Str(cardId), regexEnum);
   }
 
   /**
@@ -188,7 +188,7 @@ public final class RegexUtil {
    * @param realName
    * @return
    */
-  public static final boolean isRealName(String realName) {
+  public static boolean isRealName(String realName) {
     return isRealName(realName, RegexEnum.REAL_NAME);
   }
 
@@ -199,8 +199,8 @@ public final class RegexUtil {
    * @param regexEnum
    * @return
    */
-  public static final boolean isRealName(String realName, RegexEnum regexEnum) {
-    return matchers(objectToStr(realName), regexEnum);
+  public static boolean isRealName(String realName, RegexEnum regexEnum) {
+    return matchers(obj2Str(realName), regexEnum);
   }
 
   /**
@@ -209,7 +209,7 @@ public final class RegexUtil {
    * @param email
    * @return
    */
-  public static final boolean isEmail(String email) {
+  public static boolean isEmail(String email) {
     return isEmail(email, RegexEnum.EMAIL);
   }
 
@@ -220,8 +220,8 @@ public final class RegexUtil {
    * @param regexEnum
    * @return
    */
-  public static final boolean isEmail(String email, RegexEnum regexEnum) {
-    return matchers(objectToStr(email), regexEnum);
+  public static boolean isEmail(String email, RegexEnum regexEnum) {
+    return matchers(obj2Str(email), regexEnum);
   }
 
   /**
@@ -230,7 +230,7 @@ public final class RegexUtil {
    * @param number
    * @return
    */
-  public static final boolean isNumber(String number) {
+  public static boolean isNumber(String number) {
     return isNumber(number, RegexEnum.NUMBER);
   }
 
@@ -240,8 +240,8 @@ public final class RegexUtil {
    * @param number
    * @return
    */
-  public static final boolean isNumber(String number, RegexEnum regexEnum) {
-    return matchers(objectToStr(number), regexEnum);
+  public static boolean isNumber(String number, RegexEnum regexEnum) {
+    return matchers(obj2Str(number), regexEnum);
   }
 
   /**
@@ -250,7 +250,7 @@ public final class RegexUtil {
    * @param integer
    * @return
    */
-  public static final boolean isInteger(String integer) {
+  public static boolean isInteger(String integer) {
     return isInteger(integer, RegexEnum.INTEGER);
   }
 
@@ -260,8 +260,8 @@ public final class RegexUtil {
    * @param integer
    * @return
    */
-  public static final boolean isInteger(String integer, RegexEnum regexEnum) {
-    return matchers(objectToStr(integer), regexEnum);
+  public static boolean isInteger(String integer, RegexEnum regexEnum) {
+    return matchers(obj2Str(integer), regexEnum);
   }
 
   /**
@@ -270,7 +270,7 @@ public final class RegexUtil {
    * @param decimal
    * @return
    */
-  public static final boolean isDecimal(String decimal) {
+  public static boolean isDecimal(String decimal) {
     return isDecimal(decimal, RegexEnum.DECIMAL);
   }
 
@@ -280,8 +280,8 @@ public final class RegexUtil {
    * @param decimal
    * @return
    */
-  public static final boolean isDecimal(String decimal, RegexEnum regexEnum) {
-    return matchers(objectToStr(decimal), regexEnum);
+  public static boolean isDecimal(String decimal, RegexEnum regexEnum) {
+    return matchers(obj2Str(decimal), regexEnum);
   }
 
   /**
@@ -290,7 +290,7 @@ public final class RegexUtil {
    * @param unifyCode
    * @return
    */
-  public static final boolean isUnifyCode(String unifyCode) {
+  public static boolean isUnifyCode(String unifyCode) {
     if ((unifyCode.equals("")) || unifyCode.length() != 18) {
       return false;
     }
@@ -330,7 +330,7 @@ public final class RegexUtil {
    * @param regex 正则表达式
    * @return
    */
-  public static final boolean matchers(String str, RegexEnum regex) {
+  public static boolean matchers(String str, RegexEnum regex) {
     if (StringUtils.isEmpty(str)) {
       return false;
     }
@@ -342,18 +342,18 @@ public final class RegexUtil {
   /**
    * 对象转为字符串
    *
-   * @param object 待转换的对象
+   * @param obj 待转换的对象
    * @return
    */
-  public static final String objectToStr(Object object) {
+  public static String obj2Str(Object obj) {
     String str;
-    if (Objects.isNull(object)) {
+    if (Objects.isNull(obj)) {
       return "";
     }
-    if (object instanceof String) {
-      str = (String) object;
+    if (obj instanceof String) {
+      str = (String) obj;
     } else {
-      str = object.toString();
+      str = obj.toString();
     }
     return str.trim();
   }

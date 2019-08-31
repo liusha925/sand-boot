@@ -83,7 +83,7 @@ public class SysMenu extends BaseEntity {
   /**
    * 权限字符串
    */
-  private String permission;
+  private String purview;
 
   /**
    * 菜单图标

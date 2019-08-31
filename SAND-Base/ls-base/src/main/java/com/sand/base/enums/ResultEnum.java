@@ -20,10 +20,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ResultEnum {
   // 通用结果集
-  SUCCESS(200, "成功"),
+  OK(200, "成功"),
   ERROR(1001, "服务器异常"),
   PARAM_MISSING_ERROR(1002, "缺少必要参数"),
-  PARAM_CHECK_ERROR(1003, "参数校验不通过");
+  PARAM_CHECKED_ERROR(1003, "参数校验不通过");
 
   private final int code;
   private final String msg;

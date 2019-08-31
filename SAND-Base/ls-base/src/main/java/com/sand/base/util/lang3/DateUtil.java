@@ -5,7 +5,7 @@
  * 2019/8/16   liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.util.common;
+package com.sand.base.util.lang3;
 
 import com.sand.base.enums.DateEnum;
 import lombok.AllArgsConstructor;

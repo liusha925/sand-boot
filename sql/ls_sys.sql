@@ -12,7 +12,7 @@ CREATE TABLE sys_menu
     `order_num`   int(4)       DEFAULT 0 COMMENT '显示顺序',
     `target`      varchar(16)  DEFAULT '_item' COMMENT '打开方式（_item 页签中打开，_blank 新窗口打开，_current 当前窗口打开）',
     `visible`     char(1)      DEFAULT '0' COMMENT '菜单状态（0显示 1隐藏）',
-    `permission`  varchar(128) DEFAULT NULL COMMENT '权限标识',
+    `purview`     varchar(128) DEFAULT NULL COMMENT '权限标识',
     `icon`        varchar(128) DEFAULT '#' COMMENT '菜单图标',
     `create_by`   varchar(64)  DEFAULT NULL COMMENT '创建者',
     `update_by`   varchar(64)  DEFAULT NULL COMMENT '更新者',
