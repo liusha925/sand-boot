@@ -37,15 +37,21 @@ public class StringUtil extends StringUtils {
   }
 
   /**
-   * 将对象转为字符串
+   * 对象转为字符串
    *
-   * @param obj
+   * @param obj 待转换的对象
    * @return
    */
-  public static String isNull(Object obj) {
-    String str = Objects.isNull(obj) ? "" : (
-        (obj instanceof String) ? (String) obj : obj.toString()
-    );
+  public static String obj2Str(Object obj) {
+    String str;
+    if (Objects.isNull(obj)) {
+      return "";
+    }
+    if (obj instanceof String) {
+      str = (String) obj;
+    } else {
+      str = obj.toString();
+    }
     return str.trim();
   }
 
@@ -55,7 +61,7 @@ public class StringUtil extends StringUtils {
    * @param s
    * @return
    */
-  public static final boolean isBlank(String s) {
+  public static boolean isBlank(String s) {
     if (Objects.isNull(s) || Objects.equals(s.trim(), "")) {
       return true;
     }
@@ -68,7 +74,7 @@ public class StringUtil extends StringUtils {
    * @param s
    * @return
    */
-  public static final boolean isNotBlank(String s) {
+  public static boolean isNotBlank(String s) {
     return !isBlank(s);
   }
 

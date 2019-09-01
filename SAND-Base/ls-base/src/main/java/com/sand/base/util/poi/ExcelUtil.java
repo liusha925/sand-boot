@@ -14,11 +14,12 @@ import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.TemplateExportParams;
 import com.sand.base.constant.Constant;
 import com.sand.base.enums.DateEnum;
+import com.sand.base.enums.FileType;
 import com.sand.base.enums.ResultEnum;
 import com.sand.base.exception.LsException;
+import com.sand.base.util.http.OkHttp3Util;
 import com.sand.base.util.lang3.DateUtil;
 import com.sand.base.util.lang3.StringUtil;
-import com.sand.base.util.http.OkHttp3Util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -120,7 +121,7 @@ public class ExcelUtil {
     FileOutputStream fos;
     try {
       saveFolder = OkHttp3Util.getServicePath() + File.separator + "excel";
-      savePath = saveFolder + File.separator + System.currentTimeMillis() + Constant.XLS;
+      savePath = saveFolder + File.separator + System.currentTimeMillis() + FileType.XLS.getSuffix();
       File createFolder = new File(saveFolder);
       if (!createFolder.exists()) {
         createFolder.mkdirs();
@@ -185,9 +186,9 @@ public class ExcelUtil {
       List<String[]> result = new ArrayList<>();
       String fileName = file.getOriginalFilename();
       Workbook workbook;
-      if (fileName.endsWith(Constant.XLS)) {
+      if (fileName.endsWith(FileType.XLS.getSuffix())) {
         workbook = new HSSFWorkbook(file.getInputStream());
-      } else if (fileName.endsWith(Constant.XLSX)) {
+      } else if (fileName.endsWith(FileType.XLSX.getSuffix())) {
         workbook = new XSSFWorkbook(file.getInputStream());
       } else {
         throw new LsException(ResultEnum.ERROR, "读取文件类型异常");
@@ -195,10 +196,10 @@ public class ExcelUtil {
       // 保存文件
       if (saveFileFlag) {
         String saveFileName = fileName.substring(0, fileName.lastIndexOf(".")) + "-" + StringUtil.getUniqueSerialNo();
-        if (fileName.endsWith(Constant.XLS)) {
-          saveFileName = saveFileName + Constant.XLS;
-        } else if (fileName.endsWith(Constant.XLSX)) {
-          saveFileName = saveFileName + Constant.XLSX;
+        if (fileName.endsWith(FileType.XLS.getSuffix())) {
+          saveFileName = saveFileName + FileType.XLS.getSuffix();
+        } else if (fileName.endsWith(FileType.XLSX.getSuffix())) {
+          saveFileName = saveFileName + FileType.XLSX.getSuffix();
         } else {
           throw new LsException(ResultEnum.ERROR, "读取文件类型异常");
         }

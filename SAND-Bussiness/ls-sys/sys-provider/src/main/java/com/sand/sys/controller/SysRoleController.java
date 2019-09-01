@@ -41,7 +41,6 @@ public class SysRoleController extends BaseController {
     Page<SysRole> rolePage = ParamUtil.pageParam(role);
     QueryWrapper<SysRole> queryWrapper = new QueryWrapper<>();
     Page<SysRole> page = (Page<SysRole>) roleService.page(rolePage, queryWrapper);
-    System.out.println(page);
 
     return ResultUtil.ok(page2map(page));
   }

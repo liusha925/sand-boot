@@ -28,17 +28,21 @@ import java.util.Objects;
  */
 public class ParamUtil {
   /**
-   * 整型参数默认值
+   * 默认整型参数值
    */
-  private static final int DEFAULT_INT_PARAM = 0;
+  private static final int DEFAULT_PARAM_INT = 0;
   /**
-   * 分页默认条数
+   * 默认分页条数
    */
-  private static final int DEFAULT_PAGE_SIZE = 20;
+  private static final int DEFAULT_PAGE_SIZE = 10;
   /**
-   * 分页最大条数
+   * 默认当前页面
+   */
+  private static final int DEFAULT_PAGE_CURRENT = 1;
+  /**
+   * 默认分页最大条数
    **/
-  private static final int MAX_PAGE_SIZE = 200;
+  private static final int DEFAULT_MAX_PAGE_SIZE = 100;
 
   public ParamUtil() {
   }
@@ -51,7 +55,7 @@ public class ParamUtil {
    * @return
    */
   public static int getIntValue(Map<String, Object> map, String key) {
-    return getIntValue(map, key, DEFAULT_INT_PARAM);
+    return getIntValue(map, key, DEFAULT_PARAM_INT);
   }
 
   /**
@@ -63,7 +67,7 @@ public class ParamUtil {
    * @return
    */
   public static int getIntValue(Map<String, Object> map, String key, int defaultValue) {
-    String value = StringUtil.isNull(getValue(map, key, defaultValue));
+    String value = StringUtil.obj2Str(getValue(map, key, defaultValue));
     if (StringUtil.isBlank(value)) {
       return defaultValue;
     }
@@ -79,7 +83,7 @@ public class ParamUtil {
    * @return
    */
   public static int getIntValue(Map<String, Object> map, String key, boolean required) {
-    return Integer.parseInt(getValue(map, key, DEFAULT_INT_PARAM, required).toString());
+    return Integer.parseInt(getValue(map, key, DEFAULT_PARAM_INT, required).toString());
   }
 
   /**
@@ -225,18 +229,18 @@ public class ParamUtil {
   public static Object getValue(Map<String, Object> map, String key, Object defaultValue, boolean required) {
     if (Objects.isNull(map)) {
       if (required) {
-        throw new LsException(ResultEnum.PARAM_MISSING_ERROR, "请求参数【" + key + "】不能为空");
+        throw new LsException(ResultEnum.PARAM_MISSING_ERROR, "参数【" + key + "】不能为空");
       }
       return defaultValue;
     }
     if (map.containsKey(key)) {
       Object value = map.get(key);
-      if (required && StringUtil.isBlank(StringUtil.isNull(value))) {
-        throw new LsException(ResultEnum.PARAM_MISSING_ERROR, "请求参数【" + key + "】不能为空");
+      if (required && StringUtil.isBlank(StringUtil.obj2Str(value))) {
+        throw new LsException(ResultEnum.PARAM_MISSING_ERROR, "参数【" + key + "】不能为空");
       }
       return value;
     } else if (required) {
-      throw new LsException(ResultEnum.PARAM_MISSING_ERROR, "请求参数【" + key + "】不能为空");
+      throw new LsException(ResultEnum.PARAM_MISSING_ERROR, "参数【" + key + "】不能为空");
     }
     return defaultValue;
   }
@@ -248,7 +252,7 @@ public class ParamUtil {
    * @return
    */
   public static Page pageParam(Object entity) {
-    return pageParam(new ConvertUtil<Object, Map<String, Object>>().convert(entity), DEFAULT_PAGE_SIZE);
+    return pageParam(ConvertUtil.obj2Map(entity), DEFAULT_PAGE_SIZE);
   }
 
   /**
@@ -269,7 +273,7 @@ public class ParamUtil {
    * @return
    */
   public static Page pageParam(Map<String, Object> map, int defaultSize) {
-    return pageParam(map, defaultSize, MAX_PAGE_SIZE);
+    return pageParam(map, defaultSize, DEFAULT_MAX_PAGE_SIZE);
   }
 
   /**
@@ -284,14 +288,22 @@ public class ParamUtil {
     if (Objects.isNull(map)) {
       map = new HashMap<>();
     }
+    // 每页条数
     int size;
-    String pageSize = StringUtil.isNull(map.get("size"));
+    String pageSize = StringUtil.obj2Str(map.get("size"));
     if (StringUtil.isBlank(pageSize)) {
       size = DEFAULT_PAGE_SIZE;
     } else {
       size = getIntValue(map, "size", defaultSize);
     }
-    int current = getIntValue(map, "current");
+    // 当前页码
+    int current;
+    String pageCurrent = StringUtil.obj2Str(map.get("current"));
+    if (StringUtil.isBlank(pageCurrent)) {
+      current = DEFAULT_PAGE_CURRENT;
+    } else {
+      current = getIntValue(map, "current", DEFAULT_PAGE_CURRENT);
+    }
     size = Math.min(size, maxSize);
     Page page = new Page(current, size);
     return page;

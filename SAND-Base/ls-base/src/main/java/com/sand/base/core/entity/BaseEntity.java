@@ -7,6 +7,8 @@
  */
 package com.sand.base.core.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.sand.base.util.json.serializer.DateTimeJsonSerializer;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -34,11 +36,13 @@ public class BaseEntity implements Serializable {
   /**
    * 创建时间
    */
+  @JsonSerialize(using = DateTimeJsonSerializer.class)
   private Date createTime;
 
   /**
    * 更新时间
    */
+  @JsonSerialize(using = DateTimeJsonSerializer.class)
   private Date updateTime;
 
   /**

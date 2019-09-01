@@ -50,7 +50,7 @@ public class BaseCommon {
    * @param page 分页信息
    * @return 分页信息
    */
-  protected Map<String, Object> page2map(Page page) {
+  protected Map<String, Object> page2map(Page<?> page) {
     return page2map(page, page.getRecords());
   }
 
@@ -61,7 +61,7 @@ public class BaseCommon {
    * @param records 分页数据
    * @return 分页信息
    */
-  protected Map<String, Object> page2map(Page page, List records) {
+  protected Map<String, Object> page2map(Page<?> page, List records) {
     Map<String, Object> map = new HashMap<>();
     map.put("records", records);
     map.put("total", page.getTotal());

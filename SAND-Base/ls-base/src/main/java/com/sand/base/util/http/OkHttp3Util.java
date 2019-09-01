@@ -187,7 +187,7 @@ public class OkHttp3Util {
    * @return
    */
   public static String httpPostJson(String url, String jsonStr, Headers headers) {
-    log.info("url:" + url + " 参数：" + jsonStr);
+    log.info("url：" + url + "，参数：" + jsonStr);
     MediaType JSON = MediaType.parse("application/json; charset=UTF-8");
     okhttp3.RequestBody body = okhttp3.RequestBody.create(JSON, jsonStr);
     Request request = new Request.Builder().url(url).post(body).headers(headers).build();
