@@ -45,7 +45,6 @@ public final class MenuEnum {
       }
       return null;
     }
-
   }
 
   @Getter
@@ -63,6 +62,15 @@ public final class MenuEnum {
     public String getValue() {
       return this.target;
     }
+
+    public static Target getByTarget(Target target) {
+      for (Target item : Target.values()) {
+        if (Objects.equals(target, item)) {
+          return item;
+        }
+      }
+      return null;
+    }
   }
 
   @Getter
@@ -78,6 +86,15 @@ public final class MenuEnum {
     @Override
     public String getValue() {
       return this.visible;
+    }
+
+    public static Visible getByVisible(Visible visible) {
+      for (Visible item : Visible.values()) {
+        if (Objects.equals(visible, item)) {
+          return item;
+        }
+      }
+      return null;
     }
   }
 

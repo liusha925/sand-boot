@@ -46,7 +46,7 @@ CREATE TABLE sys_role
 (
     `role_id`     varchar(32) NOT NULL COMMENT '角色ID',
     `role_name`   varchar(64) NOT NULL COMMENT '角色名称',
-    `role_key`    varchar(64) NOT NULL COMMENT '权限字符串',
+    `role_key`    varchar(64) NOT NULL COMMENT '权限字符',
     `order_num`   int(4)       DEFAULT 0 COMMENT '显示顺序',
     `status`      char(1)      DEFAULT '0' COMMENT '角色状态（0正常 1停用）',
     `del_flag`    char(1)      DEFAULT '0' COMMENT '删除标志（0逻辑未删除 1逻辑已删除）',

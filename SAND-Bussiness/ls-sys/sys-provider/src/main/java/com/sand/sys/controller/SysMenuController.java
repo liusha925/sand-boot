@@ -49,18 +49,18 @@ public class SysMenuController extends BaseController {
 
   @RequestMapping("/add")
   public ResultEntity add(@RequestBody SysMenu menu) {
-    log.info("SysMenu add params：{}", menu);
+    log.info("SysMenuController add params：{}", menu);
     menuService.add(menu);
 
-    return ResultUtil.ok();
+    return ResultUtil.ok("新增成功");
   }
 
   @RequestMapping("/edit")
   public ResultEntity edit(@RequestBody SysMenu menu) {
-    log.info("SysMenu edit params：{}", menu);
+    log.info("SysMenuController edit params：{}", menu);
     menuService.edit(menu);
 
-    return ResultUtil.ok();
+    return ResultUtil.ok("修改成功");
   }
 
 }

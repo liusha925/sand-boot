@@ -9,6 +9,7 @@ package com.sand.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.sand.sys.entity.SysRole;
+import org.springframework.stereotype.Repository;
 
 /**
  * 功能说明：系统角色
@@ -16,5 +17,6 @@ import com.sand.sys.entity.SysRole;
  * 开发日期：2019/8/30 17:11
  * 功能描述：系统角色
  */
+@Repository
 public interface SysRoleMapper extends BaseMapper<SysRole> {
 }

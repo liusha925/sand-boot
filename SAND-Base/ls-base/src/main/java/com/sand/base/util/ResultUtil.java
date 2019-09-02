@@ -54,6 +54,10 @@ public class ResultUtil {
     return ok(data, ResultEnum.OK.getMsg());
   }
 
+  public static ResultEntity ok(String msg) {
+    return ok(null, msg);
+  }
+
   public static ResultEntity ok(Object data, String msg) {
     return info(data, ResultEnum.OK.getCode(), msg);
   }

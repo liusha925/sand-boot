@@ -17,6 +17,7 @@ import com.sand.sys.entity.SysRole;
 import com.sand.sys.service.ISysRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,11 +38,43 @@ public class SysRoleController extends BaseController {
 
   @RequestMapping("/page")
   public ResultEntity page(@RequestBody SysRole role) {
-    log.info("SysRoleController page：{}", role);
+    log.info("SysRoleController page params：{}", role);
     Page<SysRole> rolePage = ParamUtil.pageParam(role);
     QueryWrapper<SysRole> queryWrapper = new QueryWrapper<>();
     Page<SysRole> page = (Page<SysRole>) roleService.page(rolePage, queryWrapper);
 
     return ResultUtil.ok(page2map(page));
+  }
+
+  @RequestMapping("/add")
+  public ResultEntity add(@RequestBody SysRole role) {
+    log.info("SysRoleController add params：{}", role);
+    roleService.add(role);
+
+    return ResultUtil.ok("新增成功");
+  }
+
+  @RequestMapping("/edit")
+  public ResultEntity edit(@RequestBody SysRole role) {
+    log.info("SysRoleController edit params：{}", role);
+    roleService.edit(role);
+
+    return ResultUtil.ok("修改成功");
+  }
+
+  @RequestMapping("/cancel/authorize/{roleId}")
+  public ResultEntity cancelAuthorize(@PathVariable String roleId) {
+    log.info("SysRoleController cancelAuthorize params：{}", roleId);
+    roleService.cancelAuthorize(roleId);
+
+    return ResultUtil.ok("取消成功");
+  }
+
+  @RequestMapping("/reauthorize")
+  public ResultEntity reauthorize(@RequestBody SysRole role) {
+    log.info("SysRoleController cancelAuthorize params：{}", role);
+    roleService.reauthorize(role);
+
+    return ResultUtil.ok("授权成功");
   }
 }

@@ -53,7 +53,8 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
   @Transactional(rollbackFor = LsException.class)
   public int add(SysMenu menu) {
     // 参数校验
-    checkSysMenu(menu, OperateEnum.INSERT);
+    checkedSysMenu(menu, OperateEnum.INSERT);
+    // 信息入库
     if (!super.save(menu)) {
       throw new LsException("新增菜单信息入库异常！");
     }
@@ -64,7 +65,8 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
   @Transactional(rollbackFor = LsException.class)
   public int edit(SysMenu menu) {
     // 参数校验
-    checkSysMenu(menu, OperateEnum.UPDATE);
+    checkedSysMenu(menu, OperateEnum.UPDATE);
+    // 信息入库
     if (!super.updateById(menu)) {
       throw new LsException("修改菜单信息入库异常！");
     }
@@ -101,7 +103,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
    *
    * @param menu
    */
-  private void checkSysMenu(SysMenu menu, OperateEnum operate) {
+  private void checkedSysMenu(SysMenu menu, OperateEnum operate) {
     // 新增/修改通用参数非空校验
     if (StringUtil.isBlank(menu.getParentId())) {
       throw new LsException(ResultEnum.PARAM_MISSING_ERROR, "父级菜单ID不能为空！");
@@ -120,9 +122,25 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
       }
     }
     // 校验菜单类型是否存在
-    MenuEnum.MenuType menuType = MenuEnum.MenuType.getByType(menu.getMenuType());
-    if (Objects.isNull(menuType)) {
-      throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, "此菜单类型不存在！");
+    if (Objects.nonNull(menu.getMenuType())) {
+      MenuEnum.MenuType menuType = MenuEnum.MenuType.getByType(menu.getMenuType());
+      if (Objects.isNull(menuType)) {
+        throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, "此菜单类型不存在！");
+      }
+    }
+    // 校验打开方式是否存在
+    if (Objects.nonNull(menu.getTarget())) {
+      MenuEnum.Target target = MenuEnum.Target.getByTarget(menu.getTarget());
+      if (Objects.isNull(target)) {
+        throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, "此打开方式不存在！");
+      }
+    }
+    // 校验菜单状态是否存在
+    if (Objects.nonNull(menu.getVisible())) {
+      MenuEnum.Visible visible = MenuEnum.Visible.getByVisible(menu.getVisible());
+      if (Objects.isNull(visible)) {
+        throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, "此菜单状态不存在！");
+      }
     }
     // 菜单名查询条件组装
     QueryWrapper<SysMenu> menuNameWrapper = new QueryWrapper<>();

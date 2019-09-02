@@ -17,4 +17,33 @@ import com.sand.sys.entity.SysRole;
  * 功能描述：系统角色
  */
 public interface ISysRoleService extends IService<SysRole> {
+  /**
+   * 新增角色
+   *
+   * @param role dto
+   * @return
+   */
+  int add(SysRole role);
+
+  /**
+   * 修改角色
+   *
+   * @param role dto
+   * @return
+   */
+  int edit(SysRole role);
+
+  /**
+   * 取消权限
+   *
+   * @param roleId 需取消权限的角色ID
+   */
+  void cancelAuthorize(String roleId);
+
+  /**
+   * 重新授权
+   *
+   * @param role 需重新授权的角色
+   */
+  void reauthorize(SysRole role);
 }

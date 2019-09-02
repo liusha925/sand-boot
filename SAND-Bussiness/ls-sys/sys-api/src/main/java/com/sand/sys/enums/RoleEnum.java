@@ -12,6 +12,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Objects;
+
 /**
  * 功能说明：存放系统角色枚举类
  * 开发人员：@author liusha
@@ -34,6 +36,15 @@ public final class RoleEnum {
     public String getValue() {
       return this.status;
     }
+
+    public static Status getByStatus(Status status) {
+      for (Status item : Status.values()) {
+        if (Objects.equals(status, item)) {
+          return item;
+        }
+      }
+      return null;
+    }
   }
 
   @Getter
@@ -50,6 +61,15 @@ public final class RoleEnum {
     @Override
     public String getValue() {
       return this.flag;
+    }
+
+    public static DelFlag getByFlag(DelFlag flag) {
+      for (DelFlag item : DelFlag.values()) {
+        if (Objects.equals(flag, item)) {
+          return item;
+        }
+      }
+      return null;
     }
   }
 
@@ -69,6 +89,15 @@ public final class RoleEnum {
     @Override
     public String getValue() {
       return this.scope;
+    }
+
+    public static DataScope getByScope(DataScope scope) {
+      for (DataScope item : DataScope.values()) {
+        if (Objects.equals(scope, item)) {
+          return item;
+        }
+      }
+      return null;
     }
   }
 }
