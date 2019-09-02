@@ -16,7 +16,7 @@ import java.io.OutputStream;
  * 功能说明：文件处理执行接口
  * 开发人员：@author liusha
  * 开发日期：2019/8/10 20:15
- * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
+ * 功能描述：文件处理执行接口
  */
 public interface FileExecutor {
   /**

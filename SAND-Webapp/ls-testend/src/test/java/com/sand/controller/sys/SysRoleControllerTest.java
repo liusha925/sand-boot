@@ -30,6 +30,7 @@ public class SysRoleControllerTest extends JunitTest {
   public void page() {
     Map<String, Object> roleMap = new HashMap<>();
     roleMap.put("createTime", new Date());
+    roleMap.put("updateTime", new Date());
     String result = OkHttp3Util.httpPostJson(ACTIVE_LOCAL + "/sys/role/page", roleMap);
     log.info("返回结果：{}", result);
   }

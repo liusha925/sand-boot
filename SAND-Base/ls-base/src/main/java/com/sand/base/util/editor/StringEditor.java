@@ -11,7 +11,8 @@ import com.sand.base.util.lang3.StringUtil;
 
 import java.beans.PropertyEditorSupport;
 
-/**功能说明：字符串编辑器
+/**
+ * 功能说明：字符串编辑器
  * 开发人员：@author liusha
  * 开发日期：2019/8/26 22:38
  * 功能描述：null转字符串处理,无需配置，spring容器会自动加载PropertyEditor

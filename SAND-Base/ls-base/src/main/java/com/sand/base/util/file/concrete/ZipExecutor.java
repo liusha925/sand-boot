@@ -20,7 +20,7 @@ import java.util.zip.ZipOutputStream;
  * 功能说明：文件压缩执行类
  * 开发人员：@author liusha
  * 开发日期：2019/8/10 22:33
- * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
+ * 功能描述：文件压缩执行类
  */
 public class ZipExecutor extends SimpleFileVisitor<Path> {
   private ZipOutputStream zos;

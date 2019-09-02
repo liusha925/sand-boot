@@ -144,18 +144,7 @@ public class DateUtil extends DateUtils {
    * @return
    */
   public static long getNowTimestamp() {
-    return getTimestamp(new Date(), DateEnum.F1_YYYY_MM_DD);
-  }
-
-  /**
-   * 将时间戳转换成时间字符串
-   *
-   * @param timestamp 需要转换的时间戳
-   * @param dateEnum  the pattern from DateEnum
-   * @return
-   */
-  public static String formatTimestamp(long timestamp, DateEnum dateEnum) {
-    return DateFormatUtils.format(timestamp * 1000, dateEnum.getPattern());
+    return getTimestamp(new Date(), DateEnum.F1_YYYY_MM_DD_HH_MM_SS);
   }
 
   /**
@@ -168,6 +157,17 @@ public class DateUtil extends DateUtils {
   public static long getTimestamp(Date date, DateEnum dateEnum) {
     SimpleDateFormat sdf = new SimpleDateFormat(dateEnum.getPattern());
     return sdf.parse(formatDate(date, dateEnum), new ParsePosition(0)).getTime() / 1000;
+  }
+
+  /**
+   * 将时间戳转换成时间字符串
+   *
+   * @param seconds  需要转换的时间戳
+   * @param dateEnum the pattern from DateEnum
+   * @return
+   */
+  public static String formatTimestamp(long seconds, DateEnum dateEnum) {
+    return DateFormatUtils.format(seconds * 1000, dateEnum.getPattern());
   }
 
   /**

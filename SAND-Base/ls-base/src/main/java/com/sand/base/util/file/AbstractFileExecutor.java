@@ -29,7 +29,7 @@ import java.util.zip.ZipOutputStream;
  * 功能说明：定义文件执行抽象类（模板方法）
  * 开发人员：@author liusha
  * 开发日期：2019/8/10 20:33
- * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
+ * 功能描述：定义文件执行抽象类（模板方法）
  */
 @Slf4j
 public abstract class AbstractFileExecutor implements FileExecutor {
