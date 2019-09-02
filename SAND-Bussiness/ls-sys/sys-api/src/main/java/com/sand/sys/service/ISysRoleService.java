@@ -9,6 +9,7 @@ package com.sand.sys.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sand.sys.entity.SysRole;
+import com.sand.sys.model.SysRoleModel;
 
 /**
  * 功能说明：系统角色
@@ -20,18 +21,18 @@ public interface ISysRoleService extends IService<SysRole> {
   /**
    * 新增角色
    *
-   * @param role dto
+   * @param model dto
    * @return
    */
-  int add(SysRole role);
+  int add(SysRoleModel model);
 
   /**
    * 修改角色
    *
-   * @param role dto
+   * @param model dto
    * @return
    */
-  int edit(SysRole role);
+  int edit(SysRoleModel model);
 
   /**
    * 取消权限
@@ -43,7 +44,7 @@ public interface ISysRoleService extends IService<SysRole> {
   /**
    * 重新授权
    *
-   * @param role 需重新授权的角色
+   * @param model 需重新授权的角色
    */
-  void reauthorize(SysRole role);
+  void reauthorize(SysRoleModel model);
 }

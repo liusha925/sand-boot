@@ -7,7 +7,6 @@
  */
 package com.sand.sys.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -18,8 +17,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-
-import java.util.List;
 
 /**
  * 功能说明：系统角色
@@ -64,9 +61,4 @@ public class SysRole extends BaseEntity {
    * 数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）
    **/
   private RoleEnum.DataScope dataScope;
-  /**
-   * 菜单集合
-   */
-  @TableField(exist = false)
-  private List<String> menuIds;
 }

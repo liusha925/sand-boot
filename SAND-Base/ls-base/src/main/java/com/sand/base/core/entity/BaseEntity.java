@@ -10,6 +10,8 @@ package com.sand.base.core.entity;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.sand.base.util.json.serializer.DateTimeJsonSerializer;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -23,7 +25,9 @@ import java.util.Date;
  */
 @Data
 @Accessors(chain = true)
-public class BaseEntity implements Serializable {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class BaseEntity extends PageEntity implements Serializable {
   private static final long serialVersionUID = 2367225182033538004L;
   /**
    * 创建者

@@ -10,6 +10,7 @@ package com.sand.base.util.tree.builder;
 import com.sand.base.util.tree.Tree;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 功能说明：树节点
@@ -67,7 +68,7 @@ public interface ITree {
    * @param <K>
    * @return
    */
-  <K> Tree buildTree(Collection<K> children, String[] viewIds, ITreeBuilder<K> builder);
+  <K> Tree buildTree(Collection<K> children, List<Object> viewIds, ITreeBuilder<K> builder);
 
   /**
    * 构建真正的树

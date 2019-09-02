@@ -14,6 +14,7 @@ import com.sand.base.core.entity.ResultEntity;
 import com.sand.base.util.ParamUtil;
 import com.sand.base.util.ResultUtil;
 import com.sand.sys.entity.SysRole;
+import com.sand.sys.model.SysRoleModel;
 import com.sand.sys.service.ISysRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 功能说明：系统角色
  * 开发人员：@author liusha
  * 开发日期：2019/8/30 17:15
- * 功能描述：写系统角色
+ * 功能描述：系统角色
  */
 @Slf4j
 @RestController
@@ -37,9 +38,9 @@ public class SysRoleController extends BaseController {
   ISysRoleService roleService;
 
   @RequestMapping("/page")
-  public ResultEntity page(@RequestBody SysRole role) {
-    log.info("SysRoleController page params：{}", role);
-    Page<SysRole> rolePage = ParamUtil.pageParam(role);
+  public ResultEntity page(@RequestBody SysRoleModel model) {
+    log.info("SysRoleController page params：{}", model);
+    Page<SysRole> rolePage = ParamUtil.pageParam(model);
     QueryWrapper<SysRole> queryWrapper = new QueryWrapper<>();
     Page<SysRole> page = (Page<SysRole>) roleService.page(rolePage, queryWrapper);
 
@@ -47,17 +48,17 @@ public class SysRoleController extends BaseController {
   }
 
   @RequestMapping("/add")
-  public ResultEntity add(@RequestBody SysRole role) {
-    log.info("SysRoleController add params：{}", role);
-    roleService.add(role);
+  public ResultEntity add(@RequestBody SysRoleModel model) {
+    log.info("SysRoleController add params：{}", model);
+    roleService.add(model);
 
     return ResultUtil.ok("新增成功");
   }
 
   @RequestMapping("/edit")
-  public ResultEntity edit(@RequestBody SysRole role) {
-    log.info("SysRoleController edit params：{}", role);
-    roleService.edit(role);
+  public ResultEntity edit(@RequestBody SysRoleModel model) {
+    log.info("SysRoleController edit params：{}", model);
+    roleService.edit(model);
 
     return ResultUtil.ok("修改成功");
   }
@@ -71,9 +72,9 @@ public class SysRoleController extends BaseController {
   }
 
   @RequestMapping("/reauthorize")
-  public ResultEntity reauthorize(@RequestBody SysRole role) {
-    log.info("SysRoleController cancelAuthorize params：{}", role);
-    roleService.reauthorize(role);
+  public ResultEntity reauthorize(@RequestBody SysRoleModel model) {
+    log.info("SysRoleController cancelAuthorize params：{}", model);
+    roleService.reauthorize(model);
 
     return ResultUtil.ok("授权成功");
   }

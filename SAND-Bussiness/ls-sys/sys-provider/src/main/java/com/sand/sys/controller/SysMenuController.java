@@ -12,6 +12,7 @@ import com.sand.base.core.entity.ResultEntity;
 import com.sand.base.util.ResultUtil;
 import com.sand.base.util.tree.Tree;
 import com.sand.sys.entity.SysMenu;
+import com.sand.sys.model.SysMenuModel;
 import com.sand.sys.service.ISysMenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,30 +36,38 @@ public class SysMenuController extends BaseController {
 
   @RequestMapping("/left")
   public ResultEntity left() {
-    Tree menuTree = menuService.buildMenuTree(false);
+    Tree menuTree;
+    // TODO 如果是超级管理员则拥有所有菜单权限
+    if (true) {
+      menuTree = menuService.buildMenuTree(false, true);
+    } else {
+      // TODO 其他用户需要根据角色来查询菜单权限
+      String[] roleIds = new String[0];
+      menuTree = menuService.buildMenuTree(false, false, roleIds);
+    }
 
     return ResultUtil.ok(menuTree.getChildren());
   }
 
-  @RequestMapping("/tree")
-  public ResultEntity tree() {
-    Tree menuTree = menuService.buildMenuTree(true);
+  @RequestMapping("/page")
+  public ResultEntity page() {
+    Tree menuTree = menuService.buildMenuTree(true, true);
 
     return ResultUtil.ok(menuTree.getChildren());
   }
 
   @RequestMapping("/add")
-  public ResultEntity add(@RequestBody SysMenu menu) {
-    log.info("SysMenuController add params：{}", menu);
-    menuService.add(menu);
+  public ResultEntity add(@RequestBody SysMenuModel model) {
+    log.info("SysMenuController add params：{}", model);
+    menuService.add(model);
 
     return ResultUtil.ok("新增成功");
   }
 
   @RequestMapping("/edit")
-  public ResultEntity edit(@RequestBody SysMenu menu) {
-    log.info("SysMenuController edit params：{}", menu);
-    menuService.edit(menu);
+  public ResultEntity edit(@RequestBody SysMenuModel model) {
+    log.info("SysMenuController edit params：{}", model);
+    menuService.edit(model);
 
     return ResultUtil.ok("修改成功");
   }

@@ -7,7 +7,6 @@
  */
 package com.sand.sys.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.sand.base.constant.Constant;
@@ -17,8 +16,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-
-import java.util.List;
 
 /**
  * 功能说明：系统菜单
@@ -43,12 +40,6 @@ public class SysMenu extends BaseEntity {
    * 父菜单ID
    */
   private String parentId;
-
-  /**
-   * 父菜单名称
-   */
-  @TableField(exist = false)
-  private String parentName;
 
   /**
    * 菜单名称
@@ -90,9 +81,4 @@ public class SysMenu extends BaseEntity {
    */
   private String icon;
 
-  /**
-   * 子菜单
-   */
-  @TableField(exist = false)
-  private List<SysMenu> children;
 }

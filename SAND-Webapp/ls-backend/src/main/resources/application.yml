@@ -21,6 +21,8 @@ mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*Mapper.xml
   global-config:
     db-config:
+      # 主键生成策略
+      id-type: uuid
       # 逻辑删除配置，参考https://mp.baomidou.com/guide/logic-delete.html
       logic-delete-value: 1
       logic-not-delete-value: 0

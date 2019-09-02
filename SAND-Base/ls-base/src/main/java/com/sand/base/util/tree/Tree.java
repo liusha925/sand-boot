@@ -78,24 +78,24 @@ public class Tree extends AbstractTree {
 
   @Override
   public <K> Tree buildTree(Collection<K> children, ITreeBuilder<K> builder) {
-    return buildTree(children, new String[0], builder);
+    return buildTree(children, new ArrayList<>(), builder);
   }
 
   @Override
-  public <K> Tree buildTree(Collection<K> children, String[] viewIds, ITreeBuilder<K> builder) {
+  public <K> Tree buildTree(Collection<K> children, List<Object> viewIds, ITreeBuilder<K> builder) {
     if (Objects.isNull(children) || children.size() == 0) {
       return this;
     }
     List<Tree> trees = new ArrayList<>();
     children.stream()
-        .forEach(entity -> {
-          Tree tree = Tree.builder()
-              .id(builder.getId(entity))
-              .pid(builder.getPid(entity))
-              .name(builder.getName(entity))
-              .entity(entity)
-              .build();
-          Arrays.stream(viewIds)
+        .map(entity -> Tree.builder()
+            .id(builder.getId(entity))
+            .pid(builder.getPid(entity))
+            .name(builder.getName(entity))
+            .entity(entity)
+            .build())
+        .forEach(tree -> {
+          viewIds.stream()
               .filter(viewId -> Objects.equals(tree.getId(), viewId))
               .forEach(viewId -> tree.setChecked(true));
           trees.add(tree);

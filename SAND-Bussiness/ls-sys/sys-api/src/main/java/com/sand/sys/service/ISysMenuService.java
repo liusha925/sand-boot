@@ -10,6 +10,7 @@ package com.sand.sys.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sand.base.util.tree.Tree;
 import com.sand.sys.entity.SysMenu;
+import com.sand.sys.model.SysMenuModel;
 
 /**
  * 功能说明：系统菜单
@@ -22,23 +23,34 @@ public interface ISysMenuService extends IService<SysMenu> {
    * 构建菜单树
    *
    * @param needButton 是否需要按钮菜单
+   * @param isAdmin    是否是超级管理员
    * @return
    */
-  Tree buildMenuTree(boolean needButton);
+  Tree buildMenuTree(boolean needButton, boolean isAdmin);
+
+  /**
+   * 构建菜单树
+   *
+   * @param needButton 是否需要按钮菜单
+   * @param isAdmin    是否是超级管理员
+   * @param roleIds    角色ID集合
+   * @return
+   */
+  Tree buildMenuTree(boolean needButton, boolean isAdmin, Object[] roleIds);
 
   /**
    * 新增菜单
    *
-   * @param menu dto
+   * @param model dto
    * @return
    */
-  int add(SysMenu menu);
+  int add(SysMenuModel model);
 
   /**
    * 修改菜单
    *
-   * @param menu dto
+   * @param model dto
    * @return
    */
-  int edit(SysMenu menu);
+  int edit(SysMenuModel model);
 }

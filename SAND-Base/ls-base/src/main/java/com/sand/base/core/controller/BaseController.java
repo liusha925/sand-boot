@@ -90,10 +90,22 @@ public class BaseController extends BaseCommon {
    * @param e 异常
    * @return 响应客户端
    */
-  @ExceptionHandler({MissingServletRequestParameterException.class, HttpMessageNotReadableException.class})
-  public ResultEntity handleMissingParamException(Exception e) {
+  @ExceptionHandler(MissingServletRequestParameterException.class)
+  public ResultEntity handleMissingParamException(MissingServletRequestParameterException e) {
     errorLog(e);
     return ResultUtil.error(ResultEnum.PARAM_MISSING_ERROR);
+  }
+
+  /**
+   * json反序列化处理
+   *
+   * @param e 异常
+   * @return 响应客户端
+   */
+  @ExceptionHandler(HttpMessageNotReadableException.class)
+  public ResultEntity handleMessageNotReadableException(HttpMessageNotReadableException e) {
+    errorLog(e);
+    return ResultUtil.error(ResultEnum.JSON_DESERIALIZE_ERROR);
   }
 
   /**
