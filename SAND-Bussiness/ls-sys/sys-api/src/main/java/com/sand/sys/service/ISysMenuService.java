@@ -20,23 +20,49 @@ import com.sand.sys.model.SysMenuModel;
  */
 public interface ISysMenuService extends IService<SysMenu> {
   /**
+   * 构建左侧菜单树
+   *
+   * @param needButton 是否需要按钮菜单
+   * @return
+   */
+  Tree buildLeftTree(boolean needButton);
+
+  /**
+   * 构建左侧菜单树
+   *
+   * @param needButton 是否需要按钮菜单
+   * @param roleIds    角色ID集合
+   * @return
+   */
+  Tree buildLeftTree(boolean needButton, Object[] roleIds);
+
+  /**
    * 构建菜单树
    *
    * @param needButton 是否需要按钮菜单
-   * @param isAdmin    是否是超级管理员
    * @return
    */
-  Tree buildMenuTree(boolean needButton, boolean isAdmin);
+  Tree buildMenuTree(boolean needButton);
+
+  /**
+   * 构建菜单树
+   *
+   * @param needButton 是否需要按钮菜单
+   * @param roleIds    角色ID集合
+   * @return
+   */
+  Tree buildMenuTree(boolean needButton, Object[] roleIds);
 
   /**
    * 构建菜单树
    *
    * @param needButton 是否需要按钮菜单
    * @param isAdmin    是否是超级管理员
+   * @param isLeft     是否为左侧菜单树
    * @param roleIds    角色ID集合
    * @return
    */
-  Tree buildMenuTree(boolean needButton, boolean isAdmin, Object[] roleIds);
+  Tree buildMenuTree(boolean needButton, boolean isAdmin, boolean isLeft, Object[] roleIds);
 
   /**
    * 新增菜单

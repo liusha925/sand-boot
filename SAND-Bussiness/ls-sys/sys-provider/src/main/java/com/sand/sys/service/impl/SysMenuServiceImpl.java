@@ -44,12 +44,27 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
   private ISysRoleMenuService roleMenuService;
 
   @Override
-  public Tree buildMenuTree(boolean needButton, boolean isAdmin) {
-    return buildMenuTree(needButton, isAdmin, new Object[0]);
+  public Tree buildLeftTree(boolean needButton) {
+    return buildMenuTree(needButton, true, true, new Object[0]);
   }
 
   @Override
-  public Tree buildMenuTree(boolean needButton, boolean isAdmin, Object[] roleIds) {
+  public Tree buildLeftTree(boolean needButton, Object[] roleIds) {
+    return buildMenuTree(needButton, false, true, roleIds);
+  }
+
+  @Override
+  public Tree buildMenuTree(boolean needButton) {
+    return buildMenuTree(needButton, true, false, new Object[0]);
+  }
+
+  @Override
+  public Tree buildMenuTree(boolean needButton, Object[] roleIds) {
+    return buildMenuTree(needButton, false, false, roleIds);
+  }
+
+  @Override
+  public Tree buildMenuTree(boolean needButton, boolean isAdmin, boolean isLeft, Object[] roleIds) {
     List<SysMenu> menuList = super.list();
     // 筛选出除按钮级别的菜单
     if (!needButton) {
@@ -62,17 +77,20 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     // 过滤掉重复的菜单ID
     menuIds = new ArrayList<>(menuIds.stream().collect(Collectors.groupingBy(Object::toString, Collectors.toList())).keySet());
     // 筛选出需要的菜单
-    List<SysMenu> newMenuList = new ArrayList<>();
-    List<Object> finalMenuIds = menuIds;
-    menuList.forEach(menu ->
-        finalMenuIds.forEach(menuId -> {
-          if (Objects.equals(menuId.toString(), menu.getMenuId())) {
-            newMenuList.add(menu);
-          }
-        })
-    );
+    if (isLeft) {
+      List<SysMenu> newMenuList = new ArrayList<>();
+      List<Object> finalMenuIds = menuIds;
+      menuList.forEach(menu ->
+          finalMenuIds.forEach(menuId -> {
+            if (Objects.equals(menuId.toString(), menu.getMenuId())) {
+              newMenuList.add(menu);
+            }
+          })
+      );
+      menuList = newMenuList;
+    }
     // 构建菜单树
-    Tree menuTree = buildTree(newMenuList, menuIds);
+    Tree menuTree = buildTree(menuList, menuIds);
     TreeUtil.addRoot(menuTree, "菜单权限");
     return menuTree;
   }

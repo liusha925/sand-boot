@@ -11,13 +11,13 @@ import com.sand.base.core.controller.BaseController;
 import com.sand.base.core.entity.ResultEntity;
 import com.sand.base.util.ResultUtil;
 import com.sand.base.util.tree.Tree;
-import com.sand.sys.entity.SysMenu;
 import com.sand.sys.model.SysMenuModel;
 import com.sand.sys.service.ISysMenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -39,11 +39,11 @@ public class SysMenuController extends BaseController {
     Tree menuTree;
     // TODO 如果是超级管理员则拥有所有菜单权限
     if (true) {
-      menuTree = menuService.buildMenuTree(false, true);
+      menuTree = menuService.buildLeftTree(false);
     } else {
       // TODO 其他用户需要根据角色来查询菜单权限
       String[] roleIds = new String[0];
-      menuTree = menuService.buildMenuTree(false, false, roleIds);
+      menuTree = menuService.buildLeftTree(false, roleIds);
     }
 
     return ResultUtil.ok(menuTree.getChildren());
@@ -51,7 +51,7 @@ public class SysMenuController extends BaseController {
 
   @RequestMapping("/page")
   public ResultEntity page() {
-    Tree menuTree = menuService.buildMenuTree(true, true);
+    Tree menuTree = menuService.buildMenuTree(true);
 
     return ResultUtil.ok(menuTree.getChildren());
   }
@@ -70,6 +70,13 @@ public class SysMenuController extends BaseController {
     menuService.edit(model);
 
     return ResultUtil.ok("修改成功");
+  }
+
+  @RequestMapping("/tree")
+  public ResultEntity tree(@RequestParam(required = false) String roleIds) {
+    Tree menuTree = menuService.buildMenuTree(true, roleIds.split(","));
+
+    return ResultUtil.ok(menuTree.getChildren());
   }
 
 }
