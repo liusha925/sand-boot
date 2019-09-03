@@ -11,9 +11,9 @@ import com.sand.base.core.common.BaseCommon;
 import com.sand.base.core.entity.ResultEntity;
 import com.sand.base.enums.ResultEnum;
 import com.sand.base.exception.LsException;
+import com.sand.base.util.ResultUtil;
 import com.sand.base.util.editor.DateEditor;
 import com.sand.base.util.editor.StringEditor;
-import com.sand.base.util.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.Objects;
 
@@ -31,18 +32,24 @@ import java.util.Objects;
  * 功能说明：Web层通用数据处理
  * 开发人员：@author liusha
  * 开发日期：2019/8/26 21:43
- * 功能描述：定义所有控制器的父控制器，用来转化数据类型
+ * 功能描述：定义所有控制器的父控制器，进行属性绑定、数据转换、异常处理
  */
 @Slf4j
 public class BaseController extends BaseCommon {
+  protected HttpSession session;
+  protected HttpServletRequest request;
+  protected HttpServletResponse response;
+
   /**
    * 属性访问器
    *
-   * @param request  请求
-   * @param response 响应
+   * @param session  session
+   * @param request  request
+   * @param response response
    */
   @ModelAttribute
-  public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) {
+  public void modelAttribute(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+    this.session = session;
     this.request = request;
     this.response = response;
   }
@@ -61,7 +68,7 @@ public class BaseController extends BaseCommon {
   }
 
   /**
-   * 顶级的异常处理
+   * 顶级异常处理
    *
    * @param e 异常
    * @return 响应客户端
@@ -97,7 +104,7 @@ public class BaseController extends BaseCommon {
   }
 
   /**
-   * json反序列化处理
+   * 读取方法处理
    *
    * @param e 异常
    * @return 响应客户端
@@ -105,7 +112,7 @@ public class BaseController extends BaseCommon {
   @ExceptionHandler(HttpMessageNotReadableException.class)
   public ResultEntity handleMessageNotReadableException(HttpMessageNotReadableException e) {
     errorLog(e);
-    return ResultUtil.error(ResultEnum.JSON_DESERIALIZE_ERROR);
+    return ResultUtil.error(ResultEnum.READ_METHOD_ERROR);
   }
 
   /**

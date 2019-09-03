@@ -10,8 +10,6 @@ package com.sand.base.core.common;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sand.base.util.ServletUtil;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +21,6 @@ import java.util.Map;
  * 功能描述：提供公共服务
  */
 public class BaseCommon {
-  protected HttpServletRequest request;
-  protected HttpServletResponse response;
-
   /**
    * 获取IP
    *

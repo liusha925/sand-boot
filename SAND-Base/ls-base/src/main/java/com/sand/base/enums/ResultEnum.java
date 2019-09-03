@@ -24,7 +24,7 @@ public enum ResultEnum {
   ERROR(1001, "服务器异常"),
   PARAM_MISSING_ERROR(1002, "缺少必要参数"),
   PARAM_CHECKED_ERROR(1003, "参数校验不通过"),
-  JSON_DESERIALIZE_ERROR(2001, "json反序列化错误");
+  READ_METHOD_ERROR(2001, "读取方法失败");
 
   private final int code;
   private final String msg;
