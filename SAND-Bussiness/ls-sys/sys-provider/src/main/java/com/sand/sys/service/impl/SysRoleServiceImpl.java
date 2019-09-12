@@ -10,7 +10,7 @@ package com.sand.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sand.base.enums.OperateEnum;
-import com.sand.base.enums.ResultEnum;
+import com.sand.base.enums.CodeEnum;
 import com.sand.base.exception.LsException;
 import com.sand.base.util.lang3.StringUtil;
 import com.sand.sys.entity.SysRole;
@@ -72,11 +72,11 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
   public void cancelAuthorize(String roleId) {
     // 增强校验，1、新增时信息是否已入库，2、修改时ID是否有变更
     if (StringUtil.isBlank(roleId)) {
-      throw new LsException(ResultEnum.PARAM_MISSING_ERROR, "角色ID未分配！");
+      throw new LsException(CodeEnum.PARAM_MISSING_ERROR, "角色ID未分配！");
     }
     SysRole dbRole = super.getById(roleId);
     if (Objects.isNull(dbRole)) {
-      throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, "角色信息不存在！");
+      throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "角色信息不存在！");
     }
     QueryWrapper<SysRoleMenu> roleMenuWrapper = new QueryWrapper<>();
     roleMenuWrapper.eq("role_id", roleId);
@@ -109,30 +109,30 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
   private void checkedSysRole(SysRoleModel model, OperateEnum operate) {
     // 新增/修改通用参数非空校验
     if (StringUtil.isBlank(model.getRoleName())) {
-      throw new LsException(ResultEnum.PARAM_MISSING_ERROR, "角色名称不能为空！");
+      throw new LsException(CodeEnum.PARAM_MISSING_ERROR, "角色名称不能为空！");
     }
     if (StringUtil.isBlank(model.getRoleKey())) {
-      throw new LsException(ResultEnum.PARAM_MISSING_ERROR, "权限字符不能为空！");
+      throw new LsException(CodeEnum.PARAM_MISSING_ERROR, "权限字符不能为空！");
     }
     // 校验角色状态是否存在
     if (Objects.nonNull(model.getStatus())) {
       RoleEnum.Status status = RoleEnum.Status.getByStatus(model.getStatus());
       if (Objects.isNull(status)) {
-        throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, "此角色状态不存在！");
+        throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此角色状态不存在！");
       }
     }
     // 校验删除标志是否存在
     if (Objects.nonNull(model.getDelFlag())) {
       RoleEnum.DelFlag delFlag = RoleEnum.DelFlag.getByFlag(model.getDelFlag());
       if (Objects.isNull(delFlag)) {
-        throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, "此删除标志不存在！");
+        throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此删除标志不存在！");
       }
     }
     // 校验数据范围是否存在
     if (Objects.nonNull(model.getDataScope())) {
       RoleEnum.DataScope dataScope = RoleEnum.DataScope.getByScope(model.getDataScope());
       if (Objects.isNull(dataScope)) {
-        throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, "此数据范围不存在！");
+        throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此数据范围不存在！");
       }
     }
     // 菜单名查询条件组装
@@ -142,23 +142,23 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
       if (StringUtil.isNotBlank(model.getRoleId())) {
         SysRole dbRole = super.getById(model.getRoleId());
         if (Objects.nonNull(dbRole)) {
-          throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, "此角色信息已存在！");
+          throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此角色信息已存在！");
         }
       }
     } else if (Objects.equals(operate, OperateEnum.UPDATE)) {
       if (StringUtil.isBlank(model.getRoleId())) {
-        throw new LsException(ResultEnum.PARAM_MISSING_ERROR, "角色ID不能为空！");
+        throw new LsException(CodeEnum.PARAM_MISSING_ERROR, "角色ID不能为空！");
       }
       SysRole dbRole = super.getById(model.getRoleId());
       if (Objects.isNull(dbRole)) {
-        throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, "此角色信息不存在！");
+        throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此角色信息不存在！");
       }
       roleNameWrapper.ne("role_id", model.getRoleId());
     }
     // 校验角色名称是否重复
     List<SysRole> roleNameList = super.list(roleNameWrapper);
     if (roleNameList.size() > 0) {
-      throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, "此角色名称已存在！");
+      throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此角色名称已存在！");
     }
   }
 

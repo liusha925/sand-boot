@@ -13,14 +13,17 @@ import com.sand.base.core.controller.BaseController;
 import com.sand.base.core.entity.ResultEntity;
 import com.sand.base.util.ParamUtil;
 import com.sand.base.util.ResultUtil;
+import com.sand.base.util.tree.Tree;
 import com.sand.sys.entity.SysRole;
 import com.sand.sys.model.SysRoleModel;
+import com.sand.sys.service.ISysMenuService;
 import com.sand.sys.service.ISysRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -33,9 +36,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/sys/role")
 public class SysRoleController extends BaseController {
-
   @Autowired
   ISysRoleService roleService;
+  @Autowired
+  private ISysMenuService menuService;
 
   @RequestMapping("/page")
   public ResultEntity page(@RequestBody SysRoleModel model) {
@@ -63,7 +67,7 @@ public class SysRoleController extends BaseController {
     return ResultUtil.ok("修改成功");
   }
 
-  @RequestMapping("/cancel/authorize/{roleId}")
+  @RequestMapping("/cancelAuthorize/{roleId}")
   public ResultEntity cancelAuthorize(@PathVariable String roleId) {
     log.info("SysRoleController cancelAuthorize params：{}", roleId);
     roleService.cancelAuthorize(roleId);
@@ -77,5 +81,12 @@ public class SysRoleController extends BaseController {
     roleService.reauthorize(model);
 
     return ResultUtil.ok("授权成功");
+  }
+
+  @RequestMapping("/menuTree")
+  public ResultEntity menuTree(@RequestParam(required = false) String roleIds) {
+    Tree menuTree = menuService.buildMenuTree(true, roleIds.split(","));
+
+    return ResultUtil.ok(menuTree.getChildren());
   }
 }

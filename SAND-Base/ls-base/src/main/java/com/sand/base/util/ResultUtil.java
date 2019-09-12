@@ -9,9 +9,8 @@ package com.sand.base.util;
 
 import com.sand.base.constant.Constant;
 import com.sand.base.core.entity.ResultEntity;
-import com.sand.base.enums.ResultEnum;
+import com.sand.base.enums.CodeEnum;
 import com.sand.base.exception.LsException;
-import com.sand.base.util.ServletUtil;
 import com.sand.base.util.lang3.StringUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,7 +50,7 @@ public class ResultUtil {
   }
 
   public static ResultEntity ok(Object data) {
-    return ok(data, ResultEnum.OK.getMsg());
+    return ok(data, CodeEnum.OK.getMsg());
   }
 
   public static ResultEntity ok(String msg) {
@@ -59,27 +58,27 @@ public class ResultUtil {
   }
 
   public static ResultEntity ok(Object data, String msg) {
-    return info(data, ResultEnum.OK.getCode(), msg);
+    return info(data, CodeEnum.OK.getCode(), msg);
   }
 
   public static ResultEntity error() {
-    return error(ResultEnum.ERROR.getMsg());
+    return error(CodeEnum.ERROR.getMsg());
   }
 
   public static ResultEntity error(String msg) {
-    return info(null, ResultEnum.ERROR.getCode(), msg);
+    return info(null, CodeEnum.ERROR.getCode(), msg);
   }
 
-  public static ResultEntity error(ResultEnum resultEnum) {
-    return info(null, resultEnum);
+  public static ResultEntity error(CodeEnum codeEnum) {
+    return info(null, codeEnum);
   }
 
   public static ResultEntity info(int code, String msg) {
     return info(null, code, msg);
   }
 
-  public static ResultEntity info(Object data, ResultEnum resultEnum) {
-    return info(data, resultEnum.getCode(), resultEnum.getMsg());
+  public static ResultEntity info(Object data, CodeEnum codeEnum) {
+    return info(data, codeEnum.getCode(), codeEnum.getMsg());
   }
 
   public static ResultEntity info(Object data, int code, String msg) {
@@ -87,7 +86,7 @@ public class ResultUtil {
       data = formatSelectData(data);
     } catch (Exception e) {
       log.error("下拉框数据格式化异常：{}", e.getMessage());
-      return ResultEntity.builder().code(ResultEnum.ERROR.getCode()).msg(ResultEnum.ERROR.getMsg()).data(null).build();
+      return ResultEntity.builder().code(CodeEnum.ERROR.getCode()).msg(CodeEnum.ERROR.getMsg()).data(null).build();
     }
     ResultEntity ret = ResultEntity.builder().code(code).msg(msg).data(data).build();
     return ret;

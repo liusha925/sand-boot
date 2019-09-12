@@ -18,7 +18,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum FileType {
+public enum FileSuffixEnum {
   // 文件后缀
   TXT(".txt"),
   HTML(".html"),

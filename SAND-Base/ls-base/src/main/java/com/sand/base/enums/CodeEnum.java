@@ -18,13 +18,13 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum ResultEnum {
+public enum CodeEnum {
   // 通用结果集
   OK(200, "成功"),
   ERROR(1001, "服务器异常"),
   PARAM_MISSING_ERROR(1002, "缺少必要参数"),
   PARAM_CHECKED_ERROR(1003, "参数校验不通过"),
-  READ_METHOD_ERROR(2001, "读取方法失败");
+  DESERIALIZE_ERROR(2001, "JSON反序列化失败");
 
   private final int code;
   private final String msg;

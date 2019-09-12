@@ -12,6 +12,8 @@ import com.sand.base.util.tree.Tree;
 import com.sand.sys.entity.SysMenu;
 import com.sand.sys.model.SysMenuModel;
 
+import java.util.List;
+
 /**
  * 功能说明：系统菜单
  * 开发人员：@author liusha
@@ -19,6 +21,14 @@ import com.sand.sys.model.SysMenuModel;
  * 功能描述：系统菜单
  */
 public interface ISysMenuService extends IService<SysMenu> {
+  /**
+   * 获取菜单列表
+   *
+   * @param needButton 是否需要按钮菜单
+   * @return
+   */
+  List<SysMenu> getMenuList(boolean needButton);
+
   /**
    * 构建左侧菜单树
    *

@@ -9,7 +9,7 @@ package com.sand.base.core.controller;
 
 import com.sand.base.core.common.BaseCommon;
 import com.sand.base.core.entity.ResultEntity;
-import com.sand.base.enums.ResultEnum;
+import com.sand.base.enums.CodeEnum;
 import com.sand.base.exception.LsException;
 import com.sand.base.util.ResultUtil;
 import com.sand.base.util.editor.DateEditor;
@@ -100,11 +100,11 @@ public class BaseController extends BaseCommon {
   @ExceptionHandler(MissingServletRequestParameterException.class)
   public ResultEntity handleMissingParamException(MissingServletRequestParameterException e) {
     errorLog(e);
-    return ResultUtil.error(ResultEnum.PARAM_MISSING_ERROR);
+    return ResultUtil.error(CodeEnum.PARAM_MISSING_ERROR);
   }
 
   /**
-   * 读取方法处理
+   * JSON反序列化失败
    *
    * @param e 异常
    * @return 响应客户端
@@ -112,7 +112,7 @@ public class BaseController extends BaseCommon {
   @ExceptionHandler(HttpMessageNotReadableException.class)
   public ResultEntity handleMessageNotReadableException(HttpMessageNotReadableException e) {
     errorLog(e);
-    return ResultUtil.error(ResultEnum.READ_METHOD_ERROR);
+    return ResultUtil.error(CodeEnum.DESERIALIZE_ERROR);
   }
 
   /**

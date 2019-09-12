@@ -7,8 +7,7 @@
  */
 package com.sand.base.core.entity;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.sand.base.util.json.serializer.DateTimeJsonSerializer;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -40,15 +39,13 @@ public class BaseEntity extends PageEntity implements Serializable {
   /**
    * 创建时间
    */
-  @JsonSerialize(using = DateTimeJsonSerializer.class)
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private Date createTime;
-
   /**
    * 更新时间
    */
-  @JsonSerialize(using = DateTimeJsonSerializer.class)
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private Date updateTime;
-
   /**
    * 备注信息
    */

@@ -10,7 +10,7 @@ package com.sand.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sand.base.enums.OperateEnum;
-import com.sand.base.enums.ResultEnum;
+import com.sand.base.enums.CodeEnum;
 import com.sand.base.exception.LsException;
 import com.sand.base.util.lang3.StringUtil;
 import com.sand.base.util.tree.Tree;
@@ -44,6 +44,17 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
   private ISysRoleMenuService roleMenuService;
 
   @Override
+  public List<SysMenu> getMenuList(boolean needButton) {
+    List<SysMenu> menuList;
+    if (needButton) {
+      menuList = super.list();
+    } else {
+      menuList = super.list(new QueryWrapper<SysMenu>().ne("menu_type", MenuEnum.MenuType.F.getType()));
+    }
+    return menuList;
+  }
+
+  @Override
   public Tree buildLeftTree(boolean needButton) {
     return buildMenuTree(needButton, true, true, new Object[0]);
   }
@@ -65,11 +76,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
   @Override
   public Tree buildMenuTree(boolean needButton, boolean isAdmin, boolean isLeft, Object[] roleIds) {
-    List<SysMenu> menuList = super.list();
-    // 筛选出除按钮级别的菜单
-    if (!needButton) {
-      menuList = menuList.stream().filter(this::cancelButton).collect(Collectors.toList());
-    }
+    List<SysMenu> menuList = this.getMenuList(needButton);
     // 查询角色已经拥有的菜单
     List<Object> menuIds = isAdmin
         ? super.listObjs(new QueryWrapper<SysMenu>().select("menu_id"))
@@ -99,7 +106,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
   @Transactional(rollbackFor = LsException.class)
   public int add(SysMenuModel model) {
     // 参数校验
-    checkedSysMenu(model, OperateEnum.INSERT);
+    checkedModel(model, OperateEnum.INSERT);
     // 信息入库
     if (!super.save(model)) {
       throw new LsException("新增菜单信息入库异常！");
@@ -111,22 +118,12 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
   @Transactional(rollbackFor = LsException.class)
   public int edit(SysMenuModel model) {
     // 参数校验
-    checkedSysMenu(model, OperateEnum.UPDATE);
+    checkedModel(model, OperateEnum.UPDATE);
     // 信息入库
     if (!super.updateById(model)) {
       throw new LsException("修改菜单信息入库异常！");
     }
     return 0;
-  }
-
-  /**
-   * 筛选出除按钮级别的菜单
-   *
-   * @param menu
-   * @return
-   */
-  private boolean cancelButton(SysMenu menu) {
-    return !Objects.equals(menu.getMenuType(), MenuEnum.MenuType.F);
   }
 
   /**
@@ -158,45 +155,37 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
   /**
    * 参数校验
    *
-   * @param model
+   * @param model dto
    */
-  private void checkedSysMenu(SysMenu model, OperateEnum operate) {
-    // 新增/修改通用参数非空校验
-    if (StringUtil.isBlank(model.getParentId())) {
-      throw new LsException(ResultEnum.PARAM_MISSING_ERROR, "父级菜单ID不能为空！");
-    }
-    if (StringUtil.isBlank(model.getMenuName())) {
-      throw new LsException(ResultEnum.PARAM_MISSING_ERROR, "菜单名称不能为空！");
-    }
-    if (Objects.isNull(model.getMenuType())) {
-      throw new LsException(ResultEnum.PARAM_MISSING_ERROR, "菜单类型不能为空！");
-    }
+  private void checkedModel(SysMenu model, OperateEnum operate) {
+    // 非空校验
+    nonChecked(model);
     // 不为主目录时需要校验父级菜单
     if (!Objects.equals(model.getParentId(), TreeUtil.TREE_ROOT)) {
       SysMenu parentMenu = super.getById(model.getParentId());
       if (Objects.isNull(parentMenu)) {
-        throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, "父级菜单不存在！");
+        throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "父级菜单不存在！");
       }
     }
     // 校验菜单类型是否存在
     if (Objects.nonNull(model.getMenuType())) {
       MenuEnum.MenuType menuType = MenuEnum.MenuType.getByType(model.getMenuType());
       if (Objects.isNull(menuType)) {
-        throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, "此菜单类型不存在！");
+        throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此菜单类型不存在！");
       }
     }
     // 校验打开方式是否存在
     if (Objects.nonNull(model.getTarget())) {
       MenuEnum.Target target = MenuEnum.Target.getByTarget(model.getTarget());
       if (Objects.isNull(target)) {
-        throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, "此打开方式不存在！");
+        throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此打开方式不存在！");
       }
     }
     // 校验菜单状态是否存在
     if (Objects.nonNull(model.getVisible())) {
       MenuEnum.Visible visible = MenuEnum.Visible.getByVisible(model.getVisible());
       if (Objects.isNull(visible)) {
-        throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, "此菜单状态不存在！");
+        throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此菜单状态不存在！");
       }
     }
     // 菜单名查询条件组装
@@ -206,23 +195,41 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
       if (StringUtil.isNotBlank(model.getMenuId())) {
         SysMenu dbMenu = super.getById(model.getMenuId());
         if (Objects.nonNull(dbMenu)) {
-          throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, "此菜单信息已存在！");
+          throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此菜单信息已存在！");
         }
       }
     } else if (Objects.equals(operate, OperateEnum.UPDATE)) {
       if (StringUtil.isBlank(model.getMenuId())) {
-        throw new LsException(ResultEnum.PARAM_MISSING_ERROR, "菜单ID不能为空！");
+        throw new LsException(CodeEnum.PARAM_MISSING_ERROR, "菜单ID不能为空！");
       }
       SysMenu dbMenu = super.getById(model.getMenuId());
       if (Objects.isNull(dbMenu)) {
-        throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, "此菜单信息不存在！");
+        throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此菜单信息不存在！");
       }
       menuNameWrapper.ne("menu_id", model.getMenuId());
     }
     // 校验同级目录下菜单名是否重复
     List<SysMenu> menuNameList = super.list(menuNameWrapper);
     if (menuNameList.size() > 0) {
-      throw new LsException(ResultEnum.PARAM_CHECKED_ERROR, "此菜单名称已存在！");
+      throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此菜单名称已存在！");
     }
   }
+
+  /**
+   * 通用参数非空校验
+   *
+   * @param model dto
+   */
+  private void nonChecked(SysMenu model) {
+    if (StringUtil.isBlank(model.getParentId())) {
+      throw new LsException(CodeEnum.PARAM_MISSING_ERROR, "父级菜单ID不能为空！");
+    }
+    if (StringUtil.isBlank(model.getMenuName())) {
+      throw new LsException(CodeEnum.PARAM_MISSING_ERROR, "菜单名称不能为空！");
+    }
+    if (Objects.isNull(model.getMenuType())) {
+      throw new LsException(CodeEnum.PARAM_MISSING_ERROR, "菜单类型不能为空！");
+    }
+  }
+
 }

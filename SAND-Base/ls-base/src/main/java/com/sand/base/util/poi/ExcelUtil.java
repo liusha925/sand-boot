@@ -14,8 +14,8 @@ import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.TemplateExportParams;
 import com.sand.base.constant.Constant;
 import com.sand.base.enums.DateEnum;
-import com.sand.base.enums.FileType;
-import com.sand.base.enums.ResultEnum;
+import com.sand.base.enums.FileSuffixEnum;
+import com.sand.base.enums.CodeEnum;
 import com.sand.base.exception.LsException;
 import com.sand.base.util.http.OkHttp3Util;
 import com.sand.base.util.lang3.DateUtil;
@@ -121,7 +121,7 @@ public class ExcelUtil {
     FileOutputStream fos;
     try {
       saveFolder = OkHttp3Util.getServicePath() + File.separator + "excel";
-      savePath = saveFolder + File.separator + System.currentTimeMillis() + FileType.XLS.getSuffix();
+      savePath = saveFolder + File.separator + System.currentTimeMillis() + FileSuffixEnum.XLS.getSuffix();
       File createFolder = new File(saveFolder);
       if (!createFolder.exists()) {
         createFolder.mkdirs();
@@ -186,22 +186,22 @@ public class ExcelUtil {
       List<String[]> result = new ArrayList<>();
       String fileName = file.getOriginalFilename();
       Workbook workbook;
-      if (fileName.endsWith(FileType.XLS.getSuffix())) {
+      if (fileName.endsWith(FileSuffixEnum.XLS.getSuffix())) {
         workbook = new HSSFWorkbook(file.getInputStream());
-      } else if (fileName.endsWith(FileType.XLSX.getSuffix())) {
+      } else if (fileName.endsWith(FileSuffixEnum.XLSX.getSuffix())) {
         workbook = new XSSFWorkbook(file.getInputStream());
       } else {
-        throw new LsException(ResultEnum.ERROR, "读取文件类型异常");
+        throw new LsException(CodeEnum.ERROR, "读取文件类型异常");
       }
       // 保存文件
       if (saveFileFlag) {
         String saveFileName = fileName.substring(0, fileName.lastIndexOf(".")) + "-" + StringUtil.getUniqueSerialNo();
-        if (fileName.endsWith(FileType.XLS.getSuffix())) {
-          saveFileName = saveFileName + FileType.XLS.getSuffix();
-        } else if (fileName.endsWith(FileType.XLSX.getSuffix())) {
-          saveFileName = saveFileName + FileType.XLSX.getSuffix();
+        if (fileName.endsWith(FileSuffixEnum.XLS.getSuffix())) {
+          saveFileName = saveFileName + FileSuffixEnum.XLS.getSuffix();
+        } else if (fileName.endsWith(FileSuffixEnum.XLSX.getSuffix())) {
+          saveFileName = saveFileName + FileSuffixEnum.XLSX.getSuffix();
         } else {
-          throw new LsException(ResultEnum.ERROR, "读取文件类型异常");
+          throw new LsException(CodeEnum.ERROR, "读取文件类型异常");
         }
         File saveDir = new File(OkHttp3Util.getServicePath() + File.separator + "temp");
         if (!saveDir.exists()) {

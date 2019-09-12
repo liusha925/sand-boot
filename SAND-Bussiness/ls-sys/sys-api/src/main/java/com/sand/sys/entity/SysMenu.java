@@ -35,47 +35,38 @@ public class SysMenu extends BaseEntity {
    */
   @TableId
   private String menuId;
-
   /**
    * 父菜单ID
    */
   private String parentId;
-
   /**
    * 菜单名称
    */
   private String menuName;
-
   /**
    * 菜单类型（M目录 C菜单 F按钮）
    */
   private MenuEnum.MenuType menuType;
-
   /**
    * 菜单URL
    */
   private String menuUrl;
-
   /**
    * 显示顺序
    */
   private int orderNum;
-
   /**
    * 打开方式（_item 页签中打开，_blank 新窗口打开，_current 当前窗口打开）
    */
   private MenuEnum.Target target;
-
   /**
    * 菜单状态（0显示 1隐藏）
    */
   private MenuEnum.Visible visible;
-
   /**
    * 权限字符串
    */
   private String purview;
-
   /**
    * 菜单图标
    */
