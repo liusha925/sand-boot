@@ -131,7 +131,8 @@ public class BaseController extends BaseCommon {
     } else {
       log.error("错误位置：{}.{}，第{}行，错误原因：{}", element.getClassName(), element.getMethodName(), element.getLineNumber(), e.getClass().getName());
     }
-    log.error("错误信息：" + e);
+    log.error("错误信息：");
+    e.printStackTrace();
   }
 
 }

@@ -23,9 +23,24 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface Log {
+  /**
+   * 模块标识
+   *
+   * @return
+   */
   String symbol() default "none";
 
+  /**
+   * 实现方式
+   *
+   * @return
+   */
   String service() default "logServiceImpl";
 
+  /**
+   * 描述信息
+   *
+   * @return
+   */
   String description() default "default";
 }

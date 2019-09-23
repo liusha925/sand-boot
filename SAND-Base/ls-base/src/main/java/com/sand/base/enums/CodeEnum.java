@@ -21,7 +21,8 @@ import lombok.Getter;
 public enum CodeEnum {
   // 通用结果集
   OK(200, "成功"),
-  ERROR(1001, "服务器异常"),
+  ERROR(1000, "服务器异常"),
+  BUSINESS_ERROR(1001, "业务处理异常"),
   PARAM_MISSING_ERROR(1002, "缺少必要参数"),
   PARAM_CHECKED_ERROR(1003, "参数校验不通过"),
   DESERIALIZE_ERROR(2001, "JSON反序列化失败");

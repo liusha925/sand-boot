@@ -8,7 +8,8 @@
 package com.sand.base.core.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sand.base.util.ServletUtil;
+import com.sand.base.enums.CodeEnum;
+import com.sand.base.exception.LsException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,21 +23,10 @@ import java.util.Map;
  */
 public class BaseCommon {
   /**
-   * 获取IP
-   *
-   * @return IP
+   * 业务处理异常
    */
-  protected String getIp() {
-    return ServletUtil.getIp();
-  }
-
-  /**
-   * 获取系统和浏览器信息
-   *
-   * @return 系统和浏览器信息
-   */
-  protected Map<String, Object> getOsAndBrowser() {
-    return ServletUtil.getOSAndBrowser();
+  protected void newBusinessException(String msg) {
+    throw new LsException(CodeEnum.BUSINESS_ERROR, msg);
   }
 
   /**
