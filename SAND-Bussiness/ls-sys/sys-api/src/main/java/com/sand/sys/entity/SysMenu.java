@@ -9,6 +9,7 @@ package com.sand.sys.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.sand.base.annotation.EnumValidAnnotation;
 import com.sand.base.constant.Constant;
 import com.sand.base.core.entity.BaseEntity;
 import com.sand.sys.enums.MenuEnum;
@@ -16,6 +17,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * 功能说明：系统菜单
@@ -38,18 +42,24 @@ public class SysMenu extends BaseEntity {
   /**
    * 父菜单ID
    */
+  @NotBlank(message = "[父级菜单ID]不能为空哟！")
   private String parentId;
   /**
    * 菜单名称
    */
+  @NotBlank(message = "[菜单名称]不能为空哟！")
+  @Length(max = 64, message = "[菜单名称]不能超过64个字符呢！")
   private String menuName;
   /**
    * 菜单类型（M目录 C菜单 F按钮）
    */
-  private MenuEnum.MenuType menuType;
+  @NotBlank(message = "[菜单类型]不能为空哟！")
+  @EnumValidAnnotation(message = "[菜单类型]不存在！", target = MenuEnum.MenuType.class)
+  private String menuType;
   /**
    * 菜单URL
    */
+  @Length(max = 128, message = "[菜单URL]不能超过128个字符呢！")
   private String menuUrl;
   /**
    * 显示顺序
@@ -58,14 +68,17 @@ public class SysMenu extends BaseEntity {
   /**
    * 打开方式（_item 页签中打开，_blank 新窗口打开，_current 当前窗口打开）
    */
-  private MenuEnum.Target target;
+  @EnumValidAnnotation(message = "[打开方式]不存在！", target = MenuEnum.Target.class)
+  private String target;
   /**
    * 菜单状态（0显示 1隐藏）
    */
-  private MenuEnum.Visible visible;
+  @EnumValidAnnotation(message = "[菜单状态]不存在！", target = MenuEnum.Visible.class)
+  private String visible;
   /**
-   * 权限字符串
+   * 权限标识
    */
+  @Length(max = 128, message = "[权限标识]不能超过128个字符呢！")
   private String purview;
   /**
    * 菜单图标

@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.constraints.Length;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -49,5 +50,6 @@ public class BaseEntity extends PageEntity implements Serializable {
   /**
    * 备注信息
    */
+  @Length(max = 512, message = "权限标识不能超过512个字符呢")
   private String remark;
 }

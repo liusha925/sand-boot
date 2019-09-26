@@ -9,13 +9,12 @@ package com.sand.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.sand.base.enums.OperateEnum;
 import com.sand.base.enums.CodeEnum;
+import com.sand.base.enums.OperateEnum;
 import com.sand.base.exception.LsException;
 import com.sand.base.util.lang3.StringUtil;
 import com.sand.sys.entity.SysRole;
 import com.sand.sys.entity.SysRoleMenu;
-import com.sand.sys.enums.RoleEnum;
 import com.sand.sys.mapper.SysRoleMapper;
 import com.sand.sys.model.SysRoleModel;
 import com.sand.sys.service.ISysRoleMenuService;
@@ -43,7 +42,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
   @Transactional(rollbackFor = LsException.class)
   public int add(SysRoleModel model) {
     // 参数校验
-    checkedSysRole(model, OperateEnum.INSERT);
+    checkModel(model, OperateEnum.INSERT);
     // 信息入库
     if (!super.save(model)) {
       throw new LsException("新增角色信息入库异常！");
@@ -57,7 +56,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
   @Transactional(rollbackFor = LsException.class)
   public int edit(SysRoleModel model) {
     // 参数校验
-    checkedSysRole(model, OperateEnum.UPDATE);
+    checkModel(model, OperateEnum.UPDATE);
     // 信息入库
     if (!super.updateById(model)) {
       throw new LsException("修改角色信息入库异常！");
@@ -106,35 +105,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
    *
    * @param model dto
    */
-  private void checkedSysRole(SysRoleModel model, OperateEnum operate) {
-    // 新增/修改通用参数非空校验
-    if (StringUtil.isBlank(model.getRoleName())) {
-      throw new LsException(CodeEnum.PARAM_MISSING_ERROR, "角色名称不能为空！");
-    }
-    if (StringUtil.isBlank(model.getRoleKey())) {
-      throw new LsException(CodeEnum.PARAM_MISSING_ERROR, "权限字符不能为空！");
-    }
-    // 校验角色状态是否存在
-    if (Objects.nonNull(model.getStatus())) {
-      RoleEnum.Status status = RoleEnum.Status.getByStatus(model.getStatus());
-      if (Objects.isNull(status)) {
-        throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此角色状态不存在！");
-      }
-    }
-    // 校验删除标志是否存在
-    if (Objects.nonNull(model.getDelFlag())) {
-      RoleEnum.DelFlag delFlag = RoleEnum.DelFlag.getByFlag(model.getDelFlag());
-      if (Objects.isNull(delFlag)) {
-        throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此删除标志不存在！");
-      }
-    }
-    // 校验数据范围是否存在
-    if (Objects.nonNull(model.getDataScope())) {
-      RoleEnum.DataScope dataScope = RoleEnum.DataScope.getByScope(model.getDataScope());
-      if (Objects.isNull(dataScope)) {
-        throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此数据范围不存在！");
-      }
-    }
+  private void checkModel(SysRoleModel model, OperateEnum operate) {
     // 菜单名查询条件组装
     QueryWrapper<SysRole> roleNameWrapper = new QueryWrapper<>();
     roleNameWrapper.eq("role_name", model.getRoleName());

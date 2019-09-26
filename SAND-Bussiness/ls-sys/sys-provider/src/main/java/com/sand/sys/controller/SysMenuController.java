@@ -72,6 +72,7 @@ public class SysMenuController extends BaseController {
   @RequestMapping("/add")
   public ResultEntity add(@RequestBody SysMenuModel model) {
     log.info("SysMenuController add params：{}", model);
+    super.checkModel(model);
     menuService.add(model);
 
     return ResultUtil.ok("新增成功");
@@ -80,6 +81,7 @@ public class SysMenuController extends BaseController {
   @RequestMapping("/edit")
   public ResultEntity edit(@RequestBody SysMenuModel model) {
     log.info("SysMenuController edit params：{}", model);
+    super.checkModel(model);
     menuService.edit(model);
 
     return ResultUtil.ok("修改成功");

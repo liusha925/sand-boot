@@ -45,7 +45,7 @@ public class SysMenuControllerTest extends JunitTest {
     requestMap.put("parentName", "父级菜单名称");
     requestMap.put("parentId", "treeRoot");
     requestMap.put("menuName", "测试菜单1");
-    requestMap.put("menuType", "菜单");
+    requestMap.put("menuType", "M");
     requestMap.put("target", "页签中打开");
     requestMap.put("visible", "显示");
     requestMap.put("createTime", DateUtil.addDays(new Date(), 2));

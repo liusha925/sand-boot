@@ -37,9 +37,9 @@ public final class RoleEnum {
       return this.status;
     }
 
-    public static Status getByStatus(Status status) {
+    public static Status getByStatus(String status) {
       for (Status item : Status.values()) {
-        if (Objects.equals(status, item)) {
+        if (Objects.equals(status, item.getStatus())) {
           return item;
         }
       }
@@ -63,9 +63,9 @@ public final class RoleEnum {
       return this.flag;
     }
 
-    public static DelFlag getByFlag(DelFlag flag) {
+    public static DelFlag getByFlag(String flag) {
       for (DelFlag item : DelFlag.values()) {
-        if (Objects.equals(flag, item)) {
+        if (Objects.equals(flag, item.getFlag())) {
           return item;
         }
       }
@@ -91,9 +91,9 @@ public final class RoleEnum {
       return this.scope;
     }
 
-    public static DataScope getByScope(DataScope scope) {
+    public static DataScope getByScope(String scope) {
       for (DataScope item : DataScope.values()) {
-        if (Objects.equals(scope, item)) {
+        if (Objects.equals(scope, item.getScope())) {
           return item;
         }
       }

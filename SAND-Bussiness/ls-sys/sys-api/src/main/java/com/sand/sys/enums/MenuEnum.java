@@ -37,9 +37,9 @@ public final class MenuEnum {
       return this.type;
     }
 
-    public static MenuType getByType(MenuType type) {
+    public static MenuType getByType(String type) {
       for (MenuType item : MenuType.values()) {
-        if (Objects.equals(type, item)) {
+        if (Objects.equals(type, item.getType())) {
           return item;
         }
       }
@@ -63,9 +63,9 @@ public final class MenuEnum {
       return this.target;
     }
 
-    public static Target getByTarget(Target target) {
+    public static Target getByTarget(String target) {
       for (Target item : Target.values()) {
-        if (Objects.equals(target, item)) {
+        if (Objects.equals(target, item.getTarget())) {
           return item;
         }
       }
@@ -88,9 +88,9 @@ public final class MenuEnum {
       return this.visible;
     }
 
-    public static Visible getByVisible(Visible visible) {
+    public static Visible getByVisible(String visible) {
       for (Visible item : Visible.values()) {
-        if (Objects.equals(visible, item)) {
+        if (Objects.equals(visible, item.getVisible())) {
           return item;
         }
       }

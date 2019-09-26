@@ -11,7 +11,10 @@ import com.sand.base.enums.DateEnum;
 import org.apache.commons.lang3.StringUtils;
 
 import java.nio.charset.Charset;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -217,6 +220,19 @@ public class StringUtil extends StringUtils {
     Pattern pattern = Pattern.compile(regex);
     Matcher matcher = pattern.matcher(html);
     return matcher.replaceAll("");
+  }
+
+  /**
+   * List中是否包含重复记录，对应实体类需要重写hashCode和equals方法
+   *
+   * @param list 要校验的List
+   * @param <T>  对应实体类
+   * @return true：存在重复记录
+   */
+  public static <T> boolean listHasRepeatRecord(List<T> list) {
+    Set<T> set = new HashSet<>();
+    set.addAll(list);
+    return list.size() != set.size();
   }
 
 }

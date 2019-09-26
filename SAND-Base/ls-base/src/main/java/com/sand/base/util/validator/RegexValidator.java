@@ -22,13 +22,13 @@ import java.util.regex.Pattern;
  * 开发日期：2019/8/19 13:43
  * 功能描述：正则校验工具类，需要RegexEnum辅助使用
  */
-public class RegexUtil {
+public class RegexValidator {
   /**
    * 统一社会性用代码基础字符
    */
   public static final String BASE_UNIFY_CODE = "0123456789ABCDEFGHJKLMNPQRTUWXY";
 
-  public RegexUtil() {
+  public RegexValidator() {
   }
 
   /**

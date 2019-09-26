@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * 功能说明：Web层通用数据处理
@@ -75,7 +74,7 @@ public class BaseController extends BaseCommon {
    */
   @ExceptionHandler(Exception.class)
   public ResultEntity handleException(Exception e) {
-    errorLog(e);
+    super.errorLog(e);
     return ResultUtil.error();
   }
 
@@ -87,7 +86,7 @@ public class BaseController extends BaseCommon {
    */
   @ExceptionHandler(LsException.class)
   public ResultEntity handleLsException(LsException e) {
-    errorLog(e);
+    super.errorLog(e);
     return ResultUtil.info(e.getCode(), e.getMessage());
   }
 
@@ -99,7 +98,7 @@ public class BaseController extends BaseCommon {
    */
   @ExceptionHandler(MissingServletRequestParameterException.class)
   public ResultEntity handleMissingParamException(MissingServletRequestParameterException e) {
-    errorLog(e);
+    super.errorLog(e);
     return ResultUtil.error(CodeEnum.PARAM_MISSING_ERROR);
   }
 
@@ -111,28 +110,8 @@ public class BaseController extends BaseCommon {
    */
   @ExceptionHandler(HttpMessageNotReadableException.class)
   public ResultEntity handleMessageNotReadableException(HttpMessageNotReadableException e) {
-    errorLog(e);
+    super.errorLog(e);
     return ResultUtil.error(CodeEnum.DESERIALIZE_ERROR);
-  }
-
-  /**
-   * 打印出错log
-   *
-   * @param e 异常
-   */
-  private void errorLog(Exception e) {
-    StackTraceElement element = e.getStackTrace()[0];
-    if (e instanceof LsException) {
-      log.info("异常位置：{}.{}，第{}行，原因：{}", element.getClassName(), element.getMethodName(), element.getLineNumber(), e.getMessage());
-      if (!Objects.isNull(e.getCause())) {
-        StackTraceElement cause = e.getCause().getStackTrace()[0];
-        log.info("起因：{}.{}，第{}行，原因：{}", cause.getClassName(), cause.getMethodName(), cause.getLineNumber(), e.getCause().getMessage());
-      }
-    } else {
-      log.error("错误位置：{}.{}，第{}行，错误原因：{}", element.getClassName(), element.getMethodName(), element.getLineNumber(), e.getClass().getName());
-    }
-    log.error("错误信息：");
-    e.printStackTrace();
   }
 
 }
