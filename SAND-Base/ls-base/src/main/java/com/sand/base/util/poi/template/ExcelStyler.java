@@ -5,7 +5,7 @@
  * 2019/8/19   liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.util.poi;
+package com.sand.base.util.poi.template;
 
 import cn.afterturn.easypoi.excel.entity.params.ExcelExportEntity;
 import cn.afterturn.easypoi.excel.entity.params.ExcelForEachParams;
@@ -25,9 +25,9 @@ import org.apache.poi.ss.usermodel.Workbook;
  * 功能说明：excel导出样式设置
  * 开发人员：@author liusha
  * 开发日期：2019/8/19 16:06
- * 功能描述：excel导出样式设置，使用开源的easypoi，参考http://easypoi.mydoc.io
+ * 功能描述：excel导出样式设置
  */
-public class ExcelExportStyler extends AbstractExcelExportStyler {
+public class ExcelStyler extends AbstractExcelExportStyler {
   private static final short FONT_SIZE_TEN = 10;
   private static final short FONT_SIZE_ELEVEN = 11;
   private static final short FONT_SIZE_TWELVE = 12;
@@ -35,17 +35,17 @@ public class ExcelExportStyler extends AbstractExcelExportStyler {
   /**
    * 标题样式
    */
-  private CellStyle headerStyle;
+  private CellStyle titleStyle;
   /**
    * 表头样式
    */
-  private CellStyle titleStyle;
+  private CellStyle headerStyle;
   /**
    * 数据样式
    */
   private CellStyle dataStyle;
 
-  public ExcelExportStyler(Workbook workbook) {
+  public ExcelStyler() {
     this.init(workbook);
   }
 
@@ -55,8 +55,8 @@ public class ExcelExportStyler extends AbstractExcelExportStyler {
    * @param workbook
    */
   private void init(Workbook workbook) {
-    this.headerStyle = initHeaderStyle(workbook);
     this.titleStyle = initTitleStyle(workbook);
+    this.headerStyle = initHeaderStyle(workbook);
     this.dataStyle = initDataStyle(workbook);
   }
 
@@ -67,8 +67,8 @@ public class ExcelExportStyler extends AbstractExcelExportStyler {
    * @return
    */
   @Override
-  public CellStyle getHeaderStyle(short color) {
-    return headerStyle;
+  public CellStyle getTitleStyle(short color) {
+    return titleStyle;
   }
 
   /**
@@ -78,8 +78,8 @@ public class ExcelExportStyler extends AbstractExcelExportStyler {
    * @return
    */
   @Override
-  public CellStyle getTitleStyle(short color) {
-    return titleStyle;
+  public CellStyle getHeaderStyle(short color) {
+    return headerStyle;
   }
 
   /**
@@ -120,11 +120,12 @@ public class ExcelExportStyler extends AbstractExcelExportStyler {
    * @param workbook
    * @return
    */
-  private CellStyle initHeaderStyle(Workbook workbook) {
-    CellStyle style = getBaseCellStyle(workbook);
+  public CellStyle initTitleStyle(Workbook workbook) {
+    CellStyle cellStyle = getBaseCellStyle(workbook);
     // 字体大小
-    style.setFont(getFont(workbook, FONT_SIZE_TWELVE, true));
-    return style;
+    cellStyle.setFont(getFont(workbook, FONT_SIZE_TWELVE, true));
+
+    return cellStyle;
   }
 
   /**
@@ -133,14 +134,14 @@ public class ExcelExportStyler extends AbstractExcelExportStyler {
    * @param workbook
    * @return
    */
-  private CellStyle initTitleStyle(Workbook workbook) {
-    CellStyle style = getBaseCellStyle(workbook);
+  public CellStyle initHeaderStyle(Workbook workbook) {
+    CellStyle cellStyle = getBaseCellStyle(workbook);
     // 字体大小
-    style.setFont(getFont(workbook, FONT_SIZE_ELEVEN, false));
+    cellStyle.setFont(getFont(workbook, FONT_SIZE_ELEVEN, false));
     // 背景颜色
-    style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-    style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-    return style;
+    cellStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+    cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+    return cellStyle;
   }
 
   /**
@@ -149,13 +150,13 @@ public class ExcelExportStyler extends AbstractExcelExportStyler {
    * @param workbook
    * @return
    */
-  private CellStyle initDataStyle(Workbook workbook) {
-    CellStyle style = getBaseCellStyle(workbook);
+  public CellStyle initDataStyle(Workbook workbook) {
+    CellStyle cellStyle = getBaseCellStyle(workbook);
     // 字体大小
-    style.setFont(getFont(workbook, FONT_SIZE_TEN, false));
+    cellStyle.setFont(getFont(workbook, FONT_SIZE_TEN, false));
     // 单元格格式
-    style.setDataFormat(STRING_FORMAT);
-    return style;
+    cellStyle.setDataFormat(STRING_FORMAT);
+    return cellStyle;
   }
 
   /**
@@ -163,23 +164,23 @@ public class ExcelExportStyler extends AbstractExcelExportStyler {
    *
    * @return
    */
-  private CellStyle getBaseCellStyle(Workbook workbook) {
-    CellStyle style = workbook.createCellStyle();
+  public CellStyle getBaseCellStyle(Workbook workbook) {
+    CellStyle cellStyle = workbook.createCellStyle();
     // 上边框
-    style.setBorderTop(BorderStyle.THIN);
+    cellStyle.setBorderTop(BorderStyle.THIN);
     // 下边框
-    style.setBorderBottom(BorderStyle.THIN);
+    cellStyle.setBorderBottom(BorderStyle.THIN);
     // 左边框
-    style.setBorderLeft(BorderStyle.THIN);
+    cellStyle.setBorderLeft(BorderStyle.THIN);
     // 右边框
-    style.setBorderRight(BorderStyle.THIN);
+    cellStyle.setBorderRight(BorderStyle.THIN);
     // 水平居中
-    style.setAlignment(HorizontalAlignment.CENTER);
+    cellStyle.setAlignment(HorizontalAlignment.CENTER);
     // 垂直居中
-    style.setVerticalAlignment(VerticalAlignment.CENTER);
+    cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
     // 自动换行
-    style.setWrapText(false);
-    return style;
+    cellStyle.setWrapText(false);
+    return cellStyle;
   }
 
   /**
@@ -189,7 +190,7 @@ public class ExcelExportStyler extends AbstractExcelExportStyler {
    * @param isBold 是否加粗
    * @return
    */
-  private Font getFont(Workbook workbook, short size, boolean isBold) {
+  public Font getFont(Workbook workbook, short size, boolean isBold) {
     Font font = workbook.createFont();
     // 字体样式
     font.setFontName("宋体");
