@@ -54,7 +54,6 @@ public class SysRoleController extends BaseController {
   @RequestMapping("/add")
   public ResultEntity add(@RequestBody SysRoleModel model) {
     log.info("SysRoleController add params：{}", model);
-    super.checkModel(model);
     roleService.add(model);
 
     return ResultUtil.ok("新增成功");
@@ -63,7 +62,6 @@ public class SysRoleController extends BaseController {
   @RequestMapping("/edit")
   public ResultEntity edit(@RequestBody SysRoleModel model) {
     log.info("SysRoleController edit params：{}", model);
-    super.checkModel(model);
     roleService.edit(model);
 
     return ResultUtil.ok("修改成功");

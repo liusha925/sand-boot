@@ -21,7 +21,7 @@ public class StringEditor extends PropertyEditorSupport {
   @Override
   public String getAsText() {
     Object value = getValue();
-    return value != null ? value.toString() : "";
+    return value != null ? value.toString() : StringUtil.EMPTY;
   }
 
   @Override

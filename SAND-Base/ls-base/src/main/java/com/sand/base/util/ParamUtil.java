@@ -146,7 +146,7 @@ public class ParamUtil {
    */
   public static long getLongValue(Map<String, Object> map, String key, long defaultValue) {
     Object value = getValue(map, key, defaultValue, false);
-    return Objects.isNull(value) ? 0L : Long.valueOf(value + "");
+    return Objects.isNull(value) ? 0L : Long.valueOf(value + StringUtil.EMPTY);
   }
 
   /**

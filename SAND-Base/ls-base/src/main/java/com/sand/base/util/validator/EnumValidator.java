@@ -11,14 +11,14 @@ import com.sand.base.annotation.EnumValidAnnotation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.Field;
+import java.util.Objects;
 
 /**
  * 功能说明：枚举验证器
  * 开发人员：@author liusha
  * 开发日期：2019/9/26 13:51
- * 功能描述：枚举验证器
+ * 功能描述：自定义枚举验证器
  */
 public class EnumValidator implements ConstraintValidator<EnumValidAnnotation, String> {
   /**
@@ -39,20 +39,25 @@ public class EnumValidator implements ConstraintValidator<EnumValidAnnotation, S
           if (clz.isEnum()) {
             // 枚举类验证
             Object[] objs = clz.getEnumConstants();
-            Method method = clz.getMethod("name");
             for (Object obj : objs) {
-              Object code = method.invoke(obj, null);
-              if (value.equals(code.toString())) {
-                return true;
+              Class<?> enumClz = obj.getClass();
+              Field[] fields = enumClz.getDeclaredFields();
+              for (Field field : fields) {
+                // 访问私有成员属性开关
+                field.setAccessible(true);
+                EnumValidAnnotation enumValidAnnotation = field.getAnnotation(EnumValidAnnotation.class);
+                if (Objects.nonNull(enumValidAnnotation)) {
+                  // 获取成员属性的值
+                  Object enumValue = field.get(obj);
+                  if (value.equals(enumValue.toString())) {
+                    return true;
+                  }
+                }
               }
             }
           }
         }
-      } catch (NoSuchMethodException e) {
-        e.printStackTrace();
       } catch (IllegalAccessException e) {
-        e.printStackTrace();
-      } catch (InvocationTargetException e) {
         e.printStackTrace();
       }
     } else {

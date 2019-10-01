@@ -10,17 +10,12 @@ package com.sand.base.core.common;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sand.base.enums.CodeEnum;
 import com.sand.base.exception.LsException;
-import com.sand.base.util.lang3.StringUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * 功能说明：提供公共服务
@@ -30,8 +25,6 @@ import java.util.Set;
  */
 @Slf4j
 public class BaseCommon {
-  @Autowired
-  protected Validator validator;
   /**
    * 将mybatis-plus的分页插件转换成需要的展示格式
    *
@@ -84,38 +77,6 @@ public class BaseCommon {
     }
     log.error("错误信息：");
     e.printStackTrace();
-  }
-
-  /**
-   * 表单验证（对应实体类配置注解）
-   *
-   * @param entity
-   * @param <T>
-   */
-  protected <T extends Object> void checkModel(T entity) {
-    checkModel(entity, null);
-  }
-
-  /**
-   * 表单验证指定字段（对应实体类配置注解）
-   *
-   * @param entity
-   * @param <T>
-   */
-  protected <T extends Object> void checkModel(T entity, String fieldName) {
-    Set<ConstraintViolation<T>> violationSet;
-    if (StringUtil.isNotBlank(fieldName)) {
-      violationSet = validator.validateProperty(entity, fieldName);
-    } else {
-      violationSet = validator.validate(entity);
-    }
-    if (violationSet.size() > 0) {
-      String errorMsg = violationSet.iterator().next().getMessage();
-      if (StringUtil.isBlank(errorMsg)) {
-        errorMsg = "请求参数有误";
-      }
-      throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, errorMsg);
-    }
   }
 
 }

@@ -102,7 +102,7 @@ public class ResultUtil {
         String sortFieldName = request.getHeader(Constant.SELECT_REQUEST_SORT).trim();
         // 是否保留原始数据
         boolean raw = Objects.equals("true", request.getHeader(Constant.SELECT_REQUEST_RAW).trim());
-        int index = sortFieldName.indexOf(" ");
+        int index = sortFieldName.indexOf(StringUtil.SPACE);
         final int asc = index > -1 ? (Objects.equals(sortFieldName.substring(index + 1), SORT_ASC) ? 1 : -1) : 1;
         sortFieldName = index > -1 ? sortFieldName.substring(0, index) : sortFieldName;
         Collection collection = (Collection) data;

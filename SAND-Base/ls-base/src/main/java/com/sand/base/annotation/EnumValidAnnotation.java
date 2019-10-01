@@ -7,6 +7,7 @@
  */
 package com.sand.base.annotation;
 
+import com.sand.base.util.lang3.StringUtil;
 import com.sand.base.util.validator.EnumValidator;
 
 import javax.validation.Constraint;
@@ -28,11 +29,21 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = {EnumValidator.class})
 @Documented
 public @interface EnumValidAnnotation {
-  String message() default "";
+  /**
+   * 提示消息
+   *
+   * @return
+   */
+  String message() default StringUtil.EMPTY;
+
+  /**
+   * 对应的枚举类
+   *
+   * @return
+   */
+  Class<?>[] target() default {};
 
   Class<?>[] groups() default {};
-
-  Class<?>[] target() default {};
 
   Class<? extends Payload>[] payload() default {};
 }

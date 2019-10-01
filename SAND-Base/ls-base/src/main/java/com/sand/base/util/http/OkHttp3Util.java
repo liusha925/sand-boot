@@ -9,6 +9,7 @@ package com.sand.base.util.http;
 
 import com.alibaba.fastjson.JSON;
 import com.sand.base.exception.LsException;
+import com.sand.base.util.lang3.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.Headers;
 import okhttp3.MediaType;
@@ -125,7 +126,7 @@ public class OkHttp3Util {
         .addFormDataPart("file", file.getName(), okhttp3.RequestBody.create(MediaType.parse("file/*"), file));
     for (Map.Entry entry : map.entrySet()) {
       if (!entry.getKey().toString().startsWith(HEADER_PREFIX)) {
-        builder.addFormDataPart(entry.getKey() + "", entry.getValue() + "");
+        builder.addFormDataPart(entry.getKey() + StringUtil.EMPTY, entry.getValue() + StringUtil.EMPTY);
       }
     }
     final Request request = new Request.Builder().url(url).post(builder.build()).headers(headers).build();
@@ -201,7 +202,7 @@ public class OkHttp3Util {
    * @return
    */
   public static String proceedRequest(Request request) {
-    String res = "";
+    String res = StringUtil.EMPTY;
     try (okhttp3.Response response = client.newCall(request).execute()) {
       okhttp3.ResponseBody body = response.body();
       if (response.isSuccessful()) {
@@ -226,7 +227,7 @@ public class OkHttp3Util {
       for (Map.Entry entry : map.entrySet()) {
         String key = entry.getKey().toString();
         if (key.startsWith(HEADER_PREFIX)) {
-          headers.add(key.replace(HEADER_PREFIX, ""), entry.getValue().toString());
+          headers.add(key.replace(HEADER_PREFIX, StringUtil.EMPTY), entry.getValue().toString());
         }
       }
     }
@@ -255,7 +256,7 @@ public class OkHttp3Util {
   public static String getServicePath() {
     String servicePath = null;
     try {
-      File pathFile = new File(ResourceUtils.getURL("").getPath());
+      File pathFile = new File(ResourceUtils.getURL(StringUtil.EMPTY).getPath());
       servicePath = pathFile.getAbsolutePath();
     } catch (FileNotFoundException e) {
       log.error("获取服务路径错误");

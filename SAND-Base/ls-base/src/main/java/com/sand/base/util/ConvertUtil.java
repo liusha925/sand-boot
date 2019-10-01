@@ -9,6 +9,7 @@ package com.sand.base.util;
 
 import com.sand.base.exception.LsException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.Field;
@@ -86,7 +87,7 @@ public class ConvertUtil<K, T> {
    * @param t
    */
   public void beforeConvert(K k, T t) {
-
+    log.info("类型转换前置处理");
   }
 
   /**
@@ -96,7 +97,7 @@ public class ConvertUtil<K, T> {
    * @param t
    */
   public void afterConvert(K k, T t) {
-
+    log.info("类型转换后置处理");
   }
 
   /**
@@ -112,6 +113,14 @@ public class ConvertUtil<K, T> {
     }
     Class clazz = obj.getClass();
     Field[] fields = clazz.getDeclaredFields();
+    // 获取所有父类的成员属性
+    while (Objects.nonNull(clazz)) {
+      clazz = clazz.getSuperclass();
+      if (Objects.nonNull(clazz)) {
+        Field[] superFields = clazz.getDeclaredFields();
+        fields = ArrayUtils.addAll(fields, superFields);
+      }
+    }
     try {
       for (Field field : fields) {
         field.setAccessible(true);

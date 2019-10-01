@@ -16,6 +16,7 @@ import com.sand.base.util.lang3.StringUtil;
 import com.sand.base.util.tree.Tree;
 import com.sand.base.util.tree.TreeUtil;
 import com.sand.base.util.tree.builder.ITreeBuilder;
+import com.sand.base.util.validator.ModelValidator;
 import com.sand.sys.entity.SysMenu;
 import com.sand.sys.entity.SysRoleMenu;
 import com.sand.sys.enums.MenuEnum;
@@ -158,6 +159,8 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
    * @param model dto
    */
   private void checkModel(SysMenuModel model, OperateEnum operate) {
+    // 表单注解校验，非空，长度，正则等校验
+    ModelValidator.checkModel(model);
     // 不为主目录时需要校验父级菜单
     if (!Objects.equals(model.getParentId(), TreeUtil.TREE_ROOT)) {
       SysMenu parentMenu = super.getById(model.getParentId());

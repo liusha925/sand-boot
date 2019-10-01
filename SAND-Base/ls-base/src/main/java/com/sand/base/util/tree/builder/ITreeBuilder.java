@@ -7,6 +7,8 @@
  */
 package com.sand.base.util.tree.builder;
 
+import com.sand.base.util.lang3.StringUtil;
+
 /**
  * 功能说明：构建树
  * 开发人员：@author liusha
@@ -37,6 +39,6 @@ public interface ITreeBuilder<T> {
    * @return
    */
   default String getName(T t) {
-    return "";
+    return StringUtil.EMPTY;
   }
 }

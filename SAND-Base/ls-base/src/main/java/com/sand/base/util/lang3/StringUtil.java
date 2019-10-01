@@ -26,14 +26,15 @@ import java.util.regex.Pattern;
  * 功能描述：字符串工具类, 继承org.apache.commons.lang3.StringUtils类
  */
 public class StringUtil extends StringUtils {
+  public static final int STRING_BUILDER_SIZE = 256;
   /**
    * 字符连接符
    */
-  private static final char SEPARATOR = '_';
+  public static final char SEPARATOR = '_';
   /**
    * 默认字符编码
    */
-  private static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
+  public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
   public StringUtil() {
     super();
@@ -48,7 +49,7 @@ public class StringUtil extends StringUtils {
   public static String obj2Str(Object obj) {
     String str;
     if (Objects.isNull(obj)) {
-      return "";
+      return StringUtil.EMPTY;
     }
     if (obj instanceof String) {
       str = (String) obj;
@@ -65,7 +66,7 @@ public class StringUtil extends StringUtils {
    * @return
    */
   public static boolean isBlank(String s) {
-    if (Objects.isNull(s) || Objects.equals(s.trim(), "")) {
+    if (Objects.isNull(s) || Objects.equals(s.trim(), StringUtil.EMPTY)) {
       return true;
     }
     return false;
@@ -214,12 +215,12 @@ public class StringUtil extends StringUtils {
    */
   public static String replaceHtml(String html) {
     if (isBlank(html)) {
-      return "";
+      return StringUtil.EMPTY;
     }
     String regex = "<.+?>";
     Pattern pattern = Pattern.compile(regex);
     Matcher matcher = pattern.matcher(html);
-    return matcher.replaceAll("");
+    return matcher.replaceAll(StringUtil.EMPTY);
   }
 
   /**

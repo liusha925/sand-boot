@@ -7,8 +7,7 @@
  */
 package com.sand.sys.enums;
 
-import com.baomidou.mybatisplus.core.enums.IEnum;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.sand.base.annotation.EnumValidAnnotation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -18,24 +17,20 @@ import java.util.Objects;
  * 功能说明：存放系统菜单枚举类
  * 开发人员：@author liusha
  * 开发日期：2019/8/28 19:48
- * 功能描述：申明通用枚举属性将字段响应值返给客户端，参考https://mp.baomidou.com/guide/enum.html
+ * 功能描述：使用@EnumValidAnnotation可用于表单校验，使用getBy*返回给客户端转译等
  */
 public final class MenuEnum {
   @Getter
   @AllArgsConstructor
-  public enum MenuType implements IEnum<String> {
+  public enum MenuType {
     // 菜单类型
     M("M", "目录"),
     C("C", "菜单"),
     F("F", "按钮");
-    private final String type;
-    @JsonValue
-    private final String description;
 
-    @Override
-    public String getValue() {
-      return this.type;
-    }
+    @EnumValidAnnotation
+    private final String type;
+    private final String description;
 
     public static MenuType getByType(String type) {
       for (MenuType item : MenuType.values()) {
@@ -49,19 +44,15 @@ public final class MenuEnum {
 
   @Getter
   @AllArgsConstructor
-  public enum Target implements IEnum<String> {
+  public enum Target {
     // 打开方式
     ITEM("_item", "页签中打开"),
     BLANK("_blank", "新窗口打开"),
     CURRENT("_current", "当前窗口打开");
-    private final String target;
-    @JsonValue
-    private final String description;
 
-    @Override
-    public String getValue() {
-      return this.target;
-    }
+    @EnumValidAnnotation
+    private final String target;
+    private final String description;
 
     public static Target getByTarget(String target) {
       for (Target item : Target.values()) {
@@ -75,18 +66,14 @@ public final class MenuEnum {
 
   @Getter
   @AllArgsConstructor
-  public enum Visible implements IEnum<String> {
+  public enum Visible {
     // 菜单状态
     SHOW("0", "显示"),
     HIDE("1", "隐藏");
-    private final String visible;
-    @JsonValue
-    private final String description;
 
-    @Override
-    public String getValue() {
-      return this.visible;
-    }
+    @EnumValidAnnotation
+    private final String visible;
+    private final String description;
 
     public static Visible getByVisible(String visible) {
       for (Visible item : Visible.values()) {
@@ -97,5 +84,4 @@ public final class MenuEnum {
       return null;
     }
   }
-
 }

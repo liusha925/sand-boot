@@ -291,7 +291,7 @@ public class RegexValidator {
    * @return
    */
   public static boolean isUnifyCode(String unifyCode) {
-    if ((unifyCode.equals("")) || unifyCode.length() != 18) {
+    if ((unifyCode.equals(StringUtil.EMPTY)) || unifyCode.length() != 18) {
       return false;
     }
     if (!unifyCode.matches(RegexEnum.UNIFY_CODE.getExpression())) {

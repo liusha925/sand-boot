@@ -9,6 +9,7 @@ package com.sand.base.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sand.base.constant.Constant;
+import com.sand.base.util.lang3.StringUtil;
 import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
@@ -20,6 +21,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -224,4 +227,36 @@ public class ServletUtil {
 
     return agentMap;
   }
+
+  /**
+   * 设置文件名称编码格式
+   *
+   * @param fileName 文件名称
+   * @return
+   */
+  public static String encodingFileName(String fileName) throws UnsupportedEncodingException {
+    return encodingFileName(getRequest(), fileName);
+  }
+
+  /**
+   * 设置文件名称编码格式
+   *
+   * @param request  servlet请求
+   * @param fileName 文件名称
+   * @return
+   */
+  public static String encodingFileName(HttpServletRequest request, String fileName) throws UnsupportedEncodingException {
+    String agent = request.getHeader("User-Agent");
+    fileName = URLEncoder.encode(fileName, "utf-8");
+    if (agent.contains("MSIE")) {
+      // IE浏览器
+      fileName = fileName.replace("+", StringUtil.SPACE);
+    }
+    if (agent.contains("Firefox")) {
+      // 火狐浏览器
+      fileName = new String(fileName.getBytes(), "ISO8859-1");
+    }
+    return fileName;
+  }
+
 }
