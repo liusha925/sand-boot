@@ -28,6 +28,10 @@ import org.apache.poi.ss.usermodel.Workbook;
  * 功能描述：excel导出样式设置
  */
 public class ExcelStyler extends AbstractExcelExportStyler {
+  /**
+   * 单sheet最大值
+   */
+  public static final int SHEET_MAX_NUM = 65536;
   private static final short FONT_SIZE_TEN = 10;
   private static final short FONT_SIZE_ELEVEN = 11;
   private static final short FONT_SIZE_TWELVE = 12;

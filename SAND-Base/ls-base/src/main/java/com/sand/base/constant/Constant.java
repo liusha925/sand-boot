@@ -54,8 +54,4 @@ public final class Constant {
    * XML报文头
    */
   public static final String XML_HEADER = "<?xml version=\"1.0\" encoding = \"UTF-8\"?>";
-  /**
-   * 单sheet最大值
-   */
-  public static final int SHEET_MAX_NUM = 10000;
 }

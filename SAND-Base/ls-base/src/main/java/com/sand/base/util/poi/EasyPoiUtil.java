@@ -12,10 +12,10 @@ import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.TemplateExportParams;
-import com.sand.base.constant.Constant;
 import com.sand.base.core.entity.ResultEntity;
+import com.sand.base.core.text.LsCharset;
 import com.sand.base.exception.LsException;
-import com.sand.base.util.AutoCloseableUtil;
+import com.sand.base.util.CloseableUtil;
 import com.sand.base.util.ResultUtil;
 import com.sand.base.util.ServletUtil;
 import com.sand.base.util.lang3.StringUtil;
@@ -77,7 +77,7 @@ public class EasyPoiUtil {
    * @return
    */
   public static ResultEntity exportExcel(String sheetName, Class<?> pojoClass, Collection<?> dataSet) {
-    return exportExcel(sheetName, pojoClass, dataSet, Constant.SHEET_MAX_NUM, StringUtil.EMPTY);
+    return exportExcel(sheetName, pojoClass, dataSet, ExcelStyler.SHEET_MAX_NUM, StringUtil.EMPTY);
   }
 
   /**
@@ -90,7 +90,7 @@ public class EasyPoiUtil {
    * @return
    */
   public static ResultEntity exportExcel(String sheetName, Class<?> pojoClass, Collection<?> dataSet, String templateUrl) {
-    return exportExcel(sheetName, pojoClass, dataSet, Constant.SHEET_MAX_NUM, templateUrl);
+    return exportExcel(sheetName, pojoClass, dataSet, ExcelStyler.SHEET_MAX_NUM, templateUrl);
   }
 
   /**
@@ -141,7 +141,7 @@ public class EasyPoiUtil {
       log.info("excel导出耗时 = {}", (System.currentTimeMillis() - start) + "毫秒");
       HttpServletResponse response = ServletUtil.getResponse();
       String fileName = ServletUtil.encodingFileName(sheetName);
-      response.setCharacterEncoding("utf-8");
+      response.setCharacterEncoding(LsCharset.UTF_8);
       response.setContentType("multipart/form-data");
       response.setHeader("Content-Disposition", "attachment;fileName=" + fileName);
       out = response.getOutputStream();
@@ -150,7 +150,7 @@ public class EasyPoiUtil {
     } catch (Exception e) {
       throw new LsException("导出excel异常，请联系管理人员");
     } finally {
-      AutoCloseableUtil.close(workbook, out);
+      CloseableUtil.close(workbook, out);
     }
   }
 

@@ -9,6 +9,7 @@ package com.sand.base.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sand.base.constant.Constant;
+import com.sand.base.core.text.LsCharset;
 import com.sand.base.util.lang3.StringUtil;
 import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.OperatingSystem;
@@ -247,7 +248,7 @@ public class ServletUtil {
    */
   public static String encodingFileName(HttpServletRequest request, String fileName) throws UnsupportedEncodingException {
     String agent = request.getHeader("User-Agent");
-    fileName = URLEncoder.encode(fileName, "utf-8");
+    fileName = URLEncoder.encode(fileName, LsCharset.UTF_8);
     if (agent.contains("MSIE")) {
       // IE浏览器
       fileName = fileName.replace("+", StringUtil.SPACE);

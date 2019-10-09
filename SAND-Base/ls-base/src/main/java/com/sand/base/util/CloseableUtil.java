@@ -19,7 +19,7 @@ import java.util.Objects;
  * 功能描述：暂时将实现了AutoCloseable接口的流进行关闭，后期使用try-with-resources
  */
 @Slf4j
-public class AutoCloseableUtil {
+public class CloseableUtil {
   /**
    * 关闭流操作
    *

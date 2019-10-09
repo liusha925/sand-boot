@@ -34,7 +34,7 @@ public class ModelValidator {
   /**
    * 校验失败原因key值
    */
-  public static final String CHECKED_FAIL_MSG = "checkedFailNum";
+  public static final String CHECKED_FAIL_MSG = "checkedFailMsg";
   /**
    * 校验通过的数据列表key值
    */

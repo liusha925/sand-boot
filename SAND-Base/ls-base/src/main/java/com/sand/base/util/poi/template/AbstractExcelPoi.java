@@ -9,9 +9,12 @@ package com.sand.base.util.poi.template;
 
 import com.sand.base.annotation.ExcelAnnotation;
 import com.sand.base.core.entity.ResultEntity;
+import com.sand.base.core.text.LsCharset;
+import com.sand.base.core.text.LsConvert;
 import com.sand.base.enums.DateEnum;
 import com.sand.base.exception.LsException;
-import com.sand.base.util.AutoCloseableUtil;
+import com.sand.base.util.CloseableUtil;
+import com.sand.base.util.ReflectUtil;
 import com.sand.base.util.ResultUtil;
 import com.sand.base.util.ServletUtil;
 import com.sand.base.util.lang3.DateUtil;
@@ -63,7 +66,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @Slf4j
 public abstract class AbstractExcelPoi<T> {
-  protected static final int sheetSize = 65536;
   /**
    * 工作表名称
    */
@@ -205,30 +207,39 @@ public abstract class AbstractExcelPoi<T> {
           // 根据对象类型设置值
           Class<?> fileType = field.getType();
           if (Objects.equals(String.class, fileType)) {
-
+            String s = LsConvert.obj2Str(value);
+            if (StringUtil.endsWith(s, ".0")) {
+              value = StringUtil.substringBefore(s, ".0");
+            } else {
+              value = LsConvert.obj2Str(value);
+            }
           } else if (Objects.equals(Date.class, fileType)) {
-
+            if (value instanceof String) {
+              value = DateUtil.parseDate(LsConvert.obj2Str(value));
+            } else if (value instanceof Double) {
+              value = org.apache.poi.ss.usermodel.DateUtil.getJavaDate((Double) value);
+            }
           } else if (Objects.equals(BigDecimal.class, fileType)) {
-
+            value = LsConvert.obj2BigDecimal(value);
           } else if (Objects.equals(Long.class, fileType) || Objects.equals(Long.TYPE, fileType)) {
-
+            value = LsConvert.obj2Long(value);
           } else if (Objects.equals(Integer.class, fileType) || Objects.equals(Integer.TYPE, fileType)) {
-
+            value = LsConvert.obj2Int(value);
           } else if (Objects.equals(Double.class, fileType) || Objects.equals(Double.TYPE, fileType)) {
-
+            value = LsConvert.obj2Double(value);
           } else if (Objects.equals(Float.class, fileType) || Objects.equals(Float.TYPE, fileType)) {
-
+            value = LsConvert.obj2Float(value);
           }
           if (Objects.nonNull(fileType)) {
             ExcelAnnotation excelAnnotation = field.getAnnotation(ExcelAnnotation.class);
             String propertyName = field.getName();
             if (StringUtil.isNotBlank(excelAnnotation.targetAnnotation())) {
               propertyName = propertyName + "." + excelAnnotation.targetAnnotation();
-            } else if (StringUtil.isNotBlank(excelAnnotation.readConvertExp())) {
-//              value = this.reverseByExp(StringUtil.obj2Str(value), excelAnnotation.readConvertExp());
             }
-            // 反射工具类封装
-//            invokeSetter(entity, value, propertyName);
+            if (StringUtil.isNotBlank(excelAnnotation.readConvertExp())) {
+              value = this.reverseByExp(LsConvert.obj2Str(value), excelAnnotation.readConvertExp());
+            }
+            ReflectUtil.invokeSetter(entity, value, propertyName);
           }
         }
         this.entityList.add(entity);
@@ -238,52 +249,11 @@ public abstract class AbstractExcelPoi<T> {
     return this.entityList;
   }
 
-  /**
-   * 获取单元格的值
-   *
-   * @param row    获取的行
-   * @param column 获取单元格列号
-   * @return 单元格值
-   */
-  private Object getCellValue(Row row, int column) {
-    if (Objects.nonNull(row)) {
-      Object value = StringUtil.EMPTY;
-      try {
-        Cell cell = row.getCell(column);
-        if (Objects.nonNull(cell)) {
-          if (Objects.equals(cell.getCellTypeEnum(), CellType.NUMERIC)) {
-            value = cell.getNumericCellValue();
-            // POI Excel日期格式转换
-            if (HSSFDateUtil.isCellDateFormatted(cell)) {
-              value = org.apache.poi.ss.usermodel.DateUtil.getJavaDate((Double) value);
-            } else {
-              if ((Double) value % 1 > 0) {
-                value = new DecimalFormat("0.00").format(value);
-              } else {
-                value = new DecimalFormat("0").format(value);
-              }
-            }
-          } else if (Objects.equals(cell.getCellTypeEnum(), CellType.STRING)) {
-            value = cell.getStringCellValue();
-          } else if (Objects.equals(cell.getCellTypeEnum(), CellType.BOOLEAN)) {
-            value = cell.getBooleanCellValue();
-          } else if (Objects.equals(cell.getCellTypeEnum(), CellType.ERROR)) {
-            value = cell.getErrorCellValue();
-          }
-        }
-        return value;
-      } catch (Exception e) {
-        return value;
-      }
-    }
-    return null;
-  }
-
   protected ResultEntity export() {
     OutputStream out = null;
     try {
       // 计算一共有几个sheet页
-      double sheetNum = Math.ceil(this.entityList.size() / sheetSize);
+      double sheetNum = Math.ceil(this.entityList.size() / ExcelStyler.SHEET_MAX_NUM);
       for (int index = 0; index <= sheetNum; index++) {
         this.createSheet(index);
         // 产生单元格
@@ -335,7 +305,7 @@ public abstract class AbstractExcelPoi<T> {
       }
       HttpServletResponse response = ServletUtil.getResponse();
       String fileName = ServletUtil.encodingFileName(this.sheetName);
-      response.setCharacterEncoding("utf-8");
+      response.setCharacterEncoding(LsCharset.UTF_8);
       response.setContentType("multipart/form-data");
       response.setHeader("Content-Disposition", "attachment;fileName=" + fileName);
       out = response.getOutputStream();
@@ -344,8 +314,71 @@ public abstract class AbstractExcelPoi<T> {
     } catch (Exception e) {
       throw new LsException("导出excel异常，请联系管理人员");
     } finally {
-      AutoCloseableUtil.close(this.workbook, out);
+      CloseableUtil.close(this.workbook, out);
     }
+  }
+
+  /**
+   * 获取单元格的值
+   *
+   * @param row    获取的行
+   * @param column 获取单元格列号
+   * @return 单元格值
+   */
+  private Object getCellValue(Row row, int column) {
+    if (Objects.nonNull(row)) {
+      Object value = StringUtil.EMPTY;
+      try {
+        Cell cell = row.getCell(column);
+        if (Objects.nonNull(cell)) {
+          if (Objects.equals(cell.getCellTypeEnum(), CellType.NUMERIC)) {
+            value = cell.getNumericCellValue();
+            // POI Excel日期格式转换
+            if (HSSFDateUtil.isCellDateFormatted(cell)) {
+              value = org.apache.poi.ss.usermodel.DateUtil.getJavaDate((Double) value);
+            } else {
+              if ((Double) value % 1 > 0) {
+                value = new DecimalFormat("0.00").format(value);
+              } else {
+                value = new DecimalFormat("0").format(value);
+              }
+            }
+          } else if (Objects.equals(cell.getCellTypeEnum(), CellType.STRING)) {
+            value = cell.getStringCellValue();
+          } else if (Objects.equals(cell.getCellTypeEnum(), CellType.BOOLEAN)) {
+            value = cell.getBooleanCellValue();
+          } else if (Objects.equals(cell.getCellTypeEnum(), CellType.ERROR)) {
+            value = cell.getErrorCellValue();
+          }
+        }
+        return value;
+      } catch (Exception e) {
+        return value;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * 枚举类字段反向解析，例：女=0,男=1,未知=2
+   *
+   * @param propertyValue  待反向解析的值
+   * @param readConvertExp 解析表达式
+   * @return
+   */
+  protected String reverseByExp(String propertyValue, String readConvertExp) {
+    try {
+      String[] sourceArray = readConvertExp.split(",");
+      for (String item : sourceArray) {
+        String[] itemArray = item.split("=");
+        if (itemArray[0].equals(propertyValue)) {
+          return itemArray[1];
+        }
+      }
+    } catch (Exception e) {
+      throw new LsException("枚举类数值[" + propertyValue + "]反向解析失败！");
+    }
+    return propertyValue;
   }
 
   /**
@@ -439,8 +472,8 @@ public abstract class AbstractExcelPoi<T> {
    * @param cell  类型单元格
    */
   protected void fillExcelData(int index, Row row, Cell cell) {
-    int startNo = index * sheetSize;
-    int endNo = Math.min(startNo + sheetSize, entityList.size());
+    int startNo = index * ExcelStyler.SHEET_MAX_NUM;
+    int endNo = Math.min(startNo + ExcelStyler.SHEET_MAX_NUM, entityList.size());
     // 写入各条记录，每条记录对应excel中的一行
     CellStyle cellStyle = new ExcelStyler().initDataStyle(workbook);
     try {
@@ -470,7 +503,7 @@ public abstract class AbstractExcelPoi<T> {
             if (Objects.nonNull(dataFormat)) {
               cell.setCellValue(DateUtil.formatDate((Date) value, dataFormat));
             } else if (StringUtil.isNotBlank(readConvertExp)) {
-              cell.setCellValue(convertByExp(StringUtil.obj2Str(value), readConvertExp));
+              cell.setCellValue(convertByExp(LsConvert.obj2Str(value), readConvertExp));
             } else {
               cell.setCellType(CellType.STRING);
               cell.setCellValue(Objects.isNull(value) ? excelAnnotation.defaultValue() : value + excelAnnotation.suffix());

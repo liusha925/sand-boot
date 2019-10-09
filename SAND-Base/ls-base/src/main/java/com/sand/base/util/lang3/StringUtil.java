@@ -41,25 +41,6 @@ public class StringUtil extends StringUtils {
   }
 
   /**
-   * 对象转为字符串
-   *
-   * @param obj 待转换的对象
-   * @return
-   */
-  public static String obj2Str(Object obj) {
-    String str;
-    if (Objects.isNull(obj)) {
-      return StringUtil.EMPTY;
-    }
-    if (obj instanceof String) {
-      str = (String) obj;
-    } else {
-      str = obj.toString();
-    }
-    return str.trim();
-  }
-
-  /**
    * 判断字符串是否为空
    *
    * @param s
