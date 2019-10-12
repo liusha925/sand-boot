@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 功能说明：表单校验
+ * 功能说明：表单验证器
  * 开发人员：@author liusha
  * 开发日期：2019/9/30 13:57
  * 功能描述：表单校验，验证非空、长度、正则等等
@@ -80,22 +80,23 @@ public class ModelValidator {
    * @return 校验结果
    */
   public static <T extends Object> Map<String, Object> checkModelList(List<T> entityList) {
-    Map<String, Object> checkedMap = new HashMap<>();
-    // 校验通过的数据列表
-    List<T> checkedEntityList = new ArrayList<>();
-    // 校验失败原因
-    StringBuilder checkedFailMsg = new StringBuilder();
     // 校验失败条数
     int checkedFailNum = 0;
+    // 校验失败原因
+    StringBuilder checkedFailMsg = new StringBuilder();
+    // 校验通过的数据列表
+    List<T> checkedEntityList = new ArrayList<>();
     for (int i = 0; i < entityList.size(); i++) {
       try {
         checkModel(entityList.get(i));
       } catch (Exception e) {
         checkedFailNum++;
         checkedFailMsg.append("第" + (i + 1) + "条数据：" + e.getMessage() + "；");
+        continue;
       }
       checkedEntityList.add(entityList.get(i));
     }
+    Map<String, Object> checkedMap = new HashMap<>();
     checkedMap.put(CHECKED_FAIL_NUM, checkedFailNum);
     checkedMap.put(CHECKED_FAIL_MSG, checkedFailMsg);
     checkedMap.put(CHECKED_ENTITY_LIST, checkedEntityList);

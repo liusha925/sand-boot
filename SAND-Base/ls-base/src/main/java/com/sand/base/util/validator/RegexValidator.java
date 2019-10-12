@@ -7,6 +7,7 @@
  */
 package com.sand.base.util.validator;
 
+import com.sand.base.core.text.LsConvert;
 import com.sand.base.enums.RegexEnum;
 import com.sand.base.util.lang3.StringUtil;
 import org.springframework.util.StringUtils;
@@ -17,10 +18,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 功能说明：正则校验工具类
+ * 功能说明：正则验证器
  * 开发人员：@author liusha
  * 开发日期：2019/8/19 13:43
- * 功能描述：正则校验工具类，需要RegexEnum辅助使用
+ * 功能描述：正则验证器，需要RegexEnum辅助使用
  */
 public class RegexValidator {
   /**
@@ -49,7 +50,7 @@ public class RegexValidator {
    * @return
    */
   public static boolean isLoginName(String loginName, RegexEnum regexEnum) {
-    return matchers(StringUtil.obj2Str(loginName), regexEnum);
+    return matchers(LsConvert.obj2Str(loginName), regexEnum);
   }
 
   /**
@@ -70,7 +71,7 @@ public class RegexValidator {
    * @return
    */
   public static boolean isPassword(String password, RegexEnum regexEnum) {
-    return matchers(StringUtil.obj2Str(password), regexEnum);
+    return matchers(LsConvert.obj2Str(password), regexEnum);
   }
 
   /**
@@ -91,7 +92,7 @@ public class RegexValidator {
    * @return
    */
   public static boolean isPayPassword(String payPassword, RegexEnum regexEnum) {
-    return matchers(StringUtil.obj2Str(payPassword), regexEnum);
+    return matchers(LsConvert.obj2Str(payPassword), regexEnum);
   }
 
   /**
@@ -112,7 +113,7 @@ public class RegexValidator {
    * @return
    */
   public static boolean isMobilePhone(String mobilePhone, RegexEnum regexEnum) {
-    return matchers(StringUtil.obj2Str(mobilePhone), regexEnum);
+    return matchers(LsConvert.obj2Str(mobilePhone), regexEnum);
   }
 
   /**
@@ -137,7 +138,7 @@ public class RegexValidator {
    * @return
    */
   public static boolean isTelPhone(String telPhone, RegexEnum regexEnum) {
-    return matchers(StringUtil.obj2Str(telPhone), regexEnum);
+    return matchers(LsConvert.obj2Str(telPhone), regexEnum);
   }
 
   /**
@@ -158,7 +159,7 @@ public class RegexValidator {
    * @return
    */
   public static boolean isBankCard(String bankCard, RegexEnum regexEnum) {
-    return matchers(StringUtil.obj2Str(bankCard), regexEnum);
+    return matchers(LsConvert.obj2Str(bankCard), regexEnum);
   }
 
   /**
@@ -179,7 +180,7 @@ public class RegexValidator {
    * @return
    */
   public static boolean isCardId(String cardId, RegexEnum regexEnum) {
-    return matchers(StringUtil.obj2Str(cardId), regexEnum);
+    return matchers(LsConvert.obj2Str(cardId), regexEnum);
   }
 
   /**
@@ -200,7 +201,7 @@ public class RegexValidator {
    * @return
    */
   public static boolean isRealName(String realName, RegexEnum regexEnum) {
-    return matchers(StringUtil.obj2Str(realName), regexEnum);
+    return matchers(LsConvert.obj2Str(realName), regexEnum);
   }
 
   /**
@@ -221,7 +222,7 @@ public class RegexValidator {
    * @return
    */
   public static boolean isEmail(String email, RegexEnum regexEnum) {
-    return matchers(StringUtil.obj2Str(email), regexEnum);
+    return matchers(LsConvert.obj2Str(email), regexEnum);
   }
 
   /**
@@ -241,7 +242,7 @@ public class RegexValidator {
    * @return
    */
   public static boolean isNumber(String number, RegexEnum regexEnum) {
-    return matchers(StringUtil.obj2Str(number), regexEnum);
+    return matchers(LsConvert.obj2Str(number), regexEnum);
   }
 
   /**
@@ -261,7 +262,7 @@ public class RegexValidator {
    * @return
    */
   public static boolean isInteger(String integer, RegexEnum regexEnum) {
-    return matchers(StringUtil.obj2Str(integer), regexEnum);
+    return matchers(LsConvert.obj2Str(integer), regexEnum);
   }
 
   /**
@@ -281,7 +282,7 @@ public class RegexValidator {
    * @return
    */
   public static boolean isDecimal(String decimal, RegexEnum regexEnum) {
-    return matchers(StringUtil.obj2Str(decimal), regexEnum);
+    return matchers(LsConvert.obj2Str(decimal), regexEnum);
   }
 
   /**

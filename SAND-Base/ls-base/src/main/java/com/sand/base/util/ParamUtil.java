@@ -10,6 +10,7 @@ package com.sand.base.util;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sand.base.core.text.LsConvert;
 import com.sand.base.enums.CodeEnum;
 import com.sand.base.exception.LsException;
 import com.sand.base.util.lang3.StringUtil;
@@ -67,7 +68,7 @@ public class ParamUtil {
    * @return
    */
   public static int getIntValue(Map<String, Object> map, String key, int defaultValue) {
-    String value = StringUtil.obj2Str(getValue(map, key, defaultValue));
+    String value = LsConvert.obj2Str(getValue(map, key, defaultValue));
     if (StringUtil.isBlank(value)) {
       return defaultValue;
     }
@@ -235,7 +236,7 @@ public class ParamUtil {
     }
     if (map.containsKey(key)) {
       Object value = map.get(key);
-      if (required && StringUtil.isBlank(StringUtil.obj2Str(value))) {
+      if (required && StringUtil.isBlank(LsConvert.obj2Str(value))) {
         throw new LsException(CodeEnum.PARAM_MISSING_ERROR, "参数【" + key + "】不能为空");
       }
       return value;
@@ -252,7 +253,7 @@ public class ParamUtil {
    * @return
    */
   public static Page pageParam(Object entity) {
-    return pageParam(ConvertUtil.obj2Map(entity), DEFAULT_PAGE_SIZE);
+    return pageParam(LsConvert.obj2Map(entity), DEFAULT_PAGE_SIZE);
   }
 
   /**
@@ -290,7 +291,7 @@ public class ParamUtil {
     }
     // 每页条数
     int size;
-    String pageSize = StringUtil.obj2Str(map.get("size"));
+    String pageSize = LsConvert.obj2Str(map.get("size"));
     if (StringUtil.isBlank(pageSize)) {
       size = DEFAULT_PAGE_SIZE;
     } else {
@@ -298,7 +299,7 @@ public class ParamUtil {
     }
     // 当前页码
     int current;
-    String pageCurrent = StringUtil.obj2Str(map.get("current"));
+    String pageCurrent = LsConvert.obj2Str(map.get("current"));
     if (StringUtil.isBlank(pageCurrent)) {
       current = DEFAULT_PAGE_CURRENT;
     } else {
