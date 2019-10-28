@@ -286,6 +286,26 @@ public class RegexValidator {
   }
 
   /**
+   * 判断字符串是否为日期格式
+   *
+   * @param strDate
+   * @return
+   */
+  public static boolean isDate(String strDate) {
+    return isDate(strDate, RegexEnum.DATE);
+  }
+
+  /**
+   * 判断字符串是否为日期格式
+   *
+   * @param strDate
+   * @return
+   */
+  public static boolean isDate(String strDate, RegexEnum regexEnum) {
+    return matchers(LsConvert.obj2Str(strDate), regexEnum);
+  }
+
+  /**
    * 校验统一社会信用代码
    *
    * @param unifyCode

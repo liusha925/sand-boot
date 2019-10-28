@@ -207,13 +207,36 @@ public class DateUtil extends DateUtils {
   }
 
   /**
-   * 校验日期格式
+   * 校验日期格式是否配置
    *
    * @param pattern 需要校验的日期格式
    * @return
    */
   public static boolean isValidPattern(String pattern) {
     return Objects.nonNull(DateEnum.getDateEnum(pattern));
+  }
+
+  /**
+   * 校验日期字符串
+   *
+   * @param dateStr 需要校验的日期字符串
+   * @return
+   */
+  public static boolean isValidDate(String dateStr) {
+    boolean convertSuccess = true;
+    for (DateEnum item : DateEnum.values()) {
+      try {
+        SimpleDateFormat format = new SimpleDateFormat(item.getPattern());
+        format.setLenient(false);
+        format.parse(dateStr);
+      } catch (ParseException e) {
+        convertSuccess = false;
+      }
+      if (convertSuccess) {
+        break;
+      }
+    }
+    return convertSuccess;
   }
 
   /**
@@ -251,5 +274,4 @@ public class DateUtil extends DateUtils {
     }
     return false;
   }
-
 }

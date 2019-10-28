@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 功能说明：
+ * 功能说明：系统菜单测试类
  * 开发人员：@author liusha
  * 开发日期：2019/8/27 14:18
  * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
@@ -28,8 +28,8 @@ public class SysMenuControllerTest extends JunitTest {
   private static final String ACTIVE_LOCAL = "http://localhost:8080";
 
   @Test
-  public void left() {
-    String result = OkHttp3Util.httpPostJson(ACTIVE_LOCAL + "/sys/menu/left", new HashMap<>());
+  public void leftTree() {
+    String result = OkHttp3Util.httpPostJson(ACTIVE_LOCAL + "/sys/menu/leftTree", new HashMap<>());
     log.info("返回结果：{}", result);
   }
 
