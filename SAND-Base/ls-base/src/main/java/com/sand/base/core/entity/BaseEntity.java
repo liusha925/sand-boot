@@ -50,6 +50,6 @@ public class BaseEntity extends PageEntity implements Serializable {
   /**
    * 备注信息
    */
-  @Length(max = 512, message = "权限标识不能超过512个字符呢")
+  @Length(max = 512, message = "备注信息不能超过512个字符呢")
   private String remark;
 }

@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sand</groupId>
-    <artifactId>ls-backend</artifactId>
-    <version>${com.sand.ls-backend.version}</version>
+    <artifactId>ls-log</artifactId>
+    <version>${com.sand.ls-log.version}</version>
     <packaging>jar</packaging>
-    <description>后台启动容器</description>
+    <description>系统日志</description>
 
     <parent>
         <groupId>com.sand</groupId>
@@ -19,11 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>com.sand</groupId>
-            <artifactId>ls-log</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sand</groupId>
-            <artifactId>sys-provider</artifactId>
+            <artifactId>ls-base</artifactId>
         </dependency>
     </dependencies>
 

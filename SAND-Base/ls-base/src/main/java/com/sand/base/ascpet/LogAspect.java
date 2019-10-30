@@ -8,16 +8,17 @@
 package com.sand.base.ascpet;
 
 import com.sand.base.annotation.LogAnnotation;
-import com.sand.base.core.service.ILogBaseService;
+import com.sand.base.core.service.IBaseLogService;
 import com.sand.base.enums.CodeEnum;
 import com.sand.base.enums.LogStatusEnum;
 import com.sand.base.exception.LsException;
 import com.sand.base.util.lang3.AnnotationUtil;
 import com.sand.base.util.spring.SpringUtil;
-import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 
@@ -27,7 +28,8 @@ import java.lang.reflect.Method;
  * 开发日期：2019/9/24 13:30
  * 功能描述：切面处理日志信息
  */
-@Slf4j
+@Aspect
+@Component
 public class LogAspect {
   /**
    * 定义横切点：横切带有@Log的方法
@@ -46,14 +48,14 @@ public class LogAspect {
     Object obj;
     Method method = AnnotationUtil.getAnnotationMethod(point);
     LogAnnotation logAnnotation = method.getAnnotation(LogAnnotation.class);
-    ILogBaseService logService = (ILogBaseService) SpringUtil.getBean(logAnnotation.service());
+    IBaseLogService logService = (IBaseLogService) SpringUtil.getBean(logAnnotation.service());
     // 获取日志对象
     Object log = logService.init();
     // 获取参数信息
     Object[] args = point.getArgs();
     // 获取基础信息
     logService.beforeProceed(log, args);
-    // 执行开始阶段
+    // 执行开始
     long startTime = System.currentTimeMillis();
     int status = LogStatusEnum.INIT.getStatus();
     try {

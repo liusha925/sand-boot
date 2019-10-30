@@ -11,6 +11,7 @@
     <description>抽离使用场景多的业务</description>
     <modules>
         <module>ls-sys</module>
+        <module>ls-log</module>
     </modules>
 
 </project>

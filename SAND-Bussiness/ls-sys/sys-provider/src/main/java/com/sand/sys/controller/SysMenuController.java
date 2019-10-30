@@ -7,6 +7,7 @@
  */
 package com.sand.sys.controller;
 
+import com.sand.base.annotation.LogAnnotation;
 import com.sand.base.core.controller.BaseController;
 import com.sand.base.core.entity.ResultEntity;
 import com.sand.base.util.ResultUtil;
@@ -70,6 +71,7 @@ public class SysMenuController extends BaseController {
   }
 
   @RequestMapping("/add")
+  @LogAnnotation(symbol = "系统管理", description = "新增菜单")
   public ResultEntity add(@RequestBody SysMenuModel model) {
     log.info("SysMenuController add params：{}", model);
     menuService.add(model);
