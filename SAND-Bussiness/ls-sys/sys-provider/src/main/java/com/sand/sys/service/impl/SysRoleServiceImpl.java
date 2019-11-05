@@ -9,19 +9,24 @@ package com.sand.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sand.base.core.entity.ResultEntity;
 import com.sand.base.enums.CodeEnum;
 import com.sand.base.enums.OperateEnum;
 import com.sand.base.exception.LsException;
+import com.sand.base.util.ResultUtil;
 import com.sand.base.util.lang3.StringUtil;
+import com.sand.base.util.validator.ModelValidator;
 import com.sand.sys.entity.SysRole;
 import com.sand.sys.entity.SysRoleMenu;
 import com.sand.sys.mapper.SysRoleMapper;
 import com.sand.sys.model.SysRoleModel;
 import com.sand.sys.service.ISysRoleMenuService;
 import com.sand.sys.service.ISysRoleService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +38,7 @@ import java.util.Objects;
  * 开发日期：2019/8/30 17:14
  * 功能描述：系统角色
  */
+@Slf4j
 @Service
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements ISysRoleService {
   @Autowired
@@ -100,12 +106,58 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     }
   }
 
+  @Override
+  public ResultEntity imported(List<SysRoleModel> roleList) {
+    if (CollectionUtils.isEmpty(roleList)) {
+      throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "导入数据不能为空哟！");
+    }
+    if (StringUtil.listHasRepeatRecord(roleList)) {
+      throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "导入数据存在重复记录，请检查！");
+    }
+    int failNum = 0;
+    StringBuilder failMsg = new StringBuilder();
+    List<SysRoleModel> checkedRoleList = new ArrayList<>();
+    for (int i = 0; i < roleList.size(); i++) {
+      SysRoleModel role = roleList.get(i);
+      try {
+        checkModel(role, OperateEnum.INSERT);
+      } catch (Exception e) {
+        failNum++;
+        if (failNum < 10) {
+          failMsg.append("第").append(i + 1).append("条数据：").append(e.getMessage()).append("；");
+          continue;
+        } else {
+          // 退出循环前将上一条失败原因打印
+          failMsg.append("第").append(i + 1).append("条数据：").append(e.getMessage()).append("；");
+          int unCheckedNum = roleList.size() - (i + 1);
+          failMsg = new StringBuilder(failMsg).append("剩余未校验数据").append(unCheckedNum).append("条，错误数据太多，请校正后再导入");
+          throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, failMsg.toString());
+        }
+      }
+      checkedRoleList.add(role);
+    }
+    String returnMsg;
+    int size = roleList.size();
+    int successNum = checkedRoleList.size();
+    if (failNum == 0) {
+      returnMsg = "导入数据" + size + "条，全部成功";
+    } else if (successNum == 0) {
+      returnMsg = "导入数据" + size + "条，全部失败，失败原因：" + failMsg;
+    } else {
+      returnMsg = "导入数据" + size + "条，成功" + successNum + "条，失败" + failNum + "条，失败原因：" + failMsg;
+    }
+    log.info(returnMsg);
+    return ResultUtil.ok(returnMsg);
+  }
+
   /**
    * 参数校验
    *
    * @param model dto
    */
   private void checkModel(SysRoleModel model, OperateEnum operate) {
+    // 表单注解校验，非空，长度，正则等校验
+    ModelValidator.checkModel(model);
     // 菜单名查询条件组装
     QueryWrapper<SysRole> roleNameWrapper = new QueryWrapper<>();
     roleNameWrapper.eq("role_name", model.getRoleName());

@@ -59,6 +59,11 @@ CREATE TABLE sys_role
     PRIMARY KEY (`role_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8 COMMENT = '角色表';
+-- ----------------------------
+-- 初始化-角色信息表数据
+-- ----------------------------
+INSERT INTO `sys_role`
+VALUES ('1', '超级管理员', 'admin', 0, '0', '0', '1', NULL, 'admin', '2019-09-01 08:56:40', '2019-09-01 18:41:38', '拥有至高权限');
 
 -- ----------------------------
 -- 角色-菜单关联表   角色1-N菜单

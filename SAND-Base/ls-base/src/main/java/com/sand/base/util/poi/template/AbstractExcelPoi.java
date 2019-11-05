@@ -12,6 +12,7 @@ import com.sand.base.core.entity.ResultEntity;
 import com.sand.base.core.text.LsCharset;
 import com.sand.base.core.text.LsConvert;
 import com.sand.base.enums.DateEnum;
+import com.sand.base.enums.FileSuffixEnum;
 import com.sand.base.exception.LsException;
 import com.sand.base.util.CloseableUtil;
 import com.sand.base.util.ReflectUtil;
@@ -20,8 +21,6 @@ import com.sand.base.util.ServletUtil;
 import com.sand.base.util.lang3.DateUtil;
 import com.sand.base.util.lang3.StringUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.hssf.usermodel.DVConstraint;
-import org.apache.poi.hssf.usermodel.HSSFDataValidation;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.util.HSSFColor;
@@ -40,6 +39,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.util.CellRangeAddressList;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFDataValidation;
+import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
@@ -106,7 +106,7 @@ public abstract class AbstractExcelPoi<T> {
    * @param type      操作类型
    */
   protected void init(String sheetName, ExcelAnnotation.Type type) {
-    this.init(sheetName, type, null);
+    init(sheetName, type, null);
   }
 
   /**
@@ -117,34 +117,25 @@ public abstract class AbstractExcelPoi<T> {
    * @param entityList 数据列表
    */
   protected void init(String sheetName, ExcelAnnotation.Type type, List<T> entityList) {
-    this.entityList = Objects.isNull(entityList) ? new ArrayList<>() : entityList;
+    this.entityList = CollectionUtils.isEmpty(entityList) ? new ArrayList<>() : entityList;
     this.sheetName = sheetName;
     this.type = type;
-    this.createTableHeader();
-    this.createWorkBook();
+    createTableHeader();
+    createWorkBook();
   }
 
   /**
    * 创建表头：从含有@ExcelAnnotation注解的成员属性获取
    */
   protected void createTableHeader() {
-    this.fields = new ArrayList<>();
-    Class<?> tempEntity = this.entity;
-    List<Field> tempFields = new ArrayList<>();
-    tempFields.addAll(Arrays.asList(this.entity.getDeclaredFields()));
-    // 查找父类成员属性
-    while (Objects.nonNull(tempEntity)) {
-      tempEntity = tempEntity.getSuperclass();
-      if (Objects.nonNull(tempEntity)) {
-        tempFields.addAll(Arrays.asList(tempEntity.getDeclaredFields()));
-      }
-    }
+    fields = new ArrayList<>();
+    List<Field> tempFields = ReflectUtil.getOrderDeclaredFields(entity, ExcelAnnotation.class);
     // 筛选含有@ExcelAnnotation注解的成员属性
     tempFields.forEach(field -> {
       ExcelAnnotation excelAnnotation = field.getAnnotation(ExcelAnnotation.class);
       if (Objects.nonNull(excelAnnotation)) {
-        if (Objects.equals(excelAnnotation.type(), ExcelAnnotation.Type.ALL) || Objects.equals(excelAnnotation.type(), this.type)) {
-          this.fields.add(field);
+        if (Objects.equals(excelAnnotation.type(), ExcelAnnotation.Type.ALL) || Objects.equals(excelAnnotation.type(), type)) {
+          fields.add(field);
         }
       }
     });
@@ -154,7 +145,7 @@ public abstract class AbstractExcelPoi<T> {
    * 创建工作簿
    */
   protected void createWorkBook() {
-    this.workbook = new SXSSFWorkbook(500);
+    workbook = new SXSSFWorkbook(500);
   }
 
   /**
@@ -165,8 +156,9 @@ public abstract class AbstractExcelPoi<T> {
    * @return 转换后的list集合
    */
   protected List<T> imported(String sheetName, InputStream is) throws Exception {
-    this.type = ExcelAnnotation.Type.IMPORT;
-    this.workbook = WorkbookFactory.create(is);
+    type = ExcelAnnotation.Type.IMPORT;
+    workbook = WorkbookFactory.create(is);
+    List<T> entityList = new ArrayList<>();
     // 如果传入的sheet名称不存在则默认指定第一个sheet，否则取指定sheet中的内容
     Sheet sheet = StringUtil.isBlank(sheetName) ? workbook.getSheetAt(0) : workbook.getSheet(sheetName);
     if (Objects.isNull(sheet)) {
@@ -181,13 +173,13 @@ public abstract class AbstractExcelPoi<T> {
       // 默认序号
       AtomicInteger serialNum = new AtomicInteger(0);
       // 获取所有的成员属性
-      Field[] fields = this.entity.getDeclaredFields();
+      List<Field> fields = ReflectUtil.getOrderDeclaredFields(entity, ExcelAnnotation.class);
       // 存放序号和成员属性
       Map<Integer, Field> fieldsMap = new HashMap<>();
-      Arrays.stream(fields).forEach(field -> {
+      fields.forEach(field -> {
         ExcelAnnotation excelAnnotation = field.getAnnotation(ExcelAnnotation.class);
         if (Objects.nonNull(excelAnnotation)) {
-          if (Objects.equals(excelAnnotation.type(), ExcelAnnotation.Type.ALL) || Objects.equals(excelAnnotation.type(), this.type)) {
+          if (Objects.equals(excelAnnotation.type(), ExcelAnnotation.Type.ALL) || Objects.equals(excelAnnotation.type(), type)) {
             // 设置类的私有属性可访问
             field.setAccessible(true);
             fieldsMap.put(serialNum.incrementAndGet(), field);
@@ -195,13 +187,13 @@ public abstract class AbstractExcelPoi<T> {
         }
       });
       // 第一行为表头，所以从第二行开始取数据
-      for (int i = 1; i < rows; i++) {
+      for (int i = 1; i <= rows; i++) {
         Row row = sheet.getRow(i);
         int cellNum = serialNum.get();
         T entity = null;
         for (int column = 0; column < cellNum; column++) {
           entity = Objects.isNull(entity) ? this.entity.newInstance() : entity;
-          Object value = this.getCellValue(row, column);
+          Object value = getCellValue(row, column);
           // 从map中获取对应的成员属性
           Field field = fieldsMap.get(column + 1);
           // 根据对象类型设置值
@@ -237,49 +229,48 @@ public abstract class AbstractExcelPoi<T> {
               propertyName = propertyName + "." + excelAnnotation.targetAnnotation();
             }
             if (StringUtil.isNotBlank(excelAnnotation.readConvertExp())) {
-              value = this.reverseByExp(LsConvert.obj2Str(value), excelAnnotation.readConvertExp());
+              value = reverseByExp(LsConvert.obj2Str(value), excelAnnotation.readConvertExp());
             }
             ReflectUtil.invokeSetter(entity, value, propertyName);
           }
         }
-        this.entityList.add(entity);
+        entityList.add(entity);
       }
     }
-
-    return this.entityList;
+    return entityList;
   }
 
   protected ResultEntity export() {
     OutputStream out = null;
     try {
       // 计算一共有几个sheet页
-      double sheetNum = Math.ceil(this.entityList.size() / ExcelStyler.SHEET_MAX_NUM);
+      double sheetNum = Math.ceil(entityList.size() / ExcelStyler.SHEET_MAX_NUM);
       for (int index = 0; index <= sheetNum; index++) {
-        this.createSheet(index);
+        createSheet(index);
         // 产生单元格
         Cell cell = null;
         // 产生第一行
-        Row row = this.sheet.createRow(0);
+        Row row = sheet.createRow(0);
         // 写入各个成员属性的表头名称
-        for (int i = 0; i < this.fields.size(); i++) {
-          Field field = this.fields.get(i);
+        for (int i = 0; i < fields.size(); i++) {
+          Field field = fields.get(i);
           ExcelAnnotation excelAnnotation = field.getAnnotation(ExcelAnnotation.class);
           // 创建列
           cell = row.createCell(i);
           cell.setCellType(CellType.STRING);
-          CellStyle cellStyle = new ExcelStyler().initHeaderStyle(workbook);
+          CellStyle cellStyle = ExcelStyler.initHeaderStyle(workbook);
           if (excelAnnotation.name().indexOf("注：") >= 0) {
-            Font font = this.workbook.createFont();
+            Font font = workbook.createFont();
             font.setColor(HSSFFont.COLOR_RED);
             cellStyle.setFont(font);
             cellStyle.setFillForegroundColor(HSSFColor.YELLOW.index);
-            this.sheet.setColumnWidth(i, 6000);
+            sheet.setColumnWidth(i, 6000);
           } else {
-            Font font = this.workbook.createFont();
+            Font font = workbook.createFont();
             font.setBold(true);
             cellStyle.setFont(font);
             cellStyle.setFillForegroundColor(HSSFColor.YELLOW.index);
-            this.sheet.setColumnWidth(i, (int) ((excelAnnotation.width() + 0.72) * StringUtil.STRING_BUILDER_SIZE));
+            sheet.setColumnWidth(i, (int) ((excelAnnotation.width() + 0.72) * StringUtil.STRING_BUILDER_SIZE));
             row.setHeight((short) (excelAnnotation.height() * 20));
           }
           cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
@@ -287,34 +278,30 @@ public abstract class AbstractExcelPoi<T> {
           cell.setCellStyle(cellStyle);
           // 写入列名
           cell.setCellValue(excelAnnotation.name());
-          // 设置了提示信息则鼠标放上去提示
-          if (StringUtil.isNotBlank(excelAnnotation.prompt())) {
-            // 设置2-101列提示
-            this.setHSSFPrompt(this.sheet, "温馨提示", excelAnnotation.prompt(), i, i);
-          }
           // 设置只能选择不能输入的列内容
           if (excelAnnotation.combo().length > 0) {
             // 设置2-101列只能选择不能输入
-            this.setHSSFValidation(this.sheet, excelAnnotation.combo(), i, i);
+            setHSSFValidation(sheet, excelAnnotation.combo(), i, i);
           }
         }
         // 导出时将数据写入到excel中
-        if (Objects.equals(this.type, ExcelAnnotation.Type.EXPORT)) {
-          this.fillExcelData(index, row, cell);
+        if (Objects.equals(type, ExcelAnnotation.Type.EXPORT)) {
+          fillExcelData(index, row, cell);
         }
       }
       HttpServletResponse response = ServletUtil.getResponse();
-      String fileName = ServletUtil.encodingFileName(this.sheetName);
+      String fileName = ServletUtil.encodingFileName(sheetName + FileSuffixEnum.XLSX.getSuffix());
       response.setCharacterEncoding(LsCharset.UTF_8);
       response.setContentType("multipart/form-data");
       response.setHeader("Content-Disposition", "attachment;fileName=" + fileName);
       out = response.getOutputStream();
-      this.workbook.write(out);
+      workbook.write(out);
       return ResultUtil.ok(fileName);
     } catch (Exception e) {
+      log.error("导出excel异常：{}", e.getMessage());
       throw new LsException("导出excel异常，请联系管理人员");
     } finally {
-      CloseableUtil.close(this.workbook, out);
+      CloseableUtil.close(workbook, out);
     }
   }
 
@@ -371,8 +358,8 @@ public abstract class AbstractExcelPoi<T> {
       String[] sourceArray = readConvertExp.split(",");
       for (String item : sourceArray) {
         String[] itemArray = item.split("=");
-        if (itemArray[0].equals(propertyValue)) {
-          return itemArray[1];
+        if (itemArray[1].equals(propertyValue)) {
+          return itemArray[0];
         }
       }
     } catch (Exception e) {
@@ -387,8 +374,8 @@ public abstract class AbstractExcelPoi<T> {
    * @param index 序号
    */
   protected void createSheet(int index) {
-    this.sheet = workbook.createSheet();
-    this.workbook.setSheetName(index, sheetName + "-" + (index + 1));
+    sheet = workbook.createSheet();
+    workbook.setSheetName(index, sheetName + "-" + (index + 1));
   }
 
   /**
@@ -431,40 +418,6 @@ public abstract class AbstractExcelPoi<T> {
   }
 
   /**
-   * 设置了提示信息则鼠标放上去提示，设置2-101列提示
-   *
-   * @param sheet         要设置的sheet
-   * @param promptTitle   标题
-   * @param promptContent 内容
-   * @param startCol      开始列
-   * @param endCol        结束列
-   */
-  protected void setHSSFPrompt(Sheet sheet, String promptTitle, String promptContent, int startCol, int endCol) {
-    setHSSFPrompt(sheet, promptTitle, promptContent, 1, 100, startCol, endCol);
-  }
-
-  /**
-   * 设置了提示信息则鼠标放上去提示
-   *
-   * @param sheet         要设置的sheet
-   * @param promptTitle   标题
-   * @param promptContent 内容
-   * @param startRow      开始行
-   * @param endRow        结束行
-   * @param startCol      开始列
-   * @param endCol        结束列
-   */
-  protected void setHSSFPrompt(Sheet sheet, String promptTitle, String promptContent, int startRow, int endRow, int startCol, int endCol) {
-    // 构造DVConstraint对象
-    DVConstraint constraint = DVConstraint.createCustomFormulaConstraint("DD1");
-    CellRangeAddressList regions = new CellRangeAddressList(startRow, endRow, startCol, endCol);
-    // 数据有效性验证
-    HSSFDataValidation dataValidation = new HSSFDataValidation(regions, constraint);
-    dataValidation.createPromptBox(promptTitle, promptContent);
-    sheet.addValidationData(dataValidation);
-  }
-
-  /**
    * 填充excel数据
    *
    * @param index 序号
@@ -475,7 +428,7 @@ public abstract class AbstractExcelPoi<T> {
     int startNo = index * ExcelStyler.SHEET_MAX_NUM;
     int endNo = Math.min(startNo + ExcelStyler.SHEET_MAX_NUM, entityList.size());
     // 写入各条记录，每条记录对应excel中的一行
-    CellStyle cellStyle = new ExcelStyler().initDataStyle(workbook);
+    CellStyle cellStyle = ExcelStyler.initDataStyle(workbook);
     try {
       for (int i = startNo; i < endNo; i++) {
         row = sheet.createRow(i + 1 - startNo);
@@ -498,10 +451,10 @@ public abstract class AbstractExcelPoi<T> {
             }
             // 获取对象中的属性
             Object value = getTargetValue(entity, field, excelAnnotation);
-            DateEnum dataFormat = excelAnnotation.dataFormat();
+            String dateFormat = excelAnnotation.dateFormat();
             String readConvertExp = excelAnnotation.readConvertExp();
-            if (Objects.nonNull(dataFormat)) {
-              cell.setCellValue(DateUtil.formatDate((Date) value, dataFormat));
+            if (StringUtil.isNotBlank(dateFormat)) {
+              cell.setCellValue(DateUtil.formatDate((Date) value, DateEnum.getDateEnum(dateFormat)));
             } else if (StringUtil.isNotBlank(readConvertExp)) {
               cell.setCellValue(convertByExp(LsConvert.obj2Str(value), readConvertExp));
             } else {
@@ -512,7 +465,7 @@ public abstract class AbstractExcelPoi<T> {
         }
       }
     } catch (Exception e) {
-      log.error("excel导出失败：{}" + e.getMessage());
+      log.error("excel导出数据填充失败：{}", e.getMessage());
     }
   }
 
@@ -571,7 +524,7 @@ public abstract class AbstractExcelPoi<T> {
       for (String exp : convertSource) {
         String[] expArray = exp.split("=");
         if (expArray[0].equals(propertyValue)) {
-          return expArray[0];
+          return expArray[1];
         }
       }
     } catch (Exception e) {

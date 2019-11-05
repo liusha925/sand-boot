@@ -7,19 +7,26 @@
  */
 package com.sand.base.util;
 
+import com.google.common.collect.Lists;
 import com.sand.base.core.text.LsConvert;
 import com.sand.base.util.lang3.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.Validate;
 import org.apache.poi.ss.usermodel.DateUtil;
+import org.springframework.util.CollectionUtils;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 功能说明：反射工具类
@@ -322,12 +329,67 @@ public class ReflectUtil {
    * 将反射时的checked exception转换为unchecked exception.
    */
   public static RuntimeException convertReflectionExceptionToUnchecked(String msg, Exception e) {
-    if (e instanceof IllegalAccessException || e instanceof IllegalArgumentException
-        || e instanceof NoSuchMethodException) {
+    if (e instanceof IllegalAccessException || e instanceof IllegalArgumentException || e instanceof NoSuchMethodException) {
       return new IllegalArgumentException(msg, e);
     } else if (e instanceof InvocationTargetException) {
       return new RuntimeException(msg, ((InvocationTargetException) e).getTargetException());
     }
     return new RuntimeException(msg, e);
+  }
+
+  /**
+   * 对类的所成员属性排序
+   *
+   * @param clz
+   * @param orderAnnotation
+   * @return
+   */
+  public static List<Field> getOrderDeclaredFields(Class<?> clz, final Class<? extends Annotation> orderAnnotation) {
+    List<Field> tempFields = getDeclaredFields(clz);
+    List<Field> orderedFields = Lists.newArrayList();
+    if (CollectionUtils.isEmpty(tempFields)) {
+      return tempFields;
+    }
+    tempFields.forEach(field -> {
+      Annotation annotation = field.getAnnotation(orderAnnotation);
+      if (Objects.nonNull(annotation)) {
+        orderedFields.add(field);
+      }
+    });
+    try {
+      orderAnnotation.getDeclaredMethod("order");
+    } catch (Exception e) {
+      return orderedFields;
+    }
+    Collections.sort(orderedFields, (o1, o2) -> {
+      try {
+        Method orderAnnotationMethod = orderAnnotation.getDeclaredMethod("order");
+        int order1 = (int) orderAnnotationMethod.invoke(o1.getAnnotation(orderAnnotation));
+        int order2 = (int) orderAnnotationMethod.invoke(o2.getAnnotation(orderAnnotation));
+        return order1 - order2;
+      } catch (Exception e) {
+        return 0;
+      }
+    });
+    return orderedFields;
+  }
+
+  /**
+   * 获取类的所成员属性（包含父类）
+   *
+   * @param clz
+   * @return
+   */
+  public static List<Field> getDeclaredFields(Class<?> clz) {
+    List<Field> tempFields = Lists.newArrayList();
+    Class<?> tempClz = clz;
+    tempFields.addAll(Arrays.asList(clz.getDeclaredFields()));
+    while (Objects.nonNull(tempClz)) {
+      tempClz = tempClz.getSuperclass();
+      if (Objects.nonNull(tempClz)) {
+        tempFields.addAll(Arrays.asList(tempClz.getDeclaredFields()));
+      }
+    }
+    return tempFields;
   }
 }

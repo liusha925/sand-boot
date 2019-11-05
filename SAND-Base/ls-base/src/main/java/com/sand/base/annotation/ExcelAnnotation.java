@@ -32,6 +32,13 @@ public @interface ExcelAnnotation {
   String name() default "表头名称";
 
   /**
+   * 排序
+   *
+   * @return
+   */
+  int order() default 0;
+
+  /**
    * 导出到excel中的列宽，单位为字符
    */
   double width() default 16;
@@ -40,11 +47,6 @@ public @interface ExcelAnnotation {
    * 导出到excel中的列高，单位为字符
    */
   double height() default 14;
-
-  /**
-   * 设置了提示信息则鼠标放上去提示
-   */
-  String prompt() default "提示信息！";
 
   /**
    * 设置只能选择不能输入的列内容
@@ -57,9 +59,9 @@ public @interface ExcelAnnotation {
   boolean isExport() default true;
 
   /**
-   * 日期格式化，默认yyyy-MM-dd HH:mm:ss
+   * 日期格式化，如：yyyy-MM-dd HH:mm:ss
    */
-  DateEnum dataFormat() default DateEnum.F1_YYYY_MM_DD_HH_MM_SS;
+  String dateFormat() default StringUtil.EMPTY;
 
   /**
    * 读取内容转表达式，如：0=男,1=女,2=未知

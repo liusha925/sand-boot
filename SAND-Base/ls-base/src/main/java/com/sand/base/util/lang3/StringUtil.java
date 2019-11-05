@@ -93,8 +93,8 @@ public class StringUtil extends StringUtils {
    */
   public static synchronized String getUniqueSerialNo() {
     int hashCode = UUID.randomUUID().toString().hashCode();
-    String nowTime = DateUtil.getNow(DateEnum.F5_YYYY_MM_DD_HH_MM_SS_SSS);
     String codeStr = String.format("%010d", hashCode < 0 ? -hashCode : hashCode);
+    String nowTime = DateUtil.getNow(DateEnum.F5_YYYY_MM_DD_HH_MM_SS_SSS);
     return nowTime + codeStr;
   }
 

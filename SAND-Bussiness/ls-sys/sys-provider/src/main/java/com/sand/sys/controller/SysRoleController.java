@@ -13,6 +13,7 @@ import com.sand.base.core.controller.BaseController;
 import com.sand.base.core.entity.ResultEntity;
 import com.sand.base.util.ParamUtil;
 import com.sand.base.util.ResultUtil;
+import com.sand.base.util.poi.ExcelUtil;
 import com.sand.base.util.tree.Tree;
 import com.sand.sys.entity.SysRole;
 import com.sand.sys.model.SysRoleModel;
@@ -25,6 +26,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 功能说明：系统角色
@@ -84,9 +89,47 @@ public class SysRoleController extends BaseController {
   }
 
   @RequestMapping("/menuTree")
-  public ResultEntity menuTree(@RequestParam(required = false) String roleIds) {
+  public ResultEntity menuTree(String roleIds) {
     Tree menuTree = menuService.buildMenuTree(true, roleIds.split(","));
 
     return ResultUtil.ok(menuTree.getChildren());
+  }
+
+  /**
+   * 下载模板
+   */
+  @RequestMapping("/downTemplate")
+  public void downTemplate() {
+    ExcelUtil<SysRole> util = new ExcelUtil<>(SysRole.class);
+    util.downTemplate("系统角色信息");
+  }
+
+  /**
+   * 导入数据
+   */
+  @RequestMapping("/imported")
+  public ResultEntity imported(MultipartFile file) {
+    log.info("SysRoleController imported fileName：{}", Objects.nonNull(file) ? file.getOriginalFilename() : "空文件");
+    ExcelUtil<SysRoleModel> util = new ExcelUtil<>(SysRoleModel.class);
+    List<SysRoleModel> roleList;
+    try {
+      roleList = util.imported(file.getInputStream());
+    } catch (Exception e) {
+      log.error("文件导入异常：{}", e.getMessage());
+      return ResultUtil.error("文件导入异常：" + e.getMessage());
+    }
+    return roleService.imported(roleList);
+  }
+
+  /**
+   * 导出数据
+   */
+  @RequestMapping("/export")
+  public void export(SysRoleModel model) {
+    log.info("SysRoleController export params：{}", model);
+    QueryWrapper<SysRole> queryWrapper = new QueryWrapper<>();
+    List<SysRole> roleList = roleService.list(queryWrapper);
+    ExcelUtil<SysRole> util = new ExcelUtil<>(SysRole.class);
+    util.export("系统角色信息", roleList);
   }
 }

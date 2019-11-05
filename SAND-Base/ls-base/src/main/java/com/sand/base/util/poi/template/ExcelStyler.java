@@ -124,7 +124,7 @@ public class ExcelStyler extends AbstractExcelExportStyler {
    * @param workbook
    * @return
    */
-  public CellStyle initTitleStyle(Workbook workbook) {
+  public static CellStyle initTitleStyle(Workbook workbook) {
     CellStyle cellStyle = getBaseCellStyle(workbook);
     // 字体大小
     cellStyle.setFont(getFont(workbook, FONT_SIZE_TWELVE, true));
@@ -138,7 +138,7 @@ public class ExcelStyler extends AbstractExcelExportStyler {
    * @param workbook
    * @return
    */
-  public CellStyle initHeaderStyle(Workbook workbook) {
+  public static CellStyle initHeaderStyle(Workbook workbook) {
     CellStyle cellStyle = getBaseCellStyle(workbook);
     // 字体大小
     cellStyle.setFont(getFont(workbook, FONT_SIZE_ELEVEN, false));
@@ -154,7 +154,7 @@ public class ExcelStyler extends AbstractExcelExportStyler {
    * @param workbook
    * @return
    */
-  public CellStyle initDataStyle(Workbook workbook) {
+  public static CellStyle initDataStyle(Workbook workbook) {
     CellStyle cellStyle = getBaseCellStyle(workbook);
     // 字体大小
     cellStyle.setFont(getFont(workbook, FONT_SIZE_TEN, false));
@@ -168,7 +168,7 @@ public class ExcelStyler extends AbstractExcelExportStyler {
    *
    * @return
    */
-  public CellStyle getBaseCellStyle(Workbook workbook) {
+  public static CellStyle getBaseCellStyle(Workbook workbook) {
     CellStyle cellStyle = workbook.createCellStyle();
     // 上边框
     cellStyle.setBorderTop(BorderStyle.THIN);
@@ -194,7 +194,7 @@ public class ExcelStyler extends AbstractExcelExportStyler {
    * @param isBold 是否加粗
    * @return
    */
-  public Font getFont(Workbook workbook, short size, boolean isBold) {
+  public static Font getFont(Workbook workbook, short size, boolean isBold) {
     Font font = workbook.createFont();
     // 字体样式
     font.setFontName("宋体");

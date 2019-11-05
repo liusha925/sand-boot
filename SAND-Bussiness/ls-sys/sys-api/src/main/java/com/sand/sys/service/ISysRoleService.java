@@ -8,8 +8,11 @@
 package com.sand.sys.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sand.base.core.entity.ResultEntity;
 import com.sand.sys.entity.SysRole;
 import com.sand.sys.model.SysRoleModel;
+
+import java.util.List;
 
 /**
  * 功能说明：系统角色
@@ -47,4 +50,12 @@ public interface ISysRoleService extends IService<SysRole> {
    * @param model 需重新授权的角色
    */
   void reauthorize(SysRoleModel model);
+
+  /**
+   * 导入数据
+   *
+   * @param roleList
+   * @return
+   */
+  ResultEntity imported(List<SysRoleModel> roleList);
 }
