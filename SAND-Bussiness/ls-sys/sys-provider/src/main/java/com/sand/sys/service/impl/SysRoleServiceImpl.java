@@ -116,7 +116,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     }
     int failNum = 0;
     StringBuilder failMsg = new StringBuilder();
-    List<SysRoleModel> checkedRoleList = new ArrayList<>();
+    List<SysRole> checkedRoleList = new ArrayList<>();
     for (int i = 0; i < roleList.size(); i++) {
       SysRoleModel role = roleList.get(i);
       try {
@@ -145,6 +145,10 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
       returnMsg = "导入数据" + size + "条，全部失败，失败原因：" + failMsg;
     } else {
       returnMsg = "导入数据" + size + "条，成功" + successNum + "条，失败" + failNum + "条，失败原因：" + failMsg;
+    }
+    // 信息入库
+    if (!super.saveBatch(checkedRoleList)) {
+      throw new LsException("导入角色信息入库异常！");
     }
     log.info(returnMsg);
     return ResultUtil.ok(returnMsg);

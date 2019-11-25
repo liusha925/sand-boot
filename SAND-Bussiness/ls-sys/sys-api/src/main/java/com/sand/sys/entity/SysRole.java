@@ -48,7 +48,7 @@ public class SysRole extends BaseEntity {
   @Length(max = 64, message = "[角色名称]不能超过64个字符呢！")
   @ExcelAnnotation(name = "角色名称")
   private String roleName;
-  /**
+  /**·
    * 权限字符
    **/
   @NotBlank(message = "[权限字符]不能为空哟！")

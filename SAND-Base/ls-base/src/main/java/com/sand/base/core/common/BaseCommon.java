@@ -64,7 +64,7 @@ public class BaseCommon {
    *
    * @param e 异常
    */
-  protected void errorLog(Exception e) {
+  protected void errorLog(Throwable e) {
     StackTraceElement element = e.getStackTrace()[0];
     if (e instanceof LsException) {
       log.info("异常位置：{}.{}，第{}行，原因：{}", element.getClassName(), element.getMethodName(), element.getLineNumber(), e.getMessage());
