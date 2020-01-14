@@ -6,10 +6,10 @@ logging:
     com.baomidou.mybatisplus.: warn
 # 数据源配置
 spring:
-#  devtools:
-#    restart:
-#      # 热部署开关
-#      enabled: true
+  #  devtools:
+  #    restart:
+  #      # 热部署开关
+  #      enabled: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ls_sys?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false
@@ -30,3 +30,9 @@ mybatis-plus:
       # 逻辑删除配置，参考https://mp.baomidou.com/guide/logic-delete.html
       logic-delete-value: 1
       logic-not-delete-value: 0
+# 安全认证授权配置
+security:
+  jwt:
+    secret: k09BQnaF
+    # token有效期7天
+    expiration: 604800

@@ -39,7 +39,7 @@ import java.util.Map;
  */
 @Service
 public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements IBaseLogService, ILogService {
-  private static final Logger LOGGER = LoggerFactory.getLogger(LogServiceImpl.class);
+  private static final Logger logger = LoggerFactory.getLogger(LogServiceImpl.class);
 
   @Override
   public Object init() {
@@ -97,7 +97,7 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements IBase
     Log log = (Log) obj;
     log.setExeTime(LsConvert.obj2Str(exeTime));
     log.setExeStatus(exeStatus);
-    LOGGER.info(new StringBuilder().append("用户：").append(StringUtil.isBlank(log.getUserName()) ? "匿名用户" : log.getUserName()).append("，于")
+    logger.info(new StringBuilder().append("用户：").append(StringUtil.isBlank(log.getUserName()) ? "匿名用户" : log.getUserName()).append("，于")
         .append(DateUtil.getNow(DateEnum.F1_YYYY_MM_DD_HH_MM_SS_SSS)).append("进行了[").append(log.getRemark()).append("]操作")
         .append("，耗时").append(log.getExeTime()).append("毫秒，URL：").append(log.getUrl()).toString());
     super.save(log);

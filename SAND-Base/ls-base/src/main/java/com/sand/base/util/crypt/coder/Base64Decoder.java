@@ -5,7 +5,7 @@
  * 2019/8/22   liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.util.security.coder;
+package com.sand.base.util.crypt.coder;
 
 import lombok.extern.slf4j.Slf4j;
 

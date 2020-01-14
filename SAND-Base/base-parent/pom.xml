@@ -35,6 +35,7 @@
         <!-- 功能模块版本控制 -->
         <com.sand.ls-base.version>1.0.0-SNAPSHOT</com.sand.ls-base.version>
         <com.sand.ls-log.version>1.0.0-SNAPSHOT</com.sand.ls-log.version>
+        <com.sand.ls-security.version>1.0.0-SNAPSHOT</com.sand.ls-security.version>
         <com.sand.sys-api.version>1.0.0-SNAPSHOT</com.sand.sys-api.version>
         <com.sand.sys-provider.version>1.0.0-SNAPSHOT</com.sand.sys-provider.version>
         <com.sand.ls-backend.version>1.0.0-SNAPSHOT</com.sand.ls-backend.version>
@@ -124,6 +125,11 @@
                 <groupId>com.sand</groupId>
                 <artifactId>ls-log</artifactId>
                 <version>${com.sand.ls-log.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sand</groupId>
+                <artifactId>ls-security</artifactId>
+                <version>${com.sand.ls-security.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.sand</groupId>
