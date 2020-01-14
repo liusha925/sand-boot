@@ -13,6 +13,7 @@
         <module>ls-sys</module>
         <module>ls-log</module>
         <module>ls-security</module>
+        <module>ls-zookeeper</module>
     </modules>
 
 </project>
