@@ -97,9 +97,9 @@ public class AuthenticationController extends BaseController {
     final String accessToken = jwtTokenUtil.generateToken(userDetails.getUserDetails());
     AuthUser user = (AuthUser) userDetails.getUserDetails();
     // 基础权限获取
-    baseUserService.setAuthorities(user);
+//    baseUserService.setAuthorities(user);
     // 3、登录后处理
-    baseUserDetailsService.handleUser(user);
+//    baseUserDetailsService.handleUser(user);
     // TODO 登录日志
     // TODO 从数据库里读取权限标识
     String permissions = "AUTH:TOKEN:LOGIN";
@@ -109,7 +109,7 @@ public class AuthenticationController extends BaseController {
     tokenMap.put("access_token", accessToken);
     tokenMap.put("expiration", jwtTokenUtil.getExpiration());
     tokenMap.put("token_type", AbstractTokenUtil.TOKEN_TYPE_BEARER);
-    tokenMap.put("realName", userDetails.getRealName());
+//    tokenMap.put("realName", userDetails.getRealName());
     tokenMap.put("customAuthorities", userDetails.getAuthorities());
     tokenMap.put("permissions", new Gson().fromJson(permissions, List.class));
     return ResultUtil.ok(tokenMap);

@@ -22,6 +22,7 @@
         <spring-boot-dependencies.version>2.1.3.RELEASE</spring-boot-dependencies.version>
         <platform-bom.version>Brussels-SR7</platform-bom.version>
         <mybatis-plus.version>3.1.2</mybatis-plus.version>
+        <zookeeper.version>3.4.6</zookeeper.version>
         <jjwt.version>0.6.0</jjwt.version>
         <easypoi.version>3.1.0</easypoi.version>
         <fastjson.version>1.2.41</fastjson.version>
@@ -36,6 +37,7 @@
         <com.sand.ls-base.version>1.0.0-SNAPSHOT</com.sand.ls-base.version>
         <com.sand.ls-log.version>1.0.0-SNAPSHOT</com.sand.ls-log.version>
         <com.sand.ls-security.version>1.0.0-SNAPSHOT</com.sand.ls-security.version>
+        <com.sand.ls-zookeeper.version>1.0.0-SNAPSHOT</com.sand.ls-zookeeper.version>
         <com.sand.sys-api.version>1.0.0-SNAPSHOT</com.sand.sys-api.version>
         <com.sand.sys-provider.version>1.0.0-SNAPSHOT</com.sand.sys-provider.version>
         <com.sand.ls-backend.version>1.0.0-SNAPSHOT</com.sand.ls-backend.version>
@@ -104,16 +106,11 @@
                 <artifactId>UserAgentUtils</artifactId>
                 <version>${UserAgentUtils.version}</version>
             </dependency>
-            <!-- Maven插件安装 -->
+            <!-- zookeeper注册中心 -->
             <dependency>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>${maven-jar-plugin.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>${maven-dependency-plugin.version</version>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${zookeeper.version}}</version>
             </dependency>
             <!-- >>>>>>>>>>>>>>>>>>>>>产品或项目业务-S<<<<<<<<<<<<<<<<<<<<<< -->
             <dependency>
@@ -133,6 +130,11 @@
             </dependency>
             <dependency>
                 <groupId>com.sand</groupId>
+                <artifactId>ls-zookeeper</artifactId>
+                <version>${com.sand.ls-zookeeper.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sand</groupId>
                 <artifactId>sys-api</artifactId>
                 <version>${com.sand.sys-api.version}</version>
             </dependency>
@@ -147,6 +149,17 @@
                 <version>${com.sand.ls-backend.version}</version>
             </dependency>
             <!-- >>>>>>>>>>>>>>>>>>>>>产品或项目业务-E<<<<<<<<<<<<<<<<<<<<<< -->
+            <!-- Maven插件安装 -->
+            <dependency>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven-dependency-plugin.version</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
