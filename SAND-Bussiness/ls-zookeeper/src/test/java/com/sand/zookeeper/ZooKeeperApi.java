@@ -81,6 +81,7 @@ public class ZooKeeperApi implements Watcher {
         System.out.println("通知：会话连接成功");
         if (Event.EventType.None == event.getType() && null == event.getPath()) {
           System.out.println("进入会话初始状态");
+          // 释放所有等待的线程
           countDownLatch.countDown();
         } else if (event.getType() == Event.EventType.NodeCreated) {
           System.out.println("节点创建通知：" + event.getPath());
@@ -122,7 +123,7 @@ public class ZooKeeperApi implements Watcher {
   public void constructor_usage_simple() throws Exception {
     zooKeeper = new ZooKeeper(hosts, 5000, new ZooKeeperApi());
     System.out.println("ZooKeeper.state：" + zooKeeper.getState());
-    // 异步等待会话连接成功且为初始状态
+    // 所有线程执行完毕
     countDownLatch.await();
     System.out.println("ZooKeeper session会话创建完成。");
   }
@@ -136,7 +137,7 @@ public class ZooKeeperApi implements Watcher {
   public void constructor_usage_SID_PWD() throws Exception {
     zooKeeper = new ZooKeeper(host, 5000, new ZooKeeperApi());
     System.out.println("ZooKeeper.state：" + zooKeeper.getState());
-    // 异步等待会话连接成功且为初始状态
+    // 所有线程执行完毕
     countDownLatch.await();
     long sessionId = zooKeeper.getSessionId();
     byte[] sessionPasswd = zooKeeper.getSessionPasswd();
@@ -160,7 +161,7 @@ public class ZooKeeperApi implements Watcher {
     String path = "/zk-create-znode-test-";
     zooKeeper = new ZooKeeper(host, 5000, new ZooKeeperApi());
     System.out.println("ZooKeeper.state：" + zooKeeper.getState());
-    // 异步等待会话连接成功且为初始状态
+    // 所有线程执行完毕
     countDownLatch.await();
 
     String path1 = zooKeeper.create(path, "".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
@@ -181,7 +182,7 @@ public class ZooKeeperApi implements Watcher {
     String path = "/zk-create-znode-test-";
     zooKeeper = new ZooKeeper(host, 5000, new ZooKeeperApi());
     System.out.println("ZooKeeper.state：" + zooKeeper.getState());
-    // 异步等待会话连接成功且为初始状态
+    // 所有线程执行完毕
     countDownLatch.await();
 
     zooKeeper.create(path, "".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL,
@@ -231,7 +232,7 @@ public class ZooKeeperApi implements Watcher {
     String path = "/zk-delete-znode-test";
     zooKeeper = new ZooKeeper(host, 5000, new ZooKeeperApi());
     System.out.println("ZooKeeper state：" + zooKeeper.getState());
-    // 异步等待会话连接成功且为初始状态
+    // 所有线程执行完毕
     countDownLatch.await();
     zooKeeper.create(path, "".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
     zooKeeper.delete(path, -1);
@@ -249,7 +250,7 @@ public class ZooKeeperApi implements Watcher {
     String path = "/zk-delete-znode-test";
     zooKeeper = new ZooKeeper(host, 5000, new ZooKeeperApi());
     System.out.println("ZooKeeper state：" + zooKeeper.getState());
-    // 异步等待会话连接成功且为初始状态
+    // 所有线程执行完毕
     countDownLatch.await();
     zooKeeper.create(path, "".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
     zooKeeper.delete(path, -1, new DeleteCallBack(), "ZooKeeper async delete znode");
@@ -290,7 +291,7 @@ public class ZooKeeperApi implements Watcher {
     String path = "/zk-getChildren-sync-test";
     zooKeeper = new ZooKeeper(host, 5000, new ZooKeeperApi());
     System.out.println("ZooKeeper state：" + zooKeeper.getState());
-    // 异步等待会话连接成功且为初始状态
+    // 所有线程执行完毕
     countDownLatch.await();
     zooKeeper.create(path, "".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
     zooKeeper.create(path + "/children1", "".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
@@ -310,7 +311,7 @@ public class ZooKeeperApi implements Watcher {
     String path = "/zk-getChildren-async-test";
     zooKeeper = new ZooKeeper(host, 5000, new ZooKeeperApi());
     System.out.println("ZooKeeper state：" + zooKeeper.getState());
-    // 异步等待会话连接成功且为初始状态
+    // 所有线程执行完毕
     countDownLatch.await();
     zooKeeper.create(path, "".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
     zooKeeper.create(path + "/children1", "".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
@@ -356,7 +357,7 @@ public class ZooKeeperApi implements Watcher {
     String path = "/zk-getData-sync-test";
     zooKeeper = new ZooKeeper(host, 5000, new ZooKeeperApi());
     System.out.println("ZooKeeper state：" + zooKeeper.getState());
-    // 异步等待会话连接成功且为初始状态
+    // 所有线程执行完毕
     countDownLatch.await();
     zooKeeper.create(path, "test".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
     System.out.println("节点数据：" + new String(zooKeeper.getData(path, true, stat)));
@@ -376,7 +377,7 @@ public class ZooKeeperApi implements Watcher {
     String path = "/zk-getData-async-test";
     zooKeeper = new ZooKeeper(host, 5000, new ZooKeeperApi());
     System.out.println("ZooKeeper state：" + zooKeeper.getState());
-    // 异步等待会话连接成功且为初始状态
+    // 所有线程执行完毕
     countDownLatch.await();
     zooKeeper.create(path, "test".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
     zooKeeper.getData(path, true, new DataCallBack(), "异步获取节点数据");
@@ -421,7 +422,7 @@ public class ZooKeeperApi implements Watcher {
     String path = "/zk-setData-test";
     zooKeeper = new ZooKeeper(host, 5000, new ZooKeeperApi());
     System.out.println("ZooKeeper state：" + zooKeeper.getState());
-    // 异步等待会话连接成功且为初始状态
+    // 所有线程执行完毕
     countDownLatch.await();
     zooKeeper.exists(path, true);
     zooKeeper.create(path, "test".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);

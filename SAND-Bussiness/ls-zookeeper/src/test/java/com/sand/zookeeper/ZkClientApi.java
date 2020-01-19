@@ -84,7 +84,7 @@ public class ZkClientApi {
     System.out.println("写入后获取节点[" + path + "]的数据：" + zkClient.readData(path));
     Thread.sleep(1000);
 
-    System.out.println("递归删除节点[" + pathChildren1 + "]");
+    System.out.println("递归删除节点[" + path + "]");
     // 递归删除从根节点开始
     zkClient.deleteRecursive(path);
     System.out.println("是否存在节点[" + path + "]：" + zkClient.exists(path));
