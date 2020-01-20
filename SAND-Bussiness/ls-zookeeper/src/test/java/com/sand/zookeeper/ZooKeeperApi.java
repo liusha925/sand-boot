@@ -207,16 +207,22 @@ public class ZooKeeperApi implements Watcher {
     @Override
     public void processResult(int rc, String path, Object ctx, String name) {
       System.out.println("创建结果：rc=" + rc + "，path=" + path + "，ctx=" + ctx + "，name=" + name);
-      if (rc == 0) {
-        System.out.println("节点创建成功：" + name);
-      } else if (rc == -4) {
-        System.out.println("客户端与服务端连接已断开");
-      } else if (rc == -110) {
-        System.out.println("指定节点已存在");
-      } else if (rc == -112) {
-        System.out.println("会话已过期");
-      } else {
-        System.out.println("服务端响应码未知");
+      switch (rc) {
+        case 0:
+          System.out.println("节点创建成功：" + name);
+          break;
+        case -4:
+          System.out.println("客户端与服务端连接已断开");
+          break;
+        case -110:
+          System.out.println("指定节点已存在");
+          break;
+        case -112:
+          System.out.println("会话已过期");
+          break;
+        default:
+          System.out.println("服务端响应码" + rc + "未知");
+          break;
       }
     }
   }
@@ -269,14 +275,19 @@ public class ZooKeeperApi implements Watcher {
     @Override
     public void processResult(int rc, String path, Object ctx) {
       System.out.println("删除结果：rc=" + rc + "，path=" + path + "，ctx=" + ctx);
-      if (rc == 0) {
-        System.out.println("节点删除成功");
-      } else if (rc == -4) {
-        System.out.println("客户端与服务端连接已断开");
-      } else if (rc == -112) {
-        System.out.println("会话已过期");
-      } else {
-        System.out.println("服务端响应码未知");
+      switch (rc) {
+        case 0:
+          System.out.println("节点删除成功");
+          break;
+        case -4:
+          System.out.println("客户端与服务端连接已断开");
+          break;
+        case -112:
+          System.out.println("会话已过期");
+          break;
+        default:
+          System.out.println("服务端响应码" + rc + "未知");
+          break;
       }
     }
   }
@@ -334,14 +345,19 @@ public class ZooKeeperApi implements Watcher {
     @Override
     public void processResult(int rc, String path, Object ctx, List<String> childrenList, Stat stat) {
       System.out.println("获取结果：rc=" + rc + "，path=" + path + "，ctx=" + ctx + "，childrenList=" + childrenList + "，stat=" + stat);
-      if (rc == 0) {
-        System.out.println("子节点获取成功：" + childrenList);
-      } else if (rc == -4) {
-        System.out.println("客户端与服务端连接已断开");
-      } else if (rc == -112) {
-        System.out.println("会话已过期");
-      } else {
-        System.out.println("服务端响应码未知");
+      switch (rc) {
+        case 0:
+          System.out.println("子节点获取成功：" + childrenList);
+          break;
+        case -4:
+          System.out.println("客户端与服务端连接已断开");
+          break;
+        case -112:
+          System.out.println("会话已过期");
+          break;
+        default:
+          System.out.println("服务端响应码" + rc + "未知");
+          break;
       }
     }
   }
@@ -409,6 +425,20 @@ public class ZooKeeperApi implements Watcher {
     public void processResult(int rc, String path, Object ctx, byte[] data, Stat stat) {
       System.out.println("获取结果：rc=" + rc + "，path=" + path + "，ctx=" + ctx + "，data=" + new String(data) + "，stat=" + stat);
       System.out.println("czxid=" + stat.getCzxid() + "，mzxid=" + stat.getMzxid() + "，version=" + stat.getVersion());
+      switch (rc) {
+        case 0:
+          System.out.println("节点数据获取成功：" + new String(data));
+          break;
+        case -4:
+          System.out.println("客户端与服务端连接已断开");
+          break;
+        case -112:
+          System.out.println("会话已过期");
+          break;
+        default:
+          System.out.println("服务端响应码" + rc + "未知");
+          break;
+      }
     }
   }
 
@@ -444,6 +474,20 @@ public class ZooKeeperApi implements Watcher {
     public void processResult(int rc, String path, Object ctx, Stat stat) {
       System.out.println("更新结果：rc=" + rc + "，path=" + path + "，ctx=" + ctx + "，stat=" + stat);
       System.out.println("czxid=" + stat.getCzxid() + "，mzxid=" + stat.getMzxid() + "，version=" + stat.getVersion());
+      switch (rc) {
+        case 0:
+          System.out.println("节点数据设置成功");
+          break;
+        case -4:
+          System.out.println("客户端与服务端连接已断开");
+          break;
+        case -112:
+          System.out.println("会话已过期");
+          break;
+        default:
+          System.out.println("服务端响应码" + rc + "未知");
+          break;
+      }
     }
   }
 
