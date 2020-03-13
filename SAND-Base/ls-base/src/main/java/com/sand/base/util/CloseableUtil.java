@@ -31,8 +31,8 @@ public class CloseableUtil {
         try {
           closeable.close();
         } catch (Exception e) {
-          log.error("关闭流操作出现异常：{}", e.getMessage());
-          e.printStackTrace();
+          log.error("关闭流操作出现异常，", e);
+          throw new RuntimeException("close stream error", e);
         }
       }
     });
