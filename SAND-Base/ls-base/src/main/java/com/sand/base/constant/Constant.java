@@ -50,8 +50,4 @@ public final class Constant {
    * 选择下拉框保留原始数据
    */
   public static final String SELECT_REQUEST_RAW = "raw";
-  /**
-   * XML报文头
-   */
-  public static final String XML_HEADER = "<?xml version=\"1.0\" encoding = \"UTF-8\"?>";
 }

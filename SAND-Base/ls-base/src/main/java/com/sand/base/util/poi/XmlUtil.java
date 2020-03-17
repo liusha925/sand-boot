@@ -7,12 +7,15 @@
  */
 package com.sand.base.util.poi;
 
-import com.sand.base.constant.Constant;
 import com.sand.base.core.entity.ResultEntity;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.naming.NoNameCoder;
 import com.thoughtworks.xstream.io.xml.Xpp3Driver;
 import lombok.extern.slf4j.Slf4j;
+import org.dom4j.Document;
+import org.dom4j.io.SAXReader;
+
+import java.io.InputStream;
 
 /**
  * 功能说明：XML报文解析、转换
@@ -26,6 +29,10 @@ public class XmlUtil {
    * 公有的是为了方便调用者设置访问权限
    */
   public static final XStream X_STREAM;
+  /**
+   * XML报文头
+   */
+  public static final String XML_HEADER = "<?xml version=\"1.0\" encoding = \"UTF-8\"?>";
 
   static {
     X_STREAM = new XStream(new Xpp3Driver(new NoNameCoder()));
@@ -64,12 +71,12 @@ public class XmlUtil {
    *
    * @param obj       待转换对象
    * @param alias     对象外标签
-   * @param isEncrypt 是否加密处理
+   * @param isEncrypt 是否加密处理 TODO 加密方式待定
    * @return
    */
   public static String obj2Xml(Object obj, String alias, boolean isEncrypt) {
     X_STREAM.alias(alias, obj.getClass());
-    String xml = Constant.XML_HEADER + "\n" + X_STREAM.toXML(obj);
+    String xml = XML_HEADER + "\n" + X_STREAM.toXML(obj);
     if (isEncrypt) {
 //      xml = encrypt(xml);
     }
@@ -105,7 +112,7 @@ public class XmlUtil {
    * @param xml      待转换xml
    * @param obj      结果集对象
    * @param alias    对象外标签
-   * @param isDecode 是否解密处理
+   * @param isDecode 是否解密处理 TODO 解密方式待定
    * @return
    */
   public static Object xml2Obj(String xml, Object obj, String alias, boolean isDecode) {
@@ -116,6 +123,19 @@ public class XmlUtil {
     }
     obj = X_STREAM.fromXML(xml, obj);
     return obj;
+  }
+
+  /**
+   * 从xml文件中读取信息
+   *
+   * @param xmlPath xml路径，例：/com/sand/base/xml/test.xml
+   * @return
+   */
+  public static String readXml(String xmlPath) {
+    InputStream is = XmlUtil.class.getResourceAsStream(xmlPath);
+    SAXReader reader = new SAXReader();
+    Document doc = reader.read(is);
+    return doc.asXml();
   }
 
   public static void main(String[] args) {
