@@ -22,7 +22,7 @@ import java.util.Random;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Md5Result {
+public class Md5Entity {
 
   /**
    * 盐值
@@ -33,17 +33,23 @@ public class Md5Result {
    */
   private String md5;
 
-  public Md5Result(String salt) {
+  public Md5Entity(String salt) {
     this.salt = salt;
   }
 
-  public static Md5Result newInstance() {
+  /**
+   * 生成随机16位盐值
+   *
+   * @return
+   */
+  public static Md5Entity newInstance() {
     Random r = new Random();
     StringBuilder sb = new StringBuilder(16)
-        .append(r.nextInt(99999999)).append(r.nextInt(99999999));
+        .append(r.nextInt(99999999))
+        .append(r.nextInt(99999999));
     for (int i = 0, len = 16 - sb.length(); i < len; i++) {
       sb.append("0");
     }
-    return new Md5Result(sb.toString());
+    return new Md5Entity(sb.toString());
   }
 }

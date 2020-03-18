@@ -19,7 +19,7 @@ import java.util.Objects;
 import java.util.Properties;
 
 /**
- * 功能说明：
+ * 功能说明：加载配置文件工具
  * 开发人员：@author liusha
  * 开发日期：2020/3/13 9:36
  * 功能描述：写明作用，调用方式，使用场景，以及特殊情况

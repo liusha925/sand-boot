@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
  * 功能说明：正则验证器
  * 开发人员：@author liusha
  * 开发日期：2019/8/19 13:43
- * 功能描述：正则验证器，需要RegexEnum辅助使用
+ * 功能描述：正则验证器，可以借助RegexEnum辅助使用
  */
 public class RegexValidator {
   /**
@@ -35,8 +35,8 @@ public class RegexValidator {
   /**
    * 校验登录用户名
    *
-   * @param loginName
-   * @return
+   * @param loginName 登录用户名
+   * @return 校验结果
    */
   public static boolean isLoginName(String loginName) {
     return isLoginName(loginName, RegexEnum.LOGIN_NAME);
@@ -45,19 +45,30 @@ public class RegexValidator {
   /**
    * 校验登录用户名
    *
-   * @param loginName
-   * @param regexEnum
-   * @return
+   * @param loginName 登录用户名
+   * @param regex     正则表达式
+   * @return 校验结果
    */
-  public static boolean isLoginName(String loginName, RegexEnum regexEnum) {
-    return matchers(LsConvert.obj2Str(loginName), regexEnum);
+  public static boolean isLoginName(String loginName, RegexEnum regex) {
+    return matchers(LsConvert.obj2Str(loginName), regex);
+  }
+
+  /**
+   * 校验登录用户名
+   *
+   * @param loginName 登录用户名
+   * @param regex     正则表达式
+   * @return 校验结果
+   */
+  public static boolean isLoginName(String loginName, String regex) {
+    return matchers(LsConvert.obj2Str(loginName), regex);
   }
 
   /**
    * 校验登录密码
    *
-   * @param password
-   * @return
+   * @param password 登录密码
+   * @return 校验结果
    */
   public static boolean isPassword(String password) {
     return isPassword(password, RegexEnum.PASSWORD);
@@ -66,19 +77,30 @@ public class RegexValidator {
   /**
    * 校验登录密码
    *
-   * @param password
-   * @param regexEnum
-   * @return
+   * @param password 登录密码
+   * @param regex    正则表达式
+   * @return 校验结果
    */
-  public static boolean isPassword(String password, RegexEnum regexEnum) {
-    return matchers(LsConvert.obj2Str(password), regexEnum);
+  public static boolean isPassword(String password, RegexEnum regex) {
+    return matchers(LsConvert.obj2Str(password), regex);
+  }
+
+  /**
+   * 校验登录密码
+   *
+   * @param password 登录密码
+   * @param regex    正则表达式
+   * @return 校验结果
+   */
+  public static boolean isPassword(String password, String regex) {
+    return matchers(LsConvert.obj2Str(password), regex);
   }
 
   /**
    * 校验交易密码
    *
-   * @param payPassword
-   * @return
+   * @param payPassword 交易密码
+   * @return 校验结果
    */
   public static boolean isPayPassword(String payPassword) {
     return isPayPassword(payPassword, RegexEnum.PAY_PASSWORD);
@@ -87,19 +109,30 @@ public class RegexValidator {
   /**
    * 校验交易密码
    *
-   * @param payPassword
-   * @param regexEnum
-   * @return
+   * @param payPassword 交易密码
+   * @param regex       正则表达式
+   * @return 校验结果
    */
-  public static boolean isPayPassword(String payPassword, RegexEnum regexEnum) {
-    return matchers(LsConvert.obj2Str(payPassword), regexEnum);
+  public static boolean isPayPassword(String payPassword, RegexEnum regex) {
+    return matchers(LsConvert.obj2Str(payPassword), regex);
+  }
+
+  /**
+   * 校验交易密码
+   *
+   * @param payPassword 交易密码
+   * @param regex       正则表达式
+   * @return 校验结果
+   */
+  public static boolean isPayPassword(String payPassword, String regex) {
+    return matchers(LsConvert.obj2Str(payPassword), regex);
   }
 
   /**
    * 校验手机号码
    *
-   * @param mobilePhone
-   * @return
+   * @param mobilePhone 手机号码
+   * @return 校验结果
    */
   public static boolean isMobilePhone(String mobilePhone) {
     return isMobilePhone(mobilePhone, RegexEnum.MOBILE_NUMBER);
@@ -108,19 +141,30 @@ public class RegexValidator {
   /**
    * 校验手机号码
    *
-   * @param mobilePhone
-   * @param regexEnum
-   * @return
+   * @param mobilePhone 手机号码
+   * @param regex       正则表达式
+   * @return 校验结果
    */
-  public static boolean isMobilePhone(String mobilePhone, RegexEnum regexEnum) {
-    return matchers(LsConvert.obj2Str(mobilePhone), regexEnum);
+  public static boolean isMobilePhone(String mobilePhone, RegexEnum regex) {
+    return matchers(LsConvert.obj2Str(mobilePhone), regex);
+  }
+
+  /**
+   * 校验手机号码
+   *
+   * @param mobilePhone 手机号码
+   * @param regex       正则表达式
+   * @return 校验结果
+   */
+  public static boolean isMobilePhone(String mobilePhone, String regex) {
+    return matchers(LsConvert.obj2Str(mobilePhone), regex);
   }
 
   /**
    * 校验固定电话
    *
-   * @param telPhone
-   * @return
+   * @param telPhone 固定电话
+   * @return 校验结果
    */
   public static boolean isTelPhone(String telPhone) {
     if (telPhone.length() > 9) {
@@ -133,19 +177,30 @@ public class RegexValidator {
   /**
    * 校验固定电话
    *
-   * @param telPhone
-   * @param regexEnum
-   * @return
+   * @param telPhone 固定电话
+   * @param regex    正则表达式
+   * @return 校验结果
    */
-  public static boolean isTelPhone(String telPhone, RegexEnum regexEnum) {
-    return matchers(LsConvert.obj2Str(telPhone), regexEnum);
+  public static boolean isTelPhone(String telPhone, RegexEnum regex) {
+    return matchers(LsConvert.obj2Str(telPhone), regex);
+  }
+
+  /**
+   * 校验固定电话
+   *
+   * @param telPhone 固定电话
+   * @param regex    正则表达式
+   * @return 校验结果
+   */
+  public static boolean isTelPhone(String telPhone, String regex) {
+    return matchers(LsConvert.obj2Str(telPhone), regex);
   }
 
   /**
    * 校验银行卡号
    *
-   * @param bankCard
-   * @return
+   * @param bankCard 银行卡号
+   * @return 校验结果
    */
   public static boolean isBankCard(String bankCard) {
     return isBankCard(bankCard, RegexEnum.BANK_NUMBER);
@@ -154,19 +209,30 @@ public class RegexValidator {
   /**
    * 校验银行卡号
    *
-   * @param bankCard
-   * @param regexEnum
-   * @return
+   * @param bankCard 银行卡号
+   * @param regex    正则表达式
+   * @return 校验结果
    */
-  public static boolean isBankCard(String bankCard, RegexEnum regexEnum) {
-    return matchers(LsConvert.obj2Str(bankCard), regexEnum);
+  public static boolean isBankCard(String bankCard, RegexEnum regex) {
+    return matchers(LsConvert.obj2Str(bankCard), regex);
+  }
+
+  /**
+   * 校验银行卡号
+   *
+   * @param bankCard 银行卡号
+   * @param regex    正则表达式
+   * @return 校验结果
+   */
+  public static boolean isBankCard(String bankCard, String regex) {
+    return matchers(LsConvert.obj2Str(bankCard), regex);
   }
 
   /**
    * 校验身份证号
    *
-   * @param cardId
-   * @return
+   * @param cardId 身份证号
+   * @return 校验结果
    */
   public static boolean isCardId(String cardId) {
     return isCardId(cardId, RegexEnum.ID_NUMBER);
@@ -175,19 +241,30 @@ public class RegexValidator {
   /**
    * 校验身份证号
    *
-   * @param cardId
-   * @param regexEnum
-   * @return
+   * @param cardId 身份证号
+   * @param regex  正则表达式
+   * @return 校验结果
    */
-  public static boolean isCardId(String cardId, RegexEnum regexEnum) {
-    return matchers(LsConvert.obj2Str(cardId), regexEnum);
+  public static boolean isCardId(String cardId, RegexEnum regex) {
+    return matchers(LsConvert.obj2Str(cardId), regex);
+  }
+
+  /**
+   * 校验身份证号
+   *
+   * @param cardId 身份证号
+   * @param regex  正则表达式
+   * @return 校验结果
+   */
+  public static boolean isCardId(String cardId, String regex) {
+    return matchers(LsConvert.obj2Str(cardId), regex);
   }
 
   /**
    * 校验姓名
    *
-   * @param realName
-   * @return
+   * @param realName 姓名
+   * @return 校验结果
    */
   public static boolean isRealName(String realName) {
     return isRealName(realName, RegexEnum.REAL_NAME);
@@ -196,19 +273,30 @@ public class RegexValidator {
   /**
    * 校验姓名
    *
-   * @param realName
-   * @param regexEnum
-   * @return
+   * @param realName 姓名
+   * @param regex    正则表达式
+   * @return 校验结果
    */
-  public static boolean isRealName(String realName, RegexEnum regexEnum) {
-    return matchers(LsConvert.obj2Str(realName), regexEnum);
+  public static boolean isRealName(String realName, RegexEnum regex) {
+    return matchers(LsConvert.obj2Str(realName), regex);
+  }
+
+  /**
+   * 校验姓名
+   *
+   * @param realName 姓名
+   * @param regex    正则表达式
+   * @return 校验结果
+   */
+  public static boolean isRealName(String realName, String regex) {
+    return matchers(LsConvert.obj2Str(realName), regex);
   }
 
   /**
    * 校验邮箱格式
    *
-   * @param email
-   * @return
+   * @param email 邮箱
+   * @return 校验结果
    */
   public static boolean isEmail(String email) {
     return isEmail(email, RegexEnum.EMAIL);
@@ -217,19 +305,30 @@ public class RegexValidator {
   /**
    * 校验邮箱格式
    *
-   * @param email
-   * @param regexEnum
-   * @return
+   * @param email 邮箱
+   * @param regex 正则表达式
+   * @return 校验结果
    */
-  public static boolean isEmail(String email, RegexEnum regexEnum) {
-    return matchers(LsConvert.obj2Str(email), regexEnum);
+  public static boolean isEmail(String email, RegexEnum regex) {
+    return matchers(LsConvert.obj2Str(email), regex);
+  }
+
+  /**
+   * 校验邮箱格式
+   *
+   * @param email 邮箱
+   * @param regex 正则表达式
+   * @return 校验结果
+   */
+  public static boolean isEmail(String email, String regex) {
+    return matchers(LsConvert.obj2Str(email), regex);
   }
 
   /**
    * 校验数字
    *
    * @param number
-   * @return
+   * @return 校验结果
    */
   public static boolean isNumber(String number) {
     return isNumber(number, RegexEnum.NUMBER);
@@ -239,17 +338,27 @@ public class RegexValidator {
    * 校验数字
    *
    * @param number
-   * @return
+   * @return 校验结果
    */
-  public static boolean isNumber(String number, RegexEnum regexEnum) {
-    return matchers(LsConvert.obj2Str(number), regexEnum);
+  public static boolean isNumber(String number, RegexEnum regex) {
+    return matchers(LsConvert.obj2Str(number), regex);
+  }
+
+  /**
+   * 校验数字
+   *
+   * @param number
+   * @return 校验结果
+   */
+  public static boolean isNumber(String number, String regex) {
+    return matchers(LsConvert.obj2Str(number), regex);
   }
 
   /**
    * 校验整数
    *
    * @param integer
-   * @return
+   * @return 校验结果
    */
   public static boolean isInteger(String integer) {
     return isInteger(integer, RegexEnum.INTEGER);
@@ -259,17 +368,27 @@ public class RegexValidator {
    * 校验整数
    *
    * @param integer
-   * @return
+   * @return 校验结果
    */
-  public static boolean isInteger(String integer, RegexEnum regexEnum) {
-    return matchers(LsConvert.obj2Str(integer), regexEnum);
+  public static boolean isInteger(String integer, RegexEnum regex) {
+    return matchers(LsConvert.obj2Str(integer), regex);
+  }
+
+  /**
+   * 校验整数
+   *
+   * @param integer
+   * @return 校验结果
+   */
+  public static boolean isInteger(String integer, String regex) {
+    return matchers(LsConvert.obj2Str(integer), regex);
   }
 
   /**
    * 校验小数（两位正数）
    *
    * @param decimal
-   * @return
+   * @return 校验结果
    */
   public static boolean isDecimal(String decimal) {
     return isDecimal(decimal, RegexEnum.DECIMAL);
@@ -279,17 +398,27 @@ public class RegexValidator {
    * 校验小数（两位正数）
    *
    * @param decimal
-   * @return
+   * @return 校验结果
    */
-  public static boolean isDecimal(String decimal, RegexEnum regexEnum) {
-    return matchers(LsConvert.obj2Str(decimal), regexEnum);
+  public static boolean isDecimal(String decimal, RegexEnum regex) {
+    return matchers(LsConvert.obj2Str(decimal), regex);
+  }
+
+  /**
+   * 校验小数（两位正数）
+   *
+   * @param decimal
+   * @return 校验结果
+   */
+  public static boolean isDecimal(String decimal, String regex) {
+    return matchers(LsConvert.obj2Str(decimal), regex);
   }
 
   /**
    * 判断字符串是否为日期格式
    *
    * @param strDate
-   * @return
+   * @return 校验结果
    */
   public static boolean isDate(String strDate) {
     return isDate(strDate, RegexEnum.DATE);
@@ -299,17 +428,27 @@ public class RegexValidator {
    * 判断字符串是否为日期格式
    *
    * @param strDate
-   * @return
+   * @return 校验结果
    */
-  public static boolean isDate(String strDate, RegexEnum regexEnum) {
-    return matchers(LsConvert.obj2Str(strDate), regexEnum);
+  public static boolean isDate(String strDate, RegexEnum regex) {
+    return matchers(LsConvert.obj2Str(strDate), regex);
+  }
+
+  /**
+   * 判断字符串是否为日期格式
+   *
+   * @param strDate
+   * @return 校验结果
+   */
+  public static boolean isDate(String strDate, String regex) {
+    return matchers(LsConvert.obj2Str(strDate), regex);
   }
 
   /**
    * 校验统一社会信用代码
    *
    * @param unifyCode
-   * @return
+   * @return 校验结果
    */
   public static boolean isUnifyCode(String unifyCode) {
     if ((unifyCode.equals(StringUtil.EMPTY)) || unifyCode.length() != 18) {
@@ -349,13 +488,24 @@ public class RegexValidator {
    *
    * @param str   待匹配的字符串
    * @param regex 正则表达式
-   * @return
+   * @return 校验结果
    */
   public static boolean matchers(String str, RegexEnum regex) {
+    return matchers(str, regex.getExpression());
+  }
+
+  /**
+   * 正则匹配
+   *
+   * @param str   待匹配的字符串
+   * @param regex 正则表达式
+   * @return 校验结果
+   */
+  public static boolean matchers(String str, String regex) {
     if (StringUtils.isEmpty(str)) {
       return false;
     }
-    Pattern pattern = Pattern.compile(regex.getExpression());
+    Pattern pattern = Pattern.compile(regex);
     Matcher matcher = pattern.matcher(str);
     return matcher.matches();
   }

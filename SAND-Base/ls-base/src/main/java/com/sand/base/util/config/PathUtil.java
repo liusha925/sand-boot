@@ -25,28 +25,37 @@ import java.util.Objects;
 public class PathUtil {
 
   /**
-   * 获取文件路径
+   * <p>获取文件路径.</p>
+   * <pre>
+   *   PathUtil.getClassPath(new PathUtil()) = "...\\com\\sand\\base\\util\\config"
+   * </pre>
    *
    * @param obj 对象
    * @return obj路径
    */
-  public static String getPath(Object obj) {
-    return getPath(obj.getClass());
+  public static String getClassPath(Object obj) {
+    return getClassPath(obj.getClass());
   }
 
   /**
-   * 获取文件路径
+   * <p>获取文件路径.</p>
+   * <pre>
+   *   PathUtil.getClassPath(PathUtil.class) = "...\\com\\sand\\base\\util\\config"
+   * </pre>
    *
    * @param clz class
    * @return class路径
    */
-  public static String getPath(Class<?> clz) {
+  public static String getClassPath(Class<?> clz) {
     String path = clz.getResource(StringUtil.EMPTY).getPath();
     return new File(path).getAbsolutePath();
   }
 
   /**
-   * 获取对象包的路径
+   * <p>获取对象包的路径.</p>
+   * <pre>
+   *    PathUtil.getPackagePath(new PathUtil()) = "com/sand/base/util/config"
+   * </pre>
    *
    * @param obj 对象
    * @return package路径
@@ -56,7 +65,10 @@ public class PathUtil {
   }
 
   /**
-   * 获取对象包的路径
+   * <p>获取类包的路径.</p>
+   * <pre>
+   *    PathUtil.getPackagePath(PathUtil.class) = "com/sand/base/util/config"
+   * </pre>
    *
    * @param clz class
    * @return package路径

@@ -23,7 +23,7 @@ import java.util.Objects;
  * 功能描述：阻塞IO
  */
 @Slf4j
-public class BIOFileExcutor extends AbstractFileExecutor {
+public class BIOFileExecutor extends AbstractFileExecutor {
   @Override
   public void subCopyStream(InputStream is, OutputStream os, int buffSize) throws IOException {
     byte[] buf = new byte[buffSize];

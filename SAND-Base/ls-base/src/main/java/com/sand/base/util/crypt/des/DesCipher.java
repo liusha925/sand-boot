@@ -19,7 +19,7 @@ import java.security.GeneralSecurityException;
  * 功能说明：加密解密Text类型的数据
  * 开发人员：@author liusha
  * 开发日期：2019/11/27 16:11
- * 功能描述：加密解密Text类型的数据实现类
+ * 功能描述：双向加解密工具，适合用于加密一些敏感信息，如身份证、银行卡、手机号码等信息
  */
 public class DesCipher implements ICipher {
   /**

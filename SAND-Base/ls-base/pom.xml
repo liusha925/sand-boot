@@ -65,10 +65,10 @@
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

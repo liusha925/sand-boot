@@ -97,8 +97,8 @@ public interface FileExecutor {
   /**
    * 压缩文件
    *
-   * @param srcFilePathName 压缩前的文件名
-   * @param tarFilePathName 压缩后的文件名
+   * @param srcFilePathName 压缩前的文件路径名称
+   * @param tarFilePathName 压缩后的文件路径名称
    * @throws IOException the io exception
    */
   void zipFile(String srcFilePathName, String tarFilePathName) throws IOException;

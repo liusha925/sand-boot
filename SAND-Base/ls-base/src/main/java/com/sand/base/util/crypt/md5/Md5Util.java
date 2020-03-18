@@ -10,6 +10,7 @@ package com.sand.base.util.crypt.md5;
 import com.sand.base.enums.CodeEnum;
 import com.sand.base.exception.LsException;
 import com.sand.base.util.lang3.StringUtil;
+import lombok.NoArgsConstructor;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,51 +23,50 @@ import java.security.NoSuchAlgorithmException;
  * 功能说明：md5加密
  * 开发人员：@author liusha
  * 开发日期：2019/11/27 16:22
- * 功能描述：单向加密
+ * 功能描述：单向加密，适用于安全级别比较高的，如密码
  */
+@NoArgsConstructor
 public class Md5Util {
 
   private static final String ALGORITHM = "md5";
-  private static final char HEX_DIGITS[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
   private static final int BUFFER_SIZE = 256 * 1024;
   private static final String DEFAULT_SALT = "LSand-salt-for-md5";
+  private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
   /**
    * 随机盐值加密
    *
-   * @param input
    * @return
    */
-  public static Md5Result randomSaltStrMD5(String input) {
-    Md5Result md5Result = Md5Result.newInstance();
-    md5Result.setMd5(strMD5(md5Result.getSalt()));
-    return md5Result;
+  public static Md5Entity randomSaltStrMD5() {
+    Md5Entity md5Entity = Md5Entity.newInstance();
+    md5Entity.setMd5(strMD5(md5Entity.getSalt()));
+    return md5Entity;
   }
 
   /**
    * 带盐值加密
    *
-   * @param input
    * @param salt
    * @return
    */
-  public static Md5Result saltStringMD5(String input, String salt) {
+  public static Md5Entity saltStringMD5(String salt) {
     if (StringUtil.isBlank(salt)) {
       salt = DEFAULT_SALT;
     }
-    return new Md5Result(salt, strMD5(input + salt));
+    return new Md5Entity(salt, strMD5(salt));
   }
 
   /**
    * 字符串的md5加密
    *
-   * @param input
+   * @param salt 盐值
    * @return
    */
-  public static String strMD5(String input) {
+  public static String strMD5(String salt) {
     try {
       // 输入的字符串转换成字节数组
-      byte[] inputByteArray = input.getBytes();
+      byte[] inputByteArray = salt.getBytes();
       MessageDigest messageDigest = MessageDigest.getInstance(ALGORITHM);
       messageDigest.update(inputByteArray);
       // 转换并返回结果，也是字节数组，包含16个元素
@@ -104,7 +104,7 @@ public class Md5Util {
     try {
       MessageDigest messageDigest = MessageDigest.getInstance(ALGORITHM);
       try (
-          DigestInputStream digestInputStream = new DigestInputStream(fileInputStream, messageDigest);
+          DigestInputStream digestInputStream = new DigestInputStream(fileInputStream, messageDigest)
       ) {
         // read的过程中进行MD5处理，直到读完文件
         byte[] buffer = new byte[BUFFER_SIZE];
