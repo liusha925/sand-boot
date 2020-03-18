@@ -12,10 +12,10 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.naming.NoNameCoder;
 import com.thoughtworks.xstream.io.xml.Xpp3Driver;
 import lombok.extern.slf4j.Slf4j;
-import org.dom4j.Document;
-import org.dom4j.io.SAXReader;
+//import org.dom4j.Document;
+//import org.dom4j.io.SAXReader;
 
-import java.io.InputStream;
+//import java.io.InputStream;
 
 /**
  * 功能说明：XML报文解析、转换
@@ -125,18 +125,18 @@ public class XmlUtil {
     return obj;
   }
 
-  /**
-   * 从xml文件中读取信息
-   *
-   * @param xmlPath xml路径，例：/com/sand/base/xml/test.xml
-   * @return
-   */
-  public static String readXml(String xmlPath) {
-    InputStream is = XmlUtil.class.getResourceAsStream(xmlPath);
-    SAXReader reader = new SAXReader();
-    Document doc = reader.read(is);
-    return doc.asXml();
-  }
+//  /**
+//   * TODO 架包无法引入，此方法暂时作废 从xml文件中读取信息
+//   *
+//   * @param xmlPath xml路径，例：/com/sand/base/xml/test.xml
+//   * @return
+//   */
+//  public static String readXml(String xmlPath) {
+//    InputStream is = XmlUtil.class.getResourceAsStream(xmlPath);
+//    SAXReader reader = new SAXReader();
+//    Document doc = reader.read(is);
+//    return doc.asXml();
+//  }
 
   public static void main(String[] args) {
     ResultEntity ret = ResultEntity.builder().code(200).msg("成功").build();
