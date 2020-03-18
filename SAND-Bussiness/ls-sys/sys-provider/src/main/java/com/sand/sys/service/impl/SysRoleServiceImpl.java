@@ -9,7 +9,7 @@ package com.sand.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.sand.base.core.entity.ResultEntity;
+import com.sand.base.web.entity.ResultEntity;
 import com.sand.base.enums.CodeEnum;
 import com.sand.base.enums.OperateEnum;
 import com.sand.base.exception.LsException;

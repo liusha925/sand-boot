@@ -13,7 +13,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.sand.base.annotation.EnumValidAnnotation;
 import com.sand.base.annotation.ExcelAnnotation;
 import com.sand.base.constant.Constant;
-import com.sand.base.core.entity.BaseEntity;
+import com.sand.base.web.entity.BaseEntity;
 import com.sand.sys.enums.RoleEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

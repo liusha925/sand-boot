@@ -8,7 +8,7 @@
 package com.sand.base.util.poi;
 
 import com.sand.base.annotation.ExcelAnnotation;
-import com.sand.base.core.entity.ResultEntity;
+import com.sand.base.web.entity.ResultEntity;
 import com.sand.base.util.lang3.StringUtil;
 import com.sand.base.util.poi.template.AbstractExcelPoi;
 import lombok.extern.slf4j.Slf4j;

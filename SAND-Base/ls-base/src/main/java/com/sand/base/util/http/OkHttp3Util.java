@@ -8,7 +8,7 @@
 package com.sand.base.util.http;
 
 import com.alibaba.fastjson.JSON;
-import com.sand.base.core.text.LsCharset;
+import com.sand.base.util.text.LsCharset;
 import com.sand.base.exception.LsException;
 import com.sand.base.util.lang3.StringUtil;
 import lombok.extern.slf4j.Slf4j;

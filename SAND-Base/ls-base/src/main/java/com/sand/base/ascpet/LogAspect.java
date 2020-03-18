@@ -8,7 +8,7 @@
 package com.sand.base.ascpet;
 
 import com.sand.base.annotation.LogAnnotation;
-import com.sand.base.core.service.IBaseLogService;
+import com.sand.base.web.service.IBaseLogService;
 import com.sand.base.enums.CodeEnum;
 import com.sand.base.enums.LogStatusEnum;
 import com.sand.base.exception.LsException;

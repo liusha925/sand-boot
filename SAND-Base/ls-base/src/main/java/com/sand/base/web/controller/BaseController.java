@@ -5,10 +5,10 @@
  * 2019/8/26    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.core.controller;
+package com.sand.base.web.controller;
 
-import com.sand.base.core.common.BaseCommon;
-import com.sand.base.core.entity.ResultEntity;
+import com.sand.base.web.common.BaseCommon;
+import com.sand.base.web.entity.ResultEntity;
 import com.sand.base.enums.CodeEnum;
 import com.sand.base.exception.LsException;
 import com.sand.base.util.ResultUtil;

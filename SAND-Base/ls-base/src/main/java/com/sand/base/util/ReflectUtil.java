@@ -8,7 +8,7 @@
 package com.sand.base.util;
 
 import com.google.common.collect.Lists;
-import com.sand.base.core.text.LsConvert;
+import com.sand.base.util.text.LsConvert;
 import com.sand.base.util.lang3.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.Validate;

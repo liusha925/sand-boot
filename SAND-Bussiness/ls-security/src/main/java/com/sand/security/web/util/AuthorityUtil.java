@@ -7,7 +7,7 @@
  */
 package com.sand.security.web.util;
 
-import com.sand.base.core.service.IBaseAuthority;
+import com.sand.base.web.service.IBaseAuthority;
 import com.sand.security.web.bean.AuthCustomAuthority;
 
 import java.util.List;

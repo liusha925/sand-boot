@@ -5,7 +5,7 @@
  * 2019/10/9    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.core.text;
+package com.sand.base.util.text;
 
 import com.sand.base.exception.LsException;
 import com.sand.base.util.lang3.StringUtil;

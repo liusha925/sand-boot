@@ -5,7 +5,7 @@
  * 2019/9/2    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.core.entity;
+package com.sand.base.web.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;

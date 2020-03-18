@@ -5,7 +5,7 @@
  * 2019/8/26    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.core.entity;
+package com.sand.base.web.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -7,7 +7,7 @@
  */
 package com.sand.base.util.validator;
 
-import com.sand.base.core.text.LsConvert;
+import com.sand.base.util.text.LsConvert;
 import com.sand.base.enums.RegexEnum;
 import com.sand.base.util.lang3.StringUtil;
 import org.springframework.util.StringUtils;

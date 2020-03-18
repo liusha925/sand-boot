@@ -7,7 +7,7 @@
  */
 package com.sand.security.web.util;
 
-import com.sand.base.core.service.IBaseUserDetails;
+import com.sand.base.web.service.IBaseUserDetails;
 import com.sand.base.util.ServletUtil;
 import com.sand.base.util.lang3.StringUtil;
 import io.jsonwebtoken.Claims;
@@ -15,15 +15,10 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * 功能说明：token工具类

@@ -9,7 +9,7 @@ package com.sand.base.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sand.base.constant.Constant;
-import com.sand.base.core.text.LsCharset;
+import com.sand.base.util.text.LsCharset;
 import com.sand.base.util.lang3.StringUtil;
 import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.OperatingSystem;

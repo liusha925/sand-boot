@@ -8,8 +8,8 @@
 package com.sand.sys.controller;
 
 import com.sand.base.annotation.LogAnnotation;
-import com.sand.base.core.controller.BaseController;
-import com.sand.base.core.entity.ResultEntity;
+import com.sand.base.web.controller.BaseController;
+import com.sand.base.web.entity.ResultEntity;
 import com.sand.base.util.ResultUtil;
 import com.sand.base.util.tree.Tree;
 import com.sand.sys.entity.SysMenu;

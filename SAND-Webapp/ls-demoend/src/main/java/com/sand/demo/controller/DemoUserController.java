@@ -9,8 +9,8 @@ package com.sand.demo.controller;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sand.base.core.controller.BaseController;
-import com.sand.base.core.entity.ResultEntity;
+import com.sand.base.web.controller.BaseController;
+import com.sand.base.web.entity.ResultEntity;
 import com.sand.base.util.ResultUtil;
 import com.sand.base.util.ServletUtil;
 import com.sand.demo.entity.DemoUser;

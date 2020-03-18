@@ -7,8 +7,8 @@
  */
 package com.sand.security.web.bean;
 
-import com.sand.base.core.service.IBaseAuthority;
-import com.sand.base.core.service.IBaseUserDetails;
+import com.sand.base.web.service.IBaseAuthority;
+import com.sand.base.web.service.IBaseUserDetails;
 import com.sand.security.web.util.AuthorityUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;

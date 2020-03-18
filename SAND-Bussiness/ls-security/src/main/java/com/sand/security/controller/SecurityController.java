@@ -9,9 +9,9 @@ package com.sand.security.controller;
 
 import com.google.gson.Gson;
 import com.sand.base.annotation.LogAnnotation;
-import com.sand.base.core.controller.BaseController;
-import com.sand.base.core.entity.ResultEntity;
-import com.sand.base.core.service.IBaseUserDetailsService;
+import com.sand.base.web.controller.BaseController;
+import com.sand.base.web.entity.ResultEntity;
+import com.sand.base.web.service.IBaseUserDetailsService;
 import com.sand.base.util.ParamUtil;
 import com.sand.base.util.ResultUtil;
 import com.sand.base.util.crypt.des.DesCryptUtil;
@@ -40,8 +40,8 @@ import java.util.Map;
  * 功能描述：登录认证授权
  */
 @RestController
-@RequestMapping("/auth")
-public class AuthenticationController extends BaseController {
+@RequestMapping("/security")
+public class SecurityController extends BaseController {
   /**
    * Token工具
    */
@@ -69,9 +69,9 @@ public class AuthenticationController extends BaseController {
    * @param param
    * @return 封装好的token，过期时间，token的类型map
    */
-  @PostMapping(value = "/token/login")
+  @PostMapping(value = "/login")
   @LogAnnotation(description = "用户登录")
-  public ResultEntity tokenLogin(@RequestBody Map<String, Object> param) {
+  public ResultEntity login(@RequestBody Map<String, Object> param) {
     String username = ParamUtil.getStringValue(param, "username");
     String password = ParamUtil.getStringValue(param, "password");
     password = DesCryptUtil.decrypt(password);

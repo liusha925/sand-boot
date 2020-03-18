@@ -5,7 +5,7 @@
  * 2019/11/25    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.core.service;
+package com.sand.base.web.service;
 
 import java.util.Collection;
 

@@ -7,7 +7,7 @@
  */
 package com.sand.base.util.poi;
 
-import com.sand.base.core.entity.ResultEntity;
+import com.sand.base.web.entity.ResultEntity;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.naming.NoNameCoder;
 import com.thoughtworks.xstream.io.xml.Xpp3Driver;

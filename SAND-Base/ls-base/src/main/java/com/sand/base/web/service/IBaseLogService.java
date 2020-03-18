@@ -5,7 +5,7 @@
  * 2019/9/24    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.core.service;
+package com.sand.base.web.service;
 
 import java.lang.reflect.Method;
 

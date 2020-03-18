@@ -5,7 +5,7 @@
  * 2019/8/27    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.core.common;
+package com.sand.base.web.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sand.base.enums.CodeEnum;

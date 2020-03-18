@@ -8,7 +8,7 @@
 package com.sand.sys.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.sand.base.core.entity.ResultEntity;
+import com.sand.base.web.entity.ResultEntity;
 import com.sand.sys.entity.SysRole;
 import com.sand.sys.model.SysRoleModel;
 

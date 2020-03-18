@@ -8,7 +8,7 @@
 package com.sand.base.util.file.concrete;
 
 import com.sand.base.constant.Constant;
-import com.sand.base.core.text.LsCharset;
+import com.sand.base.util.text.LsCharset;
 import com.sand.base.exception.LsException;
 import com.sand.base.util.file.AbstractFileExecutor;
 import org.springframework.web.context.request.RequestContextHolder;

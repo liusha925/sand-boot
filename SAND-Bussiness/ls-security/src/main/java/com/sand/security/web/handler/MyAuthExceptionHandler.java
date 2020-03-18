@@ -7,7 +7,7 @@
  */
 package com.sand.security.web.handler;
 
-import com.sand.base.core.entity.ResultEntity;
+import com.sand.base.web.entity.ResultEntity;
 import com.sand.base.enums.CodeEnum;
 import com.sand.base.exception.LsException;
 import com.sand.base.exception.handler.LsExceptionHandler;

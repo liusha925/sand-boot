@@ -7,7 +7,7 @@
  */
 package com.sand.base.util.config;
 
-import com.sand.base.core.text.LsCharset;
+import com.sand.base.util.text.LsCharset;
 import com.sand.base.util.CloseableUtil;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -116,7 +116,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .accessDeniedHandler(myAccessDeniedHandler()).and()
         .authorizeRequests()
         // 允许登录接口post访问
-        .antMatchers(HttpMethod.POST, "/auth/salt/token", "/auth/bc/token").permitAll()
+        .antMatchers(HttpMethod.POST, "/security").permitAll()
         // 允许验证码接口post访问
         .antMatchers(HttpMethod.POST, "/base/valid/code/*").permitAll().and();
   }

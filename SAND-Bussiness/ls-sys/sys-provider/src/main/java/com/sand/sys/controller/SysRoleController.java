@@ -9,8 +9,8 @@ package com.sand.sys.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sand.base.core.controller.BaseController;
-import com.sand.base.core.entity.ResultEntity;
+import com.sand.base.web.controller.BaseController;
+import com.sand.base.web.entity.ResultEntity;
 import com.sand.base.util.ParamUtil;
 import com.sand.base.util.ResultUtil;
 import com.sand.base.util.poi.ExcelUtil;
@@ -24,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
