@@ -9,8 +9,8 @@ package com.sand.log.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.sand.base.annotation.LogAnnotation;
-import com.sand.base.web.service.IBaseLogService;
+import com.sand.log.annotation.LogAnnotation;
+import com.sand.log.service.IBaseLogService;
 import com.sand.base.util.text.LsConvert;
 import com.sand.base.enums.DateEnum;
 import com.sand.base.exception.LsException;
