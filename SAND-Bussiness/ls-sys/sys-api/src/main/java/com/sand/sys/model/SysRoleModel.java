@@ -31,4 +31,12 @@ public class SysRoleModel extends SysRole {
    * 菜单集合
    */
   private List<String> menuIds;
+  /**
+   * 当前页码
+   */
+  private long current = 1L;
+  /**
+   * 每页记录数
+   */
+  private long size = 10L;
 }

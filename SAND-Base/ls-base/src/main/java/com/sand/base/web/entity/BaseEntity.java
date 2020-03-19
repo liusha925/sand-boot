@@ -9,8 +9,6 @@ package com.sand.base.web.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Length;
 
@@ -25,9 +23,7 @@ import java.util.Date;
  */
 @Data
 @Accessors(chain = true)
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-public class BaseEntity extends PageEntity implements Serializable {
+public class BaseEntity implements Serializable {
   private static final long serialVersionUID = 2367225182033538004L;
   /**
    * 创建者

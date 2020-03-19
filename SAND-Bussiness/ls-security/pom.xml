@@ -33,9 +33,5 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.sand</groupId>
-            <artifactId>sys-api</artifactId>
-        </dependency>
     </dependencies>
 </project>

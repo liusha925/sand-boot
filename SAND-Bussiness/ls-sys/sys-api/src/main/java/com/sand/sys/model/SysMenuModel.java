@@ -31,10 +31,17 @@ public class SysMenuModel extends SysMenu {
    * 父菜单名称
    */
   private String parentName;
-
   /**
    * 子菜单
    */
   private List<SysMenu> children;
+  /**
+   * 当前页码
+   */
+  private long current = 1L;
+  /**
+   * 每页记录数
+   */
+  private long size = 10L;
 
 }

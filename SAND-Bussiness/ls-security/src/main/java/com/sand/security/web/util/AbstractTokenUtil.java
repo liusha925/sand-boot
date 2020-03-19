@@ -7,12 +7,10 @@
  */
 package com.sand.security.web.util;
 
-import com.sand.base.web.service.IBaseUserDetails;
 import com.sand.base.util.ServletUtil;
 import com.sand.base.util.lang3.StringUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,9 +28,21 @@ import java.util.Objects;
 @Slf4j
 public abstract class AbstractTokenUtil {
   /**
+   * 密钥
+   */
+  protected String secret;
+  /**
+   * 过期时间，默认7天
+   */
+  protected Long expiration;
+  /**
    * Token 类型
    */
   public static final String TOKEN_TYPE_BEARER = "Bearer";
+  /**
+   * 携带Token的HTTP头
+   */
+  public static final String TOKEN_HEADER = "Authorization";
   /**
    * 用户唯一ID
    */
@@ -41,41 +51,23 @@ public abstract class AbstractTokenUtil {
    * 缓存的权限：标识
    */
   public static final String CACHED_PERMISSION = "cached_permission";
-  /**
-   * 密钥
-   */
-  private String secret;
-  /**
-   * 过期时间
-   */
-  private Long expiration;
 
   /**
-   * 生成token
+   * 获取token
    *
-   * @param userDetails 用户信息
-   * @return token
+   * @return
    */
-  public String generateToken(IBaseUserDetails userDetails) {
+  public String getToken() {
     HttpServletRequest request = ServletUtil.getRequest();
-    String userKey = userDetails.getUserId();
-    String userValue = new StringBuilder(userKey).append(":").append(request.getAttribute(USER_UNIQUE_ID)).toString();
-    String token = Jwts.builder()
-        .setSubject(userValue)
-        .setExpiration(generateExpired())
-        .signWith(SignatureAlgorithm.HS512, secret)
-        .compact();
-    // TODO redis存储token信息
+    String tokenHeader = request.getHeader(AbstractTokenUtil.TOKEN_HEADER);
+    if (StringUtil.isBlank(tokenHeader)) {
+      return null;
+    }
+    String token = tokenHeader;
+    if (token.indexOf(" ") > -1) {
+      token = tokenHeader.substring(tokenHeader.indexOf(" ") + 1);
+    }
     return token;
-  }
-
-  /**
-   * 计算过期时间
-   *
-   * @return Date
-   */
-  private Date generateExpired() {
-    return new Date(System.currentTimeMillis() + expiration * 1000);
   }
 
   /**

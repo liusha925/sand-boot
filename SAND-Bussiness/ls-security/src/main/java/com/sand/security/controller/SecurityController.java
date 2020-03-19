@@ -7,30 +7,20 @@
  */
 package com.sand.security.controller;
 
-import com.google.gson.Gson;
-import com.sand.base.annotation.LogAnnotation;
+import com.sand.base.util.ParamUtil;
+import com.sand.base.util.crypt.des.DesCryptUtil;
 import com.sand.base.web.controller.BaseController;
 import com.sand.base.web.entity.ResultEntity;
-import com.sand.base.web.service.IBaseUserDetailsService;
-import com.sand.base.util.ParamUtil;
-import com.sand.base.util.ResultUtil;
-import com.sand.base.util.crypt.des.DesCryptUtil;
-import com.sand.security.web.bean.AuthCustomUserDetails;
-import com.sand.security.entity.AuthUser;
-import com.sand.security.web.util.AbstractTokenUtil;
+import com.sand.security.web.IUserSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,25 +33,10 @@ import java.util.Map;
 @RequestMapping("/security")
 public class SecurityController extends BaseController {
   /**
-   * Token工具
-   */
-  @Autowired
-  private AbstractTokenUtil jwtTokenUtil;
-  /**
    * 用户基础服务接口
    */
   @Autowired
-  private IBaseUserDetailsService baseUserDetailsService;
-  /**
-   * AuthenticationManager 接口是认证相关的核心接口，也是发起认证的入口。
-   * 但它一般不直接认证，其常用实现类 ProviderManager 内部会维护一个 List<AuthenticationProvider> 列表，
-   * 存放里多种认证方式，默认情况下，只需要通过一个 AuthenticationProvider 的认证，就可被认为是登录成功。
-   * <p>
-   * 负责验证、认证成功后，返回一个填充了用户认证信息（包括权限信息、身份信息、详细信息等，但密码通常会被移除）的 Authentication 实例。
-   * 然后再将 Authentication 设置到 SecurityContextHolder 容器中。
-   */
-  @Autowired
-  private AuthenticationManager authenticationManager;
+  private IUserSecurityService userSecurityService;
 
   /**
    * 输入用户名密码，获得token
@@ -70,7 +45,6 @@ public class SecurityController extends BaseController {
    * @return 封装好的token，过期时间，token的类型map
    */
   @PostMapping(value = "/login")
-  @LogAnnotation(description = "用户登录")
   public ResultEntity login(@RequestBody Map<String, Object> param) {
     String username = ParamUtil.getStringValue(param, "username");
     String password = ParamUtil.getStringValue(param, "password");
@@ -80,38 +54,20 @@ public class SecurityController extends BaseController {
   }
 
   /**
-   * 用户名密码登录方式
+   * 安全登录
    *
-   * @param param
-   * @param authenticationToken
+   * @param param               登录信息
+   * @param authenticationToken 认证信息
    * @return
    */
-  public ResultEntity authentication(Map<String, Object> param, AbstractAuthenticationToken authenticationToken) {
-    // 1、登录前校验
-    baseUserDetailsService.validateUser(param);
-    // 获取认证信息
-    final Authentication authentication = authenticationManager.authenticate(authenticationToken);
-    SecurityContextHolder.getContext().setAuthentication(authentication);
-    final AuthCustomUserDetails userDetails = (AuthCustomUserDetails) authentication.getPrincipal();
-    // 生成有效token
-    final String accessToken = jwtTokenUtil.generateToken(userDetails.getUserDetails());
-    AuthUser user = (AuthUser) userDetails.getUserDetails();
-    // 基础权限获取
-//    baseUserService.setAuthorities(user);
-    // 3、登录后处理
-//    baseUserDetailsService.handleUser(user);
-    // TODO 登录日志
-    // TODO 从数据库里读取权限标识
-    String permissions = "AUTH:TOKEN:LOGIN";
-    // 登录信息存储
-    Map<String, Object> tokenMap = new HashMap<>();
-    tokenMap.put("userId", user.getUserId());
-    tokenMap.put("access_token", accessToken);
-    tokenMap.put("expiration", jwtTokenUtil.getExpiration());
-    tokenMap.put("token_type", AbstractTokenUtil.TOKEN_TYPE_BEARER);
-//    tokenMap.put("realName", userDetails.getRealName());
-    tokenMap.put("customAuthorities", userDetails.getAuthorities());
-    tokenMap.put("permissions", new Gson().fromJson(permissions, List.class));
-    return ResultUtil.ok(tokenMap);
+  private ResultEntity authentication(Map<String, Object> param, AbstractAuthenticationToken authenticationToken) {
+    // 1、初始化用户信息
+    UserDetails userDetails = userSecurityService.init();
+    // 2、登录前校验
+    userSecurityService.validateUser(param);
+    // 3、处理用户认证信息
+    userSecurityService.handleAuthentication(userDetails, authenticationToken);
+    // 4、登录后处理
+    return userSecurityService.handleUser(userDetails);
   }
 }

@@ -21,5 +21,9 @@
             <groupId>com.sand</groupId>
             <artifactId>ls-base</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.sand</groupId>
+            <artifactId>ls-security</artifactId>
+        </dependency>
     </dependencies>
 </project>

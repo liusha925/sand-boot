@@ -23,6 +23,10 @@
         </dependency>
         <dependency>
             <groupId>com.sand</groupId>
+            <artifactId>ls-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sand</groupId>
             <artifactId>sys-provider</artifactId>
         </dependency>
     </dependencies>

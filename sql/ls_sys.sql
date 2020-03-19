@@ -78,6 +78,36 @@ CREATE TABLE sys_role_menu
   DEFAULT CHARSET = utf8 COMMENT = '角色-菜单关联表';
 
 -- ----------------------------
+-- 用户表
+-- ----------------------------
+DROP TABLE IF EXISTS sys_user;
+CREATE TABLE sys_user
+(
+    `user_id`     varchar(32) NOT NULL COMMENT '用户ID',
+    `username`    varchar(16) NOT NULL COMMENT '用户名',
+    `password`    varchar(64) NOT NULL COMMENT '密码',
+    `create_by`   varchar(64)  DEFAULT NULL COMMENT '创建者',
+    `update_by`   varchar(64)  DEFAULT NULL COMMENT '更新者',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `remark`      varchar(512) DEFAULT NULL COMMENT '备注信息',
+    PRIMARY KEY (`user_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8 COMMENT = '用户表';
+
+-- ----------------------------
+-- 用户-角色关联表   用户1-N角色
+-- ----------------------------
+DROP TABLE IF EXISTS sys_user_role;
+CREATE TABLE sys_user_role
+(
+    `user_id` varchar(32) NOT NULL COMMENT '用户ID',
+    `role_id` varchar(32) NOT NULL COMMENT '角色ID',
+    PRIMARY KEY (`user_id`, `role_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8 COMMENT = '用户-角色关联表';
+
+-- ----------------------------
 -- 日志表
 -- ----------------------------
 DROP TABLE IF EXISTS log;

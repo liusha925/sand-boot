@@ -2,19 +2,20 @@
  * 软件版权：流沙~~
  * 修改日期   修改人员     修改说明
  * =========  ===========  =====================
- * 2019/11/27    liusha   新增
+ * 2019/8/26    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.security.entity;
+package com.sand.sys.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sand.sys.entity.SysMenu;
-import com.sand.sys.entity.SysRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sand.base.constant.Constant;
+import com.sand.base.web.entity.BaseEntity;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,16 +24,18 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * 功能说明：用户信息
+ * 功能说明：系统菜单
  * 开发人员：@author liusha
- * 开发日期：2019/11/27 14:21
- * 功能描述：对应用户信息表auth_user
+ * 开发日期：2019/8/26 13:38
+ * 功能描述：系统菜单
  */
 @Data
-@NoArgsConstructor
 @Accessors(chain = true)
-@TableName("auth_" + "user")
-public class AuthUser implements UserDetails {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@TableName(Constant.TABLE_PREFIX_SYS + "user")
+public class SysUser extends BaseEntity implements UserDetails {
+  private static final long serialVersionUID = -8324234380114962669L;
   /**
    * 菜单ID
    */
@@ -45,10 +48,13 @@ public class AuthUser implements UserDetails {
   /**
    * 密码
    */
-  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private String password;
   /**
-   * 用户角色集合
+   * 真实姓名
+   */
+  private String realName;
+  /**
+   * 用户权限集合
    */
   @TableField(exist = false)
   private List<SysRole> userRoles;
@@ -58,21 +64,25 @@ public class AuthUser implements UserDetails {
   @TableField(exist = false)
   private List<SysMenu> roleMenus;
   /**
-   * 用户权限集合
+   * 用户权限
    */
+  @JsonIgnore
   @TableField(exist = false)
   private Collection<? extends GrantedAuthority> authorities;
 
-  public AuthUser(String username, String password, Collection<? extends GrantedAuthority> authorities, List<SysMenu> roleMenus) {
-    this.username = username;
-    this.password = password;
-    this.authorities = authorities;
-    this.roleMenus = roleMenus;
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return authorities;
   }
 
   @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
-    return this.authorities;
+  public String getPassword() {
+    return password;
+  }
+
+  @Override
+  public String getUsername() {
+    return username;
   }
 
   @Override
