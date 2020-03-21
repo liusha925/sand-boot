@@ -20,8 +20,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
@@ -80,7 +82,7 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
    */
   @Bean
   public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder(8);
+    return new BCryptPasswordEncoder();
   }
 
   /**
@@ -112,6 +114,7 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+//    auth.userDetailsService(userDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());
   }
 
   @Override
@@ -123,19 +126,16 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
         .csrf().disable()
         // 自定义登录认证方式
         .authenticationProvider(authenticationProvider)
-        .exceptionHandling()
         // 自定义验证处理器
-        .accessDeniedHandler(myAccessDeniedHandler()).and()
-        .authorizeRequests()
+        .exceptionHandling().accessDeniedHandler(myAccessDeniedHandler()).and()
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
         // 允许登录接口post访问
-        .antMatchers(HttpMethod.POST, "/security/login").permitAll()
+        .authorizeRequests().antMatchers(HttpMethod.POST, "/security/login").permitAll()
         // 允许验证码接口post访问
         .antMatchers(HttpMethod.POST, "/valid/code/*").permitAll().and();
-//        .anyRequest()
 //        // 任何尚未匹配的URL只需要验证用户即可访问
-//        .authenticated()
-//        .anyRequest()
+//        .anyRequest().authenticated()
 //        // 根据账号权限访问
-//        .access("@authorizationService.checkPermission(authentication, permission, name)").and();
+//        .anyRequest().access("@authorizationService.checkPermission(authentication, permission, name)").and();
   }
 }

@@ -86,7 +86,7 @@ public class AuthenticationService implements IUserAuthenticationService {
     tokenMap.put("authorities", user.getAuthorities());
     tokenMap.put("expiration", tokenConfig.getExpiration());
     tokenMap.put("token_type", TokenConfig.TOKEN_TYPE_BEARER);
-    tokenMap.put("permissions", new Gson().fromJson(permissions, List.class));
+//    tokenMap.put("permissions", new Gson().fromJson(permissions, List.class));
     return ResultUtil.ok(tokenMap);
   }
 }

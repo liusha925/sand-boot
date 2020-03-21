@@ -7,7 +7,7 @@
     <groupId>com.sand</groupId>
     <artifactId>ls-zookeeper</artifactId>
     <version>${com.sand.ls-zookeeper.version}</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <description>ZooKeeper注册中心</description>
 
     <parent>

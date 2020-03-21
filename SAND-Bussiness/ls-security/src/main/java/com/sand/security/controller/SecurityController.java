@@ -33,7 +33,7 @@ public class SecurityController extends BaseController {
    * 用户基础服务接口
    */
   @Autowired
-  private IUserAuthenticationService userSecurityService;
+  private IUserAuthenticationService authenticationService;
 
   /**
    * 输入用户名密码，获得token
@@ -59,10 +59,10 @@ public class SecurityController extends BaseController {
    */
   private ResultEntity authentication(Map<String, Object> param, AbstractAuthenticationToken authenticationToken) {
     // 1、认证前校验
-    userSecurityService.validateUser(param);
+    authenticationService.validateUser(param);
     // 2、处理认证信息
-    Object userDetails = userSecurityService.handleAuthentication(authenticationToken);
+    Object userDetails = authenticationService.handleAuthentication(authenticationToken);
     // 3、认证后处理
-    return userSecurityService.handleUser(userDetails);
+    return authenticationService.handleUser(userDetails);
   }
 }
