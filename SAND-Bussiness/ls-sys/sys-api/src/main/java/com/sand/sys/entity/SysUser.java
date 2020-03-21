@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sand.base.constant.Constant;
 import com.sand.base.web.entity.BaseEntity;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -30,6 +31,7 @@ import java.util.List;
  * 功能描述：系统菜单
  */
 @Data
+@Builder
 @Accessors(chain = true)
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)

@@ -10,9 +10,9 @@
     <packaging>pom</packaging>
     <description>抽离使用场景多的业务</description>
     <modules>
-        <module>ls-sys</module>
         <module>ls-log</module>
         <module>ls-security</module>
+        <module>ls-sys</module>
         <module>ls-zookeeper</module>
     </modules>
 

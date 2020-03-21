@@ -7,12 +7,12 @@
  */
 package com.sand.security.web.handler;
 
-import com.sand.base.web.entity.ResultEntity;
 import com.sand.base.enums.CodeEnum;
 import com.sand.base.exception.LsException;
 import com.sand.base.exception.handler.LsExceptionHandler;
 import com.sand.base.util.ResultUtil;
 import com.sand.base.util.spring.SpringUtil;
+import com.sand.base.web.entity.ResultEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;

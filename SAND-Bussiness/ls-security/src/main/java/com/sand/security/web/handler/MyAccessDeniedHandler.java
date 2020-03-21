@@ -10,7 +10,6 @@ package com.sand.security.web.handler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +24,6 @@ import java.util.regex.Pattern;
  * 功能描述：用来处理认证授权过程中用户访问无权限资源时的异常
  */
 @Slf4j
-@Component
 public class MyAccessDeniedHandler implements AccessDeniedHandler {
   private static final String REGEX = ".*(.js|.gif|.jpg|.png|.css|.ico)$";
 

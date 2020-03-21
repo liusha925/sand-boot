@@ -104,20 +104,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {
-    SaltAuthenticationProvider provider = new SaltAuthenticationProvider();
-    provider.setUserDetailsService(userDetailsService);
+    SaltAuthenticationProvider authenticationProvider = new SaltAuthenticationProvider();
+    authenticationProvider.setUserDetailsService(userDetailsService);
     httpSecurity
         // 关闭crsf攻击，允许跨越访问
         .csrf().disable()
-        // 自定义盐值加密方式
-        .authenticationProvider(provider)
+        // 自定义登录认证方式
+        .authenticationProvider(authenticationProvider)
         .exceptionHandling()
         // 自定义验证处理器
         .accessDeniedHandler(myAccessDeniedHandler()).and()
         .authorizeRequests()
         // 允许登录接口post访问
-        .antMatchers(HttpMethod.POST, "/security").permitAll()
+        .antMatchers(HttpMethod.POST, "/security/login").permitAll()
         // 允许验证码接口post访问
-        .antMatchers(HttpMethod.POST, "/base/valid/code/*").permitAll().and();
+        .antMatchers(HttpMethod.POST, "/valid/code/*").permitAll().and();
+//        .anyRequest()
+//        // 任何尚未匹配的URL只需要验证用户即可访问
+//        .authenticated()
+//        .anyRequest()
+//        // 根据账号权限访问
+//        .access("@authorizationService.checkPermission(authentication, permission, name)").and();
   }
 }

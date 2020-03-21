@@ -46,6 +46,8 @@ public class AuthorizationService {
    * @return true-有权访问；false-无权访问
    */
   private boolean hasPermission(Authentication authentication, String permission) {
+//    String username = (String) authentication.getPrincipal();
+    System.out.println("获取的用户信息：" + authentication);
     HttpServletRequest request = ServletUtil.getRequest();
     // TODO 缓存的用户权限：标识
     String permissions = (String) request.getAttribute("USER_UNIQUE_ID");

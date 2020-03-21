@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sand.sys.entity.SysUser;
 import com.sand.sys.mapper.SysUserMapper;
 import com.sand.sys.service.ISysUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,4 +22,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
+  @Autowired
+  private SysUserMapper userMapper;
+
+  @Override
+  public SysUser loadUserByUsername(String username) {
+    return userMapper.loadUserByUsername(username);
+  }
 }

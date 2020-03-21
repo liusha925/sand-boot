@@ -23,12 +23,12 @@ import java.util.Date;
  * 功能说明：security安全配置
  * 开发人员：@author liusha
  * 开发日期：2020/3/19 15:35
- * 功能描述：从配置文件中读取安全认证信息，密钥、token有效期等
+ * 功能描述：从application.yml配置文件中读取安全认证信息，密钥、token有效期等
  */
 @Data
 @Component
 @ConfigurationProperties("security.jwt")
-public class SecurityConfig extends AbstractTokenUtil {
+public class TokenConfig extends AbstractTokenUtil {
   /**
    * 生成token
    *

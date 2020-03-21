@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace=" com.sand.sys.mapper.SysUserMapper">
+    <!-- 根据用户名加载用户信息 -->
+    <select id="loadUserByUsername" resultType="com.sand.sys.entity.SysUser">
+        select user_id, real_name
+        from sys_user
+        where username = #{username}
+    </select>
+</mapper>

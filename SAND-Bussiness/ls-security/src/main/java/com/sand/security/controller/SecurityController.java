@@ -8,14 +8,12 @@
 package com.sand.security.controller;
 
 import com.sand.base.util.ParamUtil;
-import com.sand.base.util.crypt.des.DesCryptUtil;
 import com.sand.base.web.controller.BaseController;
 import com.sand.base.web.entity.ResultEntity;
 import com.sand.security.web.IUserSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +46,6 @@ public class SecurityController extends BaseController {
   public ResultEntity login(@RequestBody Map<String, Object> param) {
     String username = ParamUtil.getStringValue(param, "username");
     String password = ParamUtil.getStringValue(param, "password");
-    password = DesCryptUtil.decrypt(password);
 
     return authentication(param, new UsernamePasswordAuthenticationToken(username, password));
   }
@@ -61,13 +58,11 @@ public class SecurityController extends BaseController {
    * @return
    */
   private ResultEntity authentication(Map<String, Object> param, AbstractAuthenticationToken authenticationToken) {
-    // 1、初始化用户信息
-    UserDetails userDetails = userSecurityService.init();
-    // 2、登录前校验
+    // 1、认证前校验
     userSecurityService.validateUser(param);
-    // 3、处理用户认证信息
-    userSecurityService.handleAuthentication(userDetails, authenticationToken);
-    // 4、登录后处理
+    // 2、处理认证信息
+    Object userDetails = userSecurityService.handleAuthentication(authenticationToken);
+    // 3、认证后处理
     return userSecurityService.handleUser(userDetails);
   }
 }

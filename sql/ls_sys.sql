@@ -86,6 +86,7 @@ CREATE TABLE sys_user
     `user_id`     varchar(32) NOT NULL COMMENT '用户ID',
     `username`    varchar(16) NOT NULL COMMENT '用户名',
     `password`    varchar(64) NOT NULL COMMENT '密码',
+    `real_name`   varchar(64) NOT NULL COMMENT '真实姓名',
     `create_by`   varchar(64)  DEFAULT NULL COMMENT '创建者',
     `update_by`   varchar(64)  DEFAULT NULL COMMENT '更新者',
     `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

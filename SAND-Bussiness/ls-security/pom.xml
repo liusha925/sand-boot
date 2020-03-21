@@ -7,7 +7,7 @@
     <groupId>com.sand</groupId>
     <artifactId>ls-security</artifactId>
     <version>${com.sand.ls-security.version}</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <description>安全登录框架spring security</description>
 
     <parent>

@@ -17,4 +17,11 @@ import com.sand.sys.entity.SysUser;
  * 功能描述：用户信息
  */
 public interface ISysUserService extends IService<SysUser> {
+  /**
+   * 根据用户名加载用户信息
+   *
+   * @param username 用户名
+   * @return
+   */
+  SysUser loadUserByUsername(String username);
 }
