@@ -18,7 +18,7 @@ import java.util.Map;
  * 开发日期：2020/3/19 9:00
  * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
  */
-public interface IUserSecurityService {
+public interface IUserAuthenticationService {
   /**
    * 1、认证前校验
    *

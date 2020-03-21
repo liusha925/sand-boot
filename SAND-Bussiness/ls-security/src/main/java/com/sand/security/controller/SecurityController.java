@@ -10,11 +10,10 @@ package com.sand.security.controller;
 import com.sand.base.util.ParamUtil;
 import com.sand.base.web.controller.BaseController;
 import com.sand.base.web.entity.ResultEntity;
-import com.sand.security.web.IUserSecurityService;
+import com.sand.security.web.IUserAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +33,7 @@ public class SecurityController extends BaseController {
    * 用户基础服务接口
    */
   @Autowired
-  private IUserSecurityService userSecurityService;
+  private IUserAuthenticationService userSecurityService;
 
   /**
    * 输入用户名密码，获得token
@@ -42,10 +41,11 @@ public class SecurityController extends BaseController {
    * @param param
    * @return 封装好的token，过期时间，token的类型map
    */
-  @PostMapping(value = "/login")
+  @RequestMapping(value = "/login")
   public ResultEntity login(@RequestBody Map<String, Object> param) {
     String username = ParamUtil.getStringValue(param, "username");
     String password = ParamUtil.getStringValue(param, "password");
+//    password = DesCryptUtil.decrypt(password);
 
     return authentication(param, new UsernamePasswordAuthenticationToken(username, password));
   }

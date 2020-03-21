@@ -36,7 +36,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configurable
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
   /**
    * 用户信息服务
    */
@@ -58,6 +58,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   public AuthenticationManager authenticationManager() throws Exception {
     return super.authenticationManager();
+  }
+
+  /**
+   * 使用spring自带的验证密码的流程
+   *
+   * @return
+   * @throws Exception
+   */
+  @Bean
+  @Override
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
   }
 
   /**

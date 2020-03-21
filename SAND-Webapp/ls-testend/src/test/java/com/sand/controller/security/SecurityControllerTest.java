@@ -28,7 +28,8 @@ public class SecurityControllerTest {
   public void loginTest() {
     Map<String, Object> loginMap = Maps.newHashMap();
     loginMap.put("username", "test");
-    loginMap.put("password", "123456");
+//    loginMap.put("password", "123456");
+    loginMap.put("password", "olCPKgwi0rk=");
     String result = OkHttp3Util.httpPostJson(ACTIVE_LOCAL + "/security/login", loginMap);
     log.info("返回结果：{}", result);
   }

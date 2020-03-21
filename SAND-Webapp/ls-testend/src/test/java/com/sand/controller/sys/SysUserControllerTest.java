@@ -11,7 +11,6 @@ import com.sand.base.util.http.OkHttp3Util;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,15 +21,15 @@ import java.util.Map;
  * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
  */
 @Slf4j
-public class SysRoleControllerTest {
+public class SysUserControllerTest {
   private static final String ACTIVE_LOCAL = "http://localhost:8080";
 
   @Test
   public void page() {
-    Map<String, Object> roleMap = new HashMap<>();
-    roleMap.put("createTime", new Date());
-    roleMap.put("updateTime", new Date());
-    String result = OkHttp3Util.httpPostJson(ACTIVE_LOCAL + "/sys/role/page", roleMap);
+    Map<String, Object> userMap = new HashMap<>();
+//    userMap.put("createTime", new Date());
+//    userMap.put("updateTime", new Date());
+    String result = OkHttp3Util.httpPostJson(ACTIVE_LOCAL + "/sys/user/page", userMap);
     log.info("返回结果：{}", result);
   }
 }

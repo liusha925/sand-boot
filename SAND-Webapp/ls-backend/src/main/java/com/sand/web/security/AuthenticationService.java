@@ -11,7 +11,7 @@ import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.sand.base.util.ResultUtil;
 import com.sand.base.web.entity.ResultEntity;
-import com.sand.security.web.IUserSecurityService;
+import com.sand.security.web.IUserAuthenticationService;
 import com.sand.sys.entity.SysUser;
 import com.sand.web.config.TokenConfig;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ import java.util.Map;
  */
 @Slf4j
 @Component
-public class AuthenticationService implements IUserSecurityService {
+public class AuthenticationService implements IUserAuthenticationService {
   /**
    * AuthenticationManager 接口是认证相关的核心接口，也是发起认证的入口。
    * 但它一般不直接认证，其常用实现类ProviderManager内部会维护一个List<AuthenticationProvider>认证列表，

@@ -41,7 +41,7 @@ import java.util.Objects;
 @RequestMapping("/sys/role")
 public class SysRoleController extends BaseController {
   @Autowired
-  ISysRoleService roleService;
+  private ISysRoleService roleService;
   @Autowired
   private ISysMenuService menuService;
 

@@ -22,7 +22,7 @@ mybatis-plus:
   # 扫描通用枚举注入，参考https://mp.baomidou.com/config/#typeenumspackage
   type-enums-package: com.sand.**.enums
   # 扫描映射文件，参考https://mp.baomidou.com/config/#mapperlocations
-  mapper-locations: classpath*:/mapper/**/*Mapper.xml
+  mapper-locations: classpath*:/mapper/*Mapper.xml
   global-config:
     db-config:
       # 主键生成策略

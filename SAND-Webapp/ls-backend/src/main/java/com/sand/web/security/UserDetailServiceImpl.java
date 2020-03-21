@@ -58,7 +58,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     log.info("自定义实现UserDetailsService接口，username={}", username);
     // 此处可定义多种登录方式，如用户名、手机号等
-    SysUser user = userService.loadUserByUsername(username);
+    SysUser user = userService.getOne(new QueryWrapper<SysUser>().eq("username", username));
     if (Objects.isNull(user)) {
       // TODO 手机号登录
     }
@@ -76,14 +76,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
       // 菜单权限
       List<SysMenu> menus = new ArrayList<>(menuService.listByIds(menuIds));
       // 填充用户信息
-      return SysUser.builder()
-          .username(username)
-          .password(user.getPassword())
-          .realName(user.getRealName())
-          .userRoles(roles)
-          .roleMenus(menus)
-          .authorities(authorities)
-          .build();
+      user.setUserRoles(roles);
+      user.setRoleMenus(menus);
+      user.setAuthorities(authorities);
+      return user;
     } else {
       log.info("此{}用户不存在！", username);
       throw new UsernameNotFoundException(username + " not found");
