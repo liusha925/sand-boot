@@ -9,7 +9,7 @@ package com.sand.base.util.http;
 
 import com.alibaba.fastjson.JSON;
 import com.sand.base.util.text.LsCharset;
-import com.sand.base.exception.LsException;
+import com.sand.base.exception.BusinessException;
 import com.sand.base.util.lang3.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.Headers;
@@ -70,7 +70,7 @@ public class OkHttp3Util {
       try {
         String fileInfo = response.header("Content-Disposition");
         if (Objects.isNull(fileInfo)) {
-          throw new LsException(response.body().string());
+          throw new BusinessException(response.body().string());
         }
         fileName = URLDecoder.decode(fileInfo.split("=")[1], LsCharset.UTF_8);
         is = response.body().byteStream();
@@ -211,7 +211,7 @@ public class OkHttp3Util {
       }
     } catch (IOException e) {
       log.error("okHttp3请求异常", e);
-      throw new LsException("okHttp3请求异常", e);
+      throw new BusinessException("okHttp3请求异常", e);
     }
     return res;
   }

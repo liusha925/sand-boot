@@ -27,31 +27,30 @@ import java.util.Map;
  * 功能描述：登录认证授权
  */
 @RestController
-@RequestMapping("/security")
-public class SecurityController extends BaseController {
+@RequestMapping("/auth")
+public class AuthController extends BaseController {
   /**
    * 用户基础服务接口
    */
   @Autowired
-  private IUserAuthenticationService authenticationService;
+  private IUserAuthenticationService userAuthenticationService;
 
   /**
    * 输入用户名密码，获得token
    *
-   * @param param
+   * @param param 用户名和密码
    * @return 封装好的token，过期时间，token的类型map
    */
   @RequestMapping(value = "/login")
   public ResultEntity login(@RequestBody Map<String, Object> param) {
     String username = ParamUtil.getStringValue(param, "username");
     String password = ParamUtil.getStringValue(param, "password");
-//    password = DesCryptUtil.decrypt(password);
 
     return authentication(param, new UsernamePasswordAuthenticationToken(username, password));
   }
 
   /**
-   * 安全登录
+   * 登录认证
    *
    * @param param               登录信息
    * @param authenticationToken 认证信息
@@ -59,10 +58,10 @@ public class SecurityController extends BaseController {
    */
   private ResultEntity authentication(Map<String, Object> param, AbstractAuthenticationToken authenticationToken) {
     // 1、认证前校验
-    authenticationService.validateUser(param);
+    userAuthenticationService.beforeValidate(param);
     // 2、处理认证信息
-    Object userDetails = authenticationService.handleAuthentication(authenticationToken);
+    Object userDetails = userAuthenticationService.handleAuthInfo(authenticationToken);
     // 3、认证后处理
-    return authenticationService.handleUser(userDetails);
+    return userAuthenticationService.authAfter(userDetails);
   }
 }

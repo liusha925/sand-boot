@@ -18,10 +18,10 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 /**
- * 功能说明：自定义验证处理器
+ * 功能说明：自定义无权处理器
  * 开发人员：@author liusha
  * 开发日期：2019/11/25 16:31
- * 功能描述：用来处理认证授权过程中用户访问无权限资源时的异常
+ * 功能描述：用来处理认证授权过程中用户访问无权限资源时的处理方案
  */
 @Slf4j
 public class MyAccessDeniedHandler implements AccessDeniedHandler {

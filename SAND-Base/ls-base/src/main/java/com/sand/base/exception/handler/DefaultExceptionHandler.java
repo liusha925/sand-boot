@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  */
 @Order(101)
 @RestControllerAdvice
-public class LsExceptionHandler extends BaseController {
+public class DefaultExceptionHandler extends BaseController {
   /**
    * 顶级异常处理
    *

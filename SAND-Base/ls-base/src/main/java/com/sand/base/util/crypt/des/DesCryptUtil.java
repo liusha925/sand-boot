@@ -7,14 +7,10 @@
  */
 package com.sand.base.util.crypt.des;
 
-import com.sand.base.exception.LsException;
+import com.sand.base.exception.BusinessException;
 import com.sand.base.util.lang3.StringUtil;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * 功能说明：des加密解密工具类
@@ -48,7 +44,7 @@ public class DesCryptUtil {
     try {
       return cipher.encrypt(encodeStr.trim());
     } catch (Exception e) {
-      throw new LsException("加密信息出错");
+      throw new BusinessException("加密信息出错");
     }
   }
 
@@ -68,7 +64,7 @@ public class DesCryptUtil {
     try {
       return cipher.decrypt(encodeStr.trim());
     } catch (Exception e) {
-      throw new LsException("解密信息出错");
+      throw new BusinessException("解密信息出错");
     }
   }
 

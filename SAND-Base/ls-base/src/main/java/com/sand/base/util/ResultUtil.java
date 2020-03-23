@@ -10,7 +10,7 @@ package com.sand.base.util;
 import com.sand.base.constant.Constant;
 import com.sand.base.web.entity.ResultEntity;
 import com.sand.base.enums.CodeEnum;
-import com.sand.base.exception.LsException;
+import com.sand.base.exception.BusinessException;
 import com.sand.base.util.lang3.StringUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -125,7 +125,7 @@ public class ResultUtil {
                   }
                   return selectData;
                 } catch (Exception e) {
-                  throw new LsException(e.getMessage());
+                  throw new BusinessException(e.getMessage());
                 }
               })
               .sorted((a, b) -> asc * ((SelectData) a).getSort().compareTo(((SelectData) b).getSort()))

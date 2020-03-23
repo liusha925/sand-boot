@@ -13,7 +13,7 @@ import com.sand.base.util.text.LsCharset;
 import com.sand.base.util.text.LsConvert;
 import com.sand.base.enums.DateEnum;
 import com.sand.base.enums.FileSuffixEnum;
-import com.sand.base.exception.LsException;
+import com.sand.base.exception.BusinessException;
 import com.sand.base.util.CloseableUtil;
 import com.sand.base.util.ReflectUtil;
 import com.sand.base.util.ResultUtil;
@@ -161,12 +161,12 @@ public abstract class AbstractExcelPoi<T> {
     // 如果传入的sheet名称不存在则默认指定第一个sheet，否则取指定sheet中的内容
     Sheet sheet = StringUtil.isBlank(sheetName) ? workbook.getSheetAt(0) : workbook.getSheet(sheetName);
     if (Objects.isNull(sheet)) {
-      throw new LsException("文件中的sheet页不存在！");
+      throw new BusinessException("文件中的sheet页不存在！");
     }
     // 行数rows，返回行数为除去表头(rows-1)
     int rows = sheet.getLastRowNum();
     if (rows > 1000) {
-      throw new LsException("导入数据超过规定限制条数" + "1000" + "条");
+      throw new BusinessException("导入数据超过规定限制条数" + "1000" + "条");
     }
     if (rows > 0) {
       // 默认序号
@@ -298,7 +298,7 @@ public abstract class AbstractExcelPoi<T> {
       return ResultUtil.ok(fileName);
     } catch (Exception e) {
       log.error("导出excel异常：{}", e.getMessage());
-      throw new LsException("导出excel异常，请联系管理人员");
+      throw new BusinessException("导出excel异常，请联系管理人员");
     } finally {
       CloseableUtil.close(workbook, out);
     }
@@ -362,7 +362,7 @@ public abstract class AbstractExcelPoi<T> {
         }
       }
     } catch (Exception e) {
-      throw new LsException("枚举类数值[" + propertyValue + "]反向解析失败！");
+      throw new BusinessException("枚举类数值[" + propertyValue + "]反向解析失败！");
     }
     return propertyValue;
   }

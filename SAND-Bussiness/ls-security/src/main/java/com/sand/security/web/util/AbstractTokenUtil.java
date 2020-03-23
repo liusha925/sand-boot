@@ -71,14 +71,25 @@ public abstract class AbstractTokenUtil {
   }
 
   /**
-   * 根据token获取用户名
+   * 根据token获取userId
    *
    * @param token Token
    * @return String
    */
-  public String getUsernameFromToken(String token) {
+  public String getUserIdFromToken(String token) {
     String userKey = getUserKeyFromToken(token);
     return userKey.substring(0, userKey.lastIndexOf(":"));
+  }
+
+  /**
+   * 获取token解密信息
+   *
+   * @param token Token
+   * @return
+   */
+  public String getUserKeyFromToken(String token) {
+    Claims claims = getClaimsFromToken(token);
+    return Objects.nonNull(claims) ? claims.getSubject() : null;
   }
 
   /**
@@ -114,17 +125,6 @@ public abstract class AbstractTokenUtil {
   public Date getExpiredFromToken(String token) {
     Claims claims = getClaimsFromToken(token);
     return Objects.nonNull(claims) ? claims.getExpiration() : null;
-  }
-
-  /**
-   * 获取token解密信息
-   *
-   * @param token Token
-   * @return
-   */
-  public String getUserKeyFromToken(String token) {
-    Claims claims = getClaimsFromToken(token);
-    return Objects.nonNull(claims) ? claims.getSubject() : null;
   }
 
   /**

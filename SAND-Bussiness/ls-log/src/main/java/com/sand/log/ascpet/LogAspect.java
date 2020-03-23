@@ -9,7 +9,7 @@ package com.sand.log.ascpet;
 
 import com.sand.base.enums.CodeEnum;
 import com.sand.base.enums.LogStatusEnum;
-import com.sand.base.exception.LsException;
+import com.sand.base.exception.BusinessException;
 import com.sand.base.util.lang3.AnnotationUtil;
 import com.sand.base.util.spring.SpringUtil;
 import com.sand.log.service.IBaseLogService;
@@ -65,8 +65,8 @@ public class LogAspect {
       status = LogStatusEnum.EXCEPTION.getStatus();
       // 处理异常信息
       logService.exceptionProceed(log, e);
-      if (e instanceof LsException) {
-        throw new LsException(e.getMessage());
+      if (e instanceof BusinessException) {
+        throw new BusinessException(e.getMessage());
       }
       throw new Throwable(CodeEnum.ERROR.getMsg());
     } finally {

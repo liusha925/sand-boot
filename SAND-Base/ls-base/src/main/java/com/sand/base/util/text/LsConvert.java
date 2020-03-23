@@ -7,7 +7,7 @@
  */
 package com.sand.base.util.text;
 
-import com.sand.base.exception.LsException;
+import com.sand.base.exception.BusinessException;
 import com.sand.base.util.lang3.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
@@ -78,7 +78,7 @@ public class LsConvert<K, T> {
       t = clazz.newInstance();
     } catch (Exception e) {
       log.error("转换器类型实例化错误", e);
-      throw new LsException("转换器类型实例化错误");
+      throw new BusinessException("转换器类型实例化错误");
     }
     beforeConvert(entity, t);
     BeanUtils.copyProperties(entity, t);

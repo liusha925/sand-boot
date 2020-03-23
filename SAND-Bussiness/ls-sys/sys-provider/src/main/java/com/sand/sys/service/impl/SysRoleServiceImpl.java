@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sand.base.web.entity.ResultEntity;
 import com.sand.base.enums.CodeEnum;
 import com.sand.base.enums.OperateEnum;
-import com.sand.base.exception.LsException;
+import com.sand.base.exception.BusinessException;
 import com.sand.base.util.ResultUtil;
 import com.sand.base.util.lang3.StringUtil;
 import com.sand.base.util.validator.ModelValidator;
@@ -45,13 +45,13 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
   private ISysRoleMenuService roleMenuService;
 
   @Override
-  @Transactional(rollbackFor = LsException.class)
+  @Transactional(rollbackFor = BusinessException.class)
   public int add(SysRoleModel model) {
     // 参数校验
     checkModel(model, OperateEnum.INSERT);
     // 信息入库
     if (!super.save(model)) {
-      throw new LsException("新增角色信息入库异常！");
+      throw new BusinessException("新增角色信息入库异常！");
     }
     // 重新授权
     reauthorize(model);
@@ -59,13 +59,13 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
   }
 
   @Override
-  @Transactional(rollbackFor = LsException.class)
+  @Transactional(rollbackFor = BusinessException.class)
   public int edit(SysRoleModel model) {
     // 参数校验
     checkModel(model, OperateEnum.UPDATE);
     // 信息入库
     if (!super.updateById(model)) {
-      throw new LsException("修改角色信息入库异常！");
+      throw new BusinessException("修改角色信息入库异常！");
     }
     // 重新授权
     reauthorize(model);
@@ -73,25 +73,25 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
   }
 
   @Override
-  @Transactional(rollbackFor = LsException.class)
+  @Transactional(rollbackFor = BusinessException.class)
   public void cancelAuthorize(String roleId) {
     // 增强校验，1、新增时信息是否已入库，2、修改时ID是否有变更
     if (StringUtil.isBlank(roleId)) {
-      throw new LsException(CodeEnum.PARAM_MISSING_ERROR, "角色ID未分配！");
+      throw new BusinessException(CodeEnum.PARAM_MISSING_ERROR, "角色ID未分配！");
     }
     SysRole dbRole = super.getById(roleId);
     if (Objects.isNull(dbRole)) {
-      throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "角色信息不存在！");
+      throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, "角色信息不存在！");
     }
     QueryWrapper<SysRoleMenu> roleMenuWrapper = new QueryWrapper<>();
     roleMenuWrapper.eq("role_id", roleId);
     if (!roleMenuService.remove(roleMenuWrapper)) {
-      throw new LsException("菜单权限取消异常！");
+      throw new BusinessException("菜单权限取消异常！");
     }
   }
 
   @Override
-  @Transactional(rollbackFor = LsException.class)
+  @Transactional(rollbackFor = BusinessException.class)
   public void reauthorize(SysRoleModel model) {
     // 取消旧的权限
     this.cancelAuthorize(model.getRoleId());
@@ -102,17 +102,17 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
       roleMenuList.add(roleMenu);
     });
     if (!roleMenuService.saveBatch(roleMenuList)) {
-      throw new LsException("重新授权菜单异常！");
+      throw new BusinessException("重新授权菜单异常！");
     }
   }
 
   @Override
   public ResultEntity imported(List<SysRoleModel> roleList) {
     if (CollectionUtils.isEmpty(roleList)) {
-      throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "导入数据不能为空哟！");
+      throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, "导入数据不能为空哟！");
     }
     if (StringUtil.listHasRepeatRecord(roleList)) {
-      throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "导入数据存在重复记录，请检查！");
+      throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, "导入数据存在重复记录，请检查！");
     }
     int failNum = 0;
     StringBuilder failMsg = new StringBuilder();
@@ -131,7 +131,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
           failMsg.append("第").append(i + 1).append("条数据：").append(e.getMessage()).append("；");
           int unCheckedNum = roleList.size() - (i + 1);
           failMsg = new StringBuilder(failMsg).append("剩余未校验数据").append(unCheckedNum).append("条，错误数据太多，请校正后再导入");
-          throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, failMsg.toString());
+          throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, failMsg.toString());
         }
       }
       checkedRoleList.add(role);
@@ -148,7 +148,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     }
     // 信息入库
     if (!super.saveBatch(checkedRoleList)) {
-      throw new LsException("导入角色信息入库异常！");
+      throw new BusinessException("导入角色信息入库异常！");
     }
     log.info(returnMsg);
     return ResultUtil.ok(returnMsg);
@@ -169,23 +169,23 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
       if (StringUtil.isNotBlank(model.getRoleId())) {
         SysRole dbRole = super.getById(model.getRoleId());
         if (Objects.nonNull(dbRole)) {
-          throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此角色信息已存在！");
+          throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, "此角色信息已存在！");
         }
       }
     } else if (Objects.equals(operate, OperateEnum.UPDATE)) {
       if (StringUtil.isBlank(model.getRoleId())) {
-        throw new LsException(CodeEnum.PARAM_MISSING_ERROR, "角色ID不能为空！");
+        throw new BusinessException(CodeEnum.PARAM_MISSING_ERROR, "角色ID不能为空！");
       }
       SysRole dbRole = super.getById(model.getRoleId());
       if (Objects.isNull(dbRole)) {
-        throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此角色信息不存在！");
+        throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, "此角色信息不存在！");
       }
       roleNameWrapper.ne("role_id", model.getRoleId());
     }
     // 校验角色名称是否重复
     List<SysRole> roleNameList = super.list(roleNameWrapper);
     if (roleNameList.size() > 0) {
-      throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此角色名称已存在！");
+      throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, "此角色名称已存在！");
     }
   }
 

@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sand.base.enums.CodeEnum;
 import com.sand.base.enums.OperateEnum;
-import com.sand.base.exception.LsException;
+import com.sand.base.exception.BusinessException;
 import com.sand.base.util.lang3.StringUtil;
 import com.sand.base.util.tree.Tree;
 import com.sand.base.util.tree.TreeUtil;
@@ -104,25 +104,25 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
   }
 
   @Override
-  @Transactional(rollbackFor = LsException.class)
+  @Transactional(rollbackFor = BusinessException.class)
   public int add(SysMenuModel model) {
     // 参数校验
     checkModel(model, OperateEnum.INSERT);
     // 信息入库
     if (!super.save(model)) {
-      throw new LsException("新增菜单信息入库异常！");
+      throw new BusinessException("新增菜单信息入库异常！");
     }
     return 0;
   }
 
   @Override
-  @Transactional(rollbackFor = LsException.class)
+  @Transactional(rollbackFor = BusinessException.class)
   public int edit(SysMenuModel model) {
     // 参数校验
     checkModel(model, OperateEnum.UPDATE);
     // 信息入库
     if (!super.updateById(model)) {
-      throw new LsException("修改菜单信息入库异常！");
+      throw new BusinessException("修改菜单信息入库异常！");
     }
     return 0;
   }
@@ -165,7 +165,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     if (!Objects.equals(model.getParentId(), TreeUtil.TREE_ROOT)) {
       SysMenu parentMenu = super.getById(model.getParentId());
       if (Objects.isNull(parentMenu)) {
-        throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "父级菜单不存在！");
+        throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, "父级菜单不存在！");
       }
     }
     // 菜单名查询条件组装
@@ -175,23 +175,23 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
       if (StringUtil.isNotBlank(model.getMenuId())) {
         SysMenu dbMenu = super.getById(model.getMenuId());
         if (Objects.nonNull(dbMenu)) {
-          throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此菜单信息已存在！");
+          throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, "此菜单信息已存在！");
         }
       }
     } else if (Objects.equals(operate, OperateEnum.UPDATE)) {
       if (StringUtil.isBlank(model.getMenuId())) {
-        throw new LsException(CodeEnum.PARAM_MISSING_ERROR, "菜单ID不能为空！");
+        throw new BusinessException(CodeEnum.PARAM_MISSING_ERROR, "菜单ID不能为空！");
       }
       SysMenu dbMenu = super.getById(model.getMenuId());
       if (Objects.isNull(dbMenu)) {
-        throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此菜单信息不存在！");
+        throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, "此菜单信息不存在！");
       }
       menuNameWrapper.ne("menu_id", model.getMenuId());
     }
     // 校验同级目录下菜单名是否重复
     List<SysMenu> menuNameList = super.list(menuNameWrapper);
     if (menuNameList.size() > 0) {
-      throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, "此菜单名称已存在！");
+      throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, "此菜单名称已存在！");
     }
   }
 

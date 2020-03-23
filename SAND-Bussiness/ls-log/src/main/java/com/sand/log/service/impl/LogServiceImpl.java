@@ -13,7 +13,7 @@ import com.sand.log.annotation.LogAnnotation;
 import com.sand.log.service.IBaseLogService;
 import com.sand.base.util.text.LsConvert;
 import com.sand.base.enums.DateEnum;
-import com.sand.base.exception.LsException;
+import com.sand.base.exception.BusinessException;
 import com.sand.base.util.ServletUtil;
 import com.sand.base.util.lang3.DateUtil;
 import com.sand.base.util.lang3.StringUtil;
@@ -92,7 +92,7 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements IBase
   }
 
   @Override
-  @Transactional(rollbackFor = LsException.class)
+  @Transactional(rollbackFor = BusinessException.class)
   public void save(Object obj, long exeTime, int exeStatus) {
     Log log = (Log) obj;
     log.setExeTime(LsConvert.obj2Str(exeTime));

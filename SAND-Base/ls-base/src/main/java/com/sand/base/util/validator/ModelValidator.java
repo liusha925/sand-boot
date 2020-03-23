@@ -8,7 +8,7 @@
 package com.sand.base.util.validator;
 
 import com.sand.base.enums.CodeEnum;
-import com.sand.base.exception.LsException;
+import com.sand.base.exception.BusinessException;
 import com.sand.base.util.lang3.StringUtil;
 import com.sand.base.util.spring.SpringUtil;
 
@@ -68,7 +68,7 @@ public class ModelValidator {
       if (StringUtil.isBlank(errorMsg)) {
         errorMsg = "请求参数有误";
       }
-      throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, errorMsg);
+      throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, errorMsg);
     }
   }
 

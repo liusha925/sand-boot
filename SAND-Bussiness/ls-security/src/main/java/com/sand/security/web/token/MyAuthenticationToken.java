@@ -18,7 +18,7 @@ import java.util.Collection;
  * 开发日期：2019/11/26 14:33
  * 功能描述：提供盐值的加密验证方式
  */
-public class SaltAuthenticationToken extends AbstractAuthenticationToken {
+public class MyAuthenticationToken extends AbstractAuthenticationToken {
   /**
    * 获取用户提交的密码凭证，用户输入的密码字符窜，在认证过后通常会被移除，用于保障安全
    */
@@ -28,14 +28,14 @@ public class SaltAuthenticationToken extends AbstractAuthenticationToken {
    */
   private final Object principal;
 
-  public SaltAuthenticationToken(Object principal, Object credentials) {
+  public MyAuthenticationToken(Object principal, Object credentials) {
     super(null);
     this.credentials = credentials;
     this.principal = principal;
     super.setAuthenticated(false);
   }
 
-  public SaltAuthenticationToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities) {
+  public MyAuthenticationToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities) {
     super(authorities);
     this.credentials = credentials;
     this.principal = principal;

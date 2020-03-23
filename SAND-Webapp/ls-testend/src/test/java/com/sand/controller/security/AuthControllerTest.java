@@ -21,16 +21,15 @@ import java.util.Map;
  * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
  */
 @Slf4j
-public class SecurityControllerTest {
+public class AuthControllerTest {
   private static final String ACTIVE_LOCAL = "http://localhost:8080";
 
   @Test
   public void loginTest() {
     Map<String, Object> loginMap = Maps.newHashMap();
     loginMap.put("username", "test");
-//    loginMap.put("password", "123456");
-    loginMap.put("password", "olCPKgwi0rk=");
-    String result = OkHttp3Util.httpPostJson(ACTIVE_LOCAL + "/security/login", loginMap);
+    loginMap.put("password", "123456");
+    String result = OkHttp3Util.httpPostJson(ACTIVE_LOCAL + "/auth/login", loginMap);
     log.info("返回结果：{}", result);
   }
 }

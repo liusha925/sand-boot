@@ -8,8 +8,8 @@
 package com.sand.security.web.handler;
 
 import com.sand.base.enums.CodeEnum;
-import com.sand.base.exception.LsException;
-import com.sand.base.exception.handler.LsExceptionHandler;
+import com.sand.base.exception.BusinessException;
+import com.sand.base.exception.handler.DefaultExceptionHandler;
 import com.sand.base.util.ResultUtil;
 import com.sand.base.util.spring.SpringUtil;
 import com.sand.base.web.entity.ResultEntity;
@@ -43,37 +43,37 @@ import java.io.IOException;
 @Slf4j
 @Order(100)
 @RestControllerAdvice
-public class MyAuthExceptionHandler extends LsExceptionHandler {
+public class MyAuthExceptionHandler extends DefaultExceptionHandler {
 
   @ExceptionHandler({AuthenticationException.class, AccessDeniedException.class})
-  public ResultEntity handleLsException(Exception e) {
+  public ResultEntity handleSecurityException(Exception e) {
     // 登录校验不通过：用户名或密码无效
     if (e instanceof BadCredentialsException || e instanceof InternalAuthenticationServiceException || e instanceof UsernameNotFoundException) {
-      return handleLsException(new LsException(CodeEnum.USERNAME_NOT_FOUND));
+      return handleBusinessException(new BusinessException(CodeEnum.USERNAME_NOT_FOUND));
     }
     // 凭证已过期
     if (e instanceof CredentialsExpiredException) {
-      return handleLsException(new LsException(CodeEnum.CREDENTIALS_EXPIRED));
+      return handleBusinessException(new BusinessException(CodeEnum.CREDENTIALS_EXPIRED));
     }
     // 此账号已过期
     if (e instanceof AccountExpiredException) {
-      return handleLsException(new LsException(CodeEnum.ACCOUNT_EXPIRED));
+      return handleBusinessException(new BusinessException(CodeEnum.ACCOUNT_EXPIRED));
     }
     // 此账号已被禁用
     if (e instanceof DisabledException) {
-      return handleLsException(new LsException(CodeEnum.DISABLED));
+      return handleBusinessException(new BusinessException(CodeEnum.DISABLED));
     }
     // 此账号已被锁定
     if (e instanceof LockedException) {
-      return handleLsException(new LsException(CodeEnum.LOCKED));
+      return handleBusinessException(new BusinessException(CodeEnum.LOCKED));
     }
     // 单点登录：此账号已在他处登录，请重新登录
     if (e instanceof AccessDeniedException) {
-      return handleLsException(new LsException(CodeEnum.SINGLE_LOGIN));
+      return handleBusinessException(new BusinessException(CodeEnum.SINGLE_LOGIN));
     }
     // 其它业务异常
-    if (e.getCause() instanceof LsException) {
-      return handleLsException((LsException) e.getCause());
+    if (e.getCause() instanceof BusinessException) {
+      return handleBusinessException((BusinessException) e.getCause());
     }
     super.errorLog(e);
     return ResultUtil.error();
@@ -92,8 +92,8 @@ public class MyAuthExceptionHandler extends LsExceptionHandler {
     if (e instanceof BadCredentialsException || e instanceof InternalAuthenticationServiceException || e instanceof UsernameNotFoundException) {
       ResultEntity = ResultUtil.error(CodeEnum.USERNAME_NOT_FOUND);
     }
-    if (e instanceof LsException) {
-      ResultEntity = ResultUtil.info(null, ((LsException) e).getCode(), e.getMessage());
+    if (e instanceof BusinessException) {
+      ResultEntity = ResultUtil.info(null, ((BusinessException) e).getCode(), e.getMessage());
     }
     HttpMessageConverter httpMessageConverter = SpringUtil.getBean("httpMessageConverter", HttpMessageConverter.class);
     httpMessageConverter.write(ResultEntity, MediaType.APPLICATION_JSON, new ServletServerHttpResponse((HttpServletResponse) response));

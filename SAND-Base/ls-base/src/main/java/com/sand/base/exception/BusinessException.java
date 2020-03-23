@@ -17,50 +17,50 @@ import lombok.Data;
  * 功能描述：自定义异常类
  */
 @Data
-public class LsException extends RuntimeException {
+public class BusinessException extends RuntimeException {
   private int code;
 
-  public LsException() {
+  public BusinessException() {
     super(CodeEnum.ERROR.getMsg());
     this.code = CodeEnum.ERROR.getCode();
   }
 
-  public LsException(CodeEnum codeEnum) {
+  public BusinessException(CodeEnum codeEnum) {
     super(codeEnum.getMsg());
     this.code = codeEnum.getCode();
   }
 
-  public LsException(CodeEnum codeEnum, String msg) {
+  public BusinessException(CodeEnum codeEnum, String msg) {
     super(msg);
     this.code = codeEnum.getCode();
   }
 
-  public LsException(String msg) {
+  public BusinessException(String msg) {
     super(msg);
     this.code = CodeEnum.ERROR.getCode();
   }
 
-  public LsException(int code, String msg) {
+  public BusinessException(int code, String msg) {
     super(msg);
     this.code = code;
   }
 
-  public LsException(String msg, Exception e) {
+  public BusinessException(String msg, Exception e) {
     super(msg, e);
     this.code = CodeEnum.ERROR.getCode();
   }
 
-  public LsException(CodeEnum codeEnum, Exception e) {
+  public BusinessException(CodeEnum codeEnum, Exception e) {
     super(codeEnum.getMsg(), e);
     this.code = codeEnum.getCode();
   }
 
-  public LsException(CodeEnum codeEnum, String msg, Exception e) {
+  public BusinessException(CodeEnum codeEnum, String msg, Exception e) {
     super(msg, e);
     this.code = codeEnum.getCode();
   }
 
-  public LsException(int code, String msg, Exception e) {
+  public BusinessException(int code, String msg, Exception e) {
     super(msg, e);
     this.code = code;
   }

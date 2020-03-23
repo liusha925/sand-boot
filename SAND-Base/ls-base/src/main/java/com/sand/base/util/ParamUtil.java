@@ -12,7 +12,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sand.base.util.text.LsConvert;
 import com.sand.base.enums.CodeEnum;
-import com.sand.base.exception.LsException;
+import com.sand.base.exception.BusinessException;
 import com.sand.base.util.lang3.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 
@@ -169,7 +169,7 @@ public class ParamUtil {
         k = null;
       }
     } catch (Exception e) {
-      throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, e);
+      throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, e);
     }
     return k;
   }
@@ -190,7 +190,7 @@ public class ParamUtil {
         obj = JSONObject.parseObject(value, type);
       }
     } catch (Exception e) {
-      throw new LsException(CodeEnum.PARAM_CHECKED_ERROR, e);
+      throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, e);
     }
     return obj;
   }
@@ -230,18 +230,18 @@ public class ParamUtil {
   public static Object getValue(Map<String, Object> map, String key, Object defaultValue, boolean required) {
     if (Objects.isNull(map)) {
       if (required) {
-        throw new LsException(CodeEnum.PARAM_MISSING_ERROR, "参数【" + key + "】不能为空");
+        throw new BusinessException(CodeEnum.PARAM_MISSING_ERROR, "参数【" + key + "】不能为空");
       }
       return defaultValue;
     }
     if (map.containsKey(key)) {
       Object value = map.get(key);
       if (required && StringUtil.isBlank(LsConvert.obj2Str(value))) {
-        throw new LsException(CodeEnum.PARAM_MISSING_ERROR, "参数【" + key + "】不能为空");
+        throw new BusinessException(CodeEnum.PARAM_MISSING_ERROR, "参数【" + key + "】不能为空");
       }
       return value;
     } else if (required) {
-      throw new LsException(CodeEnum.PARAM_MISSING_ERROR, "参数【" + key + "】不能为空");
+      throw new BusinessException(CodeEnum.PARAM_MISSING_ERROR, "参数【" + key + "】不能为空");
     }
     return defaultValue;
   }

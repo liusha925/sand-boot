@@ -16,7 +16,7 @@ import java.util.Map;
  * 功能说明：用户安全认证服务接口
  * 开发人员：@author liusha
  * 开发日期：2020/3/19 9:00
- * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
+ * 功能描述：用于安全登录认证：1、认证前校验；2、处理认证信息；3、认证后处理
  */
 public interface IUserAuthenticationService {
   /**
@@ -24,7 +24,7 @@ public interface IUserAuthenticationService {
    *
    * @param param 登录参数
    */
-  void validateUser(Map<String, Object> param);
+  void beforeValidate(Map<String, Object> param);
 
   /**
    * 2、处理认证信息
@@ -32,7 +32,7 @@ public interface IUserAuthenticationService {
    * @param authenticationToken 用户认证信息
    * @return 用户基础信息
    */
-  Object handleAuthentication(AbstractAuthenticationToken authenticationToken);
+  Object handleAuthInfo(AbstractAuthenticationToken authenticationToken);
 
   /**
    * 3、认证后处理
@@ -40,6 +40,6 @@ public interface IUserAuthenticationService {
    * @param userDetails 用户基础信息
    * @return 登录结果与登录信息
    */
-  ResultEntity handleUser(Object userDetails);
+  ResultEntity authAfter(Object userDetails);
 
 }

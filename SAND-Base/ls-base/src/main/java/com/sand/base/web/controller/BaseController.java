@@ -10,7 +10,7 @@ package com.sand.base.web.controller;
 import com.sand.base.web.common.BaseCommon;
 import com.sand.base.web.entity.ResultEntity;
 import com.sand.base.enums.CodeEnum;
-import com.sand.base.exception.LsException;
+import com.sand.base.exception.BusinessException;
 import com.sand.base.util.ResultUtil;
 import com.sand.base.util.editor.DateEditor;
 import com.sand.base.util.editor.StringEditor;
@@ -84,8 +84,8 @@ public class BaseController extends BaseCommon {
    * @param e 异常
    * @return 响应客户端
    */
-  @ExceptionHandler(LsException.class)
-  public ResultEntity handleLsException(LsException e) {
+  @ExceptionHandler(BusinessException.class)
+  public ResultEntity handleBusinessException(BusinessException e) {
     super.errorLog(e);
     return ResultUtil.info(e.getCode(), e.getMessage());
   }

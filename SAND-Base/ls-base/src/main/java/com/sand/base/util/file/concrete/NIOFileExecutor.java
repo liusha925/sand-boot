@@ -9,7 +9,7 @@ package com.sand.base.util.file.concrete;
 
 import com.sand.base.constant.Constant;
 import com.sand.base.util.text.LsCharset;
-import com.sand.base.exception.LsException;
+import com.sand.base.exception.BusinessException;
 import com.sand.base.util.file.AbstractFileExecutor;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -108,10 +108,10 @@ public class NIOFileExecutor extends AbstractFileExecutor {
           buff.clear();
         }
       } catch (IOException e) {
-        throw new LsException("文件下载失败");
+        throw new BusinessException("文件下载失败");
       }
     } else {
-      throw new LsException("文件不存在");
+      throw new BusinessException("文件不存在");
     }
   }
 

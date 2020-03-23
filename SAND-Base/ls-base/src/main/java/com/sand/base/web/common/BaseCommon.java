@@ -9,7 +9,7 @@ package com.sand.base.web.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sand.base.enums.CodeEnum;
-import com.sand.base.exception.LsException;
+import com.sand.base.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -56,7 +56,7 @@ public class BaseCommon {
    * 业务处理异常
    */
   protected void newBusinessException(String msg) {
-    throw new LsException(CodeEnum.BUSINESS_ERROR, msg);
+    throw new BusinessException(CodeEnum.BUSINESS_ERROR, msg);
   }
 
   /**
@@ -66,7 +66,7 @@ public class BaseCommon {
    */
   protected void errorLog(Throwable e) {
     StackTraceElement element = e.getStackTrace()[0];
-    if (e instanceof LsException) {
+    if (e instanceof BusinessException) {
       log.info("异常位置：{}.{}，第{}行，原因：{}", element.getClassName(), element.getMethodName(), element.getLineNumber(), e.getMessage());
       if (!Objects.isNull(e.getCause())) {
         StackTraceElement cause = e.getCause().getStackTrace()[0];

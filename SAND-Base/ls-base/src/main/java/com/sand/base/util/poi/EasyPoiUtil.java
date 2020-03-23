@@ -14,7 +14,7 @@ import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.TemplateExportParams;
 import com.sand.base.web.entity.ResultEntity;
 import com.sand.base.util.text.LsCharset;
-import com.sand.base.exception.LsException;
+import com.sand.base.exception.BusinessException;
 import com.sand.base.util.CloseableUtil;
 import com.sand.base.util.ResultUtil;
 import com.sand.base.util.ServletUtil;
@@ -148,7 +148,7 @@ public class EasyPoiUtil {
       workbook.write(out);
       return ResultUtil.ok(fileName);
     } catch (Exception e) {
-      throw new LsException("导出excel异常，请联系管理人员");
+      throw new BusinessException("导出excel异常，请联系管理人员");
     } finally {
       CloseableUtil.close(workbook, out);
     }

@@ -8,7 +8,7 @@
 package com.sand.base.util.crypt.md5;
 
 import com.sand.base.enums.CodeEnum;
-import com.sand.base.exception.LsException;
+import com.sand.base.exception.BusinessException;
 import com.sand.base.util.lang3.StringUtil;
 import lombok.NoArgsConstructor;
 
@@ -74,9 +74,9 @@ public class Md5Util {
       // 字符数组转换成十六进制字符串返回
       return bufferToHex(resultByteArray);
     } catch (NoSuchAlgorithmException e) {
-      throw new LsException("md5加密初始化失败！", e);
+      throw new BusinessException("md5加密初始化失败！", e);
     } catch (Exception e) {
-      throw new LsException("md5加密失败！", e);
+      throw new BusinessException("md5加密失败！", e);
     }
   }
 
@@ -90,7 +90,7 @@ public class Md5Util {
     try {
       return fileMD5(new FileInputStream(filePath));
     } catch (FileNotFoundException e) {
-      throw new LsException(CodeEnum.FILE_NOT_EXIST);
+      throw new BusinessException(CodeEnum.FILE_NOT_EXIST);
     }
   }
 
@@ -115,9 +115,9 @@ public class Md5Util {
         return bufferToHex(resultByteArray);
       }
     } catch (NoSuchAlgorithmException e) {
-      throw new LsException("md5加密初始化失败!", e);
+      throw new BusinessException("md5加密初始化失败!", e);
     } catch (Exception e) {
-      throw new LsException("md5加密失败！", e);
+      throw new BusinessException("md5加密失败！", e);
     }
   }
 

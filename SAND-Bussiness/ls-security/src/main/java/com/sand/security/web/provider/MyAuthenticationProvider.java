@@ -29,7 +29,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * 功能描述：此认证方式通过了，就可被认为是登录成功，返回一个填充了用户认证信息（包括身份信息、权限信息、详细信息等，但密码通常会被移除）的Authentication实例。
  */
 @Data
-public class SaltAuthenticationProvider implements AuthenticationProvider {
+public class MyAuthenticationProvider implements AuthenticationProvider {
   @Autowired
   private UserDetailsService userDetailsService;
 

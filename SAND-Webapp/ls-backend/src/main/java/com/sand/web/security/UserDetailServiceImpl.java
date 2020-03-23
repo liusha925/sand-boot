@@ -56,7 +56,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    log.info("自定义实现UserDetailsService接口，username={}", username);
     // 此处可定义多种登录方式，如用户名、手机号等
     SysUser user = userService.getOne(new QueryWrapper<SysUser>().eq("username", username));
     if (Objects.isNull(user)) {
