@@ -23,6 +23,8 @@
         <platform-bom.version>Brussels-SR7</platform-bom.version>
         <mybatis-plus.version>3.1.2</mybatis-plus.version>
         <zookeeper.version>3.4.6</zookeeper.version>
+        <zkclient.version>0.1</zkclient.version>
+        <curator.version>2.5.0</curator.version>
         <jjwt.version>0.6.0</jjwt.version>
         <easypoi.version>3.1.0</easypoi.version>
         <fastjson.version>1.2.41</fastjson.version>
@@ -37,6 +39,7 @@
         <com.sand.ls-base.version>1.0.0-SNAPSHOT</com.sand.ls-base.version>
         <com.sand.ls-log.version>1.0.0-SNAPSHOT</com.sand.ls-log.version>
         <com.sand.ls-security.version>1.0.0-SNAPSHOT</com.sand.ls-security.version>
+        <com.sand.ls-redis.version>1.0.0-SNAPSHOT</com.sand.ls-redis.version>
         <com.sand.ls-zookeeper.version>1.0.0-SNAPSHOT</com.sand.ls-zookeeper.version>
         <com.sand.sys-api.version>1.0.0-SNAPSHOT</com.sand.sys-api.version>
         <com.sand.sys-provider.version>1.0.0-SNAPSHOT</com.sand.sys-provider.version>
@@ -110,7 +113,27 @@
             <dependency>
                 <groupId>org.apache.zookeeper</groupId>
                 <artifactId>zookeeper</artifactId>
-                <version>${zookeeper.version}}</version>
+                <version>${zookeeper.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.sgroschupf</groupId>
+                <artifactId>zkclient</artifactId>
+                <version>${zkclient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>${curator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>${curator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-test</artifactId>
+                <version>${curator.version}</version>
             </dependency>
             <!-- >>>>>>>>>>>>>>>>>>>>>产品或项目业务-S<<<<<<<<<<<<<<<<<<<<<< -->
             <dependency>
@@ -127,6 +150,11 @@
                 <groupId>com.sand</groupId>
                 <artifactId>ls-security</artifactId>
                 <version>${com.sand.ls-security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sand</groupId>
+                <artifactId>ls-redis</artifactId>
+                <version>${com.sand.ls-redis.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.sand</groupId>
