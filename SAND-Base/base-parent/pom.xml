@@ -30,6 +30,7 @@
         <fastjson.version>1.2.41</fastjson.version>
         <reflections.version>0.9.11</reflections.version>
         <UserAgentUtils.version>1.21</UserAgentUtils.version>
+        <redis-clients.version>2.9.0</redis-clients.version>
         <!-- Maven插件版本继承自spring-boot-dependencies -->
         <maven.skip>true</maven.skip>
         <maven-compiler-plugin.source>1.8</maven-compiler-plugin.source>
@@ -134,6 +135,11 @@
                 <groupId>org.apache.curator</groupId>
                 <artifactId>curator-test</artifactId>
                 <version>${curator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${redis-clients.version}</version>
             </dependency>
             <!-- >>>>>>>>>>>>>>>>>>>>>产品或项目业务-S<<<<<<<<<<<<<<<<<<<<<< -->
             <dependency>

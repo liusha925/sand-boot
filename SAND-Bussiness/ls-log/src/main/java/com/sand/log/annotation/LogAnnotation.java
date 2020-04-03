@@ -35,7 +35,7 @@ public @interface LogAnnotation {
    *
    * @return
    */
-  String service() default "logServiceImpl";
+  String service() default "";
 
   /**
    * 描述信息

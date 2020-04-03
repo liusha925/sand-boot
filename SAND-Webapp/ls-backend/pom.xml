@@ -27,28 +27,11 @@
         </dependency>
         <dependency>
             <groupId>com.sand</groupId>
+            <artifactId>ls-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sand</groupId>
             <artifactId>sys-provider</artifactId>
         </dependency>
-        <!-- 在pom.xml中引入热部署devtools依赖以及maven插件 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <!-- 为false时热部署不起作用 -->
-            <optional>true</optional>
-        </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <!-- 为false时热部署不起作用 -->
-                    <fork>true</fork>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>

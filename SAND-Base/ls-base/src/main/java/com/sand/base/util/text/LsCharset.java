@@ -10,15 +10,17 @@ package com.sand.base.util.text;
 import com.sand.base.util.lang3.StringUtil;
 
 import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CharsetEncoder;
 import java.nio.charset.StandardCharsets;
 
 /**
  * 功能说明：字符集
  * 开发人员：@author liusha
  * 开发日期：2019/10/9 8:48
- * 功能描述：字符集转换
+ * 功能描述：字符集转换,基础自java.nio.charset.Charset
  */
-public class LsCharset {
+public class LsCharset extends Charset {
   /**
    * GBK
    */
@@ -43,6 +45,18 @@ public class LsCharset {
    * ISO-8859-1
    */
   public static final Charset CHARSET_ISO_8859_1 = Charset.forName(ISO_8859_1);
+
+  /**
+   * Initializes a new charset with the given canonical name and alias
+   * set.
+   *
+   * @param canonicalName The canonical name of this charset
+   * @param aliases       An array of this charset's aliases, or null if it has no aliases
+   * @throws IllegalCharsetNameException If the canonical name or any of the aliases are illegal
+   */
+  protected LsCharset(String canonicalName, String[] aliases) {
+    super(canonicalName, aliases);
+  }
 
   /**
    * 转换为Charset对象
@@ -91,6 +105,21 @@ public class LsCharset {
    * @return 系统字符集编码
    */
   public static String systemCharset() {
-    return Charset.defaultCharset().name();
+    return defaultCharset().name();
+  }
+
+  @Override
+  public boolean contains(Charset cs) {
+    return false;
+  }
+
+  @Override
+  public CharsetDecoder newDecoder() {
+    return null;
+  }
+
+  @Override
+  public CharsetEncoder newEncoder() {
+    return null;
   }
 }
