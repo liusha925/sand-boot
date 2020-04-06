@@ -12,7 +12,7 @@ import com.sand.common.enums.LogStatusEnum;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.lang3.AnnotationUtil;
 import com.sand.common.util.spring.SpringUtil;
-import com.sand.log.service.IBaseLogService;
+import com.sand.log.service.ILogService;
 import com.sand.log.annotation.LogAnnotation;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -32,7 +32,7 @@ import java.lang.reflect.Method;
 @Component
 public class LogAspect {
   /**
-   * 定义横切点：横切带有@Log的方法
+   * 定义横切点：横切带有@LogAnnotation的方法
    */
   @Pointcut("@annotation(com.sand.log.annotation.LogAnnotation)")
   public void aopMethod() {
@@ -48,7 +48,7 @@ public class LogAspect {
     Object obj;
     Method method = AnnotationUtil.getAnnotationMethod(point);
     LogAnnotation logAnnotation = method.getAnnotation(LogAnnotation.class);
-    IBaseLogService logService = (IBaseLogService) SpringUtil.getBean(logAnnotation.service());
+    ILogService logService = (ILogService) SpringUtil.getBean(logAnnotation.service());
     // 获取日志对象
     Object log = logService.init();
     // 获取参数信息

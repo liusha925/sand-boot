@@ -21,10 +21,6 @@
             <groupId>com.sand</groupId>
             <artifactId>sys-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.sand</groupId>
-            <artifactId>ls-log</artifactId>
-        </dependency>
     </dependencies>
 
 </project>

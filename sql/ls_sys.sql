@@ -109,10 +109,10 @@ CREATE TABLE sys_user_role
   DEFAULT CHARSET = utf8 COMMENT = '用户-角色关联表';
 
 -- ----------------------------
--- 日志表
+-- 系统日志表
 -- ----------------------------
-DROP TABLE IF EXISTS log;
-CREATE TABLE log
+DROP TABLE IF EXISTS sys_log;
+CREATE TABLE sys_log
 (
     `log_id`         varchar(32) NOT NULL COMMENT '日志ID',
     `symbol`         varchar(16) NOT NULL COMMENT '模块标识',
@@ -135,4 +135,4 @@ CREATE TABLE log
     `remark`         varchar(512)  DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`log_id`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8 COMMENT = '日志表';
+  DEFAULT CHARSET = utf8 COMMENT = '系统日志表';

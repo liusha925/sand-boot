@@ -5,10 +5,10 @@
  * 2019/10/29    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.log.service;
+package com.sand.sys.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.sand.log.entity.Log;
+import com.sand.sys.entity.SysLog;
 
 /**
  * 功能说明：系统日志
@@ -16,5 +16,5 @@ import com.sand.log.entity.Log;
  * 开发日期：2019/10/29 15:33
  * 功能描述：系统日志
  */
-public interface ILogService extends IService<Log> {
+public interface ISysLogService extends IService<SysLog> {
 }

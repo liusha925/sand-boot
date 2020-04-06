@@ -8,7 +8,7 @@
     <artifactId>ls-log</artifactId>
     <version>${com.sand.ls-log.version}</version>
     <packaging>jar</packaging>
-    <description>系统日志</description>
+    <description>日志模块</description>
 
     <parent>
         <groupId>com.sand</groupId>
@@ -20,10 +20,6 @@
         <dependency>
             <groupId>com.sand</groupId>
             <artifactId>ls-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sand</groupId>
-            <artifactId>ls-mybatisplus</artifactId>
         </dependency>
     </dependencies>
 

@@ -71,7 +71,7 @@ public class SysMenuController extends BaseController {
   }
 
   @RequestMapping("/add")
-  @LogAnnotation(symbol = "系统管理", description = "新增菜单")
+  @LogAnnotation(symbol = "系统管理", description = "新增菜单", service = "sysLogServiceImpl")
   public ResultEntity add(@RequestBody SysMenuModel model) {
     log.info("SysMenuController add params：{}", model);
     menuService.add(model);

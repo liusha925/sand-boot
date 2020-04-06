@@ -10,7 +10,6 @@
     <packaging>pom</packaging>
     <description>抽离使用场景多的业务</description>
     <modules>
-        <module>ls-log</module>
         <module>ls-sys</module>
     </modules>
     <!-- 父级工程 -->

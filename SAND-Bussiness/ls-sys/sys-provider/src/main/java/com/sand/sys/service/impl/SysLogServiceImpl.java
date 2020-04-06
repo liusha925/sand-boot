@@ -5,21 +5,21 @@
  * 2019/10/29    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.log.service.impl;
+package com.sand.sys.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.sand.log.annotation.LogAnnotation;
-import com.sand.log.service.IBaseLogService;
-import com.sand.common.util.text.LsConvert;
 import com.sand.common.enums.DateEnum;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.ServletUtil;
 import com.sand.common.util.lang3.DateUtil;
 import com.sand.common.util.lang3.StringUtil;
-import com.sand.log.entity.Log;
-import com.sand.log.mapper.LogMapper;
+import com.sand.common.util.text.LsConvert;
+import com.sand.log.annotation.LogAnnotation;
 import com.sand.log.service.ILogService;
+import com.sand.sys.entity.SysLog;
+import com.sand.sys.mapper.SysLogMapper;
+import com.sand.sys.service.ISysLogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -38,20 +38,20 @@ import java.util.Map;
  * 功能描述：系统日志
  */
 @Service
-public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements IBaseLogService, ILogService {
-  private static final Logger logger = LoggerFactory.getLogger(LogServiceImpl.class);
+public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> implements ILogService, ISysLogService {
+  private static final Logger logger = LoggerFactory.getLogger(SysLogServiceImpl.class);
 
   @Override
   public Object init() {
-    return new Log();
+    return new SysLog();
   }
 
   @Override
   public void beforeProceed(Object obj, Object[] args) {
-    Log log = (Log) obj;
+    SysLog log = (SysLog) obj;
     List<Object> requestParams = new ArrayList<>();
     Arrays.stream(args).forEach(arg -> {
-      if (!(arg instanceof Log)) {
+      if (!(arg instanceof SysLog)) {
         requestParams.add(arg);
       }
     });
@@ -68,14 +68,14 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements IBase
 
   @Override
   public void exceptionProceed(Object obj, Throwable ep) {
-    Log log = (Log) obj;
+    SysLog log = (SysLog) obj;
     log.setExceptionClz(ep.getClass().getName());
     log.setExceptionMsg(ep.getMessage());
   }
 
   @Override
   public void afterProceed(Object obj, Method method) {
-    Log log = (Log) obj;
+    SysLog log = (SysLog) obj;
     LogAnnotation logAnnotation = method.getAnnotation(LogAnnotation.class);
     String symbol = log.getSymbol();
     if (StringUtil.isBlank(symbol)) {
@@ -94,7 +94,7 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements IBase
   @Override
   @Transactional(rollbackFor = BusinessException.class)
   public void save(Object obj, long exeTime, int exeStatus) {
-    Log log = (Log) obj;
+    SysLog log = (SysLog) obj;
     log.setExeTime(LsConvert.obj2Str(exeTime));
     log.setExeStatus(exeStatus);
     logger.info(new StringBuilder().append("用户：").append(StringUtil.isBlank(log.getUserName()) ? "匿名用户" : log.getUserName()).append("，于")

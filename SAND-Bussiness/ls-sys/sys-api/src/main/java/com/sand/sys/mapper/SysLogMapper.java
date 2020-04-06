@@ -5,10 +5,10 @@
  * 2019/10/29    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.log.mapper;
+package com.sand.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.sand.log.entity.Log;
+import com.sand.sys.entity.SysLog;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -18,5 +18,5 @@ import org.springframework.stereotype.Repository;
  * 功能描述：系统日志
  */
 @Repository
-public interface LogMapper extends BaseMapper<Log> {
+public interface SysLogMapper extends BaseMapper<SysLog> {
 }

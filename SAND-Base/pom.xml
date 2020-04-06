@@ -13,6 +13,7 @@
         <module>base-parent</module>
         <module>ls-common</module>
 
+        <module>ls-log</module>
         <module>ls-mybatisplus</module>
         <module>ls-redis</module>
         <module>ls-security</module>

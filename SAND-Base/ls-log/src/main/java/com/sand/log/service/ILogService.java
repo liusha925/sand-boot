@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
  * 开发日期：2019/9/24 13:19
  * 功能描述：可以提供给外部使用，内部定义规则，外部去实现
  */
-public interface IBaseLogService {
+public interface ILogService {
   /**
    * 日志初始化
    *

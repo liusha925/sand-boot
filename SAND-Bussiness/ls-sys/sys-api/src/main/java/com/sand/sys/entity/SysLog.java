@@ -5,10 +5,11 @@
  * 2019/10/29    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.log.entity;
+package com.sand.sys.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.sand.common.constant.Constant;
 import com.sand.common.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,8 +26,8 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@TableName("log")
-public class Log extends BaseEntity {
+@TableName(Constant.TABLE_PREFIX_SYS + "log")
+public class SysLog extends BaseEntity {
   private static final long serialVersionUID = -8322909114249380529L;
   /**
    * 日志ID
