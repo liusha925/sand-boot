@@ -8,10 +8,15 @@
     <artifactId>Base</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <description>基础模块建设</description>
+    <description>基础框架建设</description>
     <modules>
         <module>base-parent</module>
-        <module>ls-base</module>
+        <module>ls-common</module>
+
+        <module>ls-mybatisplus</module>
+        <module>ls-redis</module>
+        <module>ls-security</module>
+        <module>ls-zookeeper</module>
     </modules>
 
 </project>

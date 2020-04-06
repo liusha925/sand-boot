@@ -7,10 +7,10 @@
  */
 package com.sand.sys.controller;
 
-import com.sand.base.util.ResultUtil;
-import com.sand.base.util.tree.Tree;
-import com.sand.base.web.controller.BaseController;
-import com.sand.base.web.entity.ResultEntity;
+import com.sand.common.util.ResultUtil;
+import com.sand.common.util.tree.Tree;
+import com.sand.mybatisplus.web.controller.BaseController;
+import com.sand.common.entity.ResultEntity;
 import com.sand.log.annotation.LogAnnotation;
 import com.sand.sys.entity.SysMenu;
 import com.sand.sys.model.SysMenuModel;

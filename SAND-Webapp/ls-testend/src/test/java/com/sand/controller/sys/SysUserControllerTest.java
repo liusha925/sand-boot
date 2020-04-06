@@ -7,7 +7,7 @@
  */
 package com.sand.controller.sys;
 
-import com.sand.base.util.http.OkHttp3Util;
+import com.sand.common.util.http.OkHttp3Util;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 

@@ -7,11 +7,11 @@
  */
 package com.sand.log.ascpet;
 
-import com.sand.base.enums.CodeEnum;
-import com.sand.base.enums.LogStatusEnum;
-import com.sand.base.exception.BusinessException;
-import com.sand.base.util.lang3.AnnotationUtil;
-import com.sand.base.util.spring.SpringUtil;
+import com.sand.common.enums.CodeEnum;
+import com.sand.common.enums.LogStatusEnum;
+import com.sand.common.exception.BusinessException;
+import com.sand.common.util.lang3.AnnotationUtil;
+import com.sand.common.util.spring.SpringUtil;
 import com.sand.log.service.IBaseLogService;
 import com.sand.log.annotation.LogAnnotation;
 import org.aspectj.lang.ProceedingJoinPoint;

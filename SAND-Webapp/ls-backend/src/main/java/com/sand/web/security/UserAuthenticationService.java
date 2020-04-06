@@ -8,8 +8,8 @@
 package com.sand.web.security;
 
 import com.google.common.collect.Maps;
-import com.sand.base.util.ResultUtil;
-import com.sand.base.web.entity.ResultEntity;
+import com.sand.common.util.ResultUtil;
+import com.sand.common.entity.ResultEntity;
 import com.sand.security.web.IUserAuthenticationService;
 import com.sand.sys.entity.SysUser;
 import com.sand.web.config.TokenConfig;

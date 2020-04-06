@@ -8,7 +8,7 @@
 package com.sand.sys.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.sand.base.util.tree.Tree;
+import com.sand.common.util.tree.Tree;
 import com.sand.sys.entity.SysMenu;
 import com.sand.sys.model.SysMenuModel;
 

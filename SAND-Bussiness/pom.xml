@@ -11,10 +11,13 @@
     <description>抽离使用场景多的业务</description>
     <modules>
         <module>ls-log</module>
-        <module>ls-security</module>
         <module>ls-sys</module>
-        <module>ls-zookeeper</module>
-        <module>ls-redis</module>
     </modules>
+    <!-- 父级工程 -->
+    <parent>
+        <groupId>com.sand</groupId>
+        <artifactId>base-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
 
 </project>

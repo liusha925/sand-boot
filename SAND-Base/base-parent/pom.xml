@@ -37,9 +37,10 @@
         <maven-compiler-plugin.target>1.8</maven-compiler-plugin.target>
         <maven-compiler-plugin.encoding>utf8</maven-compiler-plugin.encoding>
         <!-- 功能模块版本控制 -->
-        <com.sand.ls-base.version>1.0.0-SNAPSHOT</com.sand.ls-base.version>
+        <com.sand.ls-common.version>1.0.0-SNAPSHOT</com.sand.ls-common.version>
         <com.sand.ls-log.version>1.0.0-SNAPSHOT</com.sand.ls-log.version>
         <com.sand.ls-security.version>1.0.0-SNAPSHOT</com.sand.ls-security.version>
+        <com.sand.ls-mybatisplus.version>1.0.0-SNAPSHOT</com.sand.ls-mybatisplus.version>
         <com.sand.ls-redis.version>1.0.0-SNAPSHOT</com.sand.ls-redis.version>
         <com.sand.ls-zookeeper.version>1.0.0-SNAPSHOT</com.sand.ls-zookeeper.version>
         <com.sand.sys-api.version>1.0.0-SNAPSHOT</com.sand.sys-api.version>
@@ -144,8 +145,8 @@
             <!-- >>>>>>>>>>>>>>>>>>>>>产品或项目业务-S<<<<<<<<<<<<<<<<<<<<<< -->
             <dependency>
                 <groupId>com.sand</groupId>
-                <artifactId>ls-base</artifactId>
-                <version>${com.sand.ls-base.version}</version>
+                <artifactId>ls-common</artifactId>
+                <version>${com.sand.ls-common.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.sand</groupId>
@@ -156,6 +157,11 @@
                 <groupId>com.sand</groupId>
                 <artifactId>ls-security</artifactId>
                 <version>${com.sand.ls-security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sand</groupId>
+                <artifactId>ls-mybatisplus</artifactId>
+                <version>${com.sand.ls-mybatisplus.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.sand</groupId>

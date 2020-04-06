@@ -9,12 +9,12 @@ package com.sand.sys.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sand.base.web.controller.BaseController;
-import com.sand.base.web.entity.ResultEntity;
-import com.sand.base.util.ParamUtil;
-import com.sand.base.util.ResultUtil;
-import com.sand.base.util.poi.ExcelUtil;
-import com.sand.base.util.tree.Tree;
+import com.sand.mybatisplus.util.PageUtil;
+import com.sand.mybatisplus.web.controller.BaseController;
+import com.sand.common.entity.ResultEntity;
+import com.sand.common.util.ResultUtil;
+import com.sand.common.util.poi.ExcelUtil;
+import com.sand.common.util.tree.Tree;
 import com.sand.sys.entity.SysRole;
 import com.sand.sys.model.SysRoleModel;
 import com.sand.sys.service.ISysMenuService;
@@ -48,7 +48,7 @@ public class SysRoleController extends BaseController {
   @RequestMapping("/page")
   public ResultEntity page(@RequestBody SysRoleModel model) {
     log.info("SysRoleController page params：{}", model);
-    Page<SysRole> rolePage = ParamUtil.pageParam(model);
+    Page<SysRole> rolePage = PageUtil.pageParam(model);
     QueryWrapper<SysRole> queryWrapper = new QueryWrapper<>();
     Page<SysRole> page = (Page<SysRole>) roleService.page(rolePage, queryWrapper);
 

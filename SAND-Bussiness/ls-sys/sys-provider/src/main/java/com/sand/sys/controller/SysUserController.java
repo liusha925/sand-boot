@@ -8,11 +8,9 @@
 package com.sand.sys.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sand.base.util.ParamUtil;
-import com.sand.base.util.ResultUtil;
-import com.sand.base.web.controller.BaseController;
-import com.sand.base.web.entity.ResultEntity;
+import com.sand.common.util.ResultUtil;
+import com.sand.mybatisplus.web.controller.BaseController;
+import com.sand.common.entity.ResultEntity;
 import com.sand.sys.entity.SysUser;
 import com.sand.sys.model.SysUserModel;
 import com.sand.sys.service.ISysUserService;
@@ -39,7 +37,7 @@ public class SysUserController extends BaseController {
   @RequestMapping("/page")
   public ResultEntity page(@RequestBody SysUserModel model) {
     log.info("SysUserController page params：{}", model);
-//    Page<SysUser> userPage = ParamUtil.pageParam(model);
+//    Page<SysUser> userPage = PageUtil.pageParam(model);
 //    QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
 //    Page<SysUser> page = (Page<SysUser>) userService.page(userPage, queryWrapper);
 //

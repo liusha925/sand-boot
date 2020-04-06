@@ -7,8 +7,8 @@
  */
 package com.sand.web.security;
 
-import com.sand.base.exception.BusinessException;
-import com.sand.base.util.ServletUtil;
+import com.sand.common.exception.BusinessException;
+import com.sand.common.util.ServletUtil;
 import com.sand.sys.entity.SysMenu;
 import com.sand.sys.entity.SysUser;
 import lombok.extern.slf4j.Slf4j;

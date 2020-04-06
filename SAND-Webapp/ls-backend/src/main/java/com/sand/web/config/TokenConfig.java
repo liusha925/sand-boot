@@ -7,7 +7,7 @@
  */
 package com.sand.web.config;
 
-import com.sand.base.util.ServletUtil;
+import com.sand.common.util.ServletUtil;
 import com.sand.security.web.util.AbstractTokenUtil;
 import com.sand.sys.entity.SysUser;
 import io.jsonwebtoken.Jwts;
