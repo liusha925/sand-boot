@@ -6,8 +6,8 @@ spring:
     password: root
   # redis配置
   redis:
-    #  索引
-    database: 1
+    #  默认索引
+    database: 0
     port: 6379
     host: 127.0.0.1
     password:
@@ -20,6 +20,15 @@ spring:
         max-wait: -1
         # 初始化连接数
         min-idle: 0
+# 自定义redis数据库配置
+lsredis:
+  databases:
+    -
+      dbIndex: 0
+      dbName: 'session库'
+    -
+      dbIndex: 1
+      dbName: '用户权限库'
 # mybatis-plus配置
 mybatis-plus:
   # 扫描表实体注册别名，参考https://mp.baomidou.com/config/#typealiasespackage

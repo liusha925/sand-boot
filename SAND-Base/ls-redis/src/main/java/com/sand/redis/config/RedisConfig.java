@@ -10,9 +10,12 @@ package com.sand.redis.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sand.redis.config.properties.RedisDatabase;
+import com.sand.redis.config.properties.RedisDatabaseProperties;
 import com.sand.redis.repository.RedisRepository;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,10 +28,12 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.util.CollectionUtils;
 import redis.clients.jedis.JedisPoolConfig;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -56,17 +61,34 @@ public class RedisConfig {
   @Value("${spring.redis.jedis.pool.min-idle}")
   private int minIdle;
 
+  @Autowired
+  private RedisDatabaseProperties databaseProperties;
+
   public static Map<Integer, RedisTemplate<String, String>> redisTemplateMap = new HashMap<>();
 
   @PostConstruct
   public void initRedisTemp() throws Exception {
     log.info("### S 初始化 Redis 连接池 S ###");
-    redisTemplateMap.put(database, redisTemplate(database));
+    List<RedisDatabase> databases = databaseProperties.getDatabases();
+    if (CollectionUtils.isEmpty(databases)) {
+      log.info("初始化 Redis 连接池 【默认库】");
+      redisTemplateMap.put(database, redisTemplate(database));
+    } else {
+      databases.forEach(database -> {
+        log.info("初始化 配置库【{}】", database.getDbName());
+        try {
+          redisTemplateMap.put(database.getDbIndex(), redisTemplate(database.getDbIndex()));
+        } catch (Exception e) {
+          log.info("初始化 配置库【{}】异常！", database.getDbName());
+          e.printStackTrace();
+        }
+      });
+    }
     log.info("### E 初始化 Redis 连接池 E ###");
   }
 
   /**
-   * 注册工具到容器中
+   * 注册工具到容器中，使用默认的数据库
    *
    * @return
    */
@@ -77,7 +99,7 @@ public class RedisConfig {
   }
 
   /**
-   * 工具方法
+   * 工具方法，根据需要选择不同的库
    *
    * @param dbIndex 数据库索引
    * @return
