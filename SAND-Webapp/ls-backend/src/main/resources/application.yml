@@ -3,6 +3,7 @@ spring:
     active: dev
 # 日志配置
 logging:
+  path: logs
   level:
     com.sand: debug
     org.springframework: warn
