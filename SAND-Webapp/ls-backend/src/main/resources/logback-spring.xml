@@ -23,8 +23,8 @@
         </rollingPolicy>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>INFO</level>             <!-- 设置拦截的对象为INFO级别日志 -->
-            <onMatch>ACCEPT</onMatch>       <!-- 当遇到了INFO级别时，启用改段配置 -->
-            <onMismatch>DENY</onMismatch>   <!-- 没有遇到INFO级别日志时，屏蔽改段配置 -->
+            <onMatch>ACCEPT</onMatch>       <!-- 当遇到了INFO级别时，启用该段配置 -->
+            <onMismatch>DENY</onMismatch>   <!-- 没有遇到INFO级别日志时，屏蔽该段配置 -->
         </filter>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!-- 格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
@@ -44,9 +44,9 @@
             <MaxHistory>30</MaxHistory>
         </rollingPolicy>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>ERROR</level>             <!-- 设置拦截的对象为ERROR级别日志 -->
-            <onMatch>ACCEPT</onMatch>       <!-- 当遇到了ERROR级别时，启用改段配置 -->
-            <onMismatch>DENY</onMismatch>   <!-- 没有遇到ERROR级别日志时，屏蔽改段配置 -->
+            <level>ERROR</level>            <!-- 设置拦截的对象为ERROR级别日志 -->
+            <onMatch>ACCEPT</onMatch>       <!-- 当遇到了ERROR级别时，启用该段配置 -->
+            <onMismatch>DENY</onMismatch>   <!-- 没有遇到ERROR级别日志时，屏蔽该段配置 -->
         </filter>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!-- 格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
