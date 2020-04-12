@@ -4,7 +4,3 @@ spring:
 # 日志配置
 logging:
   path: logs
-  level:
-    com.sand: debug
-    org.springframework: warn
-    com.baomidou.mybatisplus.: warn

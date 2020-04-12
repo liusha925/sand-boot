@@ -20,15 +20,6 @@ spring:
         max-wait: -1
         # 初始化连接数
         min-idle: 0
-# 自定义redis数据库配置
-lsredis:
-  databases:
-    -
-      dbIndex: 0
-      dbName: 'session库'
-    -
-      dbIndex: 1
-      dbName: '用户权限库'
 # mybatis-plus配置
 mybatis-plus:
   # 扫描表实体注册别名，参考https://mp.baomidou.com/config/#typealiasespackage
@@ -44,6 +35,7 @@ mybatis-plus:
       # 逻辑删除配置，参考https://mp.baomidou.com/guide/logic-delete.html
       logic-delete-value: 1
       logic-not-delete-value: 0
+#######################SSS 自定义配置 SSS#######################
 # 安全认证授权配置
 security:
   jwt:
@@ -51,3 +43,13 @@ security:
     secret: k09BQnaF
     # token有效期7天
     expiration: 604800
+# 自定义redis数据库配置
+lsredis:
+  databases:
+    -
+      dbIndex: 1
+      dbName: 'session库'
+    -
+      dbIndex: 2
+      dbName: '用户权限库'
+#######################EEE 自定义配置 EEE#######################

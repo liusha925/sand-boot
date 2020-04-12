@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <!--引入默认的一些设置 -->
+    <!-- 引入默认设置 -->
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <!-- 控制台输出设置 -->
     <!-- 彩色日志格式，magenta：洋红，boldMagenta：粗红，yan：青色，·⊱══> -->
@@ -17,7 +17,7 @@
     <appender name="DAY_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件输出的文件名 -->
-            <FileNamePattern>${LOG_HOME}/ls-backend.log.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>${LOG_HOME}/ls-backend.%d{yyyy-MM-dd}.log</FileNamePattern>
             <!-- 日志文件保留天数 -->
             <MaxHistory>30</MaxHistory>
         </rollingPolicy>
@@ -35,12 +35,15 @@
             <MaxFileSize>10MB</MaxFileSize>
         </triggeringPolicy>
     </appender>
-    <!-- 日志输出级别 -->
-    <logger name="com.apache.ibatis" level="INFO"/>
-    <logger name="java.sql.Connection" level="INFO"/>
-    <logger name="java.sql.Statement" level="INFO"/>
-    <logger name="java.sql.PreparedStatement" level="INFO"/>
 
+    <!-- 日志输出级别，OFF level > FATAL > ERROR > WARN > INFO > DEBUG > ALL level -->
+    <logger name="com.sand" level="INFO"/>
+    <logger name="com.apache.ibatis" level="INFO"/>
+    <logger name="java.sql.Statement" level="INFO"/>
+    <logger name="java.sql.Connection" level="INFO"/>
+    <logger name="java.sql.PreparedStatement" level="INFO"/>
+    <logger name="org.springframework" level="WARN"/>
+    <logger name="com.baomidou.mybatisplus" level="WARN"/>
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="DAY_FILE"/>
