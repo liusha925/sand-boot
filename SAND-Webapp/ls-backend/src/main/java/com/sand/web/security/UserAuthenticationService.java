@@ -8,11 +8,12 @@
 package com.sand.web.security;
 
 import com.google.common.collect.Maps;
-import com.sand.common.util.ResultUtil;
 import com.sand.common.entity.ResultEntity;
+import com.sand.common.util.ResultUtil;
 import com.sand.security.web.IUserAuthenticationService;
 import com.sand.sys.entity.SysUser;
-import com.sand.web.config.TokenConfig;
+import com.sand.sys.service.ISysUserService;
+import com.sand.web.config.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -47,7 +48,10 @@ public class UserAuthenticationService implements IUserAuthenticationService {
    * 从application.yml配置文件中读取token配置，如加密密钥，token有效期等值
    */
   @Autowired
-  private TokenConfig tokenConfig;
+  private JwtTokenUtil jwtTokenUtil;
+
+  @Autowired
+  private ISysUserService sysUserService;
 
   @Override
   public void beforeValidate(Map<String, Object> param) {
@@ -69,16 +73,20 @@ public class UserAuthenticationService implements IUserAuthenticationService {
   public ResultEntity authAfter(Object userDetails) {
     log.info("3、认证后处理");
     SysUser user = (SysUser) userDetails;
-    // TODO 1、存储用户信息至redis
+    // 1、存储用户信息至redis
+    SysUser dbUser = sysUserService.getById(user.getUserId());
+    String accessToken = jwtTokenUtil.generateToken(dbUser);
+    jwtTokenUtil.putUserToken(dbUser, accessToken);
+    jwtTokenUtil.putUserDetails(dbUser);
     // TODO 2、保存登录日志
     // 3、将信息返回web端
     Map<String, Object> tokenMap = Maps.newHashMap();
-    tokenMap.put("user_id", user.getUserId());
-    tokenMap.put("real_name", user.getRealName());
+    tokenMap.put("access_token",accessToken );
+    tokenMap.put("user_id", dbUser.getUserId());
+    tokenMap.put("real_name", dbUser.getRealName());
     tokenMap.put("authorities", user.getAuthorities());
-    tokenMap.put("expiration", tokenConfig.getExpiration());
-    tokenMap.put("token_type", TokenConfig.TOKEN_TYPE_BEARER);
-    tokenMap.put("access_token", tokenConfig.generateToken(user));
+    tokenMap.put("expiration", jwtTokenUtil.getExpiration());
+    tokenMap.put("token_type", JwtTokenUtil.TOKEN_TYPE_BEARER);
     return ResultUtil.ok(tokenMap);
   }
 }

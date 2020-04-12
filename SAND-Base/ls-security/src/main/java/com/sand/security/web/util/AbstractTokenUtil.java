@@ -44,10 +44,6 @@ public abstract class AbstractTokenUtil {
    */
   public static final String TOKEN_HEADER = "Authorization";
   /**
-   * 用户唯一ID
-   */
-  public static final String USER_UNIQUE_ID = "user_unique_id";
-  /**
    * 缓存的权限：标识
    */
   public static final String CACHED_PERMISSION = "cached_permission";
@@ -57,9 +53,9 @@ public abstract class AbstractTokenUtil {
    *
    * @return
    */
-  public String getToken() {
+  public String getTokenFromRequestHeader() {
     HttpServletRequest request = ServletUtil.getRequest();
-    String tokenHeader = request.getHeader(AbstractTokenUtil.TOKEN_HEADER);
+    String tokenHeader = request.getHeader(TOKEN_HEADER);
     if (StringUtil.isBlank(tokenHeader)) {
       return null;
     }
@@ -77,28 +73,17 @@ public abstract class AbstractTokenUtil {
    * @return String
    */
   public String getUserIdFromToken(String token) {
-    String userKey = getUserKeyFromToken(token);
-    return userKey.substring(0, userKey.lastIndexOf(":"));
-  }
-
-  /**
-   * 获取token解密信息
-   *
-   * @param token Token
-   * @return
-   */
-  public String getUserKeyFromToken(String token) {
     Claims claims = getClaimsFromToken(token);
-    return Objects.nonNull(claims) ? claims.getSubject() : null;
+    return claims.getSubject();
   }
 
   /**
-   * 验证 Token
+   * 验证 Token 是否过期
    *
    * @param token Token
    * @return Boolean
    */
-  public Boolean validateToken(String token) {
+  public Boolean checkTokenExpired(String token) {
     if (StringUtil.isNotEmpty(token) && !isTokenExpired(token)) {
       return true;
     }

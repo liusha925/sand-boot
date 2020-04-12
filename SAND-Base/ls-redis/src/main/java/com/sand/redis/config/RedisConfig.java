@@ -75,11 +75,11 @@ public class RedisConfig {
       redisTemplateMap.put(database, redisTemplate(database));
     } else {
       databases.forEach(database -> {
-        log.info("初始化 配置库【{}】", database.getDbName());
+        log.info("初始化 配置库{}【{}】", database.getDbIndex(), database.getDbName());
         try {
           redisTemplateMap.put(database.getDbIndex(), redisTemplate(database.getDbIndex()));
         } catch (Exception e) {
-          log.info("初始化 配置库【{}】异常！", database.getDbName());
+          log.info("初始化 配置库{}【{}】异常！", database.getDbIndex(), database.getDbName());
           e.printStackTrace();
         }
       });
