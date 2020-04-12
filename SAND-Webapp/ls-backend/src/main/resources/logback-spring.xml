@@ -5,15 +5,15 @@
     <!-- 控制台输出设置 -->
     <!-- 彩色日志格式，magenta：洋红，boldMagenta：粗红，yan：青色，·⊱══> -->
     <property name="CONSOLE_LOG_PATTERN" value="%boldMagenta([%d{yyyy-MM-dd HH:mm:ss.SSS}]) %cyan([%X{requestId}]) %boldMagenta(%-5level) %blue(%logger{15}) %red([%thread]) %magenta(·⊱══>) %cyan(%msg%n)"/>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${CONSOLE_LOG_PATTERN}</pattern>
             <charset>utf8</charset>
         </encoder>
     </appender>
-    <!-- 按天输出日志设置 -->
     <!-- 日志文件的存储地址，由application.yml中的logging.path配置，根路径默认同项目路径 -->
     <property name="LOG_HOME" value="${LOG_PATH:-.}" />
+    <!-- 按天输出日志设置 -->
     <appender name="DAY_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件输出的文件名 -->
@@ -22,9 +22,31 @@
             <MaxHistory>30</MaxHistory>
         </rollingPolicy>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>INFO</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
+            <level>INFO</level>             <!-- 设置拦截的对象为INFO级别日志 -->
+            <onMatch>ACCEPT</onMatch>       <!-- 当遇到了INFO级别时，启用改段配置 -->
+            <onMismatch>DENY</onMismatch>   <!-- 没有遇到INFO级别日志时，屏蔽改段配置 -->
+        </filter>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!-- 格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+        <!-- 日志文件最大的大小 -->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>10MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+    <!-- 按天输出ERROR级别日志设置 -->
+    <appender name="DAY_ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件输出的文件名 -->
+            <FileNamePattern>${LOG_HOME}/ls-backend-error.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!-- 日志文件保留天数 -->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>             <!-- 设置拦截的对象为ERROR级别日志 -->
+            <onMatch>ACCEPT</onMatch>       <!-- 当遇到了ERROR级别时，启用改段配置 -->
+            <onMismatch>DENY</onMismatch>   <!-- 没有遇到ERROR级别日志时，屏蔽改段配置 -->
         </filter>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!-- 格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
@@ -44,8 +66,29 @@
     <logger name="java.sql.PreparedStatement" level="INFO"/>
     <logger name="org.springframework" level="WARN"/>
     <logger name="com.baomidou.mybatisplus" level="WARN"/>
-    <root level="INFO">
-        <appender-ref ref="STDOUT"/>
-        <appender-ref ref="DAY_FILE"/>
-    </root>
+
+    <!-- 开发环境：打印控制台和输出到文件 -->
+    <springProfile name="dev"><!-- 由application.yml中的spring.profiles.active配置 -->
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="DAY_FILE"/>
+            <appender-ref ref="DAY_ERROR_FILE"/>
+        </root>
+    </springProfile>
+    <!-- 测试环境：打印控制台和输出到文件 -->
+    <springProfile name="test"><!-- 由application.yml中的spring.profiles.active配置 -->
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="DAY_FILE"/>
+            <appender-ref ref="DAY_ERROR_FILE"/>
+        </root>
+    </springProfile>
+    <!-- 生产环境：打印控制台和输出到文件 -->
+    <springProfile name="pro"><!-- 由application.yml中的spring.profiles.active配置 -->
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="DAY_FILE"/>
+            <appender-ref ref="DAY_ERROR_FILE"/>
+        </root>
+    </springProfile>
 </configuration>
