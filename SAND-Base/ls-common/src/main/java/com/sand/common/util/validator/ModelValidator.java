@@ -11,6 +11,7 @@ import com.sand.common.enums.CodeEnum;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.lang3.StringUtil;
 import com.sand.common.util.spring.SpringUtil;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -26,6 +27,7 @@ import java.util.Set;
  * 开发日期：2019/9/30 13:57
  * 功能描述：表单校验，验证非空、长度、正则等等
  */
+@Slf4j
 public class ModelValidator {
   /**
    * 校验失败条数key值
@@ -57,17 +59,23 @@ public class ModelValidator {
    * @param <T>
    */
   public static <T extends Object> void checkModel(T entity, String fieldName) {
-    Set<ConstraintViolation<T>> violationSet;
-    if (StringUtil.isNotBlank(fieldName)) {
-      violationSet = SpringUtil.getBean(Validator.class).validateProperty(entity, fieldName);
-    } else {
-      violationSet = SpringUtil.getBean(Validator.class).validate(entity);
-    }
-    if (violationSet.size() > 0) {
-      String errorMsg = violationSet.iterator().next().getMessage();
-      if (StringUtil.isBlank(errorMsg)) {
-        errorMsg = "请求参数有误";
+    try {
+      Set<ConstraintViolation<T>> violationSet;
+      if (StringUtil.isNotBlank(fieldName)) {
+        violationSet = SpringUtil.getBean(Validator.class).validateProperty(entity, fieldName);
+      } else {
+        violationSet = SpringUtil.getBean(Validator.class).validate(entity);
       }
+      if (violationSet.size() > 0) {
+        String msg = violationSet.iterator().next().getMessage();
+        if (StringUtil.isBlank(msg)) {
+          msg = "请求参数有误";
+        }
+        throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, msg);
+      }
+    } catch (Exception e) {
+      log.error("表单验证出错，", e);
+      String errorMsg = (e instanceof BusinessException) ? e.getMessage() : "表单验证出错";
       throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, errorMsg);
     }
   }

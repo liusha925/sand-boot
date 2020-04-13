@@ -43,10 +43,6 @@ public abstract class AbstractTokenUtil {
    * 携带Token的HTTP头
    */
   public static final String TOKEN_HEADER = "Authorization";
-  /**
-   * 缓存的权限：标识
-   */
-  public static final String CACHED_PERMISSION = "cached_permission";
 
   /**
    * 获取token
@@ -78,25 +74,25 @@ public abstract class AbstractTokenUtil {
   }
 
   /**
-   * 验证 Token 是否过期
+   * 验证 Token 是否有效
    *
    * @param token Token
    * @return Boolean
    */
-  public Boolean checkTokenExpired(String token) {
-    if (StringUtil.isNotEmpty(token) && !isTokenExpired(token)) {
+  public Boolean checkTokenEffective(String token) {
+    if (StringUtil.isNotEmpty(token) && !checkTokenExpired(token)) {
       return true;
     }
     return false;
   }
 
   /**
-   * 判断Token是否过期
+   * 验证 Token 是否过期
    *
    * @param token Token
    * @return Boolean
    */
-  private Boolean isTokenExpired(String token) {
+  private Boolean checkTokenExpired(String token) {
     Date expirationDate = getExpiredFromToken(token);
     return expirationDate.before(new Date());
   }

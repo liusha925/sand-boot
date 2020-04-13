@@ -24,19 +24,17 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface LogAnnotation {
   /**
+   * 实现类
+   *
+   * @return
+   */
+  String service();
+  /**
    * 模块标识
    *
    * @return
    */
   String symbol() default "none";
-
-  /**
-   * 实现方式
-   *
-   * @return
-   */
-  String service() default "";
-
   /**
    * 描述信息
    *

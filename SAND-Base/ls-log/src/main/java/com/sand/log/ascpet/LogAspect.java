@@ -11,9 +11,10 @@ import com.sand.common.enums.CodeEnum;
 import com.sand.common.enums.LogStatusEnum;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.lang3.AnnotationUtil;
+import com.sand.common.util.lang3.StringUtil;
 import com.sand.common.util.spring.SpringUtil;
-import com.sand.log.service.ILogService;
 import com.sand.log.annotation.LogAnnotation;
+import com.sand.log.service.ILogService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -48,7 +49,22 @@ public class LogAspect {
     Object obj;
     Method method = AnnotationUtil.getAnnotationMethod(point);
     LogAnnotation logAnnotation = method.getAnnotation(LogAnnotation.class);
-    ILogService logService = (ILogService) SpringUtil.getBean(logAnnotation.service());
+    String service = logAnnotation.service();
+    if (StringUtil.isBlank(service)) {
+      throw new BusinessException("请联系系统管理员配置您的日志实现模块");
+    }
+    Object serviceBean;
+    try {
+      serviceBean = SpringUtil.getBean(service);
+      // 强制使用ILogService的实现类
+      if (!(serviceBean instanceof ILogService)) {
+        throw new BusinessException("您的日志实现模块配置错误，请联系系统管理员");
+      }
+    } catch (Exception e) {
+      String exceptionMsg = (e instanceof BusinessException) ? e.getMessage() : "您的日志实现模块配置错误，请联系系统管理员。";
+      throw new BusinessException(exceptionMsg);
+    }
+    ILogService logService = (ILogService) serviceBean;
     // 获取日志对象
     Object log = logService.init();
     // 获取参数信息

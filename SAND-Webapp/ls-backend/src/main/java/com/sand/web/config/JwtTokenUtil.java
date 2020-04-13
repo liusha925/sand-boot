@@ -32,7 +32,7 @@ import java.util.Date;
 @ConfigurationProperties("security.jwt")
 public class JwtTokenUtil extends AbstractTokenUtil {
   /**
-   * 用户基本信息缓存关键字
+   * 用户token信息缓存关键字
    */
   public static final String REDIS_USER_KEY_TOKEN = "user.token";
   /**
