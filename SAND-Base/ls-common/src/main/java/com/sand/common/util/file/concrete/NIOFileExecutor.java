@@ -11,6 +11,7 @@ import com.sand.common.constant.Constant;
 import com.sand.common.util.text.LsCharset;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.file.AbstractFileExecutor;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -37,6 +38,7 @@ import java.nio.file.Paths;
  * 开发日期：2019/8/10 22:13
  * 功能描述：非阻塞IO
  */
+@Component
 public class NIOFileExecutor extends AbstractFileExecutor {
 
   @Override

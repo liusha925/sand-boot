@@ -9,6 +9,7 @@ package com.sand.common.util.file.concrete;
 
 import com.sand.common.util.file.AbstractFileExecutor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +24,7 @@ import java.util.Objects;
  * 功能描述：阻塞IO
  */
 @Slf4j
+@Component
 public class BIOFileExecutor extends AbstractFileExecutor {
   @Override
   public void subCopyStream(InputStream is, OutputStream os, int buffSize) throws IOException {

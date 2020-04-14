@@ -5,7 +5,7 @@
  * 2020/3/13    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.common.util.config;
+package com.sand.common.util.global;
 
 import com.sand.common.util.lang3.StringUtil;
 import lombok.NoArgsConstructor;
@@ -27,7 +27,7 @@ public class PathUtil {
   /**
    * <p>获取文件路径.</p>
    * <pre>
-   *   PathUtil.getClassPath(new PathUtil()) = "...\\com\\sand\\common\\util\\config"
+   *   PathUtil.getClassPath(new PathUtil()) = "...\\com\\sand\\common\\util\\global"
    * </pre>
    *
    * @param obj 对象
@@ -40,7 +40,7 @@ public class PathUtil {
   /**
    * <p>获取文件路径.</p>
    * <pre>
-   *   PathUtil.getClassPath(PathUtil.class) = "...\\com\\sand\\common\\util\\config"
+   *   PathUtil.getClassPath(PathUtil.class) = "...\\com\\sand\\common\\util\\global"
    * </pre>
    *
    * @param clz class
@@ -54,7 +54,7 @@ public class PathUtil {
   /**
    * <p>获取对象包的路径.</p>
    * <pre>
-   *    PathUtil.getPackagePath(new PathUtil()) = "com/sand/common/util/config"
+   *    PathUtil.getPackagePath(new PathUtil()) = "com/sand/common/util/global"
    * </pre>
    *
    * @param obj 对象
@@ -67,7 +67,7 @@ public class PathUtil {
   /**
    * <p>获取类包的路径.</p>
    * <pre>
-   *    PathUtil.getPackagePath(PathUtil.class) = "com/sand/common/util/config"
+   *    PathUtil.getPackagePath(PathUtil.class) = "com/sand/common/util/global"
    * </pre>
    *
    * @param clz class

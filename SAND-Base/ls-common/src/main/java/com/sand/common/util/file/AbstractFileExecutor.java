@@ -10,6 +10,7 @@ package com.sand.common.util.file;
 import com.sand.common.constant.Constant;
 import com.sand.common.util.file.concrete.ZipExecutor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,6 +33,7 @@ import java.util.zip.ZipOutputStream;
  * 功能描述：定义文件执行抽象类（模板方法）
  */
 @Slf4j
+@Component
 public abstract class AbstractFileExecutor implements FileExecutor {
 
   /**

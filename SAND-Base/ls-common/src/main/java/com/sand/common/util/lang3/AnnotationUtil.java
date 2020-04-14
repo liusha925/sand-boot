@@ -36,9 +36,17 @@ public class AnnotationUtil extends AnnotationUtils {
 
   /**
    * 获取某个包下被clazz注解的类
-   *
-   * @param packageName
-   * @param clz
+   * <pre>
+   *    Set<Class> classes = AnnotationUtil.getAnnotatedClasses("com.sand.common", Component.class);
+   *    classes.forEach(clz -> System.out.println(clz.getSimpleName()));
+   *    输出结果：
+   *    AbstractFileExecutor
+   *    NIOFileExecutor
+   *    BIOFileExecutor
+   *    SpringUtil
+   * </pre>
+   * @param packageName 包路径
+   * @param clz 注解类
    * @return
    */
   public static Set<Class> getAnnotatedClasses(String packageName, Class clz) {
@@ -51,14 +59,14 @@ public class AnnotationUtil extends AnnotationUtils {
    * 获取某个类下面被annotation注解的方法
    *
    * @param clz
-   * @param annotation
+   * @param annotationClass
    * @return
    */
-  public static List<Method> getAnnotatedMethods(Class clz, Class annotation) {
+  public static List<Method> getAnnotatedMethods(Class clz, Class annotationClass) {
     Method[] methods = clz.getDeclaredMethods();
     List<Method> filterMethods = new ArrayList<>();
     for (Method method : methods) {
-      if (!Objects.isNull(method.getAnnotation(annotation))) {
+      if (!Objects.isNull(method.getAnnotation(annotationClass))) {
         filterMethods.add(method);
       }
     }

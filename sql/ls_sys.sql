@@ -125,7 +125,7 @@ CREATE TABLE sys_log
     `request_method` varchar(16)   DEFAULT NULL COMMENT '请求方式',
     `request_params` text          DEFAULT NULL COMMENT '请求参数',
     `exe_time`       varchar(8)    DEFAULT NULL COMMENT '执行时间（ms）',
-    `exe_status`     int(1)        DEFAULT 0 COMMENT '执行状态（0-初始化 1-执行成功 2-执行异常）',
+    `exe_status`     int(1)        DEFAULT 0 COMMENT '执行状态（0-初始化 1-执行成功 -1-执行异常）',
     `exception_clz`  varchar(128)  DEFAULT NULL COMMENT '异常类',
     `exception_msg`  text          DEFAULT NULL COMMENT '异常信息',
     `create_by`      varchar(64)   DEFAULT NULL COMMENT '创建者',

@@ -5,7 +5,7 @@
  * 2020/3/13    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.common.util.config;
+package com.sand.common.util.global;
 
 import com.sand.common.util.text.LsCharset;
 import com.sand.common.util.CloseableUtil;
