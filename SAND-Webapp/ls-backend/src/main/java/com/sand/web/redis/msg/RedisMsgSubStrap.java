@@ -5,7 +5,7 @@
  * 2020/4/15    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.redis.msg.sub;
+package com.sand.web.redis.msg;
 
 import com.sand.common.util.spring.SpringUtil;
 import com.sand.redis.config.RedisConfig;
