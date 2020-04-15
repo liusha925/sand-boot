@@ -9,9 +9,6 @@ package com.sand.common.util.poi.template;
 
 import com.sand.common.annotation.ExcelAnnotation;
 import com.sand.common.entity.ResultEntity;
-import com.sand.common.util.text.LsCharset;
-import com.sand.common.util.text.LsConvert;
-import com.sand.common.enums.DateEnum;
 import com.sand.common.enums.FileSuffixEnum;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.CloseableUtil;
@@ -20,6 +17,8 @@ import com.sand.common.util.ResultUtil;
 import com.sand.common.util.ServletUtil;
 import com.sand.common.util.lang3.DateUtil;
 import com.sand.common.util.lang3.StringUtil;
+import com.sand.common.util.text.LsCharset;
+import com.sand.common.util.text.LsConvert;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -453,7 +452,7 @@ public abstract class AbstractExcelPoi<T> {
             String dateFormat = excelAnnotation.dateFormat();
             String readConvertExp = excelAnnotation.readConvertExp();
             if (StringUtil.isNotBlank(dateFormat)) {
-              cell.setCellValue(DateUtil.formatDate((Date) value, DateEnum.getDateEnum(dateFormat)));
+              cell.setCellValue(DateUtil.formatDate((Date) value, DateUtil.Format.getFormat(dateFormat)));
             } else if (StringUtil.isNotBlank(readConvertExp)) {
               cell.setCellValue(convertByExp(LsConvert.obj2Str(value), readConvertExp));
             } else {

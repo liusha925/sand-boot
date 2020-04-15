@@ -7,7 +7,6 @@
  */
 package com.sand.common.util.lang3;
 
-import com.sand.common.enums.DateEnum;
 import org.apache.commons.lang3.StringUtils;
 
 import java.nio.charset.Charset;
@@ -94,7 +93,7 @@ public class StringUtil extends StringUtils {
   public static synchronized String getUniqueSerialNo() {
     int hashCode = UUID.randomUUID().toString().hashCode();
     String codeStr = String.format("%010d", hashCode < 0 ? -hashCode : hashCode);
-    String nowTime = DateUtil.getNow(DateEnum.F5_YYYY_MM_DD_HH_MM_SS_SSS);
+    String nowTime = DateUtil.getNow(DateUtil.Format.F5_YYYY_MM_DD_HH_MM_SS_SSS);
     return nowTime + codeStr;
   }
 

@@ -9,7 +9,6 @@ package com.sand.sys.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.sand.common.enums.DateEnum;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.ServletUtil;
 import com.sand.common.util.lang3.DateUtil;
@@ -98,7 +97,7 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
     log.setExeTime(LsConvert.obj2Str(exeTime));
     log.setExeStatus(exeStatus);
     logger.info(new StringBuilder().append("用户：").append(StringUtil.isBlank(log.getUserName()) ? "匿名用户" : log.getUserName()).append("，于")
-        .append(DateUtil.getNow(DateEnum.F1_YYYY_MM_DD_HH_MM_SS_SSS)).append("进行了[").append(log.getRemark()).append("]操作")
+        .append(DateUtil.getNow(DateUtil.Format.F1_YYYY_MM_DD_HH_MM_SS_SSS)).append("进行了[").append(log.getRemark()).append("]操作")
         .append("，耗时").append(log.getExeTime()).append("毫秒，URL：").append(log.getUrl()).toString());
     super.save(log);
   }
