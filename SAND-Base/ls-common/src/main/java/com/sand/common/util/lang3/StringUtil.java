@@ -9,7 +9,6 @@ package com.sand.common.util.lang3;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.nio.charset.Charset;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -25,68 +24,39 @@ import java.util.regex.Pattern;
  * 功能描述：字符串工具类, 继承org.apache.commons.lang3.StringUtils类
  */
 public class StringUtil extends StringUtils {
-  public static final int STRING_BUILDER_SIZE = 256;
-  /**
-   * 字符连接符
-   */
-  public static final char SEPARATOR = '_';
-  /**
-   * 默认字符编码
-   */
-  public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
   public StringUtil() {
     super();
   }
 
   /**
-   * 判断字符串是否为空
+   * 判断object是否为空或空字符串
    *
-   * @param s
-   * @return
+   * @param obj obj
+   * @return true-为空或空字符串 flase-不为空或空字符串
    */
-  public static boolean isBlank(String s) {
-    if (Objects.isNull(s) || Objects.equals(s.trim(), StringUtil.EMPTY)) {
+  public static boolean isBlank(Object obj) {
+    if (Objects.isNull(obj) || isBlank(obj.toString())) {
       return true;
     }
     return false;
   }
 
   /**
-   * 判断字符串是否不为空
+   * 判断object是否不为空或空字符串
    *
-   * @param s
-   * @return
+   * @param obj obj
+   * @return true-不为空或空字符串 flase-为空或空字符串
    */
-  public static boolean isNotBlank(String s) {
-    return !isBlank(s);
-  }
-
-  /**
-   * 字符串转换为字节数组
-   *
-   * @param str 字符串
-   * @return byte[] byte [ ]
-   */
-  public static byte[] getBytes(String str) {
-    if (Objects.isNull(str)) {
-      throw new NullPointerException("str cannot be null");
-    }
-    return str.getBytes(DEFAULT_CHARSET);
-  }
-
-  /**
-   * 字节数组转换为字符串
-   *
-   * @param bytes 字节数组
-   * @return String 字符串
-   */
-  public static String getString(byte[] bytes) {
-    return new String(bytes, DEFAULT_CHARSET);
+  public static boolean isNotBlank(Object obj) {
+    return !isBlank(obj);
   }
 
   /**
    * 产生唯一的序列号（27位）
+   * <pre>
+   *   System.out.println(StringUtil.getUniqueSerialNo()); = "202004161446356330693259868"
+   * </pre>
    *
    * @return
    */
@@ -99,9 +69,15 @@ public class StringUtil extends StringUtils {
 
   /**
    * 首字母大写
+   * <pre>
+   *   System.out.println(StringUtil.firstToUpperCase("abcd")); = "Abcd"
+   *   System.out.println(StringUtil.firstToUpperCase("ABCD")); = "!BCD"
+   *   System.out.println(StringUtil.firstToUpperCase("1abcd")); = "abcd"
+   *   System.out.println(StringUtil.firstToUpperCase("呵abcd")); = "呕abcd"
+   * </pre>
    *
-   * @param caseStr
-   * @return
+   * @param caseStr 待转换的字符串
+   * @return 转换后的字符串
    */
   public static String firstToUpperCase(String caseStr) {
     char[] strChar = caseStr.toCharArray();
@@ -110,12 +86,17 @@ public class StringUtil extends StringUtils {
   }
 
   /**
-   * 驼峰命名法工具
+   * 驼峰命名法转换工具，hello_world ==> helloWorld
+   * <pre>
+   *   System.out.println(StringUtil.toCamelCase("helloworld")); = "helloworld"
+   *   System.out.println(StringUtil.toCamelCase("helloWorld")); = "helloworld"
+   *   System.out.println(StringUtil.toCamelCase("hello_world")); = "helloWorld"
+   *   System.out.println(StringUtil.toCamelCase("hello_World")); = "helloWorld"
+   *   System.out.println(StringUtil.toCamelCase("HELLO_WORLD")); = "helloWorld"
+   * </pre>
    *
-   * @param caseStr the caseStr
-   * @return String  toCamelCase("hello_world") == "helloWorld"
-   * toCapitalizeCamelCase("hello_world") == "HelloWorld"
-   * toUnderScoreCase("helloWorld") = "hello_world"
+   * @param caseStr 待转换字符串
+   * @return 转换后的字符串
    */
   public static String toCamelCase(String caseStr) {
     if (Objects.isNull(caseStr)) {
@@ -126,7 +107,7 @@ public class StringUtil extends StringUtils {
     boolean upperCase = false;
     for (int i = 0; i < ls.length(); i++) {
       char c = ls.charAt(i);
-      if (Objects.equals(c, SEPARATOR)) {
+      if (Objects.equals(c, '_')) {
         upperCase = true;
       } else if (upperCase) {
         sb.append(Character.toUpperCase(c));
@@ -139,12 +120,17 @@ public class StringUtil extends StringUtils {
   }
 
   /**
-   * 驼峰命名法工具
+   * 驼峰命名法转换工具，hello_world ==> HelloWorld
+   * <pre>
+   *   System.out.println(StringUtil.toCapitalizeCamelCase("helloworld")); = "Helloworld"
+   *   System.out.println(StringUtil.toCapitalizeCamelCase("helloWorld")); = "Helloworld"
+   *   System.out.println(StringUtil.toCapitalizeCamelCase("hello_world")); = "HelloWorld"
+   *   System.out.println(StringUtil.toCapitalizeCamelCase("hello_World")); = "HelloWorld"
+   *   System.out.println(StringUtil.toCapitalizeCamelCase("HELLO_WORLD")); = "HelloWorld"
+   * </pre>
    *
-   * @param caseStr the caseStr
-   * @return String  toCamelCase("hello_world") == "helloWorld"
-   * toCapitalizeCamelCase("hello_world") == "HelloWorld"
-   * toUnderScoreCase("helloWorld") = "hello_world"
+   * @param caseStr 待转换字符串
+   * @return 转换后的字符串
    */
   public static String toCapitalizeCamelCase(String caseStr) {
     if (Objects.isNull(caseStr)) {
@@ -155,12 +141,17 @@ public class StringUtil extends StringUtils {
   }
 
   /**
-   * 驼峰命名法工具
+   * 驼峰命名法转换工具，helloWorld ==> hello_world
+   * <pre>
+   *   System.out.println(StringUtil.toUnderScoreCase("helloworld"));
+   *   System.out.println(StringUtil.toUnderScoreCase("helloWorld"));
+   *   System.out.println(StringUtil.toUnderScoreCase("hello_world"));
+   *   System.out.println(StringUtil.toUnderScoreCase("hello_World"));
+   *   System.out.println(StringUtil.toUnderScoreCase("HELLO_WORLD"));
+   * </pre>
    *
-   * @param caseStr the caseStr
-   * @return String  toCamelCase("hello_world") == "helloWorld"
-   * toCapitalizeCamelCase("hello_world") == "HelloWorld"
-   * toUnderScoreCase("helloWorld") = "hello_world"
+   * @param caseStr 待转换字符串
+   * @return 转换后的字符串
    */
   public static String toUnderScoreCase(String caseStr) {
     if (Objects.isNull(caseStr)) {
@@ -176,7 +167,7 @@ public class StringUtil extends StringUtils {
       }
       if ((i > 0) && Character.isUpperCase(c)) {
         if (!upperCase || !nextUpperCase) {
-          sb.append(SEPARATOR);
+          sb.append('_');
         }
         upperCase = true;
       } else {
@@ -189,18 +180,47 @@ public class StringUtil extends StringUtils {
 
   /**
    * 替换掉HTML标签
+   * <pre>
+   *   System.out.println(StringUtil.replaceHtml("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">" +
+   *   "<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\">" +
+   *   "    <head>" +
+   *   "        <meta http-equiv=\"Content-Type\" content=\"convert/html; charset=UTF-8\" />" +
+   *   "        <title>简单实例</title>" +
+   *   "    </head>" +
+   *   "    <body>" +
+   *   "    <h1>h1标签</h1>" +
+   *   "    <h2>h2标签</h2>" +
+   *   "    <h3>h3标签</h3>" +
+   *   "    <p>p标签</p>" +
+   *   "    <div>div标签 </div>" +
+   *   "    <span>span标签</span>" +
+   *   "    <strong>strong标签</strong>" +
+   *   "    <input type=\"convert\" value=\"input标签\" />" +
+   *   "    <textarea>textarea标签</textarea>" +
+   *   "    <input type=\"button\" value=\"提交\" />" +
+   *   "    <ul>" +
+   *   "        <li>1</li>" +
+   *   "        <li>2</li>" +
+   *   "        <li>3</li>" +
+   *   "        <li>4</li>" +
+   *   "    </ul>" +
+   *   "    </body>" +
+   *   "</html>"));
+   *   输出结果：
+   *   "                   简单实例            h1标签    h2标签    h3标签    p标签    div标签     span标签    strong标签        textarea标签                1        2        3        4"
+   * </pre>
    *
    * @param html the html
    * @return the string
    */
   public static String replaceHtml(String html) {
     if (isBlank(html)) {
-      return StringUtil.EMPTY;
+      return EMPTY;
     }
     String regex = "<.+?>";
     Pattern pattern = Pattern.compile(regex);
     Matcher matcher = pattern.matcher(html);
-    return matcher.replaceAll(StringUtil.EMPTY);
+    return matcher.replaceAll(EMPTY);
   }
 
   /**

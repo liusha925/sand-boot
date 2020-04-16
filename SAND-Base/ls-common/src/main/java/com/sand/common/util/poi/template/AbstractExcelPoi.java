@@ -17,8 +17,9 @@ import com.sand.common.util.ResultUtil;
 import com.sand.common.util.ServletUtil;
 import com.sand.common.util.lang3.DateUtil;
 import com.sand.common.util.lang3.StringUtil;
-import com.sand.common.util.text.LsCharset;
-import com.sand.common.util.text.LsConvert;
+import com.sand.common.util.poi.ExcelUtil;
+import com.sand.common.util.convert.SandCharset;
+import com.sand.common.util.convert.SandConvert;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -44,7 +45,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -197,28 +197,28 @@ public abstract class AbstractExcelPoi<T> {
           // 根据对象类型设置值
           Class<?> fileType = field.getType();
           if (Objects.equals(String.class, fileType)) {
-            String s = LsConvert.obj2Str(value);
+            String s = SandConvert.obj2Str(value);
             if (StringUtil.endsWith(s, ".0")) {
               value = StringUtil.substringBefore(s, ".0");
             } else {
-              value = LsConvert.obj2Str(value);
+              value = SandConvert.obj2Str(value);
             }
           } else if (Objects.equals(Date.class, fileType)) {
             if (value instanceof String) {
-              value = DateUtil.parseDate(LsConvert.obj2Str(value));
+              value = DateUtil.parseDate(SandConvert.obj2Str(value));
             } else if (value instanceof Double) {
               value = org.apache.poi.ss.usermodel.DateUtil.getJavaDate((Double) value);
             }
           } else if (Objects.equals(BigDecimal.class, fileType)) {
-            value = LsConvert.obj2BigDecimal(value);
+            value = SandConvert.obj2BigDecimal(value);
           } else if (Objects.equals(Long.class, fileType) || Objects.equals(Long.TYPE, fileType)) {
-            value = LsConvert.obj2Long(value);
+            value = SandConvert.obj2Long(value);
           } else if (Objects.equals(Integer.class, fileType) || Objects.equals(Integer.TYPE, fileType)) {
-            value = LsConvert.obj2Int(value);
+            value = SandConvert.obj2Int(value);
           } else if (Objects.equals(Double.class, fileType) || Objects.equals(Double.TYPE, fileType)) {
-            value = LsConvert.obj2Double(value);
+            value = SandConvert.obj2Double(value);
           } else if (Objects.equals(Float.class, fileType) || Objects.equals(Float.TYPE, fileType)) {
-            value = LsConvert.obj2Float(value);
+            value = SandConvert.obj2Float(value);
           }
           if (Objects.nonNull(fileType)) {
             ExcelAnnotation excelAnnotation = field.getAnnotation(ExcelAnnotation.class);
@@ -227,7 +227,7 @@ public abstract class AbstractExcelPoi<T> {
               propertyName = propertyName + "." + excelAnnotation.targetAnnotation();
             }
             if (StringUtil.isNotBlank(excelAnnotation.readConvertExp())) {
-              value = reverseByExp(LsConvert.obj2Str(value), excelAnnotation.readConvertExp());
+              value = reverseByExp(SandConvert.obj2Str(value), excelAnnotation.readConvertExp());
             }
             ReflectUtil.invokeSetter(entity, value, propertyName);
           }
@@ -268,7 +268,7 @@ public abstract class AbstractExcelPoi<T> {
             font.setBold(true);
             cellStyle.setFont(font);
             cellStyle.setFillForegroundColor(HSSFColor.YELLOW.index);
-            sheet.setColumnWidth(i, (int) ((excelAnnotation.width() + 0.72) * StringUtil.STRING_BUILDER_SIZE));
+            sheet.setColumnWidth(i, (int) ((excelAnnotation.width() + 0.72) * 256));
             row.setHeight((short) (excelAnnotation.height() * 20));
           }
           cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
@@ -289,7 +289,7 @@ public abstract class AbstractExcelPoi<T> {
       }
       HttpServletResponse response = ServletUtil.getResponse();
       String fileName = ServletUtil.encodingFileName(sheetName + FileSuffixEnum.XLSX.getSuffix());
-      response.setCharacterEncoding(LsCharset.UTF_8);
+      response.setCharacterEncoding(SandCharset.UTF_8);
       response.setContentType("multipart/form-data");
       response.setHeader("Content-Disposition", "attachment;fileName=" + fileName);
       out = response.getOutputStream();
@@ -454,7 +454,7 @@ public abstract class AbstractExcelPoi<T> {
             if (StringUtil.isNotBlank(dateFormat)) {
               cell.setCellValue(DateUtil.formatDate((Date) value, DateUtil.Format.getFormat(dateFormat)));
             } else if (StringUtil.isNotBlank(readConvertExp)) {
-              cell.setCellValue(convertByExp(LsConvert.obj2Str(value), readConvertExp));
+              cell.setCellValue(convertByExp(SandConvert.obj2Str(value), readConvertExp));
             } else {
               cell.setCellType(CellType.STRING);
               cell.setCellValue(Objects.isNull(value) ? excelAnnotation.defaultValue() : value + excelAnnotation.suffix());
@@ -475,7 +475,7 @@ public abstract class AbstractExcelPoi<T> {
    * @param excelAnnotation 注解信息
    * @return
    */
-  protected Object getTargetValue(T entity, Field field, ExcelAnnotation excelAnnotation) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+  protected Object getTargetValue(T entity, Field field, ExcelAnnotation excelAnnotation) throws Exception {
     Object obj = field.get(entity);
     String targetAnnotation = excelAnnotation.targetAnnotation();
     if (StringUtil.isNotBlank(targetAnnotation)) {
@@ -496,13 +496,13 @@ public abstract class AbstractExcelPoi<T> {
    * 获取类成员属性的值
    *
    * @param obj  对象类
-   * @param name 成员属性名称
+   * @param filedName 成员属性名称
    * @return
    */
-  protected Object getValue(Object obj, String name) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-    if (StringUtil.isNotBlank(name)) {
+  protected Object getValue(Object obj, String filedName) throws Exception {
+    if (StringUtil.isNotBlank(filedName)) {
       Class<?> clz = obj.getClass();
-      String methodName = "get" + name.substring(0, 1).toUpperCase() + name.substring(1);
+      String methodName = "get" + filedName.substring(0, 1).toUpperCase() + filedName.substring(1);
       Method method = clz.getMethod(methodName);
       obj = method.invoke(obj);
     }
@@ -510,15 +510,21 @@ public abstract class AbstractExcelPoi<T> {
   }
 
   /**
-   * 读取内容转表达式，如：0=男,1=女,2=未知
-   *
+   * 读取内容转表达式，如：0=男,1=女,2=未知，注：,后允许有空格，但最好规范一点
+   * <pre>
+   *   ExcelUtil<Object> excelPoi = new ExcelUtil<>(Object.class);
+   *   System.out.println(excelPoi.convertByExp("0", "0=男,1=女,2=未知")); = "男"
+   *   System.out.println(excelPoi.convertByExp("1", "0=男,1=女,2=未知")); = "女"
+   *   System.out.println(excelPoi.convertByExp("2", "0=男,1=女,    2=未知")); = "未知"
+   *   System.out.println(excelPoi.convertByExp("333", "0=男,1=女,2=未知")); = "333"
+   * </pre>
    * @param propertyValue  参数值
    * @param readConvertExp 待翻译的注解
    * @return 解析后的值
    */
   protected String convertByExp(String propertyValue, String readConvertExp) {
     try {
-      String[] convertSource = readConvertExp.split(",");
+      String[] convertSource = readConvertExp.split("[,\\s]+");
       for (String exp : convertSource) {
         String[] expArray = exp.split("=");
         if (expArray[0].equals(propertyValue)) {
@@ -530,4 +536,13 @@ public abstract class AbstractExcelPoi<T> {
     }
     return propertyValue;
   }
+
+  public static void main(String[] args) {
+    ExcelUtil<Object> excelPoi = new ExcelUtil<>(Object.class);
+    System.out.println(excelPoi.convertByExp("0", "0=男,1=女,2=未知"));
+    System.out.println(excelPoi.convertByExp("1", "0=男,1=女,2=未知"));
+    System.out.println(excelPoi.convertByExp("2", "0=男,1=女,   2=未知"));
+    System.out.println(excelPoi.convertByExp("333", "0=男,1=女,2=未知"));
+  }
+
 }

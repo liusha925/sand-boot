@@ -13,7 +13,7 @@ import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.TemplateExportParams;
 import com.sand.common.entity.ResultEntity;
-import com.sand.common.util.text.LsCharset;
+import com.sand.common.util.convert.SandCharset;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.CloseableUtil;
 import com.sand.common.util.ResultUtil;
@@ -141,7 +141,7 @@ public class EasyPoiUtil {
       log.info("excel导出耗时 = {}", (System.currentTimeMillis() - start) + "毫秒");
       HttpServletResponse response = ServletUtil.getResponse();
       String fileName = ServletUtil.encodingFileName(sheetName);
-      response.setCharacterEncoding(LsCharset.UTF_8);
+      response.setCharacterEncoding(SandCharset.UTF_8);
       response.setContentType("multipart/form-data");
       response.setHeader("Content-Disposition", "attachment;fileName=" + fileName);
       out = response.getOutputStream();

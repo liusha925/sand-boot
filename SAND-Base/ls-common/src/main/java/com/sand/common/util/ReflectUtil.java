@@ -8,7 +8,7 @@
 package com.sand.common.util;
 
 import com.google.common.collect.Lists;
-import com.sand.common.util.text.LsConvert;
+import com.sand.common.util.convert.SandConvert;
 import com.sand.common.util.lang3.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.Validate;
@@ -154,21 +154,21 @@ public class ReflectUtil {
       for (int i = 0; i < cs.length; i++) {
         if (args[i] != null && !args[i].getClass().equals(cs[i])) {
           if (cs[i] == String.class) {
-            args[i] = LsConvert.obj2Str(args[i]);
+            args[i] = SandConvert.obj2Str(args[i]);
             if (StringUtil.endsWith((String) args[i], ".0")) {
               args[i] = StringUtil.substringBefore((String) args[i], ".0");
             }
           } else if (cs[i] == Integer.class) {
-            args[i] = LsConvert.obj2Int(args[i]);
+            args[i] = SandConvert.obj2Int(args[i]);
           } else if (cs[i] == Long.class) {
-            args[i] = LsConvert.obj2Long(args[i]);
+            args[i] = SandConvert.obj2Long(args[i]);
           } else if (cs[i] == Double.class) {
-            args[i] = LsConvert.obj2Double(args[i]);
+            args[i] = SandConvert.obj2Double(args[i]);
           } else if (cs[i] == Float.class) {
-            args[i] = LsConvert.obj2Float(args[i]);
+            args[i] = SandConvert.obj2Float(args[i]);
           } else if (cs[i] == Date.class) {
             if (args[i] instanceof String) {
-              args[i] = com.sand.common.util.lang3.DateUtil.parseDate(LsConvert.obj2Str(args[i]));
+              args[i] = com.sand.common.util.lang3.DateUtil.parseDate(SandConvert.obj2Str(args[i]));
             } else {
               args[i] = DateUtil.getJavaDate((Double) args[i]);
             }

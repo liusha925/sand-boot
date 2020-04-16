@@ -8,7 +8,7 @@
 package com.sand.redis.repository;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sand.common.util.text.LsCharset;
+import com.sand.common.util.convert.SandCharset;
 import org.springframework.data.redis.connection.RedisServerCommands;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
@@ -185,7 +185,7 @@ public class RedisRepository {
     redisTemplate.execute((RedisCallback<List<String>>) connection -> {
       Set<String> keys = redisTemplate.keys(key + "*");
       for (String key1 : keys) {
-        Long ttl = connection.ttl(key1.getBytes(LsCharset.CHARSET_UTF_8));
+        Long ttl = connection.ttl(key1.getBytes(SandCharset.CHARSET_UTF_8));
         if (0 <= ttl && ttl <= 2 * time) {
           keysList.add(key1);
         }
@@ -379,7 +379,7 @@ public class RedisRepository {
    */
   public boolean exists(final String key) {
     return redisTemplate.execute((RedisCallback<Boolean>) connection ->
-        connection.exists(key.getBytes(LsCharset.CHARSET_UTF_8)));
+        connection.exists(key.getBytes(SandCharset.CHARSET_UTF_8)));
   }
 
 
@@ -393,7 +393,7 @@ public class RedisRepository {
     return redisTemplate.execute((RedisCallback<Long>) connection -> {
       long result = 0;
       for (String key : keys) {
-        result = connection.del(key.getBytes(LsCharset.CHARSET_UTF_8));
+        result = connection.del(key.getBytes(SandCharset.CHARSET_UTF_8));
       }
       return result;
     });

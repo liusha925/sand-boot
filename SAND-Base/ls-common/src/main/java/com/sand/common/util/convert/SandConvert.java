@@ -5,7 +5,7 @@
  * 2019/10/9    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.common.util.text;
+package com.sand.common.util.convert;
 
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.lang3.StringUtil;
@@ -21,6 +21,8 @@ import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,38 +38,17 @@ import java.util.stream.Collectors;
  * 功能描述：类型转换器,可以自定义转换结果
  */
 @Slf4j
-public class LsConvert<K, T> {
-  public LsConvert() {
-  }
-
-  /**
-   * List集合类转换
-   *
-   * @return
-   */
-  public Function<List, List> convert() {
-    return entities -> convert(entities);
-  }
-
-  /**
-   * List集合类转换
-   *
-   * @param entities
-   * @return
-   */
-  public List<T> convert(List<K> entities) {
-    return entities.stream()
-        .map(entity -> convert(entity))
-        .collect(Collectors.toList());
+public class SandConvert<K, T> {
+  public SandConvert() {
   }
 
   /**
    * 对象转换
    *
-   * @param entity
-   * @return
+   * @param entity K
+   * @return T
    */
-  public T convert(K entity) {
+  public T k2t(K entity) {
     if (Objects.isNull(entity)) {
       return null;
     }
@@ -84,6 +65,27 @@ public class LsConvert<K, T> {
     BeanUtils.copyProperties(entity, t);
     afterConvert(entity, t);
     return t;
+  }
+
+  /**
+   * List集合类转换
+   *
+   * @return
+   */
+  public Function<List, List> kList2tList() {
+    return entities -> kList2tList(entities);
+  }
+
+  /**
+   * List集合类转换
+   *
+   * @param entities kList
+   * @return tList
+   */
+  public List<T> kList2tList(List<K> entities) {
+    return entities.stream()
+        .map(entity -> k2t(entity))
+        .collect(Collectors.toList());
   }
 
   /**
@@ -108,6 +110,12 @@ public class LsConvert<K, T> {
 
   /**
    * 转换为字符串
+   * <pre>
+   *   System.out.println(SandConvert.obj2Str("")); = ""
+   *   System.out.println(SandConvert.obj2Str(null)); = ""
+   *   System.out.println(SandConvert.obj2Str(1)); = "1"
+   *   System.out.println(SandConvert.obj2Str("string")); = "string"
+   * </pre>
    *
    * @param value 被转换的值
    * @return 结果
@@ -118,13 +126,19 @@ public class LsConvert<K, T> {
 
   /**
    * 转换为字符串
+   * <pre>
+   *   System.out.println(SandConvert.obj2Str("", "defaultValue")); = "defaultValue"
+   *   System.out.println(SandConvert.obj2Str(null, "defaultValue")); = "defaultValue"
+   *   System.out.println(SandConvert.obj2Str(1, "defaultValue")); = "1"
+   *   System.out.println(SandConvert.obj2Str("string", "defaultValue")); = "string"
+   * </pre>
    *
    * @param value        被转换的值
    * @param defaultValue 转换默认值
    * @return 结果
    */
   public static String obj2Str(Object value, String defaultValue) {
-    if (Objects.isNull(value)) {
+    if (StringUtil.isBlank(value)) {
       return defaultValue;
     }
     if (value instanceof String) {
@@ -135,6 +149,12 @@ public class LsConvert<K, T> {
 
   /**
    * 转换为字符
+   * <pre>
+   *   System.out.println(SandConvert.obj2Char("")); = null
+   *   System.out.println(SandConvert.obj2Char(null)); = null
+   *   System.out.println(SandConvert.obj2Char(1)); = '1'
+   *   System.out.println(SandConvert.obj2Char("string")); = 's'
+   * </pre>
    *
    * @param value 被转换的值
    * @return 结果
@@ -145,13 +165,19 @@ public class LsConvert<K, T> {
 
   /**
    * 转换为字符
+   * <pre>
+   *   System.out.println(SandConvert.obj2Char("", 'h')); = 'h'
+   *   System.out.println(SandConvert.obj2Char(null, 'h')); = 'h'
+   *   System.out.println(SandConvert.obj2Char(1, 'h')); = '1'
+   *   System.out.println(SandConvert.obj2Char("string", 'h')); = 's'
+   * </pre>
    *
    * @param value        被转换的值
    * @param defaultValue 转换默认值
    * @return 结果
    */
   public static Character obj2Char(Object value, Character defaultValue) {
-    if (Objects.isNull(value)) {
+    if (StringUtil.isBlank(value)) {
       return defaultValue;
     }
     if (value instanceof Character) {
@@ -751,7 +777,7 @@ public class LsConvert<K, T> {
    * @return 字符串
    */
   public static String obj2UTF8Str(Object obj) {
-    return obj2CharsetStr(obj, LsCharset.CHARSET_UTF_8);
+    return obj2CharsetStr(obj, SandCharset.CHARSET_UTF_8);
   }
 
   /**
@@ -912,8 +938,10 @@ public class LsConvert<K, T> {
   }
 
   /**
-   * 数字金额大写转换 先写个完整的然后将如零拾替换成零
-   *
+   * 数字金额大写转换，精确到分
+   * <pre>
+   *   System.out.println(SandConvert.digitUppercase(1234567890.987654321)); = "壹拾贰亿叁仟肆佰伍拾陆万柒仟捌佰玖拾元玖角捌分"
+   * </pre>
    * @param value 数字
    * @return 中文大写数字
    */
@@ -944,4 +972,5 @@ public class LsConvert<K, T> {
     }
     return head + s.replaceAll("(零.)*零元", "元").replaceFirst("(零.)+", StringUtil.EMPTY).replaceAll("(零.)+", "零").replaceAll("^整$", "零元整");
   }
+
 }

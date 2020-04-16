@@ -5,7 +5,7 @@
  * 2019/10/9    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.common.util.text;
+package com.sand.common.util.convert;
 
 import com.sand.common.util.lang3.StringUtil;
 
@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets;
  * 开发日期：2019/10/9 8:48
  * 功能描述：字符集转换,基础自java.nio.charset.Charset
  */
-public class LsCharset extends Charset {
+public class SandCharset extends Charset {
   /**
    * GBK
    */
@@ -52,9 +52,8 @@ public class LsCharset extends Charset {
    *
    * @param canonicalName The canonical name of this charset
    * @param aliases       An array of this charset's aliases, or null if it has no aliases
-   * @throws IllegalCharsetNameException If the canonical name or any of the aliases are illegal
    */
-  protected LsCharset(String canonicalName, String[] aliases) {
+  protected SandCharset(String canonicalName, String[] aliases) {
     super(canonicalName, aliases);
   }
 
@@ -62,7 +61,7 @@ public class LsCharset extends Charset {
    * 转换为Charset对象
    *
    * @param charset 字符集，为空则返回默认字符集
-   * @return LsCharset
+   * @return SandCharset
    */
   public static Charset str2Charset(String charset) {
     return StringUtil.isEmpty(charset) ? Charset.defaultCharset() : Charset.forName(charset);

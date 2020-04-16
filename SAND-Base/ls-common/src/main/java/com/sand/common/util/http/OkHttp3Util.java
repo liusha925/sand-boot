@@ -8,7 +8,7 @@
 package com.sand.common.util.http;
 
 import com.alibaba.fastjson.JSON;
-import com.sand.common.util.text.LsCharset;
+import com.sand.common.util.convert.SandCharset;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.lang3.StringUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -72,7 +72,7 @@ public class OkHttp3Util {
         if (Objects.isNull(fileInfo)) {
           throw new BusinessException(response.body().string());
         }
-        fileName = URLDecoder.decode(fileInfo.split("=")[1], LsCharset.UTF_8);
+        fileName = URLDecoder.decode(fileInfo.split("=")[1], SandCharset.UTF_8);
         is = response.body().byteStream();
         // 监听接口处理文件名
         long total = response.body().contentLength();

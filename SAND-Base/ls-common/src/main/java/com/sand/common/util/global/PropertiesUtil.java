@@ -7,7 +7,7 @@
  */
 package com.sand.common.util.global;
 
-import com.sand.common.util.text.LsCharset;
+import com.sand.common.util.convert.SandCharset;
 import com.sand.common.util.CloseableUtil;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ public class PropertiesUtil {
   private Properties properties;
 
   public PropertiesUtil(String fileName) {
-    this(fileName, LsCharset.UTF_8);
+    this(fileName, SandCharset.UTF_8);
   }
 
   public PropertiesUtil(String fileName, String encoding) {

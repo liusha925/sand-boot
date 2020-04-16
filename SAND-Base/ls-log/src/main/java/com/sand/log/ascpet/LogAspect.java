@@ -8,13 +8,14 @@
 package com.sand.log.ascpet;
 
 import com.sand.common.enums.CodeEnum;
-import com.sand.common.enums.LogStatusEnum;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.lang3.AnnotationUtil;
 import com.sand.common.util.lang3.StringUtil;
 import com.sand.common.util.spring.SpringUtil;
 import com.sand.log.annotation.LogAnnotation;
 import com.sand.log.service.ILogService;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -32,6 +33,24 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 public class LogAspect {
+  /**
+   * 功能说明：日志状态枚举
+   * 开发人员：@author liusha
+   * 开发日期：2019/9/24 13:42
+   * 功能描述：日志可能出现的状态
+   */
+  @Getter
+  @AllArgsConstructor
+  public enum Status {
+    // 日志状态
+    INIT(0, "初始化"),
+    SUCCESS(1, "执行成功"),
+    EXCEPTION(-1, "出现异常");
+
+    private int code;
+    private String msg;
+  }
+
   /**
    * 定义横切点：横切带有@LogAnnotation的方法
    */
@@ -73,12 +92,12 @@ public class LogAspect {
     logService.beforeProceed(log, args);
     // 执行开始
     long startTime = System.currentTimeMillis();
-    int status = LogStatusEnum.INIT.getStatus();
+    int status = Status.INIT.getCode();
     try {
       obj = point.proceed(args);
-      status = LogStatusEnum.SUCCESS.getStatus();
+      status = Status.SUCCESS.getCode();
     } catch (Throwable e) {
-      status = LogStatusEnum.EXCEPTION.getStatus();
+      status = Status.EXCEPTION.getCode();
       // 处理异常信息
       logService.exceptionProceed(log, e);
       if (e instanceof BusinessException) {

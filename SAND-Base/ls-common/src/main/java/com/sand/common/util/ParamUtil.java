@@ -12,7 +12,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.sand.common.enums.CodeEnum;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.lang3.StringUtil;
-import com.sand.common.util.text.LsConvert;
+import com.sand.common.util.convert.SandConvert;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
@@ -54,7 +54,7 @@ public class ParamUtil {
    * @return
    */
   public static int getIntValue(Map<String, Object> map, String key, int defaultValue) {
-    String value = LsConvert.obj2Str(getValue(map, key, defaultValue));
+    String value = SandConvert.obj2Str(getValue(map, key, defaultValue));
     if (StringUtil.isBlank(value)) {
       return defaultValue;
     }
@@ -222,7 +222,7 @@ public class ParamUtil {
     }
     if (map.containsKey(key)) {
       Object value = map.get(key);
-      if (required && StringUtil.isBlank(LsConvert.obj2Str(value))) {
+      if (required && StringUtil.isBlank(SandConvert.obj2Str(value))) {
         throw new BusinessException(CodeEnum.PARAM_MISSING_ERROR, "参数【" + key + "】不能为空");
       }
       return value;

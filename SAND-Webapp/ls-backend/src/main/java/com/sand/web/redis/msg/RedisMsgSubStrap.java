@@ -30,8 +30,8 @@ import java.util.Set;
 public class RedisMsgSubStrap {
   static {
     try {
-      log.info("~~~~~~~~~~~~~~Redis消息订阅 启动开始~~~~~~~~~~~~~");
-      String channel = "msgNotice";
+      log.info("~~~~~~~~~Redis消息订阅 启动开始~~~~~~~~");
+      /*String channel = "msgNotice";
       String masterName = "mymaster";
       RedisConfig redisConfig = SpringUtil.getBean(RedisConfig.class);
       String hosts = redisConfig.getHostName() + ":" + redisConfig.getPort();
@@ -40,8 +40,8 @@ public class RedisMsgSubStrap {
       JedisPoolConfig jedisPoolConfig = SpringUtil.getBean(JedisPoolConfig.class);
       JedisSentinelPool sentinelPool = new JedisSentinelPool(masterName, sentinels, jedisPoolConfig);
       RedisMsgSubThread msgSubThread = new RedisMsgSubThread(sentinelPool, channel);
-      msgSubThread.start();
-      log.info("~~~~~~~~~~~~~~Redis消息订阅 启动结束~~~~~~~~~~~~~");
+      msgSubThread.start();*/
+      log.info("~~~~~~~~~Redis消息订阅 启动结束~~~~~~~~");
     } catch (Exception e) {
       log.error("Redis消息订阅失败", e);
     }

@@ -8,7 +8,7 @@
 package com.sand.common.util.file.concrete;
 
 import com.sand.common.constant.Constant;
-import com.sand.common.util.text.LsCharset;
+import com.sand.common.util.convert.SandCharset;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.file.AbstractFileExecutor;
 import org.springframework.stereotype.Component;
@@ -75,10 +75,10 @@ public class NIOFileExecutor extends AbstractFileExecutor {
       String userAgent = request.getHeader("user-agent").toLowerCase();
       if (userAgent.contains("msie") || userAgent.contains("like gecko")) {
         // IE
-        showName = URLEncoder.encode(fileName, LsCharset.UTF_8);
+        showName = URLEncoder.encode(fileName, SandCharset.UTF_8);
       } else {
         // 非IE
-        showName = new String(fileName.getBytes(LsCharset.UTF_8), LsCharset.ISO_8859_1);
+        showName = new String(fileName.getBytes(SandCharset.UTF_8), SandCharset.ISO_8859_1);
       }
       // 设置Content-Type为文件的MimeType
       response.setContentType("application/octet-stream");

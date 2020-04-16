@@ -32,15 +32,15 @@ public class ModelValidator {
   /**
    * 校验失败条数key值
    */
-  public static final String CHECKED_FAIL_NUM = "checkedFailNum";
+  public static final String FAIL_NUM = "failNum";
   /**
    * 校验失败原因key值
    */
-  public static final String CHECKED_FAIL_MSG = "checkedFailMsg";
+  public static final String FAIL_MSG = "failMsg";
   /**
    * 校验通过的数据列表key值
    */
-  public static final String CHECKED_ENTITY_LIST = "checkedEntityList";
+  public static final String ENTITY_LIST = "entityList";
 
   /**
    * 表单验证（对应实体类配置注解）
@@ -105,9 +105,9 @@ public class ModelValidator {
       checkedEntityList.add(entityList.get(i));
     }
     Map<String, Object> checkedMap = new HashMap<>();
-    checkedMap.put(CHECKED_FAIL_NUM, checkedFailNum);
-    checkedMap.put(CHECKED_FAIL_MSG, checkedFailMsg);
-    checkedMap.put(CHECKED_ENTITY_LIST, checkedEntityList);
+    checkedMap.put(FAIL_NUM, checkedFailNum);
+    checkedMap.put(FAIL_MSG, checkedFailMsg);
+    checkedMap.put(ENTITY_LIST, checkedEntityList);
     return checkedMap;
   }
 }

@@ -13,7 +13,7 @@ import com.sand.common.exception.BusinessException;
 import com.sand.common.util.ServletUtil;
 import com.sand.common.util.lang3.DateUtil;
 import com.sand.common.util.lang3.StringUtil;
-import com.sand.common.util.text.LsConvert;
+import com.sand.common.util.convert.SandConvert;
 import com.sand.log.annotation.LogAnnotation;
 import com.sand.log.service.ILogService;
 import com.sand.sys.entity.SysLog;
@@ -55,11 +55,11 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
       }
     });
     Map<String, Object> agentMap = ServletUtil.getOSAndBrowser();
-    log.setOs(LsConvert.obj2Str(agentMap.get(ServletUtil.OS)));
-    log.setBrowser(LsConvert.obj2Str(agentMap.get(ServletUtil.BROWSER)));
+    log.setOs(SandConvert.obj2Str(agentMap.get(ServletUtil.OS)));
+    log.setBrowser(SandConvert.obj2Str(agentMap.get(ServletUtil.BROWSER)));
     log.setAddIp(ServletUtil.getIp());
-    log.setUrl(LsConvert.obj2Str(ServletUtil.getRequest().getRequestURL()));
-    log.setRequestMethod(LsConvert.obj2Str(ServletUtil.getRequest().getMethod()));
+    log.setUrl(SandConvert.obj2Str(ServletUtil.getRequest().getRequestURL()));
+    log.setRequestMethod(SandConvert.obj2Str(ServletUtil.getRequest().getMethod()));
     log.setRequestParams(JSON.toJSONString(requestParams));
     log.setUserName("超级管理员");
     log.setCreateBy("超级管理员");
@@ -94,7 +94,7 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
   @Transactional(rollbackFor = BusinessException.class)
   public void save(Object obj, long exeTime, int exeStatus) {
     SysLog log = (SysLog) obj;
-    log.setExeTime(LsConvert.obj2Str(exeTime));
+    log.setExeTime(SandConvert.obj2Str(exeTime));
     log.setExeStatus(exeStatus);
     logger.info(new StringBuilder().append("用户：").append(StringUtil.isBlank(log.getUserName()) ? "匿名用户" : log.getUserName()).append("，于")
         .append(DateUtil.getNow(DateUtil.Format.F1_YYYY_MM_DD_HH_MM_SS_SSS)).append("进行了[").append(log.getRemark()).append("]操作")

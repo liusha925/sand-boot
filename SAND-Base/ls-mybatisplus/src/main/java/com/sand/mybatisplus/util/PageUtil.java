@@ -10,7 +10,7 @@ package com.sand.mybatisplus.util;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sand.common.util.ParamUtil;
 import com.sand.common.util.lang3.StringUtil;
-import com.sand.common.util.text.LsConvert;
+import com.sand.common.util.convert.SandConvert;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,7 +43,7 @@ public class PageUtil extends ParamUtil {
    * @return
    */
   public static Page pageParam(Object entity) {
-    return pageParam(LsConvert.obj2Map(entity), DEFAULT_PAGE_SIZE);
+    return pageParam(SandConvert.obj2Map(entity), DEFAULT_PAGE_SIZE);
   }
 
   /**
@@ -81,7 +81,7 @@ public class PageUtil extends ParamUtil {
     }
     // 每页条数
     int size;
-    String pageSize = LsConvert.obj2Str(map.get("size"));
+    String pageSize = SandConvert.obj2Str(map.get("size"));
     if (StringUtil.isBlank(pageSize)) {
       size = DEFAULT_PAGE_SIZE;
     } else {
@@ -89,7 +89,7 @@ public class PageUtil extends ParamUtil {
     }
     // 当前页码
     int current;
-    String pageCurrent = LsConvert.obj2Str(map.get("current"));
+    String pageCurrent = SandConvert.obj2Str(map.get("current"));
     if (StringUtil.isBlank(pageCurrent)) {
       current = DEFAULT_PAGE_CURRENT;
     } else {
