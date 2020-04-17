@@ -7,11 +7,10 @@
  */
 package com.sand.common.util.lang3;
 
-import org.apache.commons.lang3.StringUtils;
+import com.sand.common.util.validator.RegexValidator;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.math.BigDecimal;
-import java.util.regex.Pattern;
 
 /**
  * 功能说明：数字操作工具类
@@ -64,7 +63,7 @@ public class NumberUtil extends NumberUtils {
    * @return 运算结果
    */
   public static String add(String x, String y) {
-    if (isNotNumeric(x) || isNotNumeric(y)) {
+    if (!RegexValidator.isNumeric(x) || !RegexValidator.isNumeric(y)) {
       throw new IllegalArgumentException("illegal arguments");
     }
     BigDecimal a = new BigDecimal(x);
@@ -107,7 +106,7 @@ public class NumberUtil extends NumberUtils {
    * @return 运算结果
    */
   public static String subtract(String x, String y) {
-    if (isNotNumeric(x) || isNotNumeric(y)) {
+    if (!RegexValidator.isNumeric(x) || !RegexValidator.isNumeric(y)) {
       throw new IllegalArgumentException("illegal arguments");
     }
     BigDecimal a = new BigDecimal(x);
@@ -150,7 +149,7 @@ public class NumberUtil extends NumberUtils {
    * @return 远算结果
    */
   public static String multiply(String x, String y) {
-    if (isNotNumeric(x) || isNotNumeric(y)) {
+    if (!RegexValidator.isNumeric(x) || !RegexValidator.isNumeric(y)) {
       throw new IllegalArgumentException("illegal arguments");
     }
     BigDecimal a = new BigDecimal(x);
@@ -237,7 +236,7 @@ public class NumberUtil extends NumberUtils {
    * @return 运算结果
    */
   public static String divide(String x, String y, int scale) {
-    if (isNotNumeric(x) || isNotNumeric(y)) {
+    if (!RegexValidator.isNumeric(x) || !RegexValidator.isNumeric(y)) {
       throw new IllegalArgumentException("illegal arguments");
     }
     if (scale < 0) {
@@ -249,66 +248,6 @@ public class NumberUtil extends NumberUtils {
       return BigDecimal.ZERO.toPlainString();
     }
     return a.divide(b, scale, BigDecimal.ROUND_HALF_UP).toPlainString();
-  }
-
-  /**
-   * 判断是否为数值类型
-   * <pre>
-   *   System.out.println(NumberUtil.isNumeric("")); = false
-   *   System.out.println(NumberUtil.isNumeric(null)); = false
-   *   System.out.println(NumberUtil.isNumeric("-1")); = true
-   *   System.out.println(NumberUtil.isNumeric("0")); = true
-   *   System.out.println(NumberUtil.isNumeric("1")); = true
-   *   System.out.println(NumberUtil.isNumeric("1.0")); = true
-   *   System.out.println(NumberUtil.isNumeric("1.1")); = true
-   *   System.out.println(NumberUtil.isNumeric("aaa")); = false
-   *   System.out.println(NumberUtil.isNumeric("呵呵")); = false
-   * </pre>
-   *
-   * @param str 字符串
-   * @return true-为数值类型 false-不为数值类型
-   */
-  public static boolean isNumeric(String str) {
-    if (StringUtils.isBlank(str)) {
-      return false;
-    }
-    String regex = "^[0-9]*.[0-9]*$";
-    Pattern pattern = Pattern.compile(regex);
-    return pattern.matcher(str).matches();
-  }
-
-  /**
-   * 判断是否为数值类型
-   *
-   * @param str 字符串
-   * @return true-不为数值类型 false-为数值类型
-   */
-  public static boolean isNotNumeric(String str) {
-    return !isNumeric(str);
-  }
-
-  /**
-   * 判断是否为0或者正整数
-   * <pre>
-   *   System.out.println(NumberUtil.isZeroOrPositiveInteger("")); = false
-   *   System.out.println(NumberUtil.isZeroOrPositiveInteger(null)); = false
-   *   System.out.println(NumberUtil.isZeroOrPositiveInteger("-1")); = false
-   *   System.out.println(NumberUtil.isZeroOrPositiveInteger("0")); = true
-   *   System.out.println(NumberUtil.isZeroOrPositiveInteger("1")); = true
-   *   System.out.println(NumberUtil.isZeroOrPositiveInteger("1.0")); = false
-   *   System.out.println(NumberUtil.isZeroOrPositiveInteger("1.1")); = false
-   *   System.out.println(NumberUtil.isZeroOrPositiveInteger("aaa")); = false
-   *   System.out.println(NumberUtil.isZeroOrPositiveInteger("呵呵")); = false
-   * </pre>
-   *
-   * @param str 字符串
-   * @return true-为0或者正整数 false-不为0或者正整数
-   */
-  public static boolean isZeroOrPositiveInteger(String str) {
-    if (StringUtils.isNotBlank(str) && StringUtils.isNumeric(str)) {
-      return true;
-    }
-    return false;
   }
 
 }

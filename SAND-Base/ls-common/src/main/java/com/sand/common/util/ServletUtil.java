@@ -8,7 +8,6 @@
 package com.sand.common.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sand.common.constant.Constant;
 import com.sand.common.util.convert.SandCharset;
 import com.sand.common.util.lang3.StringUtil;
 import eu.bitwalker.useragentutils.Browser;
@@ -132,30 +131,31 @@ public class ServletUtil {
    */
   public static String getIp(HttpServletRequest request) {
     String addIp = null;
+    String serverType = "unknown";
     // X-Forwarded-For：Squid 服务代理
     String ipAddresses = request.getHeader("X-Forwarded-For");
-    if (ipAddresses == null || ipAddresses.length() == 0 || ipAddresses.equalsIgnoreCase(Constant.UNKNOWN)) {
+    if (StringUtil.isBlank(ipAddresses) || ipAddresses.equalsIgnoreCase(serverType)) {
       // Proxy-Client-IP：apache 服务代理
       ipAddresses = request.getHeader("Proxy-Client-IP");
     }
-    if (ipAddresses == null || ipAddresses.length() == 0 || ipAddresses.equalsIgnoreCase(Constant.UNKNOWN)) {
+    if (StringUtil.isBlank(ipAddresses) || ipAddresses.equalsIgnoreCase(serverType)) {
       // WL-Proxy-Client-IP：webLogic 服务代理
       ipAddresses = request.getHeader("WL-Proxy-Client-IP");
     }
-    if (ipAddresses == null || ipAddresses.length() == 0 || ipAddresses.equalsIgnoreCase(Constant.UNKNOWN)) {
+    if (StringUtil.isBlank(ipAddresses) || ipAddresses.equalsIgnoreCase(serverType)) {
       // HTTP_CLIENT_IP：有些代理服务器
       ipAddresses = request.getHeader("HTTP_CLIENT_IP");
     }
-    if (ipAddresses == null || ipAddresses.length() == 0 || ipAddresses.equalsIgnoreCase(Constant.UNKNOWN)) {
+    if (StringUtil.isBlank(ipAddresses) || ipAddresses.equalsIgnoreCase(serverType)) {
       // X-Real-IP：nginx服务代理
       ipAddresses = request.getHeader("X-Real-IP");
     }
     // 有些网络通过多层代理，就会获取到多个IP，一般逗号（,）分割并且第一个IP为客户端的真实IP
-    if (ipAddresses != null && ipAddresses.length() != 0) {
+    if (StringUtil.isNotBlank(ipAddresses)) {
       addIp = ipAddresses.split(",")[0];
     }
     // 以上都获取不到就从"Remote Address中"获取
-    if (addIp == null || addIp.length() == 0 || ipAddresses.equalsIgnoreCase(Constant.UNKNOWN)) {
+    if (StringUtil.isBlank(addIp) || ipAddresses.equalsIgnoreCase(serverType)) {
       addIp = request.getRemoteAddr();
     }
     if (log.isDebugEnabled()) {
@@ -191,7 +191,7 @@ public class ServletUtil {
     UserAgent userAgent = UserAgent.parseUserAgentString(agent);
     Map<String, Object> agentMap = new HashMap<>();
     StringBuffer browserInfo = new StringBuffer();
-    String operatingSystemName = Constant.UNKNOWN;
+    String operatingSystemName = "unknown";
     if (null != userAgent) {
       // 获取浏览器对象
       Browser browser = userAgent.getBrowser();

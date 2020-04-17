@@ -19,10 +19,6 @@ public final class Constant {
    */
   public static final String TABLE_PREFIX_SYS = "sys_";
   /**
-   * 未知的信息
-   */
-  public static final String UNKNOWN = "unknown";
-  /**
    * Buff Size的容量大小
    */
   public static final int BUFF_SIZE = 1024 * 100;
