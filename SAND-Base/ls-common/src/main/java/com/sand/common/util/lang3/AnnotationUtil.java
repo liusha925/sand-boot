@@ -7,7 +7,6 @@
  */
 package com.sand.common.util.lang3;
 
-import com.sand.common.constant.Constant;
 import org.apache.commons.lang3.AnnotationUtils;
 import org.aspectj.lang.JoinPoint;
 import org.reflections.Reflections;
@@ -29,6 +28,10 @@ import java.util.Set;
  * 功能描述：继承org.apache.commons.lang3.AnnotationUtils类
  */
 public class AnnotationUtil extends AnnotationUtils {
+  /**
+   * 类名与成员变量之间的分隔符
+   */
+  public static final String CLASS_FIELD_SPLIT_SYMBOL = "#";
 
   public AnnotationUtil() {
     super();
@@ -79,7 +82,7 @@ public class AnnotationUtil extends AnnotationUtils {
       for (Field field : fields) {
         Object annotationInstance = field.getAnnotation(annotation);
         if (Objects.nonNull(annotationInstance)) {
-          filterFields.put(clz.getName() + Constant.CLASS_FIELD_SPLIT_SYMBOL + field.getName(), annotationInstance);
+          filterFields.put(clz.getName() + CLASS_FIELD_SPLIT_SYMBOL + field.getName(), annotationInstance);
         }
       }
     }

@@ -32,6 +32,7 @@ public enum CodeEnum {
   ACCOUNT_EXPIRED(10002, "此账号已过期"),
   DISABLED(10003, "此账号已被禁用"),
   LOCKED(10004, "此账号已被锁定"),
+  TOKEN_FAIL(10010, "token无效"),
   LOGIN_EXPIRED(10011,"长时间未操作，请重新登录"),
   SINGLE_LOGIN(10012, "此账号已在他处登录，请重新登录"),
 

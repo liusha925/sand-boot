@@ -161,7 +161,7 @@ public abstract class AbstractFileExecutor implements FileExecutor {
   @Override
   public void copyStream(InputStream is, OutputStream os) throws IOException {
     // 具体实现由子类完成
-    subCopyStream(is, os, Constant.BUFF_SIZE);
+    subCopyStream(is, os, 1024 * 100);
   }
 
   /**

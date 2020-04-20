@@ -42,4 +42,10 @@ public interface IUserAuthenticationService {
    */
   ResultEntity authAfter(Object userDetails);
 
+  /**
+   * 验证token是否有效
+   *
+   * @param token token
+   */
+  void checkAuthToken(String token);
 }

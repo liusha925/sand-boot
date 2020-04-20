@@ -66,7 +66,7 @@ public class JwtTokenUtil extends AbstractTokenUtil {
    */
   public void putUserToken(SysUser user, String token) {
     RedisRepository redisRepository = redisConfig.getRedisRepository(1);
-    String key = new StringBuilder(REDIS_USER_KEY_TOKEN).append(user.getUserId()).toString();
+    String key = new StringBuilder(REDIS_USER_KEY_TOKEN).append("_").append(user.getUserId()).toString();
     redisRepository.expireHashValue(key, REDIS_USER_KEY_TOKEN, new Gson().toJson(token), expiration);
   }
 
@@ -75,9 +75,9 @@ public class JwtTokenUtil extends AbstractTokenUtil {
    *
    * @param user 用户信息
    */
-  public void putUserDetails(SysUser user) {
+  public void putUserDetail(SysUser user) {
     RedisRepository redisRepository = redisConfig.getRedisRepository(2);
-    String key = new StringBuilder(REDIS_USER_KEY_DETAIL).append(user.getUserId()).toString();
+    String key = new StringBuilder(REDIS_USER_KEY_DETAIL).append("_").append(user.getUserId()).toString();
     redisRepository.expireHashValue(key, REDIS_USER_KEY_DETAIL, new Gson().toJson(user), expiration);
   }
 

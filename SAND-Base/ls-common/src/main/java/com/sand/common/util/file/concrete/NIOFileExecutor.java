@@ -85,7 +85,7 @@ public class NIOFileExecutor extends AbstractFileExecutor {
       // 设置文件名
       response.addHeader("Content-Disposition", "attachment;filename=" + showName);
       response.addHeader("Access-Control-Expose-Headers", "Content-Disposition");
-      int bufferSize = Constant.BUFF_SIZE;
+      int bufferSize = 1024 * 100;
       // 6x128 KB = 768KB byte buffer
       ByteBuffer buff = ByteBuffer.allocateDirect(786432);
       try (

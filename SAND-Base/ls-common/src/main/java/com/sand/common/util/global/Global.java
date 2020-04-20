@@ -16,7 +16,7 @@ import java.util.Properties;
  * 功能说明：用于加载配置文件
  * 开发人员：@author liusha
  * 开发日期：2020/4/14 15:13
- * 功能描述：用于加载配置文件，key=value形式
+ * 功能描述：用于加载配置文件，配置格式为key=value形式
  */
 @Slf4j
 public class Global {
@@ -50,8 +50,8 @@ public class Global {
    *     例global.properties文件内容为：spring.profiles.active=test
    * </pre>
    * <pre>
-   *     System.out.println(Global.getInstance("global.properties").getConfig("spring.profiles.active")) = "test"
-   *     System.out.println(Global.getInstance("global.properties").getConfig("spring.profiles.active123")) = null
+   *     System.out.println(Global.getInstance("global.properties").getConfig("spring.profiles.active")); = "test"
+   *     System.out.println(Global.getInstance("global.properties").getConfig("spring.profiles.active123")); = null
    * </pre>
    *
    * @param key key
@@ -67,8 +67,8 @@ public class Global {
    *     例global.properties文件内容为：spring.profiles.active=test
    * </pre>
    * <pre>
-   *     System.out.println(Global.getInstance("global.properties").getConfig("spring.profiles.active", "test")) = "test"
-   *     System.out.println(Global.getInstance("global.properties").getConfig("spring.profiles.active123", "test")) = "test"
+   *     System.out.println(Global.getInstance("global.properties").getConfig("spring.profiles.active", "test")); = "test"
+   *     System.out.println(Global.getInstance("global.properties").getConfig("spring.profiles.active123", "test")); = "test"
    * </pre>
    *
    * @param key          key

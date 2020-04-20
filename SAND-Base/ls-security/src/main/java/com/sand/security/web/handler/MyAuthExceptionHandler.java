@@ -7,13 +7,15 @@
  */
 package com.sand.security.web.handler;
 
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.sand.common.entity.ResultEntity;
 import com.sand.common.enums.CodeEnum;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.exception.handler.DefaultExceptionHandler;
 import com.sand.common.util.ResultUtil;
 import com.sand.common.util.spring.SpringUtil;
-import com.sand.common.entity.ResultEntity;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -80,6 +82,16 @@ public class MyAuthExceptionHandler extends DefaultExceptionHandler {
   }
 
   /**
+   * 注册消息转换器
+   *
+   * @return FastJsonHttpMessageConverter
+   */
+  @Bean
+  public FastJsonHttpMessageConverter fastJsonHttpMessageConverter() {
+    return new FastJsonHttpMessageConverter();
+  }
+
+  /**
    * 拒绝访问
    * 验证不通过或验证异常
    *
@@ -95,7 +107,7 @@ public class MyAuthExceptionHandler extends DefaultExceptionHandler {
     if (e instanceof BusinessException) {
       ResultEntity = ResultUtil.info(null, ((BusinessException) e).getCode(), e.getMessage());
     }
-    HttpMessageConverter httpMessageConverter = SpringUtil.getBean("httpMessageConverter", HttpMessageConverter.class);
+    HttpMessageConverter httpMessageConverter = SpringUtil.getBean(FastJsonHttpMessageConverter.class);
     httpMessageConverter.write(ResultEntity, MediaType.APPLICATION_JSON, new ServletServerHttpResponse((HttpServletResponse) response));
   }
 }

@@ -7,7 +7,6 @@
  */
 package com.sand.common.util;
 
-import com.sand.common.constant.Constant;
 import com.sand.common.entity.ResultEntity;
 import com.sand.common.enums.CodeEnum;
 import com.sand.common.exception.BusinessException;
@@ -41,6 +40,26 @@ public class ResultUtil {
    * 升序
    */
   private static final String SORT_ASC = "asc";
+  /**
+   * 选择下拉框标识
+   */
+  public static final String SELECT_REQUEST_FORMAT = "format";
+  /**
+   * 选择下拉框值
+   */
+  public static final String SELECT_REQUEST_KEY = "key";
+  /**
+   * 选择下拉框显示名称
+   */
+  public static final String SELECT_REQUEST_VALUE = "value";
+  /**
+   * 选择下拉框排序
+   */
+  public static final String SELECT_REQUEST_SORT = "sort";
+  /**
+   * 选择下拉框保留原始数据
+   */
+  public static final String SELECT_REQUEST_RAW = "raw";
 
   public ResultUtil() {
   }
@@ -94,14 +113,14 @@ public class ResultUtil {
 
   private static Object formatSelectData(Object data) throws Exception {
     HttpServletRequest request = ServletUtil.getRequest();
-    if (!Objects.isNull(request.getHeader(Constant.SELECT_REQUEST_FORMAT))) {
+    if (!Objects.isNull(request.getHeader(SELECT_REQUEST_FORMAT))) {
       try {
         // 获取域方法
-        String keyFieldName = request.getHeader(Constant.SELECT_REQUEST_KEY).trim();
-        String valueFieldName = request.getHeader(Constant.SELECT_REQUEST_VALUE).trim();
-        String sortFieldName = request.getHeader(Constant.SELECT_REQUEST_SORT).trim();
+        String keyFieldName = request.getHeader(SELECT_REQUEST_KEY).trim();
+        String valueFieldName = request.getHeader(SELECT_REQUEST_VALUE).trim();
+        String sortFieldName = request.getHeader(SELECT_REQUEST_SORT).trim();
         // 是否保留原始数据
-        boolean raw = Objects.equals("true", request.getHeader(Constant.SELECT_REQUEST_RAW).trim());
+        boolean raw = Objects.equals("true", request.getHeader(SELECT_REQUEST_RAW).trim());
         int index = sortFieldName.indexOf(StringUtil.SPACE);
         final int asc = index > -1 ? (Objects.equals(sortFieldName.substring(index + 1), SORT_ASC) ? 1 : -1) : 1;
         sortFieldName = index > -1 ? sortFieldName.substring(0, index) : sortFieldName;

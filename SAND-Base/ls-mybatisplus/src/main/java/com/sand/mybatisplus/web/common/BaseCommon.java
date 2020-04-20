@@ -8,8 +8,6 @@
 package com.sand.mybatisplus.web.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sand.common.enums.CodeEnum;
-import com.sand.common.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -49,13 +47,6 @@ public class BaseCommon {
     map.put("current", page.getCurrent());
     map.put("size", page.getSize());
     return map;
-  }
-
-  /**
-   * 业务处理异常
-   */
-  protected void newBusinessException(String msg) {
-    throw new BusinessException(CodeEnum.BUSINESS_ERROR, msg);
   }
 
 }

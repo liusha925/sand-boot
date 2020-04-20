@@ -7,6 +7,7 @@
  */
 package com.sand.security.web.config;
 
+import com.sand.security.web.filter.MyAuthenticationTokenGenericFilter;
 import com.sand.security.web.handler.MyAccessDeniedHandler;
 import com.sand.security.web.provider.MyAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * 功能说明：自定义Spring Security配置
@@ -85,6 +87,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   /**
+   * 加载自定义的token校验过滤器
+   *
+   * @return
+   */
+  @Bean
+  public MyAuthenticationTokenGenericFilter myAuthenticationTokenGenericFilter() {
+    return new MyAuthenticationTokenGenericFilter();
+  }
+
+  /**
    * 静态资源
    * 不拦截静态资源，所有用户均可访问的资源
    */
@@ -128,5 +140,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.POST, "/valid/code/*").permitAll().and();
 //        // 任何尚未匹配的URL只需要验证用户即可访问
 //        .anyRequest().authenticated()
+    httpSecurity.addFilterBefore(myAuthenticationTokenGenericFilter(), UsernamePasswordAuthenticationFilter.class);
   }
 }

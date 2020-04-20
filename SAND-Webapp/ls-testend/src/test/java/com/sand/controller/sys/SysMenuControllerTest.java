@@ -9,7 +9,6 @@ package com.sand.controller.sys;
 
 import com.sand.common.util.http.OkHttp3Util;
 import com.sand.common.util.lang3.DateUtil;
-import com.sand.util.JunitTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -24,7 +23,7 @@ import java.util.Map;
  * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
  */
 @Slf4j
-public class SysMenuControllerTest extends JunitTest {
+public class SysMenuControllerTest {
   private static final String ACTIVE_LOCAL = "http://localhost:8080";
 
   @Test

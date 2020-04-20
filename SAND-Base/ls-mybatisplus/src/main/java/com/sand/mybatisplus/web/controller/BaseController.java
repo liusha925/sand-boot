@@ -7,6 +7,8 @@
  */
 package com.sand.mybatisplus.web.controller;
 
+import com.sand.common.enums.CodeEnum;
+import com.sand.common.exception.BusinessException;
 import com.sand.common.util.editor.DateEditor;
 import com.sand.common.util.editor.StringEditor;
 import com.sand.mybatisplus.web.common.BaseCommon;
@@ -59,5 +61,11 @@ public class BaseController extends BaseCommon {
     binder.registerCustomEditor(String.class, new StringEditor());
   }
 
+  /**
+   * 业务处理异常
+   */
+  protected void newBusinessException(String msg) {
+    throw new BusinessException(CodeEnum.BUSINESS_ERROR, msg);
+  }
 
 }
