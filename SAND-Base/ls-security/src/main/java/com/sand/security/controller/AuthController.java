@@ -9,12 +9,13 @@ package com.sand.security.controller;
 
 import com.sand.common.entity.ResultEntity;
 import com.sand.common.util.ParamUtil;
+import com.sand.common.util.crypt.des.DesCryptUtil;
 import com.sand.security.web.IUserAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -41,9 +42,10 @@ public class AuthController {
    * @return 封装好的token，过期时间，token的类型map
    */
   @RequestMapping(value = "/login")
-  public ResultEntity login(@RequestBody Map<String, Object> param) {
+  public ResultEntity login(@RequestParam Map<String, Object> param) {
     String username = ParamUtil.getStringValue(param, "username");
     String password = ParamUtil.getStringValue(param, "password");
+    password = DesCryptUtil.decrypt(password);
 
     return authentication(param, new UsernamePasswordAuthenticationToken(username, password));
   }

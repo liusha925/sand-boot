@@ -27,7 +27,7 @@ public enum CodeEnum {
   PARAM_CHECKED_ERROR(103, "参数校验不通过"),
   DESERIALIZE_ERROR(104, "JSON反序列化失败"),
   // 登录认证
-  USERNAME_NOT_FOUND(10000, "用户名或密码无效"),
+  USERNAME_NOT_FOUND(10000, "用户名或密码错误"),
   CREDENTIALS_EXPIRED(10001, "凭证已过期"),
   ACCOUNT_EXPIRED(10002, "此账号已过期"),
   DISABLED(10003, "此账号已被禁用"),

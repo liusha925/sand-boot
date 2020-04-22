@@ -385,13 +385,13 @@ public class DateUtil extends DateUtils {
   /**
    * 获取当前时间戳
    * <pre>
-   *   System.out.println(DateUtil.getNowTimestamp()); = 1586929257
+   *   System.out.println(DateUtil.getNowTimestamp()); = 1586929409
    * </pre>
    *
    * @return
    */
   public static long getNowTimestamp() {
-    return getTimestamp(new Date(), Format.F1_YYYY_MM_DD_HH_MM_SS);
+    return getTimestamp(new Date(), Format.F1_YYYY_MM_DD_HH_MM_SS_SSS);
   }
 
   /**

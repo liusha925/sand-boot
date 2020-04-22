@@ -57,13 +57,13 @@ public class UserDetailServiceImpl implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     // 此处可定义多种登录方式，如用户名、手机号等
-    SysUser user = userService.getOne(new QueryWrapper<SysUser>().eq("username", username));
-    if (Objects.isNull(user)) {
+    SysUser dbUser = userService.getOne(new QueryWrapper<SysUser>().eq("username", username));
+    if (Objects.isNull(dbUser)) {
       // TODO 手机号登录
     }
-    if (Objects.nonNull(user)) {
+    if (Objects.nonNull(dbUser)) {
       // 根据用户ID获取用户角色
-      List<SysUserRole> userRoles = userRoleService.list(new QueryWrapper<SysUserRole>().eq("user_id", user.getUserId()));
+      List<SysUserRole> userRoles = userRoleService.list(new QueryWrapper<SysUserRole>().eq("user_id", dbUser.getUserId()));
       Set<String> roleIds = userRoles.stream().map(SysUserRole::getRoleId).collect(Collectors.toSet());
       List<SysRole> roles = new ArrayList<>(roleService.listByIds(roleIds));
       // 认证权限
@@ -75,10 +75,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
       // 菜单权限
       List<SysMenu> menus = new ArrayList<>(menuService.listByIds(menuIds));
       // 填充用户信息
-      user.setUserRoles(roles);
-      user.setRoleMenus(menus);
-      user.setAuthorities(authorities);
-      return user;
+      dbUser.setUserRoles(roles);
+      dbUser.setRoleMenus(menus);
+      dbUser.setAuthorities(authorities);
+      return dbUser;
     } else {
       log.info("此{}用户不存在！", username);
       throw new UsernameNotFoundException(username + " not found");

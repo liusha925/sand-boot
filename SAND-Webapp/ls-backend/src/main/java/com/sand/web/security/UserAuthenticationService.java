@@ -7,11 +7,15 @@
  */
 package com.sand.web.security;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Maps;
 import com.sand.common.entity.ResultEntity;
 import com.sand.common.enums.CodeEnum;
 import com.sand.common.exception.BusinessException;
+import com.sand.common.util.ParamUtil;
 import com.sand.common.util.ResultUtil;
+import com.sand.common.util.crypt.des.DesCryptUtil;
+import com.sand.common.util.crypt.md5.Md5Util;
 import com.sand.security.web.IUserAuthenticationService;
 import com.sand.sys.entity.SysUser;
 import com.sand.sys.service.ISysUserService;
@@ -22,9 +26,11 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 功能说明：用户认证服务
@@ -53,11 +59,24 @@ public class UserAuthenticationService implements IUserAuthenticationService {
   private JwtTokenUtil jwtTokenUtil;
 
   @Autowired
-  private ISysUserService sysUserService;
+  private ISysUserService userService;
 
   @Override
   public void beforeValidate(Map<String, Object> param) {
     log.info("1、认证前校验");
+    String username = ParamUtil.getStringValue(param, "username");
+    String password = ParamUtil.getStringValue(param, "password");
+    password = DesCryptUtil.decrypt(password);
+    SysUser dbUser = userService.getOne(new QueryWrapper<SysUser>().eq("username", username));
+    if (Objects.isNull(dbUser)) {
+      log.info("{}用户不存在！", username);
+      throw new UsernameNotFoundException("username not found");
+    }
+    String md5Password = Md5Util.encryptStr(password);
+    if (!md5Password.equals(dbUser.getPassword())) {
+      log.info("{}用户密码错误！", username);
+      throw new UsernameNotFoundException("password is error");
+    }
   }
 
   @Override
@@ -76,7 +95,7 @@ public class UserAuthenticationService implements IUserAuthenticationService {
     log.info("3、认证后处理");
     SysUser user = (SysUser) userDetails;
     // 1、存储用户信息至redis
-    SysUser dbUser = sysUserService.getById(user.getUserId());
+    SysUser dbUser = userService.getById(user.getUserId());
     String accessToken = jwtTokenUtil.generateToken(dbUser);
     jwtTokenUtil.putUserToken(dbUser, accessToken);
     jwtTokenUtil.putUserDetail(dbUser);

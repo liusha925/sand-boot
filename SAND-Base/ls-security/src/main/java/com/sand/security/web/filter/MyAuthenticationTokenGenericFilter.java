@@ -79,7 +79,7 @@ public class MyAuthenticationTokenGenericFilter extends GenericFilterBean {
       userAuthenticationService.checkAuthToken(authToken);
       chain.doFilter(httpRequest, httpResponse);
     } catch (Exception e) {
-      log.error("MyAuthenticationTokenGenericFilter异常：{}", e.getMessage());
+      log.error("MyAuthenticationTokenGenericFilter异常", e);
       MyAuthExceptionHandler.accessDeniedException(e, httpResponse);
     }
   }

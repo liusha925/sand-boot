@@ -9,7 +9,6 @@ package com.sand.common.util.crypt.md5;
 
 import com.sand.common.enums.CodeEnum;
 import com.sand.common.exception.BusinessException;
-import com.sand.common.util.lang3.StringUtil;
 import lombok.NoArgsConstructor;
 
 import java.io.FileInputStream;
@@ -27,47 +26,22 @@ import java.security.NoSuchAlgorithmException;
  */
 @NoArgsConstructor
 public class Md5Util {
-
-  private static final String ALGORITHM = "md5";
-  private static final int BUFFER_SIZE = 256 * 1024;
-  private static final String DEFAULT_SALT = "LSand-salt-for-md5";
   private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
   /**
-   * 随机盐值加密
+   * 加密字符串
+   * <pre>
+   *   System.out.println(Md5Util.encryptStr("123456")); = "e10adc3949ba59abbe56e057f20f883e"
+   * </pre>
    *
-   * @return
+   * @param encryptStr 待加密字符串
+   * @return 32位小写加密字符串
    */
-  public static Md5Entity randomSaltStrMD5() {
-    Md5Entity md5Entity = Md5Entity.newInstance();
-    md5Entity.setMd5(strMD5(md5Entity.getSalt()));
-    return md5Entity;
-  }
-
-  /**
-   * 带盐值加密
-   *
-   * @param salt
-   * @return
-   */
-  public static Md5Entity saltStringMD5(String salt) {
-    if (StringUtil.isBlank(salt)) {
-      salt = DEFAULT_SALT;
-    }
-    return new Md5Entity(salt, strMD5(salt));
-  }
-
-  /**
-   * 字符串的md5加密
-   *
-   * @param salt 盐值
-   * @return
-   */
-  public static String strMD5(String salt) {
+  public static String encryptStr(String encryptStr) {
     try {
       // 输入的字符串转换成字节数组
-      byte[] inputByteArray = salt.getBytes();
-      MessageDigest messageDigest = MessageDigest.getInstance(ALGORITHM);
+      byte[] inputByteArray = encryptStr.getBytes();
+      MessageDigest messageDigest = MessageDigest.getInstance("md5");
       messageDigest.update(inputByteArray);
       // 转换并返回结果，也是字节数组，包含16个元素
       byte[] resultByteArray = messageDigest.digest();
@@ -80,34 +54,37 @@ public class Md5Util {
     }
   }
 
+  public static void main(String[] args) {
+    System.out.println(Md5Util.encryptStr("123456"));
+  }
   /**
-   * 文件的md5加密
+   * 加密文件
    *
-   * @param filePath
+   * @param filePath 文件路径
    * @return
    */
-  public static String fileMD5(String filePath) {
+  public static String encryptFile(String filePath) {
     try {
-      return fileMD5(new FileInputStream(filePath));
+      return encryptFile(new FileInputStream(filePath));
     } catch (FileNotFoundException e) {
       throw new BusinessException(CodeEnum.FILE_NOT_EXIST);
     }
   }
 
   /**
-   * 文件md5值
+   * 加密文件
    *
-   * @param fileInputStream
+   * @param fileInputStream fileInputStream
    * @return
    */
-  public static String fileMD5(InputStream fileInputStream) {
+  public static String encryptFile(InputStream fileInputStream) {
     try {
-      MessageDigest messageDigest = MessageDigest.getInstance(ALGORITHM);
+      MessageDigest messageDigest = MessageDigest.getInstance("md5");
       try (
           DigestInputStream digestInputStream = new DigestInputStream(fileInputStream, messageDigest)
       ) {
         // read的过程中进行MD5处理，直到读完文件
-        byte[] buffer = new byte[BUFFER_SIZE];
+        byte[] buffer = new byte[256 * 1024];
         while (digestInputStream.read(buffer) > 0) ;
         // 拿到结果，也是字节数组，包含16个元素
         byte[] resultByteArray = digestInputStream.getMessageDigest().digest();
