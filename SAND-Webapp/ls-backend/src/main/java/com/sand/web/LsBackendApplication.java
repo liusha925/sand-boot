@@ -7,10 +7,13 @@
  */
 package com.sand.web;
 
+import com.sand.redis.config.init.RedisConfigRunner;
+import com.sand.redis.config.init.RedisSentinelRunner;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.util.StringUtils;
 
 /**
  * 功能说明：管理后台启动类
@@ -26,7 +29,15 @@ public class LsBackendApplication {
     SpringApplication application = new SpringApplication(LsBackendApplication.class);
     // 开启/关闭启动logo
     application.setBannerMode(Banner.Mode.CONSOLE);
-    SpringApplication.run(LsBackendApplication.class, args);
+    // 加载自定义配置参数
+    String[] configs = new String[]{
+        // 开启Redis配置加载
+        RedisConfigRunner.CONFIG_APPLIED,
+        // 开启Redis哨兵系统
+        RedisSentinelRunner.SENTINEL_APPLIED
+    };
+    String[] newArgs = StringUtils.concatenateStringArrays(args, configs);
+    SpringApplication.run(LsBackendApplication.class, newArgs);
     log.info("                                   \n" +
         "【LsBackApplication】启动成功 ლ(´ڡ`ლ)ﾞ \n" +
         "   _____         _   _ _____            \n" +

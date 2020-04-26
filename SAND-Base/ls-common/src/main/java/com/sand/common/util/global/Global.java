@@ -20,11 +20,11 @@ import java.util.Properties;
  */
 @Slf4j
 public class Global {
-  private Properties mainProp;
+  private Properties props;
   private static Global global = null;
 
   private Global(String fileName) {
-    mainProp = new PropertiesUtil(fileName).getProperties();
+    props = new PropUtil(fileName).getProperties();
   }
 
   /**
@@ -33,7 +33,7 @@ public class Global {
    * @param fileName 文件名称
    * @return
    */
-  public static synchronized Global getInstance(String fileName) {
+  public static synchronized Global instance(String fileName) {
     if (global == null) {
       synchronized (Global.class) {
         if (global == null) {
@@ -50,15 +50,15 @@ public class Global {
    *     例global.properties文件内容为：spring.profiles.active=test
    * </pre>
    * <pre>
-   *     System.out.println(Global.getInstance("global.properties").getConfig("spring.profiles.active")); = "test"
-   *     System.out.println(Global.getInstance("global.properties").getConfig("spring.profiles.active123")); = null
+   *     System.out.println(Global.instance("global.properties").getProperty("spring.profiles.active")); = "test"
+   *     System.out.println(Global.instance("global.properties").getProperty("spring.profiles.active123")); = null
    * </pre>
    *
    * @param key key
    * @return value
    */
-  public String getConfig(String key) {
-    return getConfig(mainProp, key, null);
+  public String getProperty(String key) {
+    return getProperty(props, key, null);
   }
 
   /**
@@ -67,16 +67,16 @@ public class Global {
    *     例global.properties文件内容为：spring.profiles.active=test
    * </pre>
    * <pre>
-   *     System.out.println(Global.getInstance("global.properties").getConfig("spring.profiles.active", "test")); = "test"
-   *     System.out.println(Global.getInstance("global.properties").getConfig("spring.profiles.active123", "test")); = "test"
+   *     System.out.println(Global.instance("global.properties").getProperty("spring.profiles.active", "test")); = "test"
+   *     System.out.println(Global.instance("global.properties").getProperty("spring.profiles.active123", "test")); = "test"
    * </pre>
    *
    * @param key          key
    * @param defaultValue 默认值
    * @return value
    */
-  public String getConfig(String key, String defaultValue) {
-    return getConfig(mainProp, key, defaultValue);
+  public String getProperty(String key, String defaultValue) {
+    return getProperty(props, key, defaultValue);
   }
 
   /**
@@ -87,12 +87,22 @@ public class Global {
    * @param defaultValue 默认值
    * @return value
    */
-  public String getConfig(Properties prop, String key, String defaultValue) {
+  public String getProperty(Properties prop, String key, String defaultValue) {
     String value = prop.getProperty(key);
     if (StringUtil.isNotBlank(value)) {
       return value.trim();
     }
     return defaultValue;
+  }
+
+  /**
+   * 添加配置
+   *
+   * @param key   key
+   * @param value value
+   */
+  public void setProperty(String key, String value) {
+    props.put(key, value);
   }
 
 }

@@ -26,15 +26,15 @@ import java.util.Properties;
  */
 @Slf4j
 @NoArgsConstructor
-public class PropertiesUtil {
+public class PropUtil {
 
   private Properties properties;
 
-  public PropertiesUtil(String fileName) {
+  public PropUtil(String fileName) {
     this(fileName, SandCharset.UTF_8);
   }
 
-  public PropertiesUtil(String fileName, String encoding) {
+  public PropUtil(String fileName, String encoding) {
     InputStream input = null;
     try {
       log.info("loading file：{}", fileName);

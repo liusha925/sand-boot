@@ -8,6 +8,7 @@
 package com.sand.common.util.lang3;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.ObjectUtils;
 
 import java.util.HashSet;
 import java.util.List;
@@ -234,6 +235,43 @@ public class StringUtil extends StringUtils {
     Set<T> set = new HashSet<>();
     set.addAll(list);
     return list.size() != set.size();
+  }
+
+  /**
+   * 扩充字符数组
+   * <pre>
+   *    String[] newArray = StringUtil.addStringToArray(new String[]{"1", "2"}, "3", "4");
+   *    Arrays.stream(newArray).forEach(str -> System.out.print(str + " ")); = 1 2 3 4
+   *
+   *    String[] newArray = StringUtil.addStringToArray(null, "3", "4");
+   *    Arrays.stream(newArray).forEach(str -> System.out.print(str + " ")); = 3 4
+   *
+   *    也可以用org.springframework.util.StringUtils.addStringToArray(String[] array, String str)
+   *    或者org.springframework.util.StringUtils.concatenateStringArrays(String[] array1, String[] array2)替代
+   * </pre>
+   *
+   * @param array 字符数组
+   * @param str   字符串
+   * @return 新的字符数组
+   */
+  public static String[] addStringToArray(String[] array, String... str) {
+    String[] newArray;
+    int strSize = str.length;
+    if (ObjectUtils.isEmpty(array)) {
+      newArray = new String[strSize];
+      for (int i = 0; i < strSize; i++) {
+        newArray[i] = str[i];
+      }
+      return newArray;
+    } else {
+      int arrSize = array.length;
+      newArray = new String[arrSize + strSize];
+      for (int i = 0; i < strSize; i++) {
+        System.arraycopy(array, 0, newArray, 0, arrSize);
+        newArray[arrSize + i] = str[i];
+      }
+      return newArray;
+    }
   }
 
 }

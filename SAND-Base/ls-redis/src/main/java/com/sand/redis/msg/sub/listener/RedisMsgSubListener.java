@@ -24,7 +24,6 @@ import java.util.concurrent.locks.Condition;
  * 功能描述：Redis订阅消息监听器
  */
 @Slf4j
-@Component
 public class RedisMsgSubListener extends JedisPubSub {
   /**
    * 监听到订阅频道接受到消息时的回调
@@ -37,9 +36,9 @@ public class RedisMsgSubListener extends JedisPubSub {
     log.info("监听到订阅频道接受到消息时的回调: channel[{}], message[{}]", new Object[]{channel, message});
     try {
       if (StringUtil.isNotBlank(message)) {
-        // 规则需要跟服务端约定好
-        String[] messages = message.split("\\|");
-        if (messages.length > 2) {
+        // 规则需要跟发布消息的服务端约定好
+        String[] messages = message.split("[|\\s]+");
+        if (messages.length == 2) {
           String uuid = messages[0];
           String data = messages[1];
           if (LockManager.lockBeanMap.containsKey(uuid)) {
@@ -52,6 +51,8 @@ public class RedisMsgSubListener extends JedisPubSub {
               condition.signal();
               LockManager.lock.unlock();
             }
+          } else {
+            log.info("找不到此uuid：{}", uuid);
           }
         } else {
           log.info("订阅消息格式不符合规定：uuid|data");
@@ -79,12 +80,12 @@ public class RedisMsgSubListener extends JedisPubSub {
   /**
    * 订阅频道时的回调
    *
-   * @param channel            channel
-   * @param subscribedChannels subscribedChannels
+   * @param channel            订阅频道
+   * @param subscribedChannels 频道数量
    */
   @Override
   public void onSubscribe(String channel, int subscribedChannels) {
-    log.info("订阅频道时的回调: channel[{}], subscribedChannels[{}]", new Object[]{channel, subscribedChannels});
+    log.info("订阅频道时的回调: 订阅频道[{}], 频道数量[{}]", new Object[]{channel, subscribedChannels});
   }
 
   /**

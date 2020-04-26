@@ -7,9 +7,9 @@
  */
 package com.sand.redis.msg.sub.thread;
 
+import com.sand.common.util.CloseableUtil;
 import com.sand.redis.msg.sub.listener.RedisMsgSubListener;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisSentinelPool;
 
@@ -24,7 +24,7 @@ public class RedisMsgSubThread extends Thread {
   /**
    * 订阅频道
    */
-  private String channel;
+  private String channels;
   /**
    * Redis连接池
    */
@@ -32,31 +32,30 @@ public class RedisMsgSubThread extends Thread {
   /**
    * 消息订阅监听器
    */
-  @Autowired
-  private RedisMsgSubListener listener;
+  private final RedisMsgSubListener redisMsgSubListener = new RedisMsgSubListener();
 
   public RedisMsgSubThread(JedisSentinelPool jedisPool) {
     super("RedisMsgSubThread");
     this.jedisPool = jedisPool;
   }
 
-  public RedisMsgSubThread(JedisSentinelPool jedisPool, String channel) {
+  public RedisMsgSubThread(JedisSentinelPool jedisPool, String channels) {
     super("RedisMsgSubThread");
     this.jedisPool = jedisPool;
-    this.channel = channel;
+    this.channels = channels;
   }
 
   @Override
   public void run() {
-    log.info("开始订阅频道[{}]下的消息", channel);
+    log.info("开始订阅频道[{}]下的消息", channels);
     Jedis jedis = null;
     try {
       jedis = jedisPool.getResource();
-      jedis.subscribe(listener, channel);
+      jedis.subscribe(redisMsgSubListener, channels);
     } catch (Exception e) {
       log.error("消息订阅失败，", e);
     } finally {
-      jedis.close();
+      CloseableUtil.close(jedis);
     }
 
   }

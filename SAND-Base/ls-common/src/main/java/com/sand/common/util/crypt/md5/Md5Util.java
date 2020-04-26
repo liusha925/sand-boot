@@ -54,9 +54,6 @@ public class Md5Util {
     }
   }
 
-  public static void main(String[] args) {
-    System.out.println(Md5Util.encryptStr("123456"));
-  }
   /**
    * 加密文件
    *
