@@ -8,13 +8,17 @@
 package com.sand.redis.msg;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.google.gson.Gson;
 import com.sand.JunitBootStrap;
 import com.sand.common.util.global.Config;
+import com.sand.redis.config.RedisConfig;
 import com.sand.redis.config.init.RedisSentinelRunner;
 import com.sand.redis.msg.sub.manager.LockBean;
 import com.sand.redis.msg.sub.manager.LockManager;
+import com.sand.redis.repository.RedisRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.JedisSentinelPool;
 
 import java.util.Arrays;
@@ -29,11 +33,14 @@ import java.util.concurrent.locks.Condition;
  */
 @Slf4j
 public class JedisMsgUtilTest extends JunitBootStrap {
+  @Autowired
+  private RedisConfig redisConfig;
 
   @Test
   public void publishMsg() {
     String uuid = IdWorker.getIdStr();
     // 使用线程模拟发布消息与订阅消息在两台不同的服务器之间的处理
+    // 1、发布服务器
     new Thread(() -> {
       log.info("Redis发布消息...");
       JedisSentinelPool jedisPool = (JedisSentinelPool) Config.getConfig(RedisSentinelRunner.SENTINEL_APPLIED);
@@ -42,11 +49,14 @@ public class JedisMsgUtilTest extends JunitBootStrap {
       String data = "哨兵已就位";
       String message = uuid + "|" + data;
 
-      String channels = Config.getProperty("redis.subscribe.channels");
+      String channels = Config.getProperty("redis.sentinel.subscribe.channels");
       String[] channelArray = channels.split("[,\\s]+");
       Arrays.stream(channelArray).forEach(channel -> msgUtil.publishMsg(channel, message));
+      // 消息存储在redis数据库中
+      RedisRepository redisRepository = redisConfig.getRedisRepository(3);
+      redisRepository.expireHashValue(uuid, channels, new Gson().toJson(message), 60);
     }).start();
-
+    // 2、订阅服务器
     log.info("订阅消息处理...");
     // 初始化LockBean
     Condition condition = LockManager.lock.newCondition();

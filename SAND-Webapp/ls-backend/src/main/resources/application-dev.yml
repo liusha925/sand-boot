@@ -7,22 +7,6 @@ spring:
     url: jdbc:mysql://localhost:3306/ls_sys?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false
     username: root
     password: root
-  # redis配置
-  redis:
-    #  默认索引
-    database: 0
-    port: 6379
-    host: 127.0.0.1
-    password:
-    timeout: 0
-    jedis:
-      pool:
-        # 最大空闲连接数
-        max-idle: 8
-        # 最大等待时间
-        max-wait: -1
-        # 初始化连接数
-        min-idle: 0
 # mybatis-plus配置
 mybatis-plus:
   # 扫描表实体注册别名，参考https://mp.baomidou.com/config/#typealiasespackage
@@ -39,20 +23,21 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
 #######################SSS 自定义配置 SSS#######################
-# 安全认证授权配置
-security:
-  jwt:
-    # 密钥
-    secret: k09BQnaF
-    # token有效期7天
-    expiration: 604800
-# 自定义redis数据库配置
-lsredis:
-  databases:
-    -
-      dbIndex: 1
-      dbName: 'session库'
-    -
-      dbIndex: 2
-      dbName: '用户权限库'
+sand:
+  # 安全认证授权配置
+  security:
+    jwt:
+      # 密钥
+      secret: k09BQnaF
+      # token有效期7天
+      expiration: 604800
+  # 自定义redis数据库配置
+  redis:
+    databases:
+      -
+        dbIndex: 1
+        dbName: 'session库'
+      -
+        dbIndex: 2
+        dbName: '用户权限库'
 #######################EEE 自定义配置 EEE#######################

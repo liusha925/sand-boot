@@ -66,13 +66,13 @@ public class UserAuthenticationService implements IUserAuthenticationService {
     log.info("1、认证前校验");
     String username = ParamUtil.getStringValue(param, "username");
     String password = ParamUtil.getStringValue(param, "password");
-    password = DesCryptUtil.decrypt(password);
     SysUser dbUser = userService.getOne(new QueryWrapper<SysUser>().eq("username", username));
     if (Objects.isNull(dbUser)) {
       log.info("{}用户不存在！", username);
       throw new UsernameNotFoundException("username not found");
     }
-    String md5Password = Md5Util.encryptStr(password);
+    // 先将前端DES加密的密码解密再做md5加密比对
+    String md5Password = Md5Util.encryptStr(DesCryptUtil.decrypt(password));
     if (!md5Password.equals(dbUser.getPassword())) {
       log.info("{}用户密码错误！", username);
       throw new UsernameNotFoundException("password is error");

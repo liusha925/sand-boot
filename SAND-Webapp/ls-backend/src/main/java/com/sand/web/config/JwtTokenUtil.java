@@ -29,7 +29,7 @@ import java.util.Date;
  */
 @Data
 @Component
-@ConfigurationProperties("security.jwt")
+@ConfigurationProperties("sand.security.jwt")
 public class JwtTokenUtil extends AbstractTokenUtil {
   /**
    * 用户token信息缓存关键字

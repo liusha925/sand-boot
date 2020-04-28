@@ -9,7 +9,6 @@ package com.sand.security.controller;
 
 import com.sand.common.entity.ResultEntity;
 import com.sand.common.util.ParamUtil;
-import com.sand.common.util.crypt.des.DesCryptUtil;
 import com.sand.security.web.IUserAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -45,7 +44,6 @@ public class AuthController {
   public ResultEntity login(@RequestParam Map<String, Object> param) {
     String username = ParamUtil.getStringValue(param, "username");
     String password = ParamUtil.getStringValue(param, "password");
-    password = DesCryptUtil.decrypt(password);
 
     return authentication(param, new UsernamePasswordAuthenticationToken(username, password));
   }

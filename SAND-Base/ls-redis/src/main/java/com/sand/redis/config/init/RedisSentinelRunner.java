@@ -13,10 +13,8 @@ import com.sand.redis.msg.sub.thread.RedisMsgSubThread;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.SpringApplication;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisSentinelPool;
 
@@ -58,28 +56,33 @@ public class RedisSentinelRunner implements ApplicationRunner {
     List<String> argsList = Arrays.asList(args.getSourceArgs());
     if (argsList.contains(SENTINEL_APPLIED)) {
       log.info("Redis哨兵系统 启动开始...");
-      String channels = Config.getProperty("redis.subscribe.channels");
-      String masterName = Config.getProperty("redis.sentinel.masterName", "mymaster");
-      int minIdle = SandConvert.obj2Int(Config.getProperty("redis.sentinel.pool.minIdle", "0"));
-      int maxIdle = SandConvert.obj2Int(Config.getProperty("redis.sentinel.pool.maxIdle", "8"));
-      int maxTotal = SandConvert.obj2Int(Config.getProperty("redis.sentinel.pool.maxTotal", "8"));
-      String sentinelAddress = Config.getProperty("redis.sentinel.address", "127.0.0.1:16379,127.0.0.1:26379,127.0.0.1:36379");
+      try {
+        String channels = Config.getProperty("redis.sentinel.subscribe.channels");
+        String masterName = Config.getProperty("redis.sentinel.master-name", "mymaster");
+        int minIdle = SandConvert.obj2Int(Config.getProperty("redis.sentinel.pool.min-idle", "0"));
+        int maxIdle = SandConvert.obj2Int(Config.getProperty("redis.sentinel.pool.max-idle", "8"));
+        int maxTotal = SandConvert.obj2Int(Config.getProperty("redis.sentinel.pool.max-total", "8"));
+        String sentinelAddress = Config.getProperty("redis.sentinel.address", "127.0.0.1:16379,127.0.0.1:26379,127.0.0.1:36379");
 
-      Set<String> sentinels = new HashSet<>();
-      Collections.addAll(sentinels, sentinelAddress.split("[,\\s]+"));
-      JedisPoolConfig poolConfig = new JedisPoolConfig();
-      poolConfig.setMinIdle(minIdle);
-      poolConfig.setMaxIdle(maxIdle);
-      poolConfig.setMaxTotal(maxTotal);
-      log.info("masterName：{}，minIdle：{}，maxIdle：{}，maxTotal：{}，sentinels：{}", masterName, minIdle, maxIdle, maxTotal, sentinels);
-      JedisSentinelPool sentinelPool = new JedisSentinelPool(masterName, sentinels, poolConfig);
-      // 将哨兵配置信息存储于全局配置config中
-      Config.setConfig(SENTINEL_APPLIED, sentinelPool);
-      RedisMsgSubThread msgSubThread = new RedisMsgSubThread(sentinelPool, channels);
-      msgSubThread.start();
-      log.info("...Redis哨兵系统 启动完成");
+        Set<String> sentinels = new HashSet<>();
+        Collections.addAll(sentinels, sentinelAddress.split("[,\\s]+"));
+        JedisPoolConfig poolConfig = new JedisPoolConfig();
+        poolConfig.setMinIdle(minIdle);
+        poolConfig.setMaxIdle(maxIdle);
+        poolConfig.setMaxTotal(maxTotal);
+        log.info("masterName：{}，minIdle：{}，maxIdle：{}，maxTotal：{}，sentinels：{}", masterName, minIdle, maxIdle, maxTotal, sentinels);
+        JedisSentinelPool sentinelPool = new JedisSentinelPool(masterName, sentinels, poolConfig);
+        // 将哨兵配置信息存储于全局配置config中
+        Config.setConfig(SENTINEL_APPLIED, sentinelPool);
+        RedisMsgSubThread msgSubThread = new RedisMsgSubThread(sentinelPool, channels);
+        msgSubThread.start();
+        log.info("...Redis哨兵系统 启动完成");
+      } catch (Exception e) {
+        log.info("Redis哨兵系统 启动异常", e);
+      }
     } else {
       log.info("Redis哨兵系统 未开启");
     }
+
   }
 }

@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "lsredis")
+@ConfigurationProperties(prefix = "sand.redis")
 public class RedisDatabaseProperties {
   private List<RedisDatabase> databases = new ArrayList<>();
 }

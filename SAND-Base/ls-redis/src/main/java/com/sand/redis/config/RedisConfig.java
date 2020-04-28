@@ -10,13 +10,14 @@ package com.sand.redis.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sand.common.util.convert.SandConvert;
+import com.sand.common.util.crypt.des.DesCryptUtil;
+import com.sand.common.util.global.Config;
 import com.sand.redis.config.properties.RedisDatabase;
 import com.sand.redis.config.properties.RedisDatabaseProperties;
 import com.sand.redis.repository.RedisRepository;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -42,25 +43,9 @@ import java.util.Map;
  * 开发日期：2020/3/30 17:19
  * 功能描述：在启动系统时候，加载配置信息，由spring.factories配置
  */
-@Data
 @Slf4j
 @Configuration
 public class RedisConfig {
-  @Value("${spring.redis.database}")
-  private int database;
-  @Value("${spring.redis.port}")
-  private int port;
-  @Value("${spring.redis.host}")
-  private String hostName;
-  @Value("${spring.redis.password}")
-  private String password;
-  @Value("${spring.redis.timeout}")
-  private int timeout;
-  @Value("${spring.redis.jedis.pool.max-idle}")
-  private int maxIdle;
-  @Value("${spring.redis.jedis.pool.min-idle}")
-  private int minIdle;
-
   @Autowired
   private RedisDatabaseProperties databaseProperties;
 
@@ -69,17 +54,18 @@ public class RedisConfig {
   @PostConstruct
   public void initRedisTemp() throws Exception {
     log.info("### S 初始化 Redis 连接池 S ###");
+    int database = SandConvert.obj2Int(Config.getProperty("redis.database", "0"));
     List<RedisDatabase> databases = databaseProperties.getDatabases();
     if (CollectionUtils.isEmpty(databases)) {
       log.info("初始化 Redis 连接池 【默认库】");
       redisTemplateMap.put(database, redisTemplate(database));
     } else {
-      databases.forEach(database -> {
-        log.info("初始化 配置库{}【{}】", database.getDbIndex(), database.getDbName());
+      databases.forEach(data -> {
+        log.info("初始化 配置库{}【{}】", data.getDbIndex(), data.getDbName());
         try {
-          redisTemplateMap.put(database.getDbIndex(), redisTemplate(database.getDbIndex()));
+          redisTemplateMap.put(data.getDbIndex(), redisTemplate(data.getDbIndex()));
         } catch (Exception e) {
-          log.info("初始化 配置库{}【{}】异常！", database.getDbIndex(), database.getDbName());
+          log.info("初始化 配置库{}【{}】异常！", data.getDbIndex(), data.getDbName());
           e.printStackTrace();
         }
       });
@@ -94,6 +80,7 @@ public class RedisConfig {
    */
   @Bean
   public RedisRepository redisRepository() {
+    int database = SandConvert.obj2Int(Config.getProperty("redis.database", "0"));
     RedisTemplate<String, String> redisTemplate = redisTemplateMap.get(database);
     return new RedisRepository(redisTemplate);
   }
@@ -135,12 +122,15 @@ public class RedisConfig {
     // 单机版jedis
     RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
     // 设置redis服务器的host或者ip地址
+    String hostName = Config.getProperty("redis.host");
     redisStandaloneConfiguration.setHostName(hostName);
     // 设置默认使用的数据库
     redisStandaloneConfiguration.setDatabase(dbIndex);
-    // 设置密码
+    // 设置密码（密码由DES加密，此处需要先解密处理）
+    String password = DesCryptUtil.decrypt(Config.getProperty("redis.password"));
     redisStandaloneConfiguration.setPassword(RedisPassword.of(password));
     // 设置redis的服务的端口号
+    int port = SandConvert.obj2Int(Config.getProperty("redis.port", "6379"));
     redisStandaloneConfiguration.setPort(port);
     // 获得默认的连接池构造器
     JedisClientConfiguration.JedisPoolingClientConfigurationBuilder configurationBuilder =
@@ -160,10 +150,10 @@ public class RedisConfig {
    */
   @Bean
   public JedisPoolConfig jedisPoolConfig() {
+    int minIdle = SandConvert.obj2Int(Config.getProperty("redis.pool.min-idle", "0"));
+    int maxIdle = SandConvert.obj2Int(Config.getProperty("redis.pool.max-idle", "8"));
     JedisPoolConfig poolConfig = new JedisPoolConfig();
-    // 最大连接数
     poolConfig.setMaxIdle(maxIdle);
-    // 最小空闲连接数
     poolConfig.setMinIdle(minIdle);
     poolConfig.setTestOnBorrow(true);
     poolConfig.setTestOnReturn(true);
