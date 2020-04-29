@@ -7,6 +7,7 @@
  */
 package com.sand.redis.config.init;
 
+import cn.hutool.core.thread.ThreadUtil;
 import com.sand.common.util.convert.SandConvert;
 import com.sand.common.util.global.Config;
 import com.sand.redis.msg.sub.thread.RedisMsgSubThread;
@@ -75,7 +76,7 @@ public class RedisSentinelRunner implements ApplicationRunner {
         // 将哨兵配置信息存储于全局配置config中
         Config.setConfig(SENTINEL_APPLIED, sentinelPool);
         RedisMsgSubThread msgSubThread = new RedisMsgSubThread(sentinelPool, channels);
-        msgSubThread.start();
+        ThreadUtil.execAsync(msgSubThread);
         log.info("...Redis哨兵系统 启动完成");
       } catch (Exception e) {
         log.info("Redis哨兵系统 启动异常", e);

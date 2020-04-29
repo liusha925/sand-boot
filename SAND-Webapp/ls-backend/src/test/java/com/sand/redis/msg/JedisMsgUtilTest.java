@@ -7,10 +7,12 @@
  */
 package com.sand.redis.msg;
 
+import cn.hutool.core.thread.ThreadUtil;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.google.gson.Gson;
 import com.sand.JunitBootStrap;
 import com.sand.common.util.global.Config;
+import com.sand.common.util.spring.SpringUtil;
 import com.sand.redis.config.RedisConfig;
 import com.sand.redis.config.init.RedisSentinelRunner;
 import com.sand.redis.msg.sub.manager.LockBean;
@@ -18,7 +20,6 @@ import com.sand.redis.msg.sub.manager.LockManager;
 import com.sand.redis.repository.RedisRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.JedisSentinelPool;
 
 import java.util.Arrays;
@@ -33,9 +34,6 @@ import java.util.concurrent.locks.Condition;
  */
 @Slf4j
 public class JedisMsgUtilTest extends JunitBootStrap {
-  @Autowired
-  private RedisConfig redisConfig;
-
   @Test
   public void publishMsg() {
     String uuid = IdWorker.getIdStr();
@@ -48,11 +46,11 @@ public class JedisMsgUtilTest extends JunitBootStrap {
 
       String data = "哨兵已就位";
       String message = uuid + "|" + data;
-
       String channels = Config.getProperty("redis.sentinel.subscribe.channels");
       String[] channelArray = channels.split("[,\\s]+");
       Arrays.stream(channelArray).forEach(channel -> msgUtil.publishMsg(channel, message));
       // 消息存储在redis数据库中
+      RedisConfig redisConfig = SpringUtil.getBean(RedisConfig.class);
       RedisRepository redisRepository = redisConfig.getRedisRepository(3);
       redisRepository.expireHashValue(uuid, channels, new Gson().toJson(message), 60);
     }).start();
@@ -81,4 +79,14 @@ public class JedisMsgUtilTest extends JunitBootStrap {
       LockManager.lock.unlock();
     }
   }
+
+  @Test
+  public void huTool() {
+    Thread thread = new Thread(() -> {
+      System.out.println("跑起来了。。。");
+    });
+    ThreadUtil.execAsync(thread);
+    System.out.println("主线程。。。");
+  }
+
 }
