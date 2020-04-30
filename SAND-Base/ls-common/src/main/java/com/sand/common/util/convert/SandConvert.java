@@ -70,7 +70,7 @@ public class SandConvert<K, T> {
   /**
    * List集合类转换
    *
-   * @return
+   * @return 集合类
    */
   public Function<List, List> kList2tList() {
     return entities -> kList2tList(entities);

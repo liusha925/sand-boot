@@ -5,7 +5,7 @@
  * 2020/3/30    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.redis.repository;
+package com.sand.redis.manager.repository;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sand.common.util.convert.SandCharset;

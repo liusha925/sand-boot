@@ -31,13 +31,4 @@ sand:
       secret: k09BQnaF
       # token有效期7天
       expiration: 604800
-  # 自定义redis数据库配置
-  redis:
-    databases:
-      -
-        dbIndex: 1
-        dbName: 'session库'
-      -
-        dbIndex: 2
-        dbName: '用户权限库'
 #######################EEE 自定义配置 EEE#######################

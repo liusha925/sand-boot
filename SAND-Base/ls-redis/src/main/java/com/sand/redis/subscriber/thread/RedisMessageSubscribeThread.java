@@ -5,12 +5,11 @@
  * 2020/4/15    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.redis.msg.sub.thread;
+package com.sand.redis.subscriber.thread;
 
-import com.sand.common.util.CloseableUtil;
-import com.sand.redis.msg.sub.listener.RedisMsgSubListener;
+import com.sand.redis.util.RedisMessageUtil;
+import com.sand.redis.subscriber.listener.RedisSubscriberListener;
 import lombok.extern.slf4j.Slf4j;
-import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisSentinelPool;
 
 /**
@@ -20,7 +19,7 @@ import redis.clients.jedis.JedisSentinelPool;
  * 功能描述：消息订阅
  */
 @Slf4j
-public class RedisMsgSubThread extends Thread {
+public class RedisMessageSubscribeThread extends Thread {
   /**
    * 订阅频道
    */
@@ -32,15 +31,10 @@ public class RedisMsgSubThread extends Thread {
   /**
    * 消息订阅监听器
    */
-  private final RedisMsgSubListener redisMsgSubListener = new RedisMsgSubListener();
+  private final RedisSubscriberListener redisSubscriberListener = new RedisSubscriberListener();
 
-  public RedisMsgSubThread(JedisSentinelPool jedisPool) {
-    super("RedisMsgSubThread");
-    this.jedisPool = jedisPool;
-  }
-
-  public RedisMsgSubThread(JedisSentinelPool jedisPool, String channels) {
-    super("RedisMsgSubThread");
+  public RedisMessageSubscribeThread(JedisSentinelPool jedisPool, String channels) {
+    super("redisMessageSubscribeThread");
     this.jedisPool = jedisPool;
     this.channels = channels;
   }
@@ -48,15 +42,12 @@ public class RedisMsgSubThread extends Thread {
   @Override
   public void run() {
     log.info("开始订阅频道[{}]下的消息", channels);
-    Jedis jedis = null;
     try {
-      jedis = jedisPool.getResource();
-      jedis.subscribe(redisMsgSubListener, channels);
+      RedisMessageUtil messageUtil = new RedisMessageUtil(jedisPool);
+      messageUtil.subscribe(redisSubscriberListener, channels);
     } catch (Exception e) {
-      log.error("消息订阅失败，", e);
-    } finally {
-      CloseableUtil.close(jedis);
+      log.error("订阅消息失败", e);
     }
-
   }
+
 }

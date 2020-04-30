@@ -18,4 +18,8 @@ public final class Constant {
    * 系统表前缀
    */
   public static final String TABLE_PREFIX_SYS = "sys_";
+  /**
+   * Redis数据库启用个数
+   */
+  public static final int REDIS_DATABASE_SIZE = 4;
 }

@@ -5,7 +5,7 @@
  * 2020/4/26    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.redis.config.init;
+package com.sand.redis.config;
 
 import com.sand.common.util.convert.SandConvert;
 import com.sand.common.util.global.Config;

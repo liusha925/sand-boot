@@ -8,14 +8,15 @@
 package com.sand.web.config;
 
 import com.google.gson.Gson;
+import com.sand.common.util.convert.SandConvert;
+import com.sand.common.util.global.Config;
 import com.sand.redis.config.RedisConfig;
-import com.sand.redis.repository.RedisRepository;
+import com.sand.redis.manager.repository.RedisRepository;
 import com.sand.security.web.util.AbstractTokenUtil;
 import com.sand.sys.entity.SysUser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -40,9 +41,6 @@ public class JwtTokenUtil extends AbstractTokenUtil {
    */
   public static final String REDIS_USER_KEY_DETAIL = "user.detail";
 
-  @Autowired
-  private RedisConfig redisConfig;
-
   /**
    * 生成token
    *
@@ -65,7 +63,8 @@ public class JwtTokenUtil extends AbstractTokenUtil {
    * @param token token
    */
   public void putUserToken(SysUser user, String token) {
-    RedisRepository redisRepository = redisConfig.getRedisRepository(1);
+    int dbIndex = SandConvert.obj2Int(Config.getProperty("redis.database.user-session", "0"));
+    RedisRepository redisRepository = RedisConfig.getRedisRepository(dbIndex);
     String key = new StringBuilder(REDIS_USER_KEY_TOKEN).append("_").append(user.getUserId()).toString();
     redisRepository.expireHashValue(key, REDIS_USER_KEY_TOKEN, new Gson().toJson(token), expiration);
   }
@@ -76,7 +75,8 @@ public class JwtTokenUtil extends AbstractTokenUtil {
    * @param user 用户信息
    */
   public void putUserDetail(SysUser user) {
-    RedisRepository redisRepository = redisConfig.getRedisRepository(2);
+    int dbIndex = SandConvert.obj2Int(Config.getProperty("redis.database.user-info", "0"));
+    RedisRepository redisRepository = RedisConfig.getRedisRepository(dbIndex);
     String key = new StringBuilder(REDIS_USER_KEY_DETAIL).append("_").append(user.getUserId()).toString();
     redisRepository.expireHashValue(key, REDIS_USER_KEY_DETAIL, new Gson().toJson(user), expiration);
   }

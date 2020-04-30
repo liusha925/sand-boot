@@ -59,7 +59,7 @@ public class StringUtil extends StringUtils {
    *   System.out.println(StringUtil.getUniqueSerialNo()); = "202004161446356330693259868"
    * </pre>
    *
-   * @return
+   * @return 唯一的序列号
    */
   public static synchronized String getUniqueSerialNo() {
     int hashCode = UUID.randomUUID().toString().hashCode();

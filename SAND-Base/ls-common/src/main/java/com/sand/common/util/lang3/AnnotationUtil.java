@@ -132,7 +132,7 @@ public class AnnotationUtil extends AnnotationUtils {
    *
    * @param clz        目标类
    * @param annotation 注解类
-   * @return
+   * @return 注解方法
    */
   public static List<Method> getAnnotatedMethods(Class clz, Class annotation) {
     Method[] methods = clz.getDeclaredMethods();
@@ -176,7 +176,7 @@ public class AnnotationUtil extends AnnotationUtils {
    *
    * @param joinPoint 切面
    * @return 成员方法
-   * @throws ClassNotFoundException
+   * @throws ClassNotFoundException ClassNotFoundException
    */
   public static Method getAnnotationMethod(JoinPoint joinPoint) throws ClassNotFoundException {
     String targetName = joinPoint.getTarget().getClass().getName();

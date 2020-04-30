@@ -7,8 +7,8 @@
  */
 package com.sand.web;
 
-import com.sand.redis.config.init.RedisConfigRunner;
-import com.sand.redis.config.init.RedisSentinelRunner;
+import com.sand.redis.config.RedisConfigRunner;
+import com.sand.redis.consumer.init.RedisConsumeRunner;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
@@ -34,7 +34,9 @@ public class LsBackendApplication {
         // 开启Redis配置加载
         RedisConfigRunner.CONFIG_APPLIED,
         // 开启Redis哨兵系统
-        RedisSentinelRunner.SENTINEL_APPLIED
+//        RedisSentinelRunner.SENTINEL_APPLIED,
+        // 开启消费者系统
+        RedisConsumeRunner.CONSUME_APPLIED
     };
     String[] newArgs = StringUtils.concatenateStringArrays(args, configs);
     SpringApplication.run(LsBackendApplication.class, newArgs);

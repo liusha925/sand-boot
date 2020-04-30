@@ -5,12 +5,12 @@
  * 2020/4/26    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.redis.config.init;
+package com.sand.redis.subscriber.init;
 
 import cn.hutool.core.thread.ThreadUtil;
 import com.sand.common.util.convert.SandConvert;
 import com.sand.common.util.global.Config;
-import com.sand.redis.msg.sub.thread.RedisMsgSubThread;
+import com.sand.redis.subscriber.thread.RedisMessageSubscribeThread;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -58,7 +58,7 @@ public class RedisSentinelRunner implements ApplicationRunner {
     if (argsList.contains(SENTINEL_APPLIED)) {
       log.info("Redis哨兵系统 启动开始...");
       try {
-        String channels = Config.getProperty("redis.sentinel.subscribe.channels");
+        String channels = Config.getProperty("redis.subscribe.channels");
         String masterName = Config.getProperty("redis.sentinel.master-name", "mymaster");
         int minIdle = SandConvert.obj2Int(Config.getProperty("redis.sentinel.pool.min-idle", "0"));
         int maxIdle = SandConvert.obj2Int(Config.getProperty("redis.sentinel.pool.max-idle", "8"));
@@ -75,8 +75,10 @@ public class RedisSentinelRunner implements ApplicationRunner {
         JedisSentinelPool sentinelPool = new JedisSentinelPool(masterName, sentinels, poolConfig);
         // 将哨兵配置信息存储于全局配置config中
         Config.setConfig(SENTINEL_APPLIED, sentinelPool);
-        RedisMsgSubThread msgSubThread = new RedisMsgSubThread(sentinelPool, channels);
+        // 消息订阅
+        RedisMessageSubscribeThread msgSubThread = new RedisMessageSubscribeThread(sentinelPool, channels);
         ThreadUtil.execAsync(msgSubThread);
+        // TODO 也可以加入其它订阅辑，参考消息订阅逻辑
         log.info("...Redis哨兵系统 启动完成");
       } catch (Exception e) {
         log.info("Redis哨兵系统 启动异常", e);

@@ -388,7 +388,7 @@ public class DateUtil extends DateUtils {
    *   System.out.println(DateUtil.getNowTimestamp()); = 1586929409
    * </pre>
    *
-   * @return
+   * @return 当前时间戳
    */
   public static long getNowTimestamp() {
     return getTimestamp(new Date(), Format.F1_YYYY_MM_DD_HH_MM_SS_SSS);
@@ -434,7 +434,7 @@ public class DateUtil extends DateUtils {
    *
    * @param date   需要转换的日期
    * @param format the pattern from Format
-   * @return
+   * @return 时间戳
    */
   public static long getTimestamp(Date date, Format format) {
     SimpleDateFormat sdf = new SimpleDateFormat(format.getPattern());
@@ -481,7 +481,7 @@ public class DateUtil extends DateUtils {
    *
    * @param seconds 需要转换的时间戳
    * @param format  the pattern from Format
-   * @return
+   * @return 时间字符串
    */
   public static String formatTimestamp(long seconds, Format format) {
     return DateFormatUtils.format(seconds * 1000, format.getPattern());
@@ -495,9 +495,9 @@ public class DateUtil extends DateUtils {
    *   System.out.println(DateUtil.daysBetween(startDate, endDate)); = 14
    * </pre>
    *
-   * @param startDate
-   * @param endDate
-   * @return
+   * @param startDate 开始日期
+   * @param endDate 结束日期
+   * @return 相差？天
    */
   public static long daysBetween(Date startDate, Date endDate) {
     return timesBetween(startDate, endDate, TimeMillis.DAY);
@@ -518,7 +518,7 @@ public class DateUtil extends DateUtils {
    * @param startDate 起始时间
    * @param endDate   结束时间
    * @param millis    换算单位 按四舍五入处理
-   * @return
+   * @return 相差？时间单位
    */
   public static long timesBetween(Date startDate, Date endDate, TimeMillis millis) {
     try {
@@ -579,7 +579,7 @@ public class DateUtil extends DateUtils {
    * </pre>
    *
    * @param pattern 需要校验的日期格式，需要符合DateUtil.Format格式
-   * @return
+   * @return true-已配置 false-未配置
    */
   public static boolean isValidPattern(String pattern) {
     return Objects.nonNull(Format.getFormat(pattern));
@@ -624,7 +624,7 @@ public class DateUtil extends DateUtils {
    *  </pre>
    *
    * @param dateStr 需要校验的日期字符串，需要符合DateUtil.Format格式，有些特殊的字符不符合，如：星期*，20200415104009698这种
-   * @return
+   * @return true-是日期字符串 false-不是日期字符串
    */
   public static boolean isValidDate(String dateStr) {
     boolean convertSuccess = true;
@@ -683,7 +683,7 @@ public class DateUtil extends DateUtils {
    *
    * @param dateStr 需要校验的日期字符串，需要符合DateUtil.Format格式
    * @param format  the pattern from Format
-   * @return
+   * @return true-是日期字符串 false-不是日期字符串
    */
   public static boolean isValidDate(String dateStr, Format format) {
     boolean convertSuccess = true;
@@ -710,7 +710,7 @@ public class DateUtil extends DateUtils {
    *
    * @param date   date
    * @param format 今日判断(yyyy-MM-dd),本月判断(yyyy-MM)，本周（E），需要符合DateUtil.Format格式
-   * @return
+   * @return 本？
    */
   public static boolean isThisTime(Date date, Format format) {
     SimpleDateFormat sdf = new SimpleDateFormat(format.getPattern());

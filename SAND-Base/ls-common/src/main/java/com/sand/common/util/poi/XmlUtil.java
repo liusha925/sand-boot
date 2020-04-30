@@ -144,7 +144,7 @@ public class XmlUtil {
     System.out.println(xml2Obj("<?xml version=\"1.0\" encoding = \"UTF-8\"?>\n" +
         "<ResultEntity>\n" +
         "  <code>200</code>\n" +
-        "  <msg>成功</msg>\n" +
+        "  <message>成功</message>\n" +
         "</ResultEntity>", ret));
   }
 }

@@ -5,7 +5,7 @@
  * 2020/4/15    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.redis.msg.sub.manager;
+package com.sand.redis.manager;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +21,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * 功能描述：加锁处理
  */
 @Slf4j
-public final class LockManager {
+public final class RedisLockManager {
   /**
    * 消息服务锁
    */
@@ -29,6 +29,6 @@ public final class LockManager {
   /**
    * 消息组合锁
    */
-  public static Map<String, LockBean> lockBeanMap = new ConcurrentHashMap<>();
+  public static Map<String, RedisLockBean> lockBeanMap = new ConcurrentHashMap<>();
 
 }

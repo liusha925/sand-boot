@@ -5,7 +5,7 @@
  * 2020/4/15    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.redis.msg.sub.manager;
+package com.sand.redis.manager;
 
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +20,7 @@ import java.util.concurrent.locks.Condition;
  */
 @Data
 @Builder
-public class LockBean {
+public class RedisLockBean {
   /**
    * 订阅结果
    */
