@@ -57,7 +57,7 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
     Map<String, Object> agentMap = ServletUtil.getOSAndBrowser();
     log.setOs(SandConvert.obj2Str(agentMap.get(ServletUtil.OS)));
     log.setBrowser(SandConvert.obj2Str(agentMap.get(ServletUtil.BROWSER)));
-    log.setAddIp(ServletUtil.getIp());
+    log.setAddIp(ServletUtil.getRemoteAddress());
     log.setUrl(SandConvert.obj2Str(ServletUtil.getRequest().getRequestURL()));
     log.setRequestMethod(SandConvert.obj2Str(ServletUtil.getRequest().getMethod()));
     log.setRequestParams(JSON.toJSONString(requestParams));

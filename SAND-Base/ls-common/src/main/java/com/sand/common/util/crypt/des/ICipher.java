@@ -32,7 +32,7 @@ public interface ICipher {
    * 加密信息
    *
    * @param value 待加密字符串
-   * @return
+   * @return 加密字符串
    * @throws GeneralSecurityException
    */
   String encrypt(String value) throws GeneralSecurityException;
@@ -41,7 +41,7 @@ public interface ICipher {
    * 解密信息
    *
    * @param value 待解密字符串
-   * @return
+   * @return 解密字符串
    * @throws GeneralSecurityException
    */
   String decrypt(String value) throws GeneralSecurityException;

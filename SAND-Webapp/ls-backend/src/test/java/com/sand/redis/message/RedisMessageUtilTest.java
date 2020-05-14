@@ -106,9 +106,9 @@ public class RedisMessageUtilTest extends JunitBootStrap {
 
   @Test
   public void huTool() {
-    Thread thread = new Thread(() -> {
-      System.out.println("跑起来了。。。");
-    });
+    Thread thread = new Thread(
+        () -> System.out.println("跑起来了。。。")
+    );
     ThreadUtil.execAsync(thread);
     System.out.println("主线程。。。");
   }

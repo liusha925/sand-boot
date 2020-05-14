@@ -458,7 +458,7 @@ public class RedisRepository {
    * @param value the value
    * @return the long
    */
-  public Long in(String key, String value) {
+  public Long rightPush(String key, String value) {
     return opsForList().rightPush(key, value);
   }
 
@@ -514,7 +514,7 @@ public class RedisRepository {
    * @param end   the end
    * @return the list
    */
-  public List<String> getList(String key, int start, int end) {
+  public List<String> range(String key, int start, int end) {
     return opsForList().range(key, start, end);
   }
 

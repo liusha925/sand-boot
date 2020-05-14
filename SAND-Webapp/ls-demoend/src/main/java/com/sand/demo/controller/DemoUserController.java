@@ -40,7 +40,7 @@ public class DemoUserController extends BaseController {
   @RequestMapping("/page")
   public ResultEntity page(@RequestBody Map<String, Object> map) {
     // 测试@ModelAttribute
-    log.info("访问IP：{}，系统和浏览器：{}", ServletUtil.getIp(), ServletUtil.getOSAndBrowser());
+    log.info("访问IP：{}，系统和浏览器：{}", ServletUtil.getRemoteAddress(), ServletUtil.getOSAndBrowser());
     log.info("page param：{}", map);
     Wrapper<DemoUser> wrapper = new QueryWrapper<>();
     List<DemoUser> userList = userService.list(wrapper);

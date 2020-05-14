@@ -9,7 +9,6 @@ package com.sand;
 
 import com.sand.redis.config.RedisConfigRunner;
 import com.sand.redis.consumer.init.RedisConsumeRunner;
-import com.sand.redis.subscriber.init.RedisSentinelRunner;
 import com.sand.web.LsBackendApplication;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
@@ -28,6 +27,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @Slf4j
 @RunWith(SpringRunner.class)
 public class JunitBootStrap {
+  protected String retData;
 
   @Before
   public void before() {
@@ -46,6 +46,7 @@ public class JunitBootStrap {
 
   @After
   public void after() {
+    log.info("测试结果：{}", retData);
     log.info(">>>>>>>>>>>>>>测试结束<<<<<<<<<<<<<<<");
   }
 }

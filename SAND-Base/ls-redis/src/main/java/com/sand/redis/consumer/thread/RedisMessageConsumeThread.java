@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class RedisMessageConsumeThread extends Thread {
   /**
-   * 订阅频道
+   * 消费频道
    */
   private String channels;
   /**

@@ -10,9 +10,10 @@ package com.sand.common.util;
 import com.alibaba.fastjson.JSONObject;
 import com.sand.common.util.convert.SandCharset;
 import com.sand.common.util.lang3.StringUtil;
-import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -22,6 +23,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -50,7 +54,7 @@ public class ServletUtil {
   /**
    * 获取request
    *
-   * @return
+   * @return HttpServletRequest
    */
   public static HttpServletRequest getRequest() {
     return getRequestAttributes().getRequest();
@@ -59,7 +63,7 @@ public class ServletUtil {
   /**
    * 获取response
    *
-   * @return
+   * @return HttpServletResponse
    */
   public static HttpServletResponse getResponse() {
     return getRequestAttributes().getResponse();
@@ -68,7 +72,7 @@ public class ServletUtil {
   /**
    * 获取session
    *
-   * @return
+   * @return HttpSession
    */
   public static HttpSession getSession() {
     return getRequest().getSession();
@@ -82,17 +86,8 @@ public class ServletUtil {
   /**
    * 获取请求参数
    *
-   * @return
-   */
-  public static String getRequestParams() {
-    return getRequestParams(getRequest());
-  }
-
-  /**
-   * 获取String参数
-   *
-   * @param name
-   * @return
+   * @param name 参数名
+   * @return 参数值
    */
   public static String getParameter(String name) {
     return getRequest().getParameter(name);
@@ -101,62 +96,108 @@ public class ServletUtil {
   /**
    * 获取所有的请求参数
    *
-   * @param request
-   * @return
+   * @return 参数值
    */
-  public static String getRequestParams(HttpServletRequest request) {
-    String paraName;
-    Enumeration enu = request.getParameterNames();
+  public static String getParameters() {
+    return getParameters(getRequest());
+  }
+
+  /**
+   * 获取所有的请求参数
+   *
+   * @param request request
+   * @return 所有的请求参数
+   */
+  public static String getParameters(HttpServletRequest request) {
+    String parameterName;
     JSONObject object = new JSONObject();
-    while (enu.hasMoreElements()) {
-      paraName = enu.nextElement().toString();
-      object.put(paraName, request.getParameter(paraName));
+    Enumeration parameterNames = request.getParameterNames();
+    while (parameterNames.hasMoreElements()) {
+      parameterName = parameterNames.nextElement().toString();
+      object.put(parameterName, request.getParameter(parameterName));
     }
     return object.toJSONString();
   }
 
   /**
-   * 获取真实用户IP
+   * 获取本机IP地址
+   * <pre>
+   *   联网的情况下System.out.println(ServletUtil.getHostAddress()); = "对应的ip地址"
+   *   不联网的情况下System.out.println(ServletUtil.getHostAddress()); = "127.0.0.1"
+   * </pre>
    *
-   * @return
+   * @return ip地址
    */
-  public static String getIp() {
-    return getIp(getRequest());
+  public static String getHostAddress() throws Exception {
+    String hostAddress = null;
+    Enumeration<?> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+    while (networkInterfaces.hasMoreElements()) {
+      NetworkInterface networkInterface = (NetworkInterface) networkInterfaces.nextElement();
+      Enumeration<?> addresses = networkInterface.getInetAddresses();
+      while (addresses.hasMoreElements()) {
+        InetAddress ip = (InetAddress) addresses.nextElement();
+        if (ip instanceof Inet4Address) {
+          hostAddress = ip.getHostAddress();
+        }
+      }
+    }
+    if (StringUtil.isNotBlank(hostAddress)) {
+      return hostAddress;
+    }
+    throw new Exception("can not get local ip address");
+  }
+
+  @Getter
+  @AllArgsConstructor
+  public enum ProxyType {
+    // 代理类型
+    X_FORWARDED_FOR("X-Forwarded-For", "Squid 服务代理"),
+    PROXY_CLIENT_IP("Proxy-Client-IP", "apache 服务代理"),
+    WL_PROXY_CLIENT_IP("WL-Proxy-Client-IP", "webLogic 服务代理"),
+    HTTP_CLIENT_IP("HTTP_CLIENT_IP", "其它 服务代理"),
+    X_REAL_IP("X-Real-IP", "nginx 服务代理"),
+    ;
+    private String value;
+    private String vName;
   }
 
   /**
-   * 获取真实用户IP
+   * 获取远程调用IP地址
    *
-   * @return
+   * @return ip地址
    */
-  public static String getIp(HttpServletRequest request) {
-    String addIp = null;
+  public static String getRemoteAddress() {
+    return getRemoteAddress(getRequest());
+  }
+
+  /**
+   * 获取远程调用IP地址
+   *
+   * @return ip地址
+   */
+  public static String getRemoteAddress(HttpServletRequest request) {
+    String remoteAddress = null;
     String serverType = "unknown";
-    // X-Forwarded-For：Squid 服务代理
-    String ipAddresses = request.getHeader("X-Forwarded-For");
-    if (StringUtil.isBlank(ipAddresses) || ipAddresses.equalsIgnoreCase(serverType)) {
-      // Proxy-Client-IP：apache 服务代理
-      ipAddresses = request.getHeader("Proxy-Client-IP");
+    String remoteAddresses = request.getHeader(ProxyType.X_FORWARDED_FOR.getValue());
+    if (StringUtil.isBlank(remoteAddresses) || remoteAddresses.equalsIgnoreCase(serverType)) {
+      remoteAddresses = request.getHeader(ProxyType.PROXY_CLIENT_IP.getValue());
     }
-    if (StringUtil.isBlank(ipAddresses) || ipAddresses.equalsIgnoreCase(serverType)) {
-      // WL-Proxy-Client-IP：webLogic 服务代理
-      ipAddresses = request.getHeader("WL-Proxy-Client-IP");
+    if (StringUtil.isBlank(remoteAddresses) || remoteAddresses.equalsIgnoreCase(serverType)) {
+      remoteAddresses = request.getHeader(ProxyType.WL_PROXY_CLIENT_IP.getValue());
     }
-    if (StringUtil.isBlank(ipAddresses) || ipAddresses.equalsIgnoreCase(serverType)) {
-      // HTTP_CLIENT_IP：有些代理服务器
-      ipAddresses = request.getHeader("HTTP_CLIENT_IP");
+    if (StringUtil.isBlank(remoteAddresses) || remoteAddresses.equalsIgnoreCase(serverType)) {
+      remoteAddresses = request.getHeader(ProxyType.HTTP_CLIENT_IP.getValue());
     }
-    if (StringUtil.isBlank(ipAddresses) || ipAddresses.equalsIgnoreCase(serverType)) {
-      // X-Real-IP：nginx服务代理
-      ipAddresses = request.getHeader("X-Real-IP");
+    if (StringUtil.isBlank(remoteAddresses) || remoteAddresses.equalsIgnoreCase(serverType)) {
+      remoteAddresses = request.getHeader(ProxyType.X_REAL_IP.getValue());
     }
     // 有些网络通过多层代理，就会获取到多个IP，一般逗号（,）分割并且第一个IP为客户端的真实IP
-    if (StringUtil.isNotBlank(ipAddresses)) {
-      addIp = ipAddresses.split(",")[0];
+    if (StringUtil.isNotBlank(remoteAddresses)) {
+      remoteAddress = remoteAddresses.split(",")[0];
     }
-    // 以上都获取不到就从"Remote Address中"获取
-    if (StringUtil.isBlank(addIp) || ipAddresses.equalsIgnoreCase(serverType)) {
-      addIp = request.getRemoteAddr();
+    // 以上都获取不到就从"Remote Address"中获取
+    if (StringUtil.isBlank(remoteAddress) || remoteAddresses.equalsIgnoreCase(serverType)) {
+      remoteAddress = request.getRemoteAddr();
     }
     if (log.isDebugEnabled()) {
       Enumeration<String> headerNames = request.getHeaderNames();
@@ -166,13 +207,13 @@ public class ServletUtil {
       }
     }
 
-    return addIp;
+    return remoteAddress;
   }
 
   /**
    * 返回系统和浏览器信息
    *
-   * @return
+   * @return 系统和浏览器信息
    */
   public static Map<String, Object> getOSAndBrowser() {
     return getOSAndBrowser(getRequest());
@@ -181,8 +222,8 @@ public class ServletUtil {
   /**
    * 返回系统和浏览器信息
    *
-   * @param request
-   * @return
+   * @param request request
+   * @return 系统和浏览器信息
    */
   public static Map<String, Object> getOSAndBrowser(HttpServletRequest request) {
     // 获取User-Agent字符串
@@ -194,7 +235,7 @@ public class ServletUtil {
     String operatingSystemName = "unknown";
     if (null != userAgent) {
       // 获取浏览器对象
-      Browser browser = userAgent.getBrowser();
+      eu.bitwalker.useragentutils.Browser browser = userAgent.getBrowser();
       if (null != browser) {
         // 浏览器名
         browserInfo.append(browser.getName()).append(":");
@@ -233,10 +274,21 @@ public class ServletUtil {
    * 设置文件名称编码格式
    *
    * @param fileName 文件名称
-   * @return
+   * @return 文件名称编码格式
    */
   public static String encodingFileName(String fileName) throws UnsupportedEncodingException {
     return encodingFileName(getRequest(), fileName);
+  }
+
+  @Getter
+  @AllArgsConstructor
+  public enum Browser {
+    // 浏览器类型
+    MSIE("MSIE", "IE浏览器"),
+    FIREFOX("Firefox", "火狐浏览器"),
+    ;
+    private String value;
+    private String vName;
   }
 
   /**
@@ -244,18 +296,16 @@ public class ServletUtil {
    *
    * @param request  servlet请求
    * @param fileName 文件名称
-   * @return
+   * @return 文件名称编码格式
    */
   public static String encodingFileName(HttpServletRequest request, String fileName) throws UnsupportedEncodingException {
     String agent = request.getHeader("User-Agent");
     fileName = URLEncoder.encode(fileName, SandCharset.UTF_8);
-    if (agent.contains("MSIE")) {
-      // IE浏览器
+    if (agent.contains(Browser.MSIE.getValue())) {
       fileName = fileName.replace("+", StringUtil.SPACE);
     }
-    if (agent.contains("Firefox")) {
-      // 火狐浏览器
-      fileName = new String(fileName.getBytes(), "ISO8859-1");
+    if (agent.contains(Browser.FIREFOX.getValue())) {
+      fileName = new String(fileName.getBytes(), SandCharset.ISO_8859_1);
     }
     return fileName;
   }

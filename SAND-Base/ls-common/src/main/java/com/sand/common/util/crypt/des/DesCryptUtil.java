@@ -31,11 +31,11 @@ public class DesCryptUtil {
   /**
    * 加密
    * <pre>
-   *   DesCryptUtil.encrypt("123456") = "olCPKgwi0rk="
+   *   System.out.println(DesCryptUtil.encrypt("123456")); = "olCPKgwi0rk="
    * </pre>
    *
    * @param encodeStr 待加密串
-   * @return
+   * @return 加密串
    */
   public static String encrypt(String encodeStr) {
     if (StringUtil.isBlank(encodeStr)) {
@@ -51,11 +51,11 @@ public class DesCryptUtil {
   /**
    * 解密
    * <pre>
-   *   DesCryptUtil.decrypt("olCPKgwi0rk=") = "123456"
+   *   System.out.println(DesCryptUtil.decrypt("olCPKgwi0rk=")); = "123456"
    * </pre>
    *
    * @param encodeStr 待解密串
-   * @return
+   * @return 解密串
    */
   public static String decrypt(String encodeStr) {
     if (StringUtil.isBlank(encodeStr)) {

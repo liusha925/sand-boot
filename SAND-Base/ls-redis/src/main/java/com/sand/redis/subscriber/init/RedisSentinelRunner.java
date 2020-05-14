@@ -78,7 +78,7 @@ public class RedisSentinelRunner implements ApplicationRunner {
         // 消息订阅
         RedisMessageSubscribeThread msgSubThread = new RedisMessageSubscribeThread(sentinelPool, channels);
         ThreadUtil.execAsync(msgSubThread);
-        // TODO 也可以加入其它订阅辑，参考消息订阅逻辑
+        // TODO 也可以加入其它订阅逻辑，参考消息订阅逻辑
         log.info("...Redis哨兵系统 启动完成");
       } catch (Exception e) {
         log.info("Redis哨兵系统 启动异常", e);
