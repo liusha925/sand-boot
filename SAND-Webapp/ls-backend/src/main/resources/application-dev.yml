@@ -1,6 +1,6 @@
 # 日志配置
 logging:
-  path: logs
+  path: ../logs
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

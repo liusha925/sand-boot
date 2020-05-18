@@ -7,8 +7,9 @@
  */
 package com.sand;
 
-import com.sand.redis.config.RedisConfigRunner;
-import com.sand.redis.consumer.init.RedisConsumeRunner;
+import com.sand.common.runner.SystemConfigRunner;
+import com.sand.redis.config.runner.RedisConfigRunner;
+import com.sand.redis.consumer.runner.RedisConsumeRunner;
 import com.sand.web.LsBackendApplication;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
@@ -33,12 +34,14 @@ public class JunitBootStrap {
   public void before() {
     // 加载自定义配置参数
     String[] configs = new String[]{
+        // 开启系统变量加载
+        SystemConfigRunner.APPLIED,
         // 开启Redis配置加载
-        RedisConfigRunner.CONFIG_APPLIED,
+        RedisConfigRunner.APPLIED,
         // 开启Redis哨兵系统
-//        RedisSentinelRunner.SENTINEL_APPLIED,
+//        RedisSentinelRunner.APPLIED,
         // 开启消费者系统
-        RedisConsumeRunner.CONSUME_APPLIED
+        RedisConsumeRunner.APPLIED
     };
     SpringApplication.run(LsBackendApplication.class, configs);
     log.info(">>>>>>>>>>>>>>测试开始<<<<<<<<<<<<<<<");

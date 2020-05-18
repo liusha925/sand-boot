@@ -5,7 +5,7 @@
  * 2020/4/26    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.redis.config;
+package com.sand.redis.config.runner;
 
 import com.sand.common.util.convert.SandConvert;
 import com.sand.common.util.global.Config;
@@ -34,7 +34,7 @@ public class RedisConfigRunner implements ApplicationRunner {
   /**
    * Redis配置标识
    */
-  public static final String CONFIG_APPLIED = "__redis_config_applied";
+  public static final String APPLIED = "__redis_config_applied";
   /**
    * Redis配置文件名称
    */
@@ -48,14 +48,14 @@ public class RedisConfigRunner implements ApplicationRunner {
      *    // 加载自定义配置参数
      *    String[] configs = new String[]{
      *        // 开启Redis配置加载
-     *        RedisConfigRunner.CONFIG_APPLIED
+     *        RedisConfigRunner.APPLIED
      *    };
      *    String[] newArgs = org.springframework.util.StringUtils.concatenateStringArrays(args, configs);
      *    SpringApplication.run(LsBackendApplication.class, newArgs);
      * </pre>
      */
     List<String> argsList = Arrays.asList(args.getSourceArgs());
-    if (argsList.contains(CONFIG_APPLIED)) {
+    if (argsList.contains(APPLIED)) {
       log.info("Redis配置信息 加载开始...");
       Properties redisProps = new PropUtil(CONFIG_NAME).getProperties();
       Enumeration<?> en = redisProps.propertyNames();

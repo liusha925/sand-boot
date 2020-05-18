@@ -120,6 +120,23 @@ public class ServletUtil {
   }
 
   /**
+   * 获取本机域名地址
+   * <pre>
+   *   需将域名地址与本地IP一一对应配置至hosts文件中
+   *   System.out.println(ServletUtil.getHostName()); = "www.sand.com"
+   * </pre>
+   *
+   * @return 域名
+   */
+  public static String getHostName() throws Exception {
+    String hostName = InetAddress.getLocalHost().getCanonicalHostName();
+    if (StringUtil.isBlank(hostName)) {
+      hostName = InetAddress.getLocalHost().getHostName();
+    }
+    return hostName;
+  }
+
+  /**
    * 获取本机IP地址
    * <pre>
    *   联网的情况下System.out.println(ServletUtil.getHostAddress()); = "对应的ip地址"
@@ -143,8 +160,9 @@ public class ServletUtil {
     }
     if (StringUtil.isNotBlank(hostAddress)) {
       return hostAddress;
+    } else {
+      return InetAddress.getLocalHost().getHostAddress();
     }
-    throw new Exception("can not get local ip address");
   }
 
   @Getter

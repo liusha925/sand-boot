@@ -15,7 +15,7 @@ import com.sand.common.util.global.Config;
 import com.sand.redis.config.RedisConfig;
 import com.sand.redis.manager.RedisLockBean;
 import com.sand.redis.manager.RedisLockManager;
-import com.sand.redis.subscriber.init.RedisSentinelRunner;
+import com.sand.redis.subscriber.runner.RedisSentinelRunner;
 import com.sand.redis.util.RedisMessageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -41,7 +41,7 @@ public class RedisMessageUtilTest extends JunitBootStrap {
     // 1、发布者服务器
     new Thread(() -> {
       log.info("Redis发布者...");
-      JedisSentinelPool jedisPool = (JedisSentinelPool) Config.getConfig(RedisSentinelRunner.SENTINEL_APPLIED);
+      JedisSentinelPool jedisPool = (JedisSentinelPool) Config.getConfig(RedisSentinelRunner.APPLIED);
       RedisMessageUtil messageUtil = new RedisMessageUtil(jedisPool);
 
       String data = "发布者订阅者模式";

@@ -5,7 +5,7 @@
  * 2020/4/26    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.redis.consumer.init;
+package com.sand.redis.consumer.runner;
 
 import cn.hutool.core.thread.ThreadUtil;
 import com.sand.common.util.convert.SandConvert;
@@ -35,7 +35,7 @@ public class RedisConsumeRunner implements ApplicationRunner {
   /**
    * Redis消息消费标识
    */
-  public static final String CONSUME_APPLIED = "__redis_consume_applied";
+  public static final String APPLIED = "__redis_consume_applied";
 
   @Override
   public void run(ApplicationArguments args) throws Exception {
@@ -45,14 +45,14 @@ public class RedisConsumeRunner implements ApplicationRunner {
      *    // 加载自定义配置参数
      *    String[] configs = new String[]{
      *        // 开启Redis消费者系统
-     *        RedisConsumeRunner.CONSUME_APPLIED
+     *        RedisConsumeRunner.APPLIED
      *    };
      *    String[] newArgs = org.springframework.util.StringUtils.concatenateStringArrays(args, configs);
      *    SpringApplication.run(LsBackendApplication.class, newArgs);
      * </pre>
      */
     List<String> argsList = Arrays.asList(args.getSourceArgs());
-    if (argsList.contains(CONSUME_APPLIED)) {
+    if (argsList.contains(APPLIED)) {
       log.info("Redis消费者系统 启动开始...");
       try {
         String channels = Config.getProperty("redis.consume.channels");

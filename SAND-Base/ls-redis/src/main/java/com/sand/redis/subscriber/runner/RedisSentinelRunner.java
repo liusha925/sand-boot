@@ -5,7 +5,7 @@
  * 2020/4/26    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.redis.subscriber.init;
+package com.sand.redis.subscriber.runner;
 
 import cn.hutool.core.thread.ThreadUtil;
 import com.sand.common.util.convert.SandConvert;
@@ -38,7 +38,7 @@ public class RedisSentinelRunner implements ApplicationRunner {
   /**
    * Redis消息订阅标识
    */
-  public static final String SENTINEL_APPLIED = "__redis_sentinel_applied";
+  public static final String APPLIED = "__redis_sentinel_applied";
 
   @Override
   public void run(ApplicationArguments args) throws Exception {
@@ -48,14 +48,14 @@ public class RedisSentinelRunner implements ApplicationRunner {
      *    // 加载自定义配置参数
      *    String[] configs = new String[]{
      *        // 开启Redis哨兵系统
-     *        RedisMsgSubRunner.SENTINEL_APPLIED
+     *        RedisSentinelRunner.APPLIED
      *    };
      *    String[] newArgs = org.springframework.util.StringUtils.concatenateStringArrays(args, configs);
      *    SpringApplication.run(LsBackendApplication.class, newArgs);
      * </pre>
      */
     List<String> argsList = Arrays.asList(args.getSourceArgs());
-    if (argsList.contains(SENTINEL_APPLIED)) {
+    if (argsList.contains(APPLIED)) {
       log.info("Redis哨兵系统 启动开始...");
       try {
         String channels = Config.getProperty("redis.subscribe.channels");
@@ -74,7 +74,7 @@ public class RedisSentinelRunner implements ApplicationRunner {
         log.info("masterName：{}，minIdle：{}，maxIdle：{}，maxTotal：{}，sentinels：{}", masterName, minIdle, maxIdle, maxTotal, sentinels);
         JedisSentinelPool sentinelPool = new JedisSentinelPool(masterName, sentinels, poolConfig);
         // 将哨兵配置信息存储于全局配置config中
-        Config.setConfig(SENTINEL_APPLIED, sentinelPool);
+        Config.setConfig(APPLIED, sentinelPool);
         // 消息订阅
         RedisMessageSubscribeThread msgSubThread = new RedisMessageSubscribeThread(sentinelPool, channels);
         ThreadUtil.execAsync(msgSubThread);
