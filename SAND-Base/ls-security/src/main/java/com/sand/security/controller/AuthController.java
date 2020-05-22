@@ -7,7 +7,7 @@
  */
 package com.sand.security.controller;
 
-import com.sand.common.entity.ResultEntity;
+import com.sand.common.vo.ResultVO;
 import com.sand.common.util.ParamUtil;
 import com.sand.security.web.IUserAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class AuthController {
    * @return 封装好的token，过期时间，token的类型map
    */
   @RequestMapping(value = "/login")
-  public ResultEntity login(@RequestParam Map<String, Object> param) {
+  public ResultVO login(@RequestParam Map<String, Object> param) {
     String username = ParamUtil.getStringValue(param, "username");
     String password = ParamUtil.getStringValue(param, "password");
 
@@ -55,7 +55,7 @@ public class AuthController {
    * @param authenticationToken 认证信息
    * @return
    */
-  private ResultEntity authentication(Map<String, Object> param, AbstractAuthenticationToken authenticationToken) {
+  private ResultVO authentication(Map<String, Object> param, AbstractAuthenticationToken authenticationToken) {
     // 1、认证前校验
     userAuthenticationService.beforeValidate(param);
     // 2、处理认证信息

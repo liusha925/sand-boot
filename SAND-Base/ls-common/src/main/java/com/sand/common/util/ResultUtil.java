@@ -7,8 +7,7 @@
  */
 package com.sand.common.util;
 
-import com.sand.common.entity.ResultEntity;
-import com.sand.common.enums.CodeEnum;
+import com.sand.common.vo.ResultVO;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.lang3.StringUtil;
 import lombok.AllArgsConstructor;
@@ -64,50 +63,50 @@ public class ResultUtil {
   public ResultUtil() {
   }
 
-  public static ResultEntity ok() {
+  public static ResultVO ok() {
     return ok(null);
   }
 
-  public static ResultEntity ok(Object data) {
-    return ok(data, CodeEnum.OK.getMsg());
+  public static ResultVO ok(Object data) {
+    return ok(data, ResultVO.Code.OK.getVName());
   }
 
-  public static ResultEntity ok(String msg) {
+  public static ResultVO ok(String msg) {
     return ok(null, msg);
   }
 
-  public static ResultEntity ok(Object data, String msg) {
-    return info(data, CodeEnum.OK.getCode(), msg);
+  public static ResultVO ok(Object data, String msg) {
+    return info(data, ResultVO.Code.OK.getValue(), msg);
   }
 
-  public static ResultEntity error() {
-    return error(CodeEnum.ERROR.getMsg());
+  public static ResultVO error() {
+    return error(ResultVO.Code.ERROR.getVName());
   }
 
-  public static ResultEntity error(String msg) {
-    return info(null, CodeEnum.ERROR.getCode(), msg);
+  public static ResultVO error(String msg) {
+    return info(null, ResultVO.Code.ERROR.getValue(), msg);
   }
 
-  public static ResultEntity error(CodeEnum codeEnum) {
-    return info(null, codeEnum);
+  public static ResultVO error(ResultVO.Code code) {
+    return info(null, code);
   }
 
-  public static ResultEntity info(int code, String msg) {
+  public static ResultVO info(int code, String msg) {
     return info(null, code, msg);
   }
 
-  public static ResultEntity info(Object data, CodeEnum codeEnum) {
-    return info(data, codeEnum.getCode(), codeEnum.getMsg());
+  public static ResultVO info(Object data, ResultVO.Code code) {
+    return info(data, code.getValue(), code.getVName());
   }
 
-  public static ResultEntity info(Object data, int code, String msg) {
+  public static ResultVO info(Object data, int code, String msg) {
     try {
       data = formatSelectData(data);
     } catch (Exception e) {
       log.error("下拉框数据格式化异常：{}", e.getMessage());
-      return ResultEntity.builder().code(CodeEnum.ERROR.getCode()).msg(CodeEnum.ERROR.getMsg()).data(null).build();
+      return ResultVO.builder().code(ResultVO.Code.ERROR.getValue()).msg(ResultVO.Code.ERROR.getVName()).data(null).build();
     }
-    ResultEntity ret = ResultEntity.builder().code(code).msg(msg).data(data).build();
+    ResultVO ret = ResultVO.builder().code(code).msg(msg).data(data).build();
     return ret;
   }
 

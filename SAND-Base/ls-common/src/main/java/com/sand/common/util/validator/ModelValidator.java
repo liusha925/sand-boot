@@ -7,7 +7,7 @@
  */
 package com.sand.common.util.validator;
 
-import com.sand.common.enums.CodeEnum;
+import com.sand.common.vo.ResultVO;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.lang3.StringUtil;
 import com.sand.common.util.spring.SpringUtil;
@@ -71,12 +71,12 @@ public class ModelValidator {
         if (StringUtil.isBlank(msg)) {
           msg = "请求参数有误";
         }
-        throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, msg);
+        throw new BusinessException(ResultVO.Code.PARAM_CHECKED_ERROR, msg);
       }
     } catch (Exception e) {
       log.error("表单验证出错，", e);
       String errorMsg = (e instanceof BusinessException) ? e.getMessage() : "表单验证出错";
-      throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, errorMsg);
+      throw new BusinessException(ResultVO.Code.PARAM_CHECKED_ERROR, errorMsg);
     }
   }
 

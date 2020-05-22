@@ -7,7 +7,7 @@
  */
 package com.sand.security.web;
 
-import com.sand.common.entity.ResultEntity;
+import com.sand.common.vo.ResultVO;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
 import java.util.Map;
@@ -40,7 +40,7 @@ public interface IUserAuthenticationService {
    * @param userDetails 用户基础信息
    * @return 登录结果与登录信息
    */
-  ResultEntity authAfter(Object userDetails);
+  ResultVO authAfter(Object userDetails);
 
   /**
    * 验证token是否有效

@@ -8,8 +8,7 @@
 package com.sand.security.web.handler;
 
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import com.sand.common.entity.ResultEntity;
-import com.sand.common.enums.CodeEnum;
+import com.sand.common.vo.ResultVO;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.exception.handler.DefaultExceptionHandler;
 import com.sand.common.util.ResultUtil;
@@ -48,30 +47,30 @@ import java.io.IOException;
 public class MyAuthExceptionHandler extends DefaultExceptionHandler {
 
   @ExceptionHandler({AuthenticationException.class, AccessDeniedException.class})
-  public ResultEntity handleSecurityException(Exception e) {
+  public ResultVO handleSecurityException(Exception e) {
     // 登录校验不通过：用户名或密码无效
     if (e instanceof BadCredentialsException || e instanceof InternalAuthenticationServiceException || e instanceof UsernameNotFoundException) {
-      return handleBusinessException(new BusinessException(CodeEnum.USERNAME_NOT_FOUND));
+      return handleBusinessException(new BusinessException(ResultVO.Code.USERNAME_NOT_FOUND));
     }
     // 凭证已过期
     if (e instanceof CredentialsExpiredException) {
-      return handleBusinessException(new BusinessException(CodeEnum.CREDENTIALS_EXPIRED));
+      return handleBusinessException(new BusinessException(ResultVO.Code.CREDENTIALS_EXPIRED));
     }
     // 此账号已过期
     if (e instanceof AccountExpiredException) {
-      return handleBusinessException(new BusinessException(CodeEnum.ACCOUNT_EXPIRED));
+      return handleBusinessException(new BusinessException(ResultVO.Code.ACCOUNT_EXPIRED));
     }
     // 此账号已被禁用
     if (e instanceof DisabledException) {
-      return handleBusinessException(new BusinessException(CodeEnum.DISABLED));
+      return handleBusinessException(new BusinessException(ResultVO.Code.DISABLED));
     }
     // 此账号已被锁定
     if (e instanceof LockedException) {
-      return handleBusinessException(new BusinessException(CodeEnum.LOCKED));
+      return handleBusinessException(new BusinessException(ResultVO.Code.LOCKED));
     }
     // 单点登录：此账号已在他处登录，请重新登录
     if (e instanceof AccessDeniedException) {
-      return handleBusinessException(new BusinessException(CodeEnum.SINGLE_LOGIN));
+      return handleBusinessException(new BusinessException(ResultVO.Code.SINGLE_LOGIN));
     }
     // 其它业务异常
     if (e.getCause() instanceof BusinessException) {
@@ -100,14 +99,14 @@ public class MyAuthExceptionHandler extends DefaultExceptionHandler {
    * @throws IOException
    */
   public static void accessDeniedException(Exception e, ServletResponse response) throws IOException {
-    ResultEntity ResultEntity = ResultUtil.error(CodeEnum.LOGIN_EXPIRED);
+    ResultVO ResultVO = ResultUtil.error(com.sand.common.vo.ResultVO.Code.LOGIN_EXPIRED);
     if (e instanceof BadCredentialsException || e instanceof InternalAuthenticationServiceException || e instanceof UsernameNotFoundException) {
-      ResultEntity = ResultUtil.error(CodeEnum.USERNAME_NOT_FOUND);
+      ResultVO = ResultUtil.error(com.sand.common.vo.ResultVO.Code.USERNAME_NOT_FOUND);
     }
     if (e instanceof BusinessException) {
-      ResultEntity = ResultUtil.info(null, ((BusinessException) e).getCode(), e.getMessage());
+      ResultVO = ResultUtil.info(null, ((BusinessException) e).getCode(), e.getMessage());
     }
     HttpMessageConverter httpMessageConverter = SpringUtil.getBean(FastJsonHttpMessageConverter.class);
-    httpMessageConverter.write(ResultEntity, MediaType.APPLICATION_JSON, new ServletServerHttpResponse((HttpServletResponse) response));
+    httpMessageConverter.write(ResultVO, MediaType.APPLICATION_JSON, new ServletServerHttpResponse((HttpServletResponse) response));
   }
 }

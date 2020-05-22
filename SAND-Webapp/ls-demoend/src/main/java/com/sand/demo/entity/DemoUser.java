@@ -8,7 +8,7 @@
 package com.sand.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.sand.common.entity.BaseEntity;
+import com.sand.business.parent.base.BaseEntity;
 import lombok.Data;
 import lombok.ToString;
 

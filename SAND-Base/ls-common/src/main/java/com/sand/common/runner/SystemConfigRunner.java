@@ -50,8 +50,8 @@ public class SystemConfigRunner implements ApplicationRunner {
     List<String> argsList = Arrays.asList(args.getSourceArgs());
     if (argsList.contains(APPLIED)) {
       log.info("操作系统变量信息 加载开始...");
-      Map<String, String> envMap = System.getenv();
-      envMap.keySet().stream().map(key -> key + "=" + envMap.get(key)).forEach(log::info);
+      Map<String, String> envParams = System.getenv();
+      envParams.keySet().stream().map(key -> key + "=" + envParams.get(key)).forEach(log::info);
       log.info("...操作系统变量信息 加载完成");
       log.info("Java环境变量信息 加载开始...");
       Properties properties = System.getProperties();

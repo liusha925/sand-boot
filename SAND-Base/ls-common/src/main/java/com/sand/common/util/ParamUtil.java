@@ -9,7 +9,7 @@ package com.sand.common.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.sand.common.enums.CodeEnum;
+import com.sand.common.vo.ResultVO;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.lang3.StringUtil;
 import com.sand.common.util.convert.SandConvert;
@@ -155,7 +155,7 @@ public class ParamUtil {
         k = null;
       }
     } catch (Exception e) {
-      throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, e);
+      throw new BusinessException(ResultVO.Code.PARAM_CHECKED_ERROR, e);
     }
     return k;
   }
@@ -176,7 +176,7 @@ public class ParamUtil {
         obj = JSONObject.parseObject(value, type);
       }
     } catch (Exception e) {
-      throw new BusinessException(CodeEnum.PARAM_CHECKED_ERROR, e);
+      throw new BusinessException(ResultVO.Code.PARAM_CHECKED_ERROR, e);
     }
     return obj;
   }
@@ -216,18 +216,18 @@ public class ParamUtil {
   public static Object getValue(Map<String, Object> map, String key, Object defaultValue, boolean required) {
     if (Objects.isNull(map)) {
       if (required) {
-        throw new BusinessException(CodeEnum.PARAM_MISSING_ERROR, "参数【" + key + "】不能为空");
+        throw new BusinessException(ResultVO.Code.PARAM_MISSING_ERROR, "参数【" + key + "】不能为空");
       }
       return defaultValue;
     }
     if (map.containsKey(key)) {
       Object value = map.get(key);
       if (required && StringUtil.isBlank(SandConvert.obj2Str(value))) {
-        throw new BusinessException(CodeEnum.PARAM_MISSING_ERROR, "参数【" + key + "】不能为空");
+        throw new BusinessException(ResultVO.Code.PARAM_MISSING_ERROR, "参数【" + key + "】不能为空");
       }
       return value;
     } else if (required) {
-      throw new BusinessException(CodeEnum.PARAM_MISSING_ERROR, "参数【" + key + "】不能为空");
+      throw new BusinessException(ResultVO.Code.PARAM_MISSING_ERROR, "参数【" + key + "】不能为空");
     }
     return defaultValue;
   }

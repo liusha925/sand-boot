@@ -9,8 +9,8 @@ package com.sand.demo.controller;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sand.mybatisplus.web.controller.BaseController;
-import com.sand.common.entity.ResultEntity;
+import com.sand.business.parent.base.BaseController;
+import com.sand.common.vo.ResultVO;
 import com.sand.common.util.ResultUtil;
 import com.sand.common.util.ServletUtil;
 import com.sand.demo.entity.DemoUser;
@@ -38,7 +38,7 @@ public class DemoUserController extends BaseController {
   private IDemoUserService userService;
 
   @RequestMapping("/page")
-  public ResultEntity page(@RequestBody Map<String, Object> map) {
+  public ResultVO page(@RequestBody Map<String, Object> map) {
     // 测试@ModelAttribute
     log.info("访问IP：{}，系统和浏览器：{}", ServletUtil.getRemoteAddress(), ServletUtil.getOSAndBrowser());
     log.info("page param：{}", map);

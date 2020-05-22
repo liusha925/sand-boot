@@ -7,7 +7,7 @@
  */
 package com.sand.common.util.crypt.md5;
 
-import com.sand.common.enums.CodeEnum;
+import com.sand.common.vo.ResultVO;
 import com.sand.common.exception.BusinessException;
 import lombok.NoArgsConstructor;
 
@@ -64,7 +64,7 @@ public class Md5Util {
     try {
       return encryptFile(new FileInputStream(filePath));
     } catch (FileNotFoundException e) {
-      throw new BusinessException(CodeEnum.FILE_NOT_EXIST);
+      throw new BusinessException(ResultVO.Code.FILE_NOT_EXIST);
     }
   }
 

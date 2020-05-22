@@ -8,8 +8,8 @@
 package com.sand.common.util.poi.template;
 
 import com.sand.common.annotation.ExcelAnnotation;
-import com.sand.common.entity.ResultEntity;
-import com.sand.common.enums.FileSuffixEnum;
+import com.sand.common.vo.ResultVO;
+import com.sand.common.util.file.FileSuffix;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.CloseableUtil;
 import com.sand.common.util.ReflectUtil;
@@ -238,7 +238,7 @@ public abstract class AbstractExcelPoi<T> {
     return entityList;
   }
 
-  protected ResultEntity export() {
+  protected ResultVO export() {
     OutputStream out = null;
     try {
       // 计算一共有几个sheet页
@@ -288,7 +288,7 @@ public abstract class AbstractExcelPoi<T> {
         }
       }
       HttpServletResponse response = ServletUtil.getResponse();
-      String fileName = ServletUtil.encodingFileName(sheetName + FileSuffixEnum.XLSX.getSuffix());
+      String fileName = ServletUtil.encodingFileName(sheetName + FileSuffix.XLSX.getSuffix());
       response.setCharacterEncoding(SandCharset.UTF_8);
       response.setContentType("multipart/form-data");
       response.setHeader("Content-Disposition", "attachment;fileName=" + fileName);

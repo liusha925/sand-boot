@@ -7,7 +7,7 @@
  */
 package com.sand.security.web.provider;
 
-import com.sand.common.enums.CodeEnum;
+import com.sand.common.vo.ResultVO;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AccountExpiredException;
@@ -40,15 +40,15 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
     // 负责从数据库或者内存映射中加载用户信息，加载方法自行实现，此系统com.sand.web.security.UserDetailServiceImpl
     UserDetails userDetails = userDetailsService.loadUserByUsername((String) authenticationToken.getPrincipal());
     if (userDetails == null) {
-      throw new UsernameNotFoundException(CodeEnum.USERNAME_NOT_FOUND.getMsg());
+      throw new UsernameNotFoundException(ResultVO.Code.USERNAME_NOT_FOUND.getVName());
     } else if (!userDetails.isCredentialsNonExpired()) {
-      throw new CredentialsExpiredException(CodeEnum.CREDENTIALS_EXPIRED.getMsg());
+      throw new CredentialsExpiredException(ResultVO.Code.CREDENTIALS_EXPIRED.getVName());
     } else if (!userDetails.isAccountNonExpired()) {
-      throw new AccountExpiredException(CodeEnum.ACCOUNT_EXPIRED.getMsg());
+      throw new AccountExpiredException(ResultVO.Code.ACCOUNT_EXPIRED.getVName());
     } else if (!userDetails.isEnabled()) {
-      throw new DisabledException(CodeEnum.DISABLED.getMsg());
+      throw new DisabledException(ResultVO.Code.DISABLED.getVName());
     } else if (!userDetails.isAccountNonLocked()) {
-      throw new LockedException(CodeEnum.LOCKED.getMsg());
+      throw new LockedException(ResultVO.Code.LOCKED.getVName());
     }
     //
     UsernamePasswordAuthenticationToken authenticationResult = new UsernamePasswordAuthenticationToken(

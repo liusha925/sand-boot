@@ -152,9 +152,9 @@ public class ServletUtil {
       NetworkInterface networkInterface = (NetworkInterface) networkInterfaces.nextElement();
       Enumeration<?> addresses = networkInterface.getInetAddresses();
       while (addresses.hasMoreElements()) {
-        InetAddress ip = (InetAddress) addresses.nextElement();
-        if (ip instanceof Inet4Address) {
-          hostAddress = ip.getHostAddress();
+        InetAddress address = (InetAddress) addresses.nextElement();
+        if (address instanceof Inet4Address) {
+          hostAddress = address.getHostAddress();
         }
       }
     }
@@ -251,37 +251,33 @@ public class ServletUtil {
     Map<String, Object> agentMap = new HashMap<>();
     StringBuffer browserInfo = new StringBuffer();
     String operatingSystemName = "unknown";
-    if (null != userAgent) {
-      // 获取浏览器对象
-      eu.bitwalker.useragentutils.Browser browser = userAgent.getBrowser();
-      if (null != browser) {
-        // 浏览器名
-        browserInfo.append(browser.getName()).append(":");
-        // 浏览器类型
-        browserInfo.append(browser.getBrowserType()).append(":");
-        // 浏览器家族
-        browserInfo.append(browser.getGroup()).append(":");
-        // 浏览器生产厂商
-        browserInfo.append(browser.getManufacturer()).append(":");
-        // 浏览器使用的渲染引擎
-        browserInfo.append(browser.getRenderingEngine()).append(":");
-      }
-      // 获取操作系统对象
-      OperatingSystem operatingSystem = userAgent.getOperatingSystem();
-      if (null != operatingSystem) {
-        operatingSystemName = operatingSystem.getName();
-        // 操作系统名
-        // 访问设备类型
-        browserInfo.append(operatingSystem.getName()).append(":");
-        browserInfo.append(operatingSystem.getDeviceType()).append(":");
-        // 操作系统家族
-        browserInfo.append(operatingSystem.getGroup()).append(":");
-        // 操作系统生产厂商
-        browserInfo.append(operatingSystem.getGroup()).append(":");
-      }
-      // 浏览器版本
-      browserInfo.append(userAgent.getBrowserVersion());
+    // 获取浏览器对象
+    eu.bitwalker.useragentutils.Browser browser = userAgent.getBrowser();
+    if (null != browser) {
+      // 浏览器名
+      browserInfo.append(browser.getName()).append(":");
+      // 浏览器类型
+      browserInfo.append(browser.getBrowserType()).append(":");
+      // 浏览器家族
+      browserInfo.append(browser.getGroup()).append(":");
+      // 浏览器生产厂商
+      browserInfo.append(browser.getManufacturer()).append(":");
+      // 浏览器使用的渲染引擎
+      browserInfo.append(browser.getRenderingEngine()).append(":");
     }
+    // 获取操作系统对象
+    OperatingSystem operatingSystem = userAgent.getOperatingSystem();
+    if (null != operatingSystem) {
+      operatingSystemName = operatingSystem.getName();
+      // 操作系统名
+      browserInfo.append(operatingSystemName).append(":");
+      // 操作系统家族
+      browserInfo.append(operatingSystem.getGroup()).append(":");
+      // 访问设备类型
+      browserInfo.append(operatingSystem.getDeviceType()).append(":");
+    }
+    // 浏览器版本
+    browserInfo.append(userAgent.getBrowserVersion());
     agentMap.put(OS, operatingSystemName);
     agentMap.put(BROWSER, browserInfo);
 

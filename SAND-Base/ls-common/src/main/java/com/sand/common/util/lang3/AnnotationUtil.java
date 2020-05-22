@@ -67,7 +67,7 @@ public class AnnotationUtil extends AnnotationUtils {
    *   System.out.println(AnnotationUtil.getAnnotatedFieldsMap(clzSet, JsonProperty.class));
    *   输出结果：
    *   {
-   *     com.sand.common.util.tree.Tree#entity=@com.fasterxml.jackson.annotation.JsonProperty(index=-1, access=READ_WRITE, value=, required=false, defaultValue=)
+   *     com.sand.common.util.tree.Tree#vo=@com.fasterxml.jackson.annotation.JsonProperty(index=-1, access=READ_WRITE, value=, required=false, defaultValue=)
    *   }
    * </pre>
    *
@@ -95,8 +95,8 @@ public class AnnotationUtil extends AnnotationUtils {
    *   System.out.println(AnnotationUtil.getAnnotatedFieldsMap(BaseEntity.class, JsonFormat.class));
    *   输出结果：
    *   {
-   *      private java.util.Date com.sand.common.entity.BaseEntity.updateTime=@com.fasterxml.jackson.annotation.JsonFormat(with=[], shape=ANY, timezone=##default, pattern=yyyy-MM-dd HH:mm:ss, locale=##default, lenient=DEFAULT, without=[]),
-   *      private java.util.Date com.sand.common.entity.BaseEntity.createTime=@com.fasterxml.jackson.annotation.JsonFormat(with=[], shape=ANY, timezone=##default, pattern=yyyy-MM-dd HH:mm:ss, locale=##default, lenient=DEFAULT, without=[])
+   *      private java.util.Date com.sand.business.parent.entity.BaseEntity.updateTime=@com.fasterxml.jackson.annotation.JsonFormat(with=[], shape=ANY, timezone=##default, pattern=yyyy-MM-dd HH:mm:ss, locale=##default, lenient=DEFAULT, without=[]),
+   *      private java.util.Date com.sand.business.parent.entity.BaseEntity.createTime=@com.fasterxml.jackson.annotation.JsonFormat(with=[], shape=ANY, timezone=##default, pattern=yyyy-MM-dd HH:mm:ss, locale=##default, lenient=DEFAULT, without=[])
    *   }
    * </pre>
    *
@@ -122,11 +122,11 @@ public class AnnotationUtil extends AnnotationUtils {
    *   System.out.println(AnnotationUtil.getAnnotatedMethods(DefaultExceptionHandler.class, ExceptionHandler.class));
    *   输出结果：
    *   [
-   *    public com.sand.common.entity.ResultEntity com.sand.common.exception.handler.DefaultExceptionHandler.handleMissingServletRequestParameterException(org.springframework.web.bind.MissingServletRequestParameterException),
-   *    public com.sand.common.entity.ResultEntity com.sand.common.exception.handler.DefaultExceptionHandler.handleHttpMessageNotReadableException(org.springframework.http.converter.HttpMessageNotReadableException),
-   *    public com.sand.common.entity.ResultEntity com.sand.common.exception.handler.DefaultExceptionHandler.handleBusinessException(com.sand.common.exception.BusinessException),
-   *    public com.sand.common.entity.ResultEntity com.sand.common.exception.handler.DefaultExceptionHandler.handleException(java.lang.Exception),
-   *    public com.sand.common.entity.ResultEntity com.sand.common.exception.handler.DefaultExceptionHandler.handleThrowable(java.lang.Throwable)
+   *    public com.sand.common.vo.ResultVO com.sand.common.exception.handler.DefaultExceptionHandler.handleMissingServletRequestParameterException(org.springframework.web.bind.MissingServletRequestParameterException),
+   *    public com.sand.common.vo.ResultVO com.sand.common.exception.handler.DefaultExceptionHandler.handleHttpMessageNotReadableException(org.springframework.http.converter.HttpMessageNotReadableException),
+   *    public com.sand.common.vo.ResultVO com.sand.common.exception.handler.DefaultExceptionHandler.handleBusinessException(com.sand.common.exception.BusinessException),
+   *    public com.sand.common.vo.ResultVO com.sand.common.exception.handler.DefaultExceptionHandler.handleException(java.lang.Exception),
+   *    public com.sand.common.vo.ResultVO com.sand.common.exception.handler.DefaultExceptionHandler.handleThrowable(java.lang.Throwable)
    *   ]
    * </pre>
    *
@@ -151,8 +151,8 @@ public class AnnotationUtil extends AnnotationUtils {
    *   System.out.println(AnnotationUtil.getAnnotatedFields(BaseEntity.class, JsonFormat.class));
    *   输出结果：
    *  [
-   *    private java.util.Date com.sand.common.entity.BaseEntity.createTime,
-   *    private java.util.Date com.sand.common.entity.BaseEntity.updateTime
+   *    private java.util.Date com.sand.business.parent.entity.BaseEntity.createTime,
+   *    private java.util.Date com.sand.business.parent.entity.BaseEntity.updateTime
    *  ]
    * </pre>
    *

@@ -31,27 +31,29 @@ public final class TreeUtil {
   /**
    * 添加根节点
    *
-   * @param trees
-   * @param rootName
+   * @param trees    原有的树形结构
+   * @param rootObj  根节点实体对象
+   * @param rootName 根节点实体名称
    * @return
    */
-  public static final Tree addRoot(Collection<Tree> trees, String rootName) {
+  public static final Tree addRoot(Collection<Tree> trees, Object rootObj, String rootName) {
     Tree tree = reBuildTree(trees);
-    return addRoot(tree, rootName);
+    return addRoot(tree, rootObj, rootName);
   }
 
   /**
    * 添加根节点
    *
-   * @param tree
-   * @param rootName
+   * @param tree     原有的树形结构
+   * @param rootObj  根节点实体对象
+   * @param rootName 根节点实体名称
    * @return
    */
-  public static final Tree addRoot(Tree tree, String rootName) {
+  public static final Tree addRoot(Tree tree, Object rootObj, String rootName) {
     Tree root = Tree.builder()
         .id(TREE_ROOT)
         .name(rootName)
-        .entity(rootName)
+        .entity(rootObj)
         .build();
     return buildTree(tree, root);
   }

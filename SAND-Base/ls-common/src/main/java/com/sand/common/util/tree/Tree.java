@@ -14,6 +14,7 @@ import com.sand.common.util.tree.builder.ITreeBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,11 +34,16 @@ import java.util.Objects;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonPropertyOrder({"id", "pid", "name", "type", "checked", "height", "amount", "leafAmount", "entity", "children"})
+@JsonPropertyOrder({"id", "pid", "name", "type", "checked", "height", "amount", "leafAmount", "vo", "children"})
 public class Tree extends AbstractTree {
+  @Getter
+  @AllArgsConstructor
   public enum TreeType {
-    // 根节点，分支节点，叶子节点
-    ROOT, BRANCH, LEAF
+    // 节点类型
+    ROOT("根节点"),
+    BRANCH("分支节点"),
+    LEAF("叶子节点");
+    private final String name;
   }
 
   /**

@@ -7,10 +7,9 @@
  */
 package com.sand.common.exception.handler;
 
-import com.sand.common.enums.CodeEnum;
+import com.sand.common.vo.ResultVO;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.ResultUtil;
-import com.sand.common.entity.ResultEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -38,7 +37,7 @@ public class DefaultExceptionHandler {
    * @return 响应客户端
    */
   @ExceptionHandler(Throwable.class)
-  public ResultEntity handleThrowable(Throwable e) {
+  public ResultVO handleThrowable(Throwable e) {
     errorLog(e);
     return ResultUtil.error();
   }
@@ -50,7 +49,7 @@ public class DefaultExceptionHandler {
    * @return 响应客户端
    */
   @ExceptionHandler(Exception.class)
-  public ResultEntity handleException(Exception e) {
+  public ResultVO handleException(Exception e) {
     errorLog(e);
     return ResultUtil.error();
   }
@@ -62,7 +61,7 @@ public class DefaultExceptionHandler {
    * @return 响应客户端
    */
   @ExceptionHandler(BusinessException.class)
-  public ResultEntity handleBusinessException(BusinessException e) {
+  public ResultVO handleBusinessException(BusinessException e) {
     errorLog(e);
     return ResultUtil.info(e.getCode(), e.getMessage());
   }
@@ -74,9 +73,9 @@ public class DefaultExceptionHandler {
    * @return 响应客户端
    */
   @ExceptionHandler(MissingServletRequestParameterException.class)
-  public ResultEntity handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
+  public ResultVO handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
     errorLog(e);
-    return ResultUtil.error(CodeEnum.PARAM_MISSING_ERROR);
+    return ResultUtil.error(ResultVO.Code.PARAM_MISSING_ERROR);
   }
 
   /**
@@ -86,9 +85,9 @@ public class DefaultExceptionHandler {
    * @return 响应客户端
    */
   @ExceptionHandler(HttpMessageNotReadableException.class)
-  public ResultEntity handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+  public ResultVO handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
     errorLog(e);
-    return ResultUtil.error(CodeEnum.DESERIALIZE_ERROR);
+    return ResultUtil.error(ResultVO.Code.DESERIALIZE_ERROR);
   }
 
   /**

@@ -8,7 +8,7 @@
 package com.sand.common.util.poi;
 
 import com.sand.common.annotation.ExcelAnnotation;
-import com.sand.common.entity.ResultEntity;
+import com.sand.common.vo.ResultVO;
 import com.sand.common.util.lang3.StringUtil;
 import com.sand.common.util.poi.template.AbstractExcelPoi;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +35,7 @@ public class ExcelUtil<T> extends AbstractExcelPoi<T> {
    * @param sheetName 模板文件名称
    * @return
    */
-  public ResultEntity downTemplate(String sheetName) {
+  public ResultVO downTemplate(String sheetName) {
     super.init(sheetName, ExcelAnnotation.Type.DOWN_TEMPLATE);
     return super.export();
   }
@@ -57,7 +57,7 @@ public class ExcelUtil<T> extends AbstractExcelPoi<T> {
    * @param entityList list列表数据
    * @return
    */
-  public ResultEntity export(String sheetName, List<T> entityList) {
+  public ResultVO export(String sheetName, List<T> entityList) {
     super.init(sheetName, ExcelAnnotation.Type.EXPORT, entityList);
     return super.export();
   }

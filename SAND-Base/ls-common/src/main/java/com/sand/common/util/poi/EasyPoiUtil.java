@@ -12,7 +12,7 @@ import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.TemplateExportParams;
-import com.sand.common.entity.ResultEntity;
+import com.sand.common.vo.ResultVO;
 import com.sand.common.util.convert.SandCharset;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.CloseableUtil;
@@ -50,7 +50,7 @@ public class EasyPoiUtil {
    * @param sheetName 工作表名称
    * @param pojoClass 实体对象
    */
-  public static ResultEntity downTemplateExcel(String sheetName, Class<?> pojoClass) {
+  public static ResultVO downTemplateExcel(String sheetName, Class<?> pojoClass) {
     return exportExcel(sheetName, pojoClass, new ArrayList<>());
   }
 
@@ -76,7 +76,7 @@ public class EasyPoiUtil {
    * @param dataSet   数据集合
    * @return
    */
-  public static ResultEntity exportExcel(String sheetName, Class<?> pojoClass, Collection<?> dataSet) {
+  public static ResultVO exportExcel(String sheetName, Class<?> pojoClass, Collection<?> dataSet) {
     return exportExcel(sheetName, pojoClass, dataSet, ExcelStyler.SHEET_MAX_NUM, StringUtil.EMPTY);
   }
 
@@ -89,7 +89,7 @@ public class EasyPoiUtil {
    * @param templateUrl 模板路径
    * @return
    */
-  public static ResultEntity exportExcel(String sheetName, Class<?> pojoClass, Collection<?> dataSet, String templateUrl) {
+  public static ResultVO exportExcel(String sheetName, Class<?> pojoClass, Collection<?> dataSet, String templateUrl) {
     return exportExcel(sheetName, pojoClass, dataSet, ExcelStyler.SHEET_MAX_NUM, templateUrl);
   }
 
@@ -103,7 +103,7 @@ public class EasyPoiUtil {
    * @param templateUrl 模板文件路径
    * @return
    */
-  public static ResultEntity exportExcel(String sheetName, Class<?> pojoClass, Collection<?> dataSet, int maxNum, String templateUrl) {
+  public static ResultVO exportExcel(String sheetName, Class<?> pojoClass, Collection<?> dataSet, int maxNum, String templateUrl) {
     return exportExcel(sheetName, pojoClass, dataSet, ExcelStyler.class, maxNum, templateUrl);
   }
 
@@ -118,7 +118,7 @@ public class EasyPoiUtil {
    * @param templateUrl 模模板文件路径
    * @return
    */
-  public static ResultEntity exportExcel(String sheetName, Class<?> pojoClass, Collection<?> dataSet, Class<?> style, int maxNum, String templateUrl) {
+  public static ResultVO exportExcel(String sheetName, Class<?> pojoClass, Collection<?> dataSet, Class<?> style, int maxNum, String templateUrl) {
     OutputStream out = null;
     Workbook workbook = null;
     try {

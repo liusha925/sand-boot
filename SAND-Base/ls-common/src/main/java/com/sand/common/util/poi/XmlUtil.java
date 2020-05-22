@@ -7,7 +7,7 @@
  */
 package com.sand.common.util.poi;
 
-import com.sand.common.entity.ResultEntity;
+import com.sand.common.vo.ResultVO;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.naming.NoNameCoder;
 import com.thoughtworks.xstream.io.xml.Xpp3Driver;
@@ -139,12 +139,12 @@ public class XmlUtil {
 //  }
 
   public static void main(String[] args) {
-    ResultEntity ret = ResultEntity.builder().code(200).msg("成功").build();
+    ResultVO ret = ResultVO.builder().code(200).msg("成功").build();
     System.out.println(obj2Xml(ret));
     System.out.println(xml2Obj("<?xml version=\"1.0\" encoding = \"UTF-8\"?>\n" +
-        "<ResultEntity>\n" +
+        "<ResultVO>\n" +
         "  <code>200</code>\n" +
         "  <message>成功</message>\n" +
-        "</ResultEntity>", ret));
+        "</ResultVO>", ret));
   }
 }

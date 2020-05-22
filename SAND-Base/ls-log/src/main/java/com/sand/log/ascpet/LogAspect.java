@@ -7,7 +7,7 @@
  */
 package com.sand.log.ascpet;
 
-import com.sand.common.enums.CodeEnum;
+import com.sand.common.vo.ResultVO;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.lang3.AnnotationUtil;
 import com.sand.common.util.lang3.StringUtil;
@@ -103,7 +103,7 @@ public class LogAspect {
       if (e instanceof BusinessException) {
         throw new BusinessException(e.getMessage());
       }
-      throw new Throwable(CodeEnum.ERROR.getMsg());
+      throw new Throwable(ResultVO.Code.ERROR.getVName());
     } finally {
       // 执行结束
       long endTime = System.currentTimeMillis();

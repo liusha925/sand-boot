@@ -9,8 +9,7 @@ package com.sand.web.security;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Maps;
-import com.sand.common.entity.ResultEntity;
-import com.sand.common.enums.CodeEnum;
+import com.sand.common.vo.ResultVO;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.ParamUtil;
 import com.sand.common.util.ResultUtil;
@@ -91,7 +90,7 @@ public class UserAuthenticationService implements IUserAuthenticationService {
   }
 
   @Override
-  public ResultEntity authAfter(Object userDetails) {
+  public ResultVO authAfter(Object userDetails) {
     log.info("3、认证后处理");
     SysUser user = (SysUser) userDetails;
     // 1、存储用户信息至redis
@@ -115,7 +114,7 @@ public class UserAuthenticationService implements IUserAuthenticationService {
   public void checkAuthToken(String token) {
     boolean result = jwtTokenUtil.checkTokenEffective(token);
     if (!result) {
-      throw new BusinessException(CodeEnum.TOKEN_FAIL);
+      throw new BusinessException(ResultVO.Code.TOKEN_FAIL);
     }
   }
 }

@@ -44,8 +44,11 @@
         <com.sand.ls-mybatisplus.version>1.0.0-SNAPSHOT</com.sand.ls-mybatisplus.version>
         <com.sand.ls-redis.version>1.0.0-SNAPSHOT</com.sand.ls-redis.version>
         <com.sand.ls-zookeeper.version>1.0.0-SNAPSHOT</com.sand.ls-zookeeper.version>
+        <!-- Business -->
+        <com.sand.business-parent.version>1.0.0-SNAPSHOT</com.sand.business-parent.version>
         <com.sand.sys-api.version>1.0.0-SNAPSHOT</com.sand.sys-api.version>
         <com.sand.sys-provider.version>1.0.0-SNAPSHOT</com.sand.sys-provider.version>
+        <!-- Webapp -->
         <com.sand.ls-backend.version>1.0.0-SNAPSHOT</com.sand.ls-backend.version>
     </properties>
 
@@ -184,6 +187,11 @@
                 <groupId>com.sand</groupId>
                 <artifactId>sys-api</artifactId>
                 <version>${com.sand.sys-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sand</groupId>
+                <artifactId>business-parent</artifactId>
+                <version>${com.sand.business-parent.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.sand</groupId>

@@ -7,7 +7,7 @@
  */
 package com.sand.common.exception;
 
-import com.sand.common.enums.CodeEnum;
+import com.sand.common.vo.ResultVO;
 import lombok.Data;
 
 /**
@@ -21,23 +21,23 @@ public class BusinessException extends RuntimeException {
   private int code;
 
   public BusinessException() {
-    super(CodeEnum.ERROR.getMsg());
-    this.code = CodeEnum.ERROR.getCode();
+    super(ResultVO.Code.ERROR.getVName());
+    this.code = ResultVO.Code.ERROR.getValue();
   }
 
-  public BusinessException(CodeEnum codeEnum) {
-    super(codeEnum.getMsg());
-    this.code = codeEnum.getCode();
+  public BusinessException(ResultVO.Code code) {
+    super(code.getVName());
+    this.code = code.getValue();
   }
 
-  public BusinessException(CodeEnum codeEnum, String msg) {
+  public BusinessException(ResultVO.Code code, String msg) {
     super(msg);
-    this.code = codeEnum.getCode();
+    this.code = code.getValue();
   }
 
   public BusinessException(String msg) {
     super(msg);
-    this.code = CodeEnum.ERROR.getCode();
+    this.code = ResultVO.Code.ERROR.getValue();
   }
 
   public BusinessException(int code, String msg) {
@@ -47,17 +47,17 @@ public class BusinessException extends RuntimeException {
 
   public BusinessException(String msg, Exception e) {
     super(msg, e);
-    this.code = CodeEnum.ERROR.getCode();
+    this.code = ResultVO.Code.ERROR.getValue();
   }
 
-  public BusinessException(CodeEnum codeEnum, Exception e) {
-    super(codeEnum.getMsg(), e);
-    this.code = codeEnum.getCode();
+  public BusinessException(ResultVO.Code code, Exception e) {
+    super(code.getVName(), e);
+    this.code = code.getValue();
   }
 
-  public BusinessException(CodeEnum codeEnum, String msg, Exception e) {
+  public BusinessException(ResultVO.Code code, String msg, Exception e) {
     super(msg, e);
-    this.code = codeEnum.getCode();
+    this.code = code.getValue();
   }
 
   public BusinessException(int code, String msg, Exception e) {

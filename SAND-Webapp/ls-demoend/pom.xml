@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>com.sand</groupId>
-            <artifactId>ls-mybatisplus</artifactId>
+            <artifactId>business-parent</artifactId>
         </dependency>
     </dependencies>
 
