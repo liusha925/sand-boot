@@ -31,7 +31,7 @@
         </dependency>
         <dependency>
             <groupId>com.sand</groupId>
-            <artifactId>ls-log</artifactId>
+            <artifactId>ls-logging</artifactId>
         </dependency>
     </dependencies>
 </project>

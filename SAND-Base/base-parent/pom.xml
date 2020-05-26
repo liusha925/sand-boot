@@ -37,9 +37,12 @@
         <maven-compiler-plugin.source>1.8</maven-compiler-plugin.source>
         <maven-compiler-plugin.target>1.8</maven-compiler-plugin.target>
         <maven-compiler-plugin.encoding>utf8</maven-compiler-plugin.encoding>
-        <!-- 功能模块版本控制 -->
+        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
+        <!-- Base -->
         <com.sand.ls-common.version>1.0.0-SNAPSHOT</com.sand.ls-common.version>
-        <com.sand.ls-log.version>1.0.0-SNAPSHOT</com.sand.ls-log.version>
+        <com.sand.ls-logging.version>1.0.0-SNAPSHOT</com.sand.ls-logging.version>
         <com.sand.ls-security.version>1.0.0-SNAPSHOT</com.sand.ls-security.version>
         <com.sand.ls-mybatisplus.version>1.0.0-SNAPSHOT</com.sand.ls-mybatisplus.version>
         <com.sand.ls-redis.version>1.0.0-SNAPSHOT</com.sand.ls-redis.version>
@@ -160,8 +163,8 @@
             </dependency>
             <dependency>
                 <groupId>com.sand</groupId>
-                <artifactId>ls-log</artifactId>
-                <version>${com.sand.ls-log.version}</version>
+                <artifactId>ls-logging</artifactId>
+                <version>${com.sand.ls-logging.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.sand</groupId>
@@ -213,7 +216,6 @@
             <dependency>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>${maven-dependency-plugin.version</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

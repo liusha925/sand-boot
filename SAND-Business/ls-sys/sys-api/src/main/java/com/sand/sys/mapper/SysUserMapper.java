@@ -23,7 +23,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
    * 根据用户名加载用户信息
    *
    * @param username 用户名
-   * @return
+   * @return 用户信息
    */
   SysUser loadUserByUsername(String username);
 

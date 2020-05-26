@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sand</groupId>
-    <artifactId>ls-log</artifactId>
-    <version>${com.sand.ls-log.version}</version>
+    <artifactId>ls-logging</artifactId>
+    <version>${com.sand.ls-logging.version}</version>
     <packaging>jar</packaging>
     <description>日志模块</description>
 
