@@ -106,7 +106,7 @@ public class UserAuthenticationService implements IUserAuthenticationService {
     tokenMap.put("real_name", dbUser.getRealName());
     tokenMap.put("authorities", user.getAuthorities());
     tokenMap.put("expiration", jwtTokenUtil.getExpiration());
-    tokenMap.put("token_type", JwtTokenUtil.TOKEN_TYPE_BEARER);
+    tokenMap.put("token_type", JwtTokenUtil.TOKEN_PREFIX);
     return ResultUtil.ok(tokenMap);
   }
 

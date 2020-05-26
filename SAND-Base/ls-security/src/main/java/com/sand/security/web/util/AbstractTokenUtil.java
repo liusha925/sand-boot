@@ -28,26 +28,26 @@ import java.util.Objects;
 @Slf4j
 public abstract class AbstractTokenUtil {
   /**
-   * 密钥
+   * 令牌密钥
    */
   protected String secret;
   /**
-   * 过期时间，默认7天
+   * 令牌过期时间
    */
   protected Long expiration;
   /**
-   * Token 类型
+   * 令牌前缀
    */
-  public static final String TOKEN_TYPE_BEARER = "Bearer";
+  public static final String TOKEN_PREFIX = "Bearer";
   /**
-   * 携带Token的HTTP头
+   * 令牌头部
    */
   public static final String TOKEN_HEADER = "Authorization";
 
   /**
    * 获取token
    *
-   * @return
+   * @return token值
    */
   public String getTokenFromRequestHeader() {
     HttpServletRequest request = ServletUtil.getRequest();
