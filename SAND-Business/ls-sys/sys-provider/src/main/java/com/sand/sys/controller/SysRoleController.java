@@ -9,12 +9,11 @@ package com.sand.sys.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sand.common.vo.ResultVO;
-import com.sand.mybatisplus.util.PageUtil;
-import com.sand.business.parent.base.BaseController;
 import com.sand.common.util.ResultUtil;
 import com.sand.common.util.poi.ExcelUtil;
 import com.sand.common.util.tree.Tree;
+import com.sand.common.vo.ResultVO;
+import com.sand.mybatisplus.util.PageUtil;
 import com.sand.sys.entity.SysRole;
 import com.sand.sys.model.SysRoleModel;
 import com.sand.sys.service.ISysMenuService;
@@ -39,7 +38,7 @@ import java.util.Objects;
 @Slf4j
 @RestController
 @RequestMapping("/sys/role")
-public class SysRoleController extends BaseController {
+public class SysRoleController extends SysBaseController {
   @Autowired
   private ISysRoleService roleService;
   @Autowired

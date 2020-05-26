@@ -7,9 +7,9 @@
  */
 package com.sand.sys.controller;
 
+import com.sand.business.parent.constant.Constant;
 import com.sand.common.util.ResultUtil;
 import com.sand.common.util.tree.Tree;
-import com.sand.business.parent.base.BaseController;
 import com.sand.common.vo.ResultVO;
 import com.sand.log.annotation.LogAnnotation;
 import com.sand.sys.entity.SysMenu;
@@ -33,7 +33,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/sys/menu")
-public class SysMenuController extends BaseController {
+public class SysMenuController extends SysBaseController {
 
   @Autowired
   private ISysMenuService menuService;
@@ -71,7 +71,7 @@ public class SysMenuController extends BaseController {
   }
 
   @RequestMapping("/add")
-  @LogAnnotation(symbol = "系统管理", description = "新增菜单", service = "sysLogServiceImpl")
+  @LogAnnotation(symbol = "系统管理", description = "新增菜单", service = Constant.SYS_LOG_SERVICE)
   public ResultVO add(@RequestBody SysMenuModel model) {
     log.info("SysMenuController add params：{}", model);
     menuService.add(model);
@@ -80,6 +80,7 @@ public class SysMenuController extends BaseController {
   }
 
   @RequestMapping("/edit")
+  @LogAnnotation(symbol = "系统管理", description = "编辑菜单", service = Constant.SYS_LOG_SERVICE)
   public ResultVO edit(@RequestBody SysMenuModel model) {
     log.info("SysMenuController edit params：{}", model);
     menuService.edit(model);

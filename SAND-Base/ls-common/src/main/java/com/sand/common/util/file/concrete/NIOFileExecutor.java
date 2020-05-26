@@ -7,9 +7,8 @@
  */
 package com.sand.common.util.file.concrete;
 
-import com.sand.common.constant.Constant;
-import com.sand.common.util.convert.SandCharset;
 import com.sand.common.exception.BusinessException;
+import com.sand.common.util.convert.SandCharset;
 import com.sand.common.util.file.AbstractFileExecutor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;

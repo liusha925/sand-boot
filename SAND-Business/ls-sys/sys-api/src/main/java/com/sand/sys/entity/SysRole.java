@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.sand.common.annotation.EnumValidAnnotation;
 import com.sand.common.annotation.ExcelAnnotation;
-import com.sand.common.constant.Constant;
+import com.sand.business.parent.constant.Constant;
 import com.sand.business.parent.base.BaseEntity;
 import com.sand.sys.enums.RoleEnum;
 import lombok.Data;

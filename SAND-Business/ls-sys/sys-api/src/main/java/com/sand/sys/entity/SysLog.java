@@ -9,7 +9,7 @@ package com.sand.sys.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.sand.common.constant.Constant;
+import com.sand.business.parent.constant.Constant;
 import com.sand.business.parent.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

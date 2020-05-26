@@ -10,7 +10,6 @@ package com.sand.redis.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sand.common.constant.Constant;
 import com.sand.common.util.convert.SandConvert;
 import com.sand.common.util.crypt.des.DesCryptUtil;
 import com.sand.common.util.global.Config;
@@ -42,13 +41,20 @@ import java.util.Map;
 @Slf4j
 @Configuration
 public class RedisConfig {
+  /**
+   * Redis数据库启用个数
+   */
+  private static final int REDIS_DATABASE_SIZE = 4;
+  /**
+   * 获取对应库的RedisTemplate
+   */
   private static Map<Integer, RedisTemplate<String, String>> redisTemplateMap = new HashMap<>();
 
   @PostConstruct
   public void initRedisTemp() {
     log.info("### S 初始化 Redis 连接池 S ###");
     // Redis数据库启用个数
-    int databases = Constant.REDIS_DATABASE_SIZE;
+    int databases = REDIS_DATABASE_SIZE;
     log.info("此系统启用了{}个Redis数据库", databases);
     for (int i = 0; i < databases; i++) {
       try {

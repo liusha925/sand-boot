@@ -10,9 +10,8 @@ package com.sand.sys.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sand.common.util.ResultUtil;
-import com.sand.mybatisplus.util.PageUtil;
-import com.sand.business.parent.base.BaseController;
 import com.sand.common.vo.ResultVO;
+import com.sand.mybatisplus.util.PageUtil;
 import com.sand.sys.entity.SysUser;
 import com.sand.sys.model.SysUserModel;
 import com.sand.sys.service.ISysUserService;
@@ -31,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/sys/user")
-public class SysUserController extends BaseController {
+public class SysUserController extends SysBaseController {
 
   @Autowired
   private ISysUserService userService;

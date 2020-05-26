@@ -9,7 +9,6 @@ package com.sand.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.sand.common.vo.ResultVO;
 import com.sand.business.parent.enums.OperateType;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.lang3.StringUtil;
@@ -17,6 +16,7 @@ import com.sand.common.util.tree.Tree;
 import com.sand.common.util.tree.TreeUtil;
 import com.sand.common.util.tree.builder.ITreeBuilder;
 import com.sand.common.util.validator.ModelValidator;
+import com.sand.common.vo.ResultVO;
 import com.sand.sys.entity.SysMenu;
 import com.sand.sys.entity.SysRoleMenu;
 import com.sand.sys.enums.MenuEnum;
@@ -29,7 +29,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -100,8 +99,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     }
     // 构建菜单树
     Tree menuTree = buildTree(menuList, menuIds);
-    // 将根节点加入至菜单树中
-    TreeUtil.addRoot(menuTree, getRootMenu(), "菜单权限");
     return menuTree;
   }
 
@@ -153,30 +150,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         return menu.getMenuName();
       }
     });
-  }
-
-  /**
-   * 获取根节点菜单
-   *
-   * @return 根节点菜单
-   */
-  private SysMenu getRootMenu() {
-    SysMenu rootMenu = new SysMenu();
-    rootMenu.setMenuId("0");
-    rootMenu.setParentId("0");
-    rootMenu.setMenuName("菜单权限");
-    rootMenu.setMenuType(MenuEnum.Type.M.getValue());
-    rootMenu.setMenuUrl("#");
-    rootMenu.setTarget(MenuEnum.Target.CURRENT.getValue());
-    rootMenu.setVisible(MenuEnum.Visible.SHOW.getValue());
-    rootMenu.setPurview(":");
-    rootMenu.setIcon("#");
-    rootMenu.setCreateBy("");
-    rootMenu.setUpdateBy("");
-    rootMenu.setCreateTime(new Date());
-    rootMenu.setUpdateTime(new Date());
-    rootMenu.setRemark("菜单根节点");
-    return rootMenu;
   }
 
   /**

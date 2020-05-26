@@ -5,7 +5,7 @@
  * 2019/8/6   liusha      新增
  * =========  ===========  =====================
  */
-package com.sand.common.constant;
+package com.sand.business.parent.constant;
 
 /**
  * 功能说明：常量类
@@ -19,7 +19,7 @@ public final class Constant {
    */
   public static final String TABLE_PREFIX_SYS = "sys_";
   /**
-   * Redis数据库启用个数
+   * 系统日志实现类
    */
-  public static final int REDIS_DATABASE_SIZE = 4;
+  public static final String SYS_LOG_SERVICE = "sysLogServiceImpl";
 }

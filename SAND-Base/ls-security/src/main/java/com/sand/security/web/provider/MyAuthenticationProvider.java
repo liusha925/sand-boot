@@ -53,7 +53,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
     //
     UsernamePasswordAuthenticationToken authenticationResult = new UsernamePasswordAuthenticationToken(
         userDetails, userDetails.getPassword(), userDetails.getAuthorities());
-    // 设置用户详细信息，用于记录ip、sessionid、证书序列号等值
+    // 设置用户详细信息，用于记录ip、sessionId、证书序列号等值
     authenticationResult.setDetails(authenticationToken.getDetails());
     // 设置权限信息列表，默认是 GrantedAuthority 接口的一些实现类，通常是代表权限信息的一系列字符串
     return authenticationResult;
