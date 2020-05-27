@@ -8,8 +8,10 @@
 package com.sand.business.parent.base;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 
 import java.io.Serializable;
@@ -21,8 +23,10 @@ import java.util.Date;
  * 开发日期：2019/8/26 13:38
  * 功能描述：实体对象的功能字段
  */
-@Data
-@Accessors(chain = true)
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 public class BaseEntity implements Serializable {
   private static final long serialVersionUID = 2367225182033538004L;
   /**

@@ -16,7 +16,10 @@ import com.sand.security.web.util.AbstractTokenUtil;
 import com.sand.sys.entity.SysUser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +31,10 @@ import java.util.Date;
  * 开发日期：2020/3/19 15:35
  * 功能描述：从application.yml配置文件中读取安全认证信息，密钥、token有效期等
  */
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(callSuper = true)
 @Component
 @ConfigurationProperties("sand.security.jwt")
 public class JwtTokenUtil extends AbstractTokenUtil {

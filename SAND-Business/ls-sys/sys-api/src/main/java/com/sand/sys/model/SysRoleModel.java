@@ -8,10 +8,10 @@
 package com.sand.sys.model;
 
 import com.sand.sys.entity.SysRole;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.Accessors;
 
 import java.util.List;
 
@@ -21,8 +21,8 @@ import java.util.List;
  * 开发日期：2019/9/2 17:47
  * 功能描述：用作DTO、VO
  */
-@Data
-@Accessors(chain = true)
+@Getter
+@Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class SysRoleModel extends SysRole {

@@ -13,9 +13,11 @@ import com.sand.common.util.lang3.StringUtil;
 import com.sand.common.util.tree.builder.ITreeBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -29,7 +31,10 @@ import java.util.Objects;
  * 开发日期：2019/8/26 17:33
  * 功能描述：树形构建
  */
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(callSuper = true)
 @Slf4j
 @Builder
 @AllArgsConstructor

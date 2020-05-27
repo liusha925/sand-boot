@@ -17,7 +17,7 @@ public final class Constant {
   /**
    * 系统表前缀
    */
-  public static final String TABLE_PREFIX_SYS = "sys_";
+  public static final String TABLE_SYS = "sys_";
   /**
    * 系统日志实现类
    */

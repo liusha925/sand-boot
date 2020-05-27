@@ -8,7 +8,10 @@
 package com.sand.security.web.provider;
 
 import com.sand.common.vo.ResultVO;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -28,7 +31,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * 开发日期：2019/11/26 10:38
  * 功能描述：此认证方式通过了，就可被认为是登录成功，返回一个填充了用户认证信息（包括身份信息、权限信息、详细信息等，但密码通常会被移除）的Authentication实例。
  */
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 public class MyAuthenticationProvider implements AuthenticationProvider {
   @Autowired
   private UserDetailsService userDetailsService;

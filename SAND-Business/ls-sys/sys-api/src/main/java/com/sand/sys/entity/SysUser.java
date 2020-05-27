@@ -11,12 +11,12 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sand.business.parent.constant.Constant;
 import com.sand.business.parent.base.BaseEntity;
-import lombok.Data;
+import com.sand.business.parent.constant.Constant;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -29,11 +29,11 @@ import java.util.List;
  * 开发日期：2019/8/26 13:38
  * 功能描述：系统菜单
  */
-@Data
-@Accessors(chain = true)
-@ToString(callSuper = true)
+@Getter
+@Setter
+@ToString
 @EqualsAndHashCode(callSuper = true)
-@TableName(Constant.TABLE_PREFIX_SYS + "user")
+@TableName(Constant.TABLE_SYS + "user")
 public class SysUser extends BaseEntity implements UserDetails {
   private static final long serialVersionUID = -8324234380114962669L;
   /**

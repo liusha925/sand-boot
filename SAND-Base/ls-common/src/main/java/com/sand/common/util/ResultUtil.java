@@ -13,7 +13,11 @@ import com.sand.common.util.lang3.StringUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
@@ -157,10 +161,13 @@ public class ResultUtil {
     return data;
   }
 
-  @Data
-  @Builder
+  @Getter
+  @Setter
+  @ToString
+  @EqualsAndHashCode
   @NoArgsConstructor
   @AllArgsConstructor
+  @Builder
   static class SelectData {
     /**
      * 请求key

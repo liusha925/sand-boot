@@ -10,8 +10,10 @@ package com.sand.sys.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.sand.business.parent.constant.Constant;
 import lombok.Builder;
-import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 功能说明：用户-角色关联表
@@ -19,10 +21,12 @@ import lombok.experimental.Accessors;
  * 开发日期：2020/3/19 16:50
  * 功能描述：用户-角色关联表   用户1-N角色
  */
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @Builder
-@Accessors(chain = true)
-@TableName(Constant.TABLE_PREFIX_SYS + "user_role")
+@TableName(Constant.TABLE_SYS + "user_role")
 public class SysUserRole {
   /**
    * 用户D

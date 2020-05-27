@@ -9,7 +9,10 @@ package com.sand.common.util.tree;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sand.common.util.tree.builder.ITree;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +25,10 @@ import java.util.Map;
  * 开发日期：2019/8/26 17:06
  * 功能描述：使用复合将此类作为适配器
  */
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 public abstract class AbstractTree implements ITree {
   /**
    * 除根节点外的子节点树

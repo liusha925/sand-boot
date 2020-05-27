@@ -8,7 +8,10 @@
 package com.sand.common.exception;
 
 import com.sand.common.vo.ResultVO;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 功能说明：自定义异常类
@@ -16,8 +19,12 @@ import lombok.Data;
  * 开发日期：2019/8/16 10:32
  * 功能描述：自定义异常类
  */
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(callSuper = true)
 public class BusinessException extends RuntimeException {
+  private static final long serialVersionUID = -2181521031637425151L;
   private int code;
 
   public BusinessException() {

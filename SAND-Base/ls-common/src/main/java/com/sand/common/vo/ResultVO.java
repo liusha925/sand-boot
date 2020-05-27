@@ -9,9 +9,11 @@ package com.sand.common.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 功能说明：返回结果集
@@ -19,7 +21,10 @@ import lombok.NoArgsConstructor;
  * 开发日期：2019/8/16 13:31
  * 功能描述：返回结果集
  */
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

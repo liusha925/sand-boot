@@ -9,7 +9,9 @@ package com.sand.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.sand.business.parent.base.BaseEntity;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 /**
@@ -18,8 +20,10 @@ import lombok.ToString;
  * 开发日期：2019/8/23 13:12
  * 功能描述：用户信息
  */
-@Data
-@ToString(callSuper = true)
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(callSuper = true)
 @TableName(value = "demo_" + "user")
 public class DemoUser extends BaseEntity {
   /**

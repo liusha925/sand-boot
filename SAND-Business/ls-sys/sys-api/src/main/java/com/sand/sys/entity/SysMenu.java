@@ -9,14 +9,14 @@ package com.sand.sys.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.sand.common.annotation.EnumValidAnnotation;
-import com.sand.business.parent.constant.Constant;
 import com.sand.business.parent.base.BaseEntity;
+import com.sand.business.parent.constant.Constant;
+import com.sand.common.annotation.EnumValidAnnotation;
 import com.sand.sys.enums.MenuEnum;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
@@ -27,11 +27,11 @@ import javax.validation.constraints.NotBlank;
  * 开发日期：2019/8/26 13:38
  * 功能描述：系统菜单
  */
-@Data
-@Accessors(chain = true)
-@ToString(callSuper = true)
+@Getter
+@Setter
+@ToString
 @EqualsAndHashCode(callSuper = true)
-@TableName(Constant.TABLE_PREFIX_SYS + "menu")
+@TableName(Constant.TABLE_SYS + "menu")
 public class SysMenu extends BaseEntity {
   private static final long serialVersionUID = -2854114810573968874L;
   /**

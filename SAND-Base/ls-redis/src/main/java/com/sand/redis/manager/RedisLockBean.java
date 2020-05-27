@@ -8,7 +8,10 @@
 package com.sand.redis.manager;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.concurrent.locks.Condition;
 
@@ -18,7 +21,10 @@ import java.util.concurrent.locks.Condition;
  * 开发日期：2020/4/15 19:55
  * 功能描述：订阅服务
  */
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @Builder
 public class RedisLockBean {
   /**

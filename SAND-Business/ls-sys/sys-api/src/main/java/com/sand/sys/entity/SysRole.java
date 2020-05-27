@@ -10,15 +10,15 @@ package com.sand.sys.entity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.sand.business.parent.base.BaseEntity;
+import com.sand.business.parent.constant.Constant;
 import com.sand.common.annotation.EnumValidAnnotation;
 import com.sand.common.annotation.ExcelAnnotation;
-import com.sand.business.parent.constant.Constant;
-import com.sand.business.parent.base.BaseEntity;
 import com.sand.sys.enums.RoleEnum;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
@@ -29,11 +29,11 @@ import javax.validation.constraints.NotBlank;
  * 开发日期：2019/8/30 13:10
  * 功能描述：系统角色
  */
-@Data
-@Accessors(chain = true)
-@ToString(callSuper = true)
+@Getter
+@Setter
+@ToString
 @EqualsAndHashCode(callSuper = true)
-@TableName(Constant.TABLE_PREFIX_SYS + "role")
+@TableName(Constant.TABLE_SYS + "role")
 public class SysRole extends BaseEntity {
   private static final long serialVersionUID = 9084971943250909716L;
   /**

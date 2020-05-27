@@ -9,12 +9,12 @@ package com.sand.sys.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.sand.business.parent.constant.Constant;
 import com.sand.business.parent.base.BaseEntity;
-import lombok.Data;
+import com.sand.business.parent.constant.Constant;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.Accessors;
 
 /**
  * 功能说明：系统日志
@@ -22,11 +22,11 @@ import lombok.experimental.Accessors;
  * 开发日期：2019/10/29 14:51
  * 功能描述：系统日志
  */
-@Data
-@Accessors(chain = true)
-@ToString(callSuper = true)
+@Getter
+@Setter
+@ToString
 @EqualsAndHashCode(callSuper = true)
-@TableName(Constant.TABLE_PREFIX_SYS + "log")
+@TableName(Constant.TABLE_SYS + "log")
 public class SysLog extends BaseEntity {
   private static final long serialVersionUID = -8322909114249380529L;
   /**

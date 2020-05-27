@@ -11,7 +11,10 @@ import com.sand.common.util.ServletUtil;
 import com.sand.common.util.lang3.StringUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +27,10 @@ import java.util.Objects;
  * 开发日期：2019/11/26 15:44
  * 功能描述：定义token实现类，过期时间相关信息定义
  */
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @Slf4j
 public abstract class AbstractTokenUtil {
   /**
