@@ -30,6 +30,7 @@ public class BaseCommon {
   protected void newBusinessException(String msg) {
     throw new BusinessException(ResultVO.Code.BUSINESS_ERROR, msg);
   }
+
   /**
    * 将mybatis-plus的分页插件转换成需要的展示格式
    *

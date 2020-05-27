@@ -22,7 +22,7 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @TableName(value = "demo_" + "user")
 public class DemoUser extends BaseEntity {

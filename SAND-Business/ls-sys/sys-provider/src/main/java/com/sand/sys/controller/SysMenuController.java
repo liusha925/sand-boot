@@ -13,6 +13,7 @@ import com.sand.common.util.tree.Tree;
 import com.sand.common.vo.ResultVO;
 import com.sand.log.annotation.LogAnnotation;
 import com.sand.sys.entity.SysMenu;
+import com.sand.sys.entity.SysUser;
 import com.sand.sys.model.SysMenuModel;
 import com.sand.sys.service.ISysMenuService;
 import lombok.extern.slf4j.Slf4j;
@@ -41,23 +42,15 @@ public class SysMenuController extends SysBaseController {
   @RequestMapping("/leftTree")
   public ResultVO leftTree() {
     log.info("SysMenuController leftTree");
-    Tree menuTree;
-    // TODO 如果是超级管理员则拥有所有菜单权限
-    if (true) {
-      menuTree = menuService.buildLeftTree(false);
-    } else {
-      // TODO 其他用户需要根据角色来查询菜单权限
-      String[] roleIds = new String[0];
-      menuTree = menuService.buildLeftTree(false, roleIds);
-    }
+    Tree leftTree = getMenuTree(false);
 
-    return ResultUtil.ok(menuTree.getChildren());
+    return ResultUtil.ok(leftTree.getChildren());
   }
 
   @RequestMapping("/tree")
   public ResultVO tree() {
     log.info("SysMenuController tree");
-    Tree menuTree = menuService.buildMenuTree(true);
+    Tree menuTree = getMenuTree(true);
 
     return ResultUtil.ok(menuTree.getChildren());
   }
@@ -94,6 +87,25 @@ public class SysMenuController extends SysBaseController {
     SysMenu dbMenu = menuService.getById(menuId);
 
     return ResultUtil.ok(dbMenu);
+  }
+
+  /**
+   * 获取菜单树
+   *
+   * @param needButton 是否需要按钮菜单
+   * @return 菜单树
+   */
+  private Tree getMenuTree(boolean needButton) {
+    Tree menuTree;
+    SysUser sysUser = getSysUser();
+    // 如果是超级管理员则拥有所有菜单权限
+    if (sysUser.isAdmin()) {
+      menuTree = menuService.buildLeftTree(needButton);
+    } else {
+      // 其他用户需要根据角色来查询菜单权限
+      menuTree = menuService.buildLeftTree(needButton, getRoleIds());
+    }
+    return menuTree;
   }
 
 }

@@ -86,7 +86,7 @@ public abstract class AbstractTokenUtil {
    * @return Boolean
    */
   public Boolean checkTokenEffective(String token) {
-    if (StringUtil.isNotEmpty(token) && !checkTokenExpired(token)) {
+    if (StringUtil.isNotBlank(token) && !checkTokenExpired(token)) {
       return true;
     }
     return false;

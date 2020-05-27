@@ -43,9 +43,9 @@ public interface IUserAuthenticationService {
   ResultVO authAfter(Object userDetails);
 
   /**
-   * 验证token是否有效
+   * 处理token是否有效
    *
    * @param token token
    */
-  void checkAuthToken(String token);
+  void handleAuthToken(String token);
 }

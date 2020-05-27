@@ -76,7 +76,7 @@ public class MyAuthenticationTokenGenericFilter extends GenericFilterBean {
       // 非白名单需验证其合法性（非白名单请求必须带token）
       String authHeader = httpRequest.getHeader(AbstractTokenUtil.TOKEN_HEADER);
       final String authToken = StringUtil.substring(authHeader, 7);
-      userAuthenticationService.checkAuthToken(authToken);
+      userAuthenticationService.handleAuthToken(authToken);
       chain.doFilter(httpRequest, httpResponse);
     } catch (Exception e) {
       log.error("MyAuthenticationTokenGenericFilter异常", e);
@@ -92,7 +92,7 @@ public class MyAuthenticationTokenGenericFilter extends GenericFilterBean {
    * @param chain    chain
    * @return true-是白名单 false-不是白名单
    */
-  public boolean isPermitUrl(ServletRequest request, ServletResponse response, FilterChain chain) {
+  private boolean isPermitUrl(ServletRequest request, ServletResponse response, FilterChain chain) {
     if (Objects.isNull(filterInvocationSecurityMetadataSource)) {
       try {
         // 获取security配置的白名单信息

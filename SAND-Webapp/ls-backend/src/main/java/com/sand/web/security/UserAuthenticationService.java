@@ -9,12 +9,13 @@ package com.sand.web.security;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Maps;
-import com.sand.common.vo.ResultVO;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.ParamUtil;
 import com.sand.common.util.ResultUtil;
 import com.sand.common.util.crypt.des.DesCryptUtil;
 import com.sand.common.util.crypt.md5.Md5Util;
+import com.sand.common.util.lang3.StringUtil;
+import com.sand.common.vo.ResultVO;
 import com.sand.security.web.IUserAuthenticationService;
 import com.sand.sys.entity.SysUser;
 import com.sand.sys.service.ISysUserService;
@@ -23,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -111,10 +113,18 @@ public class UserAuthenticationService implements IUserAuthenticationService {
   }
 
   @Override
-  public void checkAuthToken(String token) {
+  public void handleAuthToken(String token) {
     boolean result = jwtTokenUtil.checkTokenEffective(token);
     if (!result) {
       throw new BusinessException(ResultVO.Code.TOKEN_FAIL);
+    }
+    String userId = jwtTokenUtil.getUserIdFromToken(token);
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    log.info("token验证通过，开始存储用户信息userId：{}，authentication：{}", userId, authentication);
+    if (StringUtil.isNotBlank(userId) && authentication == null) {
+      SysUser sysUser = userService.getById(userId);
+      UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(sysUser, null, sysUser.getAuthorities());
+      SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
   }
 }

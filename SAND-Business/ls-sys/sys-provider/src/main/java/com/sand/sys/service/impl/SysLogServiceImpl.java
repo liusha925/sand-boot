@@ -9,16 +9,19 @@ package com.sand.sys.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sand.business.parent.util.AuthenticationUtil;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.ServletUtil;
+import com.sand.common.util.convert.SandConvert;
 import com.sand.common.util.lang3.DateUtil;
 import com.sand.common.util.lang3.StringUtil;
-import com.sand.common.util.convert.SandConvert;
 import com.sand.log.annotation.LogAnnotation;
 import com.sand.log.service.ILogService;
 import com.sand.sys.entity.SysLog;
+import com.sand.sys.entity.SysUser;
 import com.sand.sys.mapper.SysLogMapper;
 import com.sand.sys.service.ISysLogService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -36,6 +39,7 @@ import java.util.Map;
  * 开发日期：2019/10/29 15:37
  * 功能描述：系统日志
  */
+@Slf4j
 @Service
 public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> implements ILogService, ISysLogService {
   private static final Logger logger = LoggerFactory.getLogger(SysLogServiceImpl.class);
@@ -61,8 +65,20 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
     log.setUrl(SandConvert.obj2Str(ServletUtil.getRequest().getRequestURL()));
     log.setRequestMethod(SandConvert.obj2Str(ServletUtil.getRequest().getMethod()));
     log.setRequestParams(JSON.toJSONString(requestParams));
-    log.setUserName("超级管理员");
-    log.setCreateBy("超级管理员");
+    // 获取用户信息
+    try {
+      Object user = AuthenticationUtil.getUser();
+      if (user instanceof SysUser) {
+        SysUser sysUser = (SysUser) user;
+        log.setUserName(sysUser.getUsername());
+        log.setCreateBy(sysUser.getRealName());
+        log.setUpdateBy(sysUser.getRealName());
+      } else {
+        logger.info("用户类型非法！");
+      }
+    } catch (Exception e) {
+      logger.error("获取登录用户信息异常", e);
+    }
   }
 
   @Override

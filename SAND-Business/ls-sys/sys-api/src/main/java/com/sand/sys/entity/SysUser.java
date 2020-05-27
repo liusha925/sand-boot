@@ -17,9 +17,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.List;
 
@@ -31,7 +33,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"password"}, callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @TableName(Constant.TABLE_SYS + "user")
 public class SysUser extends BaseEntity implements UserDetails {
@@ -44,15 +46,24 @@ public class SysUser extends BaseEntity implements UserDetails {
   /**
    * 用户名
    */
+  @NotBlank(message = "[用户名]不能为空哟！")
+  @Length(max = 16, message = "[用户名]不能超过16个字符呢！")
   private String username;
   /**
    * 密码
    */
+  @Length(max = 64, message = "[密码]加密超过了限制长度64！")
   private String password;
   /**
    * 真实姓名
    */
+  @NotBlank(message = "[真实姓名]不能为空哟！")
+  @Length(max = 64, message = "[真实姓名]不能超过64个字符呢！")
   private String realName;
+  /**
+   * 是否为超级管理员
+   */
+  private boolean isAdmin;
   /**
    * 用户权限集合
    */

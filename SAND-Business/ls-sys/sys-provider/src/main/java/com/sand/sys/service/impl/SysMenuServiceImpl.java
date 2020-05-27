@@ -98,8 +98,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
       menuList = newMenuList;
     }
     // 构建菜单树
-    Tree menuTree = buildTree(menuList, menuIds);
-    return menuTree;
+    return buildTree(menuList, menuIds);
   }
 
   @Override

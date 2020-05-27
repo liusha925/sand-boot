@@ -10,8 +10,6 @@ package com.sand.business.parent.base;
 import com.sand.common.util.editor.DateEditor;
 import com.sand.common.util.editor.StringEditor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -58,17 +56,6 @@ public class BaseController extends BaseCommon {
     binder.registerCustomEditor(Date.class, new DateEditor());
     // String类型转换，将所有传递进来的String进行HTML编码，防止XSS攻击
     binder.registerCustomEditor(String.class, new StringEditor());
-  }
-
-  /**
-   * 从SecurityContextHolder获取用户信息
-   *
-   * @return 用户信息
-   */
-  public Object getUserInfo() {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    Object userInfo = authentication.getPrincipal();
-    return userInfo;
   }
 
 }

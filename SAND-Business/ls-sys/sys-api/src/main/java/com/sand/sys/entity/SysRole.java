@@ -31,7 +31,7 @@ import javax.validation.constraints.NotBlank;
  */
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @TableName(Constant.TABLE_SYS + "role")
 public class SysRole extends BaseEntity {

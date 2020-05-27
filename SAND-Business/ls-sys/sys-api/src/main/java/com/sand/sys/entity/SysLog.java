@@ -24,7 +24,7 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @TableName(Constant.TABLE_SYS + "log")
 public class SysLog extends BaseEntity {
