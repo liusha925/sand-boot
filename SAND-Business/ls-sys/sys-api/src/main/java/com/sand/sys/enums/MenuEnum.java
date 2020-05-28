@@ -30,7 +30,7 @@ public final class MenuEnum {
 
     @EnumValidAnnotation
     private final String value;
-    private final String vName;
+    private final String name;
 
     public static Type getByValue(String type) {
       for (Type item : Type.values()) {
@@ -52,7 +52,7 @@ public final class MenuEnum {
 
     @EnumValidAnnotation
     private final String value;
-    private final String vName;
+    private final String name;
 
     public static Target getByValue(String target) {
       for (Target item : Target.values()) {
@@ -73,7 +73,7 @@ public final class MenuEnum {
 
     @EnumValidAnnotation
     private final String value;
-    private final String vName;
+    private final String name;
 
     public static Visible getByValue(String visible) {
       for (Visible item : Visible.values()) {

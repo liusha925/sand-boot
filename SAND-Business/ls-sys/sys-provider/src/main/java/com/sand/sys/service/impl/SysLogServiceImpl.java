@@ -7,12 +7,12 @@
  */
 package com.sand.sys.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sand.business.parent.util.AuthenticationUtil;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.ServletUtil;
 import com.sand.common.util.convert.SandConvert;
+import com.sand.common.util.json.JsonUtil;
 import com.sand.common.util.lang3.DateUtil;
 import com.sand.common.util.lang3.StringUtil;
 import com.sand.log.annotation.LogAnnotation;
@@ -63,8 +63,8 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
     log.setBrowser(SandConvert.obj2Str(agentMap.get(ServletUtil.BROWSER)));
     log.setAddIp(ServletUtil.getRemoteAddress());
     log.setUrl(SandConvert.obj2Str(ServletUtil.getRequest().getRequestURL()));
-    log.setRequestMethod(SandConvert.obj2Str(ServletUtil.getRequest().getMethod()));
-    log.setRequestParams(JSON.toJSONString(requestParams));
+    log.setRequestMethod(ServletUtil.getRequest().getMethod());
+    log.setRequestParams(JsonUtil.format(requestParams));
     // 获取用户信息
     try {
       Object user = AuthenticationUtil.getUser();
@@ -117,4 +117,5 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
         .append("，耗时").append(log.getExeTime()).append("毫秒，URL：").append(log.getUrl()).toString());
     super.save(log);
   }
+
 }

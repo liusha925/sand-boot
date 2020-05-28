@@ -18,6 +18,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -60,8 +61,8 @@ public class SysBaseController extends BaseController {
    *
    * @return 用户名
    */
-  public String getUserName() {
-    log.info("当前登录用户userName：{}", this.getSysUser().getUsername());
+  public String getUsername() {
+    log.info("当前登录用户username：{}", this.getSysUser().getUsername());
     return this.getSysUser().getUsername();
   }
 
@@ -87,7 +88,7 @@ public class SysBaseController extends BaseController {
     List<String> roleList = new ArrayList<>();
     userRoleList.forEach(userRole -> roleList.add(userRole.getRoleId()));
     String[] roleIds = ArrayUtils.toStringArray(roleList.toArray());
-    log.info("当前登录用户roleIds：{}", roleIds);
+    log.info("当前登录用户roleIds：{}", Arrays.toString(roleIds));
     return roleIds;
   }
 }

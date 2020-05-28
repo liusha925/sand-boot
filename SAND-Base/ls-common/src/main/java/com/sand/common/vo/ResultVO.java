@@ -72,6 +72,6 @@ public class ResultVO<T> {
     ;
 
     private final int value;
-    private final String vName;
+    private final String name;
   }
 }

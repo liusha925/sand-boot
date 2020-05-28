@@ -175,8 +175,8 @@ public class ServletUtil {
     HTTP_CLIENT_IP("HTTP_CLIENT_IP", "其它 服务代理"),
     X_REAL_IP("X-Real-IP", "nginx 服务代理"),
     ;
-    private String value;
-    private String vName;
+    private final String value;
+    private final String name;
   }
 
   /**
@@ -301,8 +301,8 @@ public class ServletUtil {
     MSIE("MSIE", "IE浏览器"),
     FIREFOX("Firefox", "火狐浏览器"),
     ;
-    private String value;
-    private String vName;
+    private final String value;
+    private final String name;
   }
 
   /**

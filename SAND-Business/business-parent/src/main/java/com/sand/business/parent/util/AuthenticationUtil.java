@@ -26,6 +26,8 @@ public class AuthenticationUtil {
    * @return 用户认证信息（一般为org.springframework.security.core.userdetails.UserDetails类型）
    */
   public static Object getUser() {
+    // 需注意的是，当过滤链执行完时会调用SecurityContextHolder.clearContext()把SecurityContextHolder清空
+    // 因此需在过滤器中重新SecurityContextHolder.getContext().setAuthentication(authentication)，如MyAuthenticationTokenGenericFilter
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     Object user = authentication.getPrincipal();
     if (Objects.isNull(user)) {

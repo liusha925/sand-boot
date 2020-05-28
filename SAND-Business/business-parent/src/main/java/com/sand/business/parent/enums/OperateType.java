@@ -28,5 +28,5 @@ public enum OperateType {
   EXPORT("export", "导出");
 
   private final String value;
-  private final String vName;
+  private final String name;
 }

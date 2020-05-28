@@ -29,7 +29,7 @@ public final class RoleEnum {
 
     @EnumValidAnnotation
     private final String value;
-    private final String vName;
+    private final String name;
 
     public static Status getByValue(String status) {
       for (Status item : Status.values()) {
@@ -50,7 +50,7 @@ public final class RoleEnum {
 
     @EnumValidAnnotation
     private final String value;
-    private final String vName;
+    private final String name;
 
     public static DelFlag getByValue(String flag) {
       for (DelFlag item : DelFlag.values()) {
@@ -73,7 +73,7 @@ public final class RoleEnum {
 
     @EnumValidAnnotation
     private final String value;
-    private final String vName;
+    private final String name;
 
     public static DataScope getByValue(String scope) {
       for (DataScope item : DataScope.values()) {

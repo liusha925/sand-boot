@@ -119,11 +119,13 @@ public class UserAuthenticationService implements IUserAuthenticationService {
       throw new BusinessException(ResultVO.Code.TOKEN_FAIL);
     }
     String userId = jwtTokenUtil.getUserIdFromToken(token);
+    // 1、当过滤链执行完时会调用SecurityContextHolder.clearContext()把SecurityContextHolder清空
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     log.info("token验证通过，开始存储用户信息userId：{}，authentication：{}", userId, authentication);
     if (StringUtil.isNotBlank(userId) && authentication == null) {
       SysUser sysUser = userService.getById(userId);
       UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(sysUser, null, sysUser.getAuthorities());
+      // 2、重新SecurityContextHolder.getContext().setAuthentication(authentication)存储用户信息
       SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
   }

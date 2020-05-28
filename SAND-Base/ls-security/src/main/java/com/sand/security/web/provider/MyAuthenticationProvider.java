@@ -46,15 +46,15 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
     // 负责从数据库或者内存映射中加载用户信息，加载方法自行实现，此系统com.sand.web.security.UserDetailServiceImpl
     UserDetails userDetails = userDetailsService.loadUserByUsername((String) authenticationToken.getPrincipal());
     if (userDetails == null) {
-      throw new UsernameNotFoundException(ResultVO.Code.USERNAME_NOT_FOUND.getVName());
+      throw new UsernameNotFoundException(ResultVO.Code.USERNAME_NOT_FOUND.getName());
     } else if (!userDetails.isCredentialsNonExpired()) {
-      throw new CredentialsExpiredException(ResultVO.Code.CREDENTIALS_EXPIRED.getVName());
+      throw new CredentialsExpiredException(ResultVO.Code.CREDENTIALS_EXPIRED.getName());
     } else if (!userDetails.isAccountNonExpired()) {
-      throw new AccountExpiredException(ResultVO.Code.ACCOUNT_EXPIRED.getVName());
+      throw new AccountExpiredException(ResultVO.Code.ACCOUNT_EXPIRED.getName());
     } else if (!userDetails.isEnabled()) {
-      throw new DisabledException(ResultVO.Code.DISABLED.getVName());
+      throw new DisabledException(ResultVO.Code.DISABLED.getName());
     } else if (!userDetails.isAccountNonLocked()) {
-      throw new LockedException(ResultVO.Code.LOCKED.getVName());
+      throw new LockedException(ResultVO.Code.LOCKED.getName());
     }
     //
     UsernamePasswordAuthenticationToken authenticationResult = new UsernamePasswordAuthenticationToken(

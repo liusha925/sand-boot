@@ -88,6 +88,7 @@ public class SysRoleController extends SysBaseController {
 
   @RequestMapping("/menuTree")
   public ResultVO menuTree(String roleIds) {
+    log.info("SysRoleController menuTree roleIds：{}", roleIds);
     Tree menuTree = menuService.buildMenuTree(true, roleIds.split(","));
 
     return ResultUtil.ok(menuTree.getChildren());

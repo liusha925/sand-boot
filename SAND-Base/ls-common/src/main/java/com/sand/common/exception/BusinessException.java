@@ -28,12 +28,12 @@ public class BusinessException extends RuntimeException {
   private int code;
 
   public BusinessException() {
-    super(ResultVO.Code.ERROR.getVName());
+    super(ResultVO.Code.ERROR.getName());
     this.code = ResultVO.Code.ERROR.getValue();
   }
 
   public BusinessException(ResultVO.Code code) {
-    super(code.getVName());
+    super(code.getName());
     this.code = code.getValue();
   }
 
@@ -58,7 +58,7 @@ public class BusinessException extends RuntimeException {
   }
 
   public BusinessException(ResultVO.Code code, Exception e) {
-    super(code.getVName(), e);
+    super(code.getName(), e);
     this.code = code.getValue();
   }
 

@@ -17,6 +17,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -52,14 +53,14 @@ public class RedisMessageConsumeThread extends Thread {
     try {
       long tickTime = SandConvert.obj2Long(Config.getProperty("redis.consume.listener.tick-time"), 30L);
       String[] channelArray = channels.split("[,\\s]+");
-      Arrays.stream(channelArray).forEach(e -> {
-        Object body = redisTemplate.opsForList().rightPop(e, tickTime, TimeUnit.SECONDS);
-        if (body != null) {
+      Arrays.stream(channelArray).forEach(channel -> {
+        Object body = redisTemplate.opsForList().rightPop(channel, tickTime, TimeUnit.SECONDS);
+        if (Objects.nonNull(body)) {
           RedisSerializer<String> serializer = (RedisSerializer<String>) redisTemplate.getValueSerializer();
-          byte[] channel = serializer.serialize(e);
+          byte[] channelByte = serializer.serialize(channel);
           byte[] message = serializer.serialize(SandConvert.obj2Str(body));
           RedisMessageUtil messageUtil = new RedisMessageUtil(redisTemplate);
-          messageUtil.consume(redisConsumerListener, new DefaultMessage(channel, message));
+          messageUtil.consume(redisConsumerListener, new DefaultMessage(channelByte, message));
         } else {
           log.info("找不到消费主体...");
         }

@@ -103,7 +103,7 @@ public class LogAspect {
       if (e instanceof BusinessException) {
         throw new BusinessException(e.getMessage());
       }
-      throw new Throwable(ResultVO.Code.ERROR.getVName());
+      throw new Throwable(ResultVO.Code.ERROR.getName());
     } finally {
       // 执行结束
       long endTime = System.currentTimeMillis();

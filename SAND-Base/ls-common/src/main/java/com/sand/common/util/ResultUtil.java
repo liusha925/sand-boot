@@ -12,7 +12,6 @@ import com.sand.common.exception.BusinessException;
 import com.sand.common.util.lang3.StringUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -72,7 +71,7 @@ public class ResultUtil {
   }
 
   public static ResultVO ok(Object data) {
-    return ok(data, ResultVO.Code.OK.getVName());
+    return ok(data, ResultVO.Code.OK.getName());
   }
 
   public static ResultVO ok(String msg) {
@@ -84,7 +83,7 @@ public class ResultUtil {
   }
 
   public static ResultVO error() {
-    return error(ResultVO.Code.ERROR.getVName());
+    return error(ResultVO.Code.ERROR.getName());
   }
 
   public static ResultVO error(String msg) {
@@ -100,7 +99,7 @@ public class ResultUtil {
   }
 
   public static ResultVO info(Object data, ResultVO.Code code) {
-    return info(data, code.getValue(), code.getVName());
+    return info(data, code.getValue(), code.getName());
   }
 
   public static ResultVO info(Object data, int code, String msg) {
@@ -108,7 +107,7 @@ public class ResultUtil {
       data = formatSelectData(data);
     } catch (Exception e) {
       log.error("下拉框数据格式化异常：{}", e.getMessage());
-      return ResultVO.builder().code(ResultVO.Code.ERROR.getValue()).msg(ResultVO.Code.ERROR.getVName()).data(null).build();
+      return ResultVO.builder().code(ResultVO.Code.ERROR.getValue()).msg(ResultVO.Code.ERROR.getName()).data(null).build();
     }
     ResultVO ret = ResultVO.builder().code(code).msg(msg).data(data).build();
     return ret;
