@@ -10,6 +10,8 @@ package com.sand.sys.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sand.sys.entity.SysUserRole;
 
+import java.util.List;
+
 /**
  * 功能说明：用户角色关系
  * 开发人员：@author liusha
@@ -17,4 +19,11 @@ import com.sand.sys.entity.SysUserRole;
  * 功能描述：用户角色关系
  */
 public interface ISysUserRoleService extends IService<SysUserRole> {
+  /**
+   * 根据用户id查找角色ids
+   *
+   * @param userId 用户id
+   * @return 角色ids
+   */
+  List<Object> findRoleIdsByUserId(String userId);
 }

@@ -10,6 +10,8 @@ package com.sand.sys.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sand.sys.entity.SysUser;
 
+import java.util.List;
+
 /**
  * 功能说明：用户信息
  * 开发人员：@author liusha
@@ -24,4 +26,11 @@ public interface ISysUserService extends IService<SysUser> {
    * @return
    */
   SysUser loadUserByUsername(String username);
+
+  /**
+   * 查询用户所拥有的角色信息
+   *
+   * @param userList 用户列表
+   */
+  void findRoleInfo(List<SysUser> userList);
 }

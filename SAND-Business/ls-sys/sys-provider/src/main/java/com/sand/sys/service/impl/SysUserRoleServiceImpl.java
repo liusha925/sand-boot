@@ -7,11 +7,14 @@
  */
 package com.sand.sys.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sand.sys.entity.SysUserRole;
 import com.sand.sys.mapper.SysUserRoleMapper;
 import com.sand.sys.service.ISysUserRoleService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 功能说明：用户角色关系
@@ -21,4 +24,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserRole> implements ISysUserRoleService {
+
+  @Override
+  public List<Object> findRoleIdsByUserId(String userId) {
+    QueryWrapper<SysUserRole> queryWrapper = new QueryWrapper<>();
+    queryWrapper.select("role_id").eq("user_id", userId);
+    return this.listObjs(queryWrapper);
+  }
 }

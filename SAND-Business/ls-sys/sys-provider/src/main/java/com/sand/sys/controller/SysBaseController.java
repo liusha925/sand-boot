@@ -7,18 +7,14 @@
  */
 package com.sand.sys.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sand.business.parent.base.BaseController;
 import com.sand.business.parent.util.AuthenticationUtil;
 import com.sand.sys.entity.SysUser;
-import com.sand.sys.entity.SysUserRole;
 import com.sand.sys.service.ISysUserRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -82,13 +78,8 @@ public class SysBaseController extends BaseController {
    * @return 角色id集合
    */
   public String[] getRoleIds() {
-    QueryWrapper<SysUserRole> queryWrapper = new QueryWrapper<>();
-    queryWrapper.eq("user_id", this.getUserId());
-    List<SysUserRole> userRoleList = userRoleService.list(queryWrapper);
-    List<String> roleList = new ArrayList<>();
-    userRoleList.forEach(userRole -> roleList.add(userRole.getRoleId()));
-    String[] roleIds = ArrayUtils.toStringArray(roleList.toArray());
-    log.info("当前登录用户roleIds：{}", Arrays.toString(roleIds));
-    return roleIds;
+    List<Object> roleIds = userRoleService.findRoleIdsByUserId(this.getUserId());
+    log.info("当前登录用户roleIds：{}", roleIds);
+    return ArrayUtils.toStringArray(roleIds.toArray());
   }
 }

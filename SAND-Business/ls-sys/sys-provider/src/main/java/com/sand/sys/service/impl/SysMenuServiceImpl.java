@@ -86,16 +86,16 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     menuIds = new ArrayList<>(menuIds.stream().collect(Collectors.groupingBy(Object::toString, Collectors.toList())).keySet());
     // 筛选出需要的菜单
     if (isLeft) {
-      List<SysMenu> newMenuList = new ArrayList<>();
-      List<Object> finalMenuIds = menuIds;
+      List<SysMenu> tempMenuList = new ArrayList<>();
+      List<Object> tempMenuIds = menuIds;
       menuList.forEach(menu ->
-          finalMenuIds.forEach(menuId -> {
+          tempMenuIds.forEach(menuId -> {
             if (Objects.equals(menuId.toString(), menu.getMenuId())) {
-              newMenuList.add(menu);
+              tempMenuList.add(menu);
             }
           })
       );
-      menuList = newMenuList;
+      menuList = tempMenuList;
     }
     // 构建菜单树
     return buildTree(menuList, menuIds);

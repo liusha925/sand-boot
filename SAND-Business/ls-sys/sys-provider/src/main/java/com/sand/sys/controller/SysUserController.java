@@ -41,6 +41,8 @@ public class SysUserController extends SysBaseController {
     Page<SysUser> userPage = PageUtil.pageParam(model);
     QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
     Page<SysUser> page = (Page<SysUser>) userService.page(userPage, queryWrapper);
+    // 查找角色信息
+    userService.findRoleInfo(page.getRecords());
 
     return ResultUtil.ok(page2map(page));
   }
