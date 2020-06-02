@@ -7,6 +7,7 @@
  */
 package com.sand.web;
 
+import com.sand.common.runner.FastJsonSafeRunner;
 import com.sand.common.runner.SystemConfigRunner;
 import com.sand.redis.config.runner.RedisConfigRunner;
 import com.sand.redis.consumer.runner.RedisConsumeRunner;
@@ -32,6 +33,8 @@ public class LsBackendApplication {
     application.setBannerMode(Banner.Mode.CONSOLE);
     // 加载自定义配置参数
     String[] configs = new String[]{
+        // 开启fast json安全模式
+        FastJsonSafeRunner.APPLIED,
         // 开启系统变量加载
         SystemConfigRunner.APPLIED,
         // 开启Redis配置加载

@@ -27,7 +27,7 @@ public class AuthenticationUtil {
    */
   public static Object getUser() {
     // 需注意的是，当过滤链执行完时会调用SecurityContextHolder.clearContext()把SecurityContextHolder清空
-    // 因此需在过滤器中重新SecurityContextHolder.getContext().setAuthentication(authentication)，如MyAuthenticationTokenGenericFilter
+    // 因此需在自定义过滤器中重新SecurityContextHolder.getContext().setAuthentication(authentication)保存用户认证信息，如MyAuthenticationTokenGenericFilter
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     Object user = authentication.getPrincipal();
     if (Objects.isNull(user)) {

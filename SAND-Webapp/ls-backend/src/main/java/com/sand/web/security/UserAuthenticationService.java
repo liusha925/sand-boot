@@ -124,8 +124,8 @@ public class UserAuthenticationService implements IUserAuthenticationService {
     log.info("token验证通过，开始存储用户信息userId：{}，authentication：{}", userId, authentication);
     if (StringUtil.isNotBlank(userId) && authentication == null) {
       SysUser sysUser = userService.getById(userId);
-      UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(sysUser, null, sysUser.getAuthorities());
-      // 2、重新SecurityContextHolder.getContext().setAuthentication(authentication)存储用户信息
+      UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(sysUser, null);
+      // 2、重新SecurityContextHolder.getContext().setAuthentication(authentication)存储用户认证信息
       SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
   }

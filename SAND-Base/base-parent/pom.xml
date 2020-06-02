@@ -27,7 +27,8 @@
         <curator.version>2.5.0</curator.version>
         <jjwt.version>0.6.0</jjwt.version>
         <easypoi.version>3.1.0</easypoi.version>
-        <fastjson.version>1.2.41</fastjson.version>
+        <!-- 这个版本以下的存在0day漏洞 -->
+        <fastjson.version>1.2.70</fastjson.version>
         <reflections.version>0.9.11</reflections.version>
         <hutool.version>5.3.2</hutool.version>
         <UserAgentUtils.version>1.21</UserAgentUtils.version>
