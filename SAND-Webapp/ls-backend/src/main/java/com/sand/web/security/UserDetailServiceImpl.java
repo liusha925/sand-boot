@@ -76,7 +76,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
       List<SysMenu> menus = new ArrayList<>(menuService.listByIds(menuIds));
       // 填充用户信息
       dbUser.setUserRoles(roles);
-      dbUser.setRoleMenus(menus);
+      dbUser.setUserMenus(menus);
       dbUser.setAuthorities(authorities);
       return dbUser;
     } else {

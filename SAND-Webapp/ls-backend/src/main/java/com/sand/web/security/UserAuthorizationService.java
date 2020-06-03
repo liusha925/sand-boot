@@ -38,7 +38,6 @@ public class UserAuthorizationService {
    *
    * @param authentication 授权信息
    * @param authName       权限名称
-   * @return true-有权访问；false-无权访问
    */
   public void hasPermission(Authentication authentication, String authName) {
     log.info("获取的Authentication信息：{}", authentication);
@@ -47,8 +46,9 @@ public class UserAuthorizationService {
     boolean hasPermission = false;
     if (principal instanceof SysUser) {
       // 读取用户所拥有的权限菜单
-      List<SysMenu> menus = ((SysUser) principal).getRoleMenus();
+      List<SysMenu> menus = ((SysUser) principal).getUserMenus();
       for (SysMenu menu : menus) {
+        log.info("(menu.menuUrl={}，request.requestURI={}", menu.getMenuUrl(), request.getRequestURI());
         if (antPathMatcher.match(menu.getMenuUrl(), request.getRequestURI())) {
           hasPermission = true;
           break;

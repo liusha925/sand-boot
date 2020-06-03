@@ -70,10 +70,10 @@ public class SysUser extends BaseEntity implements UserDetails {
   @TableField(exist = false)
   private List<SysRole> userRoles;
   /**
-   * 角色菜单集合
+   * 用户菜单集合
    */
   @TableField(exist = false)
-  private List<SysMenu> roleMenus;
+  private List<SysMenu> userMenus;
   /**
    * 用户权限
    */
