@@ -7,6 +7,7 @@
  */
 package com.sand.common.util.editor;
 
+import com.sand.common.util.Utils;
 import com.sand.common.util.lang3.StringUtil;
 
 import java.beans.PropertyEditorSupport;
@@ -26,6 +27,6 @@ public class StringEditor extends PropertyEditorSupport {
 
   @Override
   public void setAsText(String text) {
-    setValue(text == null ? null : StringUtil.replaceHtml(text));
+    setValue(text == null ? null : Utils.replaceHtml(text));
   }
 }

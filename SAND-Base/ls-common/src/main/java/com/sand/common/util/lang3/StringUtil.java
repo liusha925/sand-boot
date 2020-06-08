@@ -10,13 +10,7 @@ package com.sand.common.util.lang3;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.ObjectUtils;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 功能说明：字符串工具类
@@ -51,21 +45,6 @@ public class StringUtil extends StringUtils {
    */
   public static boolean isNotBlank(Object obj) {
     return !isBlank(obj);
-  }
-
-  /**
-   * 产生唯一的序列号（27位）
-   * <pre>
-   *   System.out.println(StringUtil.getUniqueSerialNo()); = "202004161446356330693259868"
-   * </pre>
-   *
-   * @return 唯一的序列号
-   */
-  public static synchronized String getUniqueSerialNo() {
-    int hashCode = UUID.randomUUID().toString().hashCode();
-    String codeStr = String.format("%010d", hashCode < 0 ? -hashCode : hashCode);
-    String nowTime = DateUtil.getNow(DateUtil.Format.F5_YYYY_MM_DD_HH_MM_SS_SSS);
-    return nowTime + codeStr;
   }
 
   /**
@@ -177,64 +156,6 @@ public class StringUtil extends StringUtils {
       sb.append(Character.toLowerCase(c));
     }
     return sb.toString();
-  }
-
-  /**
-   * 替换掉HTML标签
-   * <pre>
-   *   System.out.println(StringUtil.replaceHtml("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">" +
-   *   "<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\">" +
-   *   "    <head>" +
-   *   "        <meta http-equiv=\"Content-Type\" content=\"convert/html; charset=UTF-8\" />" +
-   *   "        <title>简单实例</title>" +
-   *   "    </head>" +
-   *   "    <body>" +
-   *   "    <h1>h1标签</h1>" +
-   *   "    <h2>h2标签</h2>" +
-   *   "    <h3>h3标签</h3>" +
-   *   "    <p>p标签</p>" +
-   *   "    <div>div标签 </div>" +
-   *   "    <span>span标签</span>" +
-   *   "    <strong>strong标签</strong>" +
-   *   "    <input type=\"convert\" value=\"input标签\" />" +
-   *   "    <textarea>textarea标签</textarea>" +
-   *   "    <input type=\"button\" value=\"提交\" />" +
-   *   "    <ul>" +
-   *   "        <li>1</li>" +
-   *   "        <li>2</li>" +
-   *   "        <li>3</li>" +
-   *   "        <li>4</li>" +
-   *   "    </ul>" +
-   *   "    </body>" +
-   *   "</html>"));
-   *   输出结果：
-   *   "                   简单实例            h1标签    h2标签    h3标签    p标签    div标签     span标签    strong标签        textarea标签                1        2        3        4"
-   * </pre>
-   *
-   * @param html the html
-   * @return the string
-   */
-  public static String replaceHtml(String html) {
-    if (isBlank(html)) {
-      return EMPTY;
-    }
-    String regex = "<.+?>";
-    Pattern pattern = Pattern.compile(regex);
-    Matcher matcher = pattern.matcher(html);
-    return matcher.replaceAll(EMPTY);
-  }
-
-  /**
-   * List中是否包含重复记录，对应实体类需要重写hashCode和equals方法
-   *
-   * @param list 要校验的List
-   * @param <T>  对应实体类
-   * @return true：存在重复记录
-   */
-  public static <T> boolean listHasRepeatRecord(List<T> list) {
-    Set<T> set = new HashSet<>();
-    set.addAll(list);
-    return list.size() != set.size();
   }
 
   /**

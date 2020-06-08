@@ -27,7 +27,7 @@ public class AuthControllerTest {
   @Test
   public void loginTest() {
     Map<String, Object> loginMap = Maps.newHashMap();
-    loginMap.put("username", "test");
+    loginMap.put("username", "admin");
     loginMap.put("password", "123456");
     String result = OkHttp3Util.httpPostJson(ACTIVE_LOCAL + "/auth/login", loginMap);
     log.info("返回结果：{}", result);
