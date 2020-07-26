@@ -38,11 +38,11 @@ public class LsBackendApplication {
         // 开启系统变量加载
         SystemConfigRunner.APPLIED,
         // 开启Redis配置加载
-        RedisConfigRunner.APPLIED,
+//        RedisConfigRunner.APPLIED,
         // 开启Redis哨兵系统
 //        RedisSentinelRunner.APPLIED,
         // 开启消费者系统
-        RedisConsumeRunner.APPLIED
+//        RedisConsumeRunner.APPLIED
     };
     String[] newArgs = StringUtils.concatenateStringArrays(args, configs);
     SpringApplication.run(LsBackendApplication.class, newArgs);
