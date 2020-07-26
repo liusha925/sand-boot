@@ -9,6 +9,7 @@ package com.sand.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sand.common.util.Utils;
 import com.sand.common.vo.ResultVO;
 import com.sand.business.parent.enums.OperateType;
 import com.sand.common.exception.BusinessException;
@@ -110,7 +111,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     if (CollectionUtils.isEmpty(roleList)) {
       throw new BusinessException(ResultVO.Code.PARAM_CHECKED_ERROR, "导入数据不能为空哟！");
     }
-    if (StringUtil.listHasRepeatRecord(roleList)) {
+    if (Utils.listHasRepeatRecord(roleList)) {
       throw new BusinessException(ResultVO.Code.PARAM_CHECKED_ERROR, "导入数据存在重复记录，请检查！");
     }
     int failNum = 0;
