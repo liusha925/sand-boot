@@ -18,7 +18,8 @@ LS-ADMIN基于Spring Boot 2.1.3 、Mybatis Plus、Spring Security、redis、Angu
 ![Image text](https://github.com/liusha925/sand/blob/master/SAND-Webapp/ls-backend/images/002.png)
 
 3、用开发工具打开此项目，这里以IntelliJ IDEA为例，项目的结构如下：
- ![Image text](https://github.com/liusha925/sand/blob/master/SAND-Webapp/ls-backend/images/003.png)
+ 
+![Image text](https://github.com/liusha925/sand/blob/master/SAND-Webapp/ls-backend/images/003.png)
 
 4、选中pom.xml文件右键点击将项目转成Maven工程（逐个选中转换）
 ![Image text](https://github.com/liusha925/sand/blob/master/SAND-Webapp/ls-backend/images/004.png)
