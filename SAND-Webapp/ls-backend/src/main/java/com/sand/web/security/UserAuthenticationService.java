@@ -98,8 +98,8 @@ public class UserAuthenticationService implements IUserAuthenticationService {
     // 1、存储用户信息至redis
     SysUser dbUser = userService.getById(user.getUserId());
     String accessToken = jwtTokenUtil.generateToken(dbUser);
-    jwtTokenUtil.putUserToken(dbUser, accessToken);
-    jwtTokenUtil.putUserDetail(dbUser);
+//    jwtTokenUtil.putUserToken(dbUser, accessToken);
+//    jwtTokenUtil.putUserDetail(dbUser);
     // TODO 2、保存登录日志
     // 3、将信息返回web端
     Map<String, Object> tokenMap = Maps.newHashMap();
