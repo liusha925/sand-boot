@@ -32,7 +32,7 @@
     </header>
     <div class="page-content d-flex align-items-stretch">
         <!-- Side Navbar -->
-        <div class="left" id="left_menu"><span th:text="${user.name}"></span></div>
+        <div class="left" id="left_menu"></div>
         <div class="content-inner">
             <!-- Page Header-->
             <header class="page-header">
@@ -67,7 +67,7 @@
                                              aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-red"></div>
                                     </div>
                                 </div>
-                                <div class="number"><strong>70</strong></div>
+                                <div class="number"><strong><span th:text="${user.age}"></span></strong></div>
                             </div>
                         </div>
                         <!-- Item -->
