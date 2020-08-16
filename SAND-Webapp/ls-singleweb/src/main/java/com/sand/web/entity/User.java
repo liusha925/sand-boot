@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class DemoUser {
+public class User {
   private int age;
   private String name;
 }

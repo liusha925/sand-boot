@@ -8,7 +8,7 @@
  */
 package com.sand.web.controller;
 
-import com.sand.web.entity.DemoUser;
+import com.sand.web.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,15 +22,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Slf4j
 @Controller
-@RequestMapping("/demo")
-public class DemoUserController {
+public class IndexController {
 
-  @RequestMapping("/userList")
-  public String userList(ModelMap model) {
-    DemoUser user = new DemoUser();
-    user.setName("hsh");
+  @RequestMapping("/index")
+  public String index(ModelMap model) {
+    User user = new User();
+    user.setName("liusha");
     user.setAge(26);
     model.addAttribute("user", user);
-    return "demo/userList";
+    return "index";
   }
+
 }

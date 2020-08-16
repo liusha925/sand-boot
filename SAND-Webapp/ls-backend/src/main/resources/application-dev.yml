@@ -1,13 +1,18 @@
-# 日志配置
+####################### 启动端口 #######################
+server:
+  port: 8888
+####################### 日志配置 #######################
 logging:
-  path: ../logs
+  path: ./logs
+#################### Spring基础配置 ####################
 spring:
+  # 数据库
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ls_sys?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false
     username: root
     password: root
-# mybatis-plus配置
+################### mybatis-plus配置 ###################
 mybatis-plus:
   # 扫描表实体注册别名，参考https://mp.baomidou.com/config/#typealiasespackage
   type-aliases-package: com.sand.*.entity
@@ -22,7 +27,7 @@ mybatis-plus:
       # 逻辑删除配置，参考https://mp.baomidou.com/guide/logic-delete.html
       logic-delete-value: 1
       logic-not-delete-value: 0
-#######################SSS 自定义配置 SSS#######################
+###################### 自定义配置 ######################
 sand:
   # 安全认证授权配置
   security:
@@ -31,6 +36,3 @@ sand:
       secret: k09BQnaF
       # 令牌过期时间
       expiration: 604800
-#######################EEE 自定义配置 EEE#######################
-server:
-  port: 8888
