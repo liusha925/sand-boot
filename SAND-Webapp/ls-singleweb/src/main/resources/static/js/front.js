@@ -1,7 +1,5 @@
 $(document).ready(function () {
-
     'use strict';
-
     // ------------------------------------------------------- //
     // Search Box
     // ------------------------------------------------------ //
@@ -27,7 +25,6 @@ $(document).ready(function () {
 
     $('[data-toggle="tooltip"]').tooltip()
 
-
     // ------------------------------------------------------- //
     // Adding fade effect to dropdowns
     // ------------------------------------------------------ //
@@ -37,7 +34,6 @@ $(document).ready(function () {
     $('.dropdown').on('hide.bs.dropdown', function () {
         $(this).find('.dropdown-menu').first().stop(true, true).fadeOut();
     });
-
 
     // ------------------------------------------------------- //
     // Sidebar Functionality

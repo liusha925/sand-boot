@@ -1,8 +1,6 @@
 /*global $, document*/
 $(document).ready(function () {
-
     'use strict';
-
 
     // ------------------------------------------------------- //
     // Charts Gradients
@@ -15,7 +13,6 @@ $(document).ready(function () {
     var gradient2 = ctx1.createLinearGradient(146.000, 0.000, 154.000, 300.000);
     gradient2.addColorStop(0, 'rgba(104, 179, 112, 0.85)');
     gradient2.addColorStop(1, 'rgba(76, 162, 205, 0.85)');
-
 
     // ------------------------------------------------------- //
     // Line Chart
@@ -93,7 +90,6 @@ $(document).ready(function () {
         }
     });
 
-
     // ------------------------------------------------------- //
     // Doughnut Chart
     // ------------------------------------------------------ //
@@ -133,7 +129,6 @@ $(document).ready(function () {
     var pieChartExample = {
         responsive: true
     };
-
 
     // ------------------------------------------------------- //
     // Line Chart 1
@@ -194,7 +189,6 @@ $(document).ready(function () {
             ]
         }
     });
-
 
     // ------------------------------------------------------- //
     // Line Chart 2
@@ -257,7 +251,6 @@ $(document).ready(function () {
         }
     });
 
-
     // ------------------------------------------------------- //
     // Pie Chart
     // ------------------------------------------------------ //
@@ -294,7 +287,6 @@ $(document).ready(function () {
     var pieChartExample = {
         responsive: true
     };
-
 
     // ------------------------------------------------------- //
     // Bar Chart
@@ -388,7 +380,6 @@ $(document).ready(function () {
             ]
         }
     });
-
 
     // ------------------------------------------------------- //
     // Bar Chart 1

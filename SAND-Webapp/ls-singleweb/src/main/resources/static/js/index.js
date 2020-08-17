@@ -1,9 +1,4 @@
-/**
- * @Author dengqh
- * @Since 2019/9/17
- */
 $(document).ready(function () {
-
     /*加载header.html*/
     $(".header").load("header.html", function () {
         /**
