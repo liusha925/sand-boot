@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+</head>
+<body>
+<div th:replace="main/header :: header">...</div>
+<h3 th:text="${userModel.title}"></h3>
+<div>
+    <a th:href="@{/user/form}">添加用户</a>
+</div>
+<table border="1">
+    <thead>
+    <tr>
+        <td>编号</td>
+        <td>年龄</td>
+        <td>姓名</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${userModel.userList.size()} eq 0">
+        <td colspan="3">暂无用户信息！！</td>
+    </tr>
+    <tr th:each="user : ${userModel.userList}">
+        <td th:text="${user.id}">1</td>
+        <td th:text="${user.age}">11</td>
+        <td>
+            <a href="detail.html" th:href="@{'/user/detail/' + ${user.id}}" th:text="${user.name}"></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div th:replace="~{main/footer :: footer}">...</div>
+</body>
+</html>

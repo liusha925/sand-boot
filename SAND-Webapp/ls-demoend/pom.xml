@@ -17,14 +17,47 @@
     </parent>
 
     <dependencies>
+        <!-- Mybatis Plus依赖 -->
         <dependency>
             <groupId>com.sand</groupId>
-            <artifactId>ls-common</artifactId>
+            <artifactId>ls-mybatisplus</artifactId>
         </dependency>
+        <!-- Spring Boot web依赖 -->
         <dependency>
-            <groupId>com.sand</groupId>
-            <artifactId>business-parent</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- Spring Boot 模板引擎 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <!-- Spring Boot 单元测试 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Spring Boot 热部署功能 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <!-- 开启热部署 -->
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 开启热部署 -->
+                    <fork>true</fork>
+                    <mainClass>com.sand.demo.LsDemoApplication</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

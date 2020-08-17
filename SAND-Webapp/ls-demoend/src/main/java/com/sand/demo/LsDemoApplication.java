@@ -5,12 +5,15 @@
  * 2019/8/20   liusha   新增
  * =========  ===========  =====================
  */
-package com.sand;
+package com.sand.demo;
 
+import com.sand.common.runner.FastJsonSafeRunner;
+import com.sand.common.runner.SystemConfigRunner;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.util.StringUtils;
 
 /**
  * 功能说明：演示启动器
@@ -26,9 +29,17 @@ public class LsDemoApplication {
     SpringApplication application = new SpringApplication(LsDemoApplication.class);
     // 开启/关闭启动logo
     application.setBannerMode(Banner.Mode.CONSOLE);
-    application.run(args);
+    // 加载自定义配置参数
+    String[] configs = new String[]{
+        // 开启系统变量加载
+        SystemConfigRunner.APPLIED,
+        // 开启fast json安全模式
+        FastJsonSafeRunner.APPLIED
+    };
+    String[] newArgs = StringUtils.concatenateStringArrays(args, configs);
+    SpringApplication.run(LsDemoApplication.class, newArgs);
     log.info("                                   \n" +
-        "【LsDemoApplication】启动成功 ლ(´ڡ`ლ)ﾞ \n" +
+        "【LsSingleWebApplication】启动成功 ლ(´ڡ`ლ)ﾞ \n" +
         "   _____         _   _ _____            \n" +
         "  / ____|  /\\   | \\ | |  __ \\        \n" +
         " | (___   /  \\  |  \\| | |  | |        \n" +
