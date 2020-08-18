@@ -41,6 +41,8 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
+            <!-- 开启热部署 -->
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
@@ -50,6 +52,8 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <!-- 开启热部署 -->
+                    <fork>true</fork>
                     <mainClass>com.sand.web.LsSingleWebApplication</mainClass>
                 </configuration>
             </plugin>

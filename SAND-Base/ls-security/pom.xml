@@ -8,7 +8,7 @@
     <artifactId>ls-security</artifactId>
     <version>${com.sand.ls-security.version}</version>
     <packaging>jar</packaging>
-    <description>安全登录框架spring security</description>
+    <description>spring security安全认证</description>
 
     <parent>
         <groupId>com.sand</groupId>
@@ -22,10 +22,6 @@
             <artifactId>ls-common</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
         </dependency>
@@ -37,6 +33,10 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
             <version>5.1.4.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
     </dependencies>
 </project>

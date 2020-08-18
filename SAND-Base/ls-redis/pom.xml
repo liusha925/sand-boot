@@ -22,6 +22,10 @@
             <artifactId>ls-common</artifactId>
         </dependency>
         <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
             <!-- SpringBoot2.0中，默认赋予Lettuce依赖关系，要使用Jedis配置，需排除Lettuce依赖关系 -->
@@ -31,10 +35,6 @@
                     <artifactId>lettuce-core</artifactId>
                 </exclusion>
             </exclusions>-->
-        </dependency>
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
         </dependency>
     </dependencies>
 </project>

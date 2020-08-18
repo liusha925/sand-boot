@@ -17,26 +17,38 @@
     </parent>
 
     <dependencies>
-        <dependency>
-            <groupId>com.sand</groupId>
-            <artifactId>ls-logging</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sand</groupId>
-            <artifactId>ls-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sand</groupId>
-            <artifactId>ls-redis</artifactId>
-        </dependency>
+        <!-- 后台管理功能 -->
         <dependency>
             <groupId>com.sand</groupId>
             <artifactId>sys-provider</artifactId>
         </dependency>
+        <!-- 日志模块 -->
+<!--        <dependency>
+            <groupId>com.sand</groupId>
+            <artifactId>ls-logging</artifactId>
+        </dependency>-->
+        <!-- Redis -->
+        <dependency>
+            <groupId>com.sand</groupId>
+            <artifactId>ls-redis</artifactId>
+        </dependency>
+        <!-- Spring Security认证 -->
+        <dependency>
+            <groupId>com.sand</groupId>
+            <artifactId>ls-security</artifactId>
+        </dependency>
+        <!-- Spring Boot 单元测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <!-- Spring Boot 热部署功能 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <!-- 开启热部署 -->
+            <optional>true</optional>
         </dependency>
     </dependencies>
     <build>
@@ -45,6 +57,8 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <!-- 开启热部署 -->
+                    <fork>true</fork>
                     <mainClass>com.sand.web.LsBackendApplication</mainClass>
                 </configuration>
             </plugin>
