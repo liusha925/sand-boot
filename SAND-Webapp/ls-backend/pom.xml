@@ -6,7 +6,7 @@
 
     <groupId>com.sand</groupId>
     <artifactId>ls-backend</artifactId>
-    <version>${com.sand.ls-backend.version}</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>后台启动容器</description>
 
@@ -14,6 +14,7 @@
         <groupId>com.sand</groupId>
         <artifactId>base-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../../SAND-Base/base-parent</relativePath>
     </parent>
 
     <dependencies>
@@ -22,11 +23,6 @@
             <groupId>com.sand</groupId>
             <artifactId>sys-provider</artifactId>
         </dependency>
-        <!-- 日志模块 -->
-<!--        <dependency>
-            <groupId>com.sand</groupId>
-            <artifactId>ls-logging</artifactId>
-        </dependency>-->
         <!-- Redis -->
         <dependency>
             <groupId>com.sand</groupId>
