@@ -22,7 +22,7 @@
         <spring-boot-dependencies.version>2.1.3.RELEASE</spring-boot-dependencies.version>
         <platform-bom.version>Brussels-SR7</platform-bom.version>
         <mybatis-plus.version>3.1.2</mybatis-plus.version>
-        <zookeeper.version>3.4.6</zookeeper.version>
+        <zookeeper.version>3.4.14</zookeeper.version>
         <zkclient.version>0.1</zkclient.version>
         <curator.version>2.5.0</curator.version>
         <jjwt.version>0.6.0</jjwt.version>
