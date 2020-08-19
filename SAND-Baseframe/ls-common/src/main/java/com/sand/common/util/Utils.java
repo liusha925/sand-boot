@@ -37,8 +37,7 @@ public class Utils {
    * @return true：存在重复记录
    */
   public static <T> boolean listHasRepeatRecord(List<T> list) {
-    Set<T> set = new HashSet<>();
-    set.addAll(list);
+    Set<T> set = new HashSet<>(list);
     return list.size() != set.size();
   }
 

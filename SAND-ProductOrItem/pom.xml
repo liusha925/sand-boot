@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sand</groupId>
-    <artifactId>Basemodule</artifactId>
+    <artifactId>ProductOrItem</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <description>基础模块</description>
+    <description>具体的某个产品或项目，可根据需要自行组装业务以及框架</description>
 
 </project>
