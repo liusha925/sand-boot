@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sand</groupId>
-    <artifactId>Webapp</artifactId>
+    <artifactId>WebApplication</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <description>启动容器，可组装不同的业务或者产品内容，或者项目内容</description>
+    <description>启动容器，可组装不同的业务或者产品内容或者项目内容</description>
 
     <modules>
         <module>ls-backend</module>

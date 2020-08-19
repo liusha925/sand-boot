@@ -9,6 +9,9 @@ LS-ADMIN基于Spring Boot 2.1.3 、Mybatis Plus、Spring Security、redis、Angu
 [base-parent]为父级工程，控制所有子工程的版本
 [ls-common]为系统的公共模块
 
+# 注意事项
+1、使用开发工具需要安装lombok插件，https://www.cnblogs.com/54hsh/p/11381659.html
+
 # 服务部署（环境准备：JDK8、MYSQL5.7）
 
 1、使用Git（用开发工具插件拉取也行）将代码检出，进入Git命令界面

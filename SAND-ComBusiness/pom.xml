@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sand</groupId>
-    <artifactId>Business</artifactId>
+    <artifactId>ComBusiness</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <description>抽离使用场景多的业务</description>
+    <description>通用业务</description>
     <modules>
         <module>business-parent</module>
         <module>ls-sys</module>
