@@ -18,7 +18,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <!-- 基础框架版本控制 -->
+        <!-- SSS================基础框架版本控制================SSS -->
         <spring-boot-dependencies.version>2.1.3.RELEASE</spring-boot-dependencies.version>
         <platform-bom.version>Brussels-SR7</platform-bom.version>
         <mybatis-plus.version>3.1.2</mybatis-plus.version>
@@ -26,14 +26,15 @@
         <zkclient.version>0.1</zkclient.version>
         <curator.version>2.5.0</curator.version>
         <jjwt.version>0.6.0</jjwt.version>
+        <hutool.version>5.3.2</hutool.version>
         <easypoi.version>3.1.0</easypoi.version>
         <!-- 这个版本以下的存在0day漏洞 -->
         <fastjson.version>1.2.70</fastjson.version>
         <reflections.version>0.9.11</reflections.version>
-        <hutool.version>5.3.2</hutool.version>
-        <UserAgentUtils.version>1.21</UserAgentUtils.version>
         <redis-clients.version>2.9.0</redis-clients.version>
-        <!-- Maven插件版本继承自spring-boot-dependencies -->
+        <UserAgentUtils.version>1.21</UserAgentUtils.version>
+        <!-- ================EEE基础框架版本控制EEE================ -->
+        <!-- SSS===Maven插件版本继承自spring-boot-dependencies===SSS -->
         <maven.skip>true</maven.skip>
         <maven-compiler-plugin.source>1.8</maven-compiler-plugin.source>
         <maven-compiler-plugin.target>1.8</maven-compiler-plugin.target>
@@ -42,14 +43,16 @@
         <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
-        <!-- Base -->
+        <!-- EEE===Maven插件版本继承自spring-boot-dependencies===EEE -->
+        <!-- SSS==================BaseFrame模块==================SSS -->
         <com.sand.ls-common.version>1.0.0-SNAPSHOT</com.sand.ls-common.version>
         <com.sand.ls-logging.version>1.0.0-SNAPSHOT</com.sand.ls-logging.version>
-        <com.sand.ls-security.version>1.0.0-SNAPSHOT</com.sand.ls-security.version>
         <com.sand.ls-mybatisplus.version>1.0.0-SNAPSHOT</com.sand.ls-mybatisplus.version>
         <com.sand.ls-redis.version>1.0.0-SNAPSHOT</com.sand.ls-redis.version>
+        <com.sand.ls-security.version>1.0.0-SNAPSHOT</com.sand.ls-security.version>
         <com.sand.ls-zookeeper.version>1.0.0-SNAPSHOT</com.sand.ls-zookeeper.version>
-        <!-- Business -->
+        <!-- EEE==================BaseFrame模块==================EEE -->
+        <!-- SSS=================ComBusiness模块=================SSS -->
         <com.sand.business-parent.version>1.0.0-SNAPSHOT</com.sand.business-parent.version>
         <com.sand.sys-api.version>1.0.0-SNAPSHOT</com.sand.sys-api.version>
         <com.sand.sys-provider.version>1.0.0-SNAPSHOT</com.sand.sys-provider.version>
@@ -75,6 +78,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- Token授权认证 -->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
