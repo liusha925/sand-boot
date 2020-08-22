@@ -8,7 +8,7 @@
     <artifactId>backend</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <description>后台启动容器</description>
+    <description>后台管理启动容器</description>
 
     <parent>
         <groupId>com.sand</groupId>
@@ -18,17 +18,17 @@
     </parent>
 
     <dependencies>
-        <!-- 后台管理功能 -->
+        <!-- 系统模块 -->
         <dependency>
             <groupId>com.sand</groupId>
             <artifactId>sys-provider</artifactId>
         </dependency>
-        <!-- Redis -->
+        <!-- Redis依赖 -->
         <dependency>
             <groupId>com.sand</groupId>
             <artifactId>ls-redis</artifactId>
         </dependency>
-        <!-- Spring Security认证 -->
+        <!-- Spring Security授权认证 -->
         <dependency>
             <groupId>com.sand</groupId>
             <artifactId>ls-security</artifactId>

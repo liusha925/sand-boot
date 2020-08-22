@@ -8,7 +8,7 @@
     <artifactId>ls-security</artifactId>
     <version>${com.sand.ls-security.version}</version>
     <packaging>jar</packaging>
-    <description>spring security安全认证</description>
+    <description>spring security授权认证</description>
 
     <parent>
         <groupId>com.sand</groupId>
@@ -32,7 +32,6 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>5.1.4.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

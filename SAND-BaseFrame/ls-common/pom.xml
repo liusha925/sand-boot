@@ -8,7 +8,7 @@
     <artifactId>ls-common</artifactId>
     <version>${com.sand.ls-common.version}</version>
     <packaging>jar</packaging>
-    <description>基础模块</description>
+    <description>通用类库</description>
     <!-- 父级工程 -->
     <parent>
         <groupId>com.sand</groupId>

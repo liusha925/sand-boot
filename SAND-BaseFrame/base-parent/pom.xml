@@ -9,7 +9,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <!-- SpringBoot 父级启动器 -->
+    <!-- SpringBoot 框架引入 -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -22,17 +22,18 @@
         <spring-boot-dependencies.version>2.1.3.RELEASE</spring-boot-dependencies.version>
         <platform-bom.version>Brussels-SR7</platform-bom.version>
         <mybatis-plus.version>3.1.2</mybatis-plus.version>
+        <security.version>5.1.4.RELEASE</security.version>
+        <jjwt.version>0.6.0</jjwt.version>
+        <redis-clients.version>2.9.0</redis-clients.version>
+        <fastjson.version>1.2.70</fastjson.version><!-- v1.2.70以下版本存在0day漏洞 -->
+        <reflections.version>0.9.11</reflections.version>
+        <UserAgentUtils.version>1.21</UserAgentUtils.version>
+        <jackson-databind.version>2.9.8</jackson-databind.version>
+        <hutool.version>5.3.2</hutool.version>
+        <easypoi.version>3.1.0</easypoi.version>
         <zookeeper.version>3.4.6</zookeeper.version>
         <zkclient.version>0.1</zkclient.version>
         <curator.version>2.5.0</curator.version>
-        <jjwt.version>0.6.0</jjwt.version>
-        <hutool.version>5.3.2</hutool.version>
-        <easypoi.version>3.1.0</easypoi.version>
-        <!-- 这个版本以下的存在0day漏洞 -->
-        <fastjson.version>1.2.70</fastjson.version>
-        <reflections.version>0.9.11</reflections.version>
-        <redis-clients.version>2.9.0</redis-clients.version>
-        <UserAgentUtils.version>1.21</UserAgentUtils.version>
         <!-- ================EEE基础框架版本控制EEE================ -->
         <!-- SSS===Maven插件版本继承自spring-boot-dependencies===SSS -->
         <maven.skip>true</maven.skip>
@@ -52,17 +53,19 @@
         <com.sand.ls-security.version>1.0.0-SNAPSHOT</com.sand.ls-security.version>
         <com.sand.ls-zookeeper.version>1.0.0-SNAPSHOT</com.sand.ls-zookeeper.version>
         <!-- EEE==================BaseFrame模块==================EEE -->
+        <!-- SSS==================BaseModule模块==================SSS -->
+
+        <!-- EEE==================BaseModule模块==================EEE -->
         <!-- SSS=================ComBusiness模块=================SSS -->
         <com.sand.business-parent.version>1.0.0-SNAPSHOT</com.sand.business-parent.version>
         <com.sand.sys-api.version>1.0.0-SNAPSHOT</com.sand.sys-api.version>
         <com.sand.sys-provider.version>1.0.0-SNAPSHOT</com.sand.sys-provider.version>
-        <!-- Webapp -->
-        <com.sand.ls-backend.version>1.0.0-SNAPSHOT</com.sand.ls-backend.version>
+        <!-- EEE=================ComBusiness模块=================EEE -->
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!-- Spring Boot集成框架 -->
+            <!-- Spring Boot依赖 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -70,7 +73,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- IO操作框架 -->
+            <!-- 依赖维护平台（使引入第三方jar时无需写版本号） -->
             <dependency>
                 <groupId>io.spring.platform</groupId>
                 <artifactId>platform-bom</artifactId>
@@ -78,17 +81,59 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- Token授权认证 -->
+            <!-- Mybatis Plus依赖 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!-- Spring Security依赖 -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-web</artifactId>
+                <version>${security.version}</version>
+            </dependency>
+            <!-- Token认证依赖 -->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
                 <version>${jjwt.version}</version>
             </dependency>
-            <!-- Mybatis Plus集成框架-->
+            <!-- Redis依赖 -->
             <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${redis-clients.version}</version>
+            </dependency>
+            <!-- Fast Json依赖 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <!-- 反射工具类库依赖 -->
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>${reflections.version}</version>
+            </dependency>
+            <!-- 解析User-Agent依赖 -->
+            <dependency>
+                <groupId>eu.bitwalker</groupId>
+                <artifactId>UserAgentUtils</artifactId>
+                <version>${UserAgentUtils.version}</version>
+            </dependency>
+            <!-- POJO与JSON转化依赖 -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson-databind.version}</version>
+            </dependency>
+            <!-- Java工具类库依赖 https://github.com/looly/hutool -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
             </dependency>
             <!-- easy poi开源框架-->
             <dependency>
@@ -106,31 +151,7 @@
                 <artifactId>easypoi-annotation</artifactId>
                 <version>${easypoi.version}</version>
             </dependency>
-            <!-- 阿里巴巴fast json -->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>
-            <!-- 反射工具 -->
-            <dependency>
-                <groupId>org.reflections</groupId>
-                <artifactId>reflections</artifactId>
-                <version>${reflections.version}</version>
-            </dependency>
-            <!-- Java工具类库 https://github.com/looly/hutool -->
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>${hutool.version}</version>
-            </dependency>
-            <!-- 解析User-Agent -->
-            <dependency>
-                <groupId>eu.bitwalker</groupId>
-                <artifactId>UserAgentUtils</artifactId>
-                <version>${UserAgentUtils.version}</version>
-            </dependency>
-            <!-- zookeeper注册中心 -->
+            <!-- Zookeeper依赖 -->
             <dependency>
                 <groupId>org.apache.zookeeper</groupId>
                 <artifactId>zookeeper</artifactId>
@@ -156,12 +177,8 @@
                 <artifactId>curator-test</artifactId>
                 <version>${curator.version}</version>
             </dependency>
-            <dependency>
-                <groupId>redis.clients</groupId>
-                <artifactId>jedis</artifactId>
-                <version>${redis-clients.version}</version>
-            </dependency>
-            <!-- >>>>>>>>>>>>>>>>>>>>>产品或项目业务-S<<<<<<<<<<<<<<<<<<<<<< -->
+            <!-- SSS=================系统依赖=================SSS -->
+            <!-- ===BaseFrame模块=== -->
             <dependency>
                 <groupId>com.sand</groupId>
                 <artifactId>ls-common</artifactId>
@@ -192,11 +209,7 @@
                 <artifactId>ls-zookeeper</artifactId>
                 <version>${com.sand.ls-zookeeper.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.sand</groupId>
-                <artifactId>sys-api</artifactId>
-                <version>${com.sand.sys-api.version}</version>
-            </dependency>
+            <!-- ===ComBusiness模块=== -->
             <dependency>
                 <groupId>com.sand</groupId>
                 <artifactId>business-parent</artifactId>
@@ -204,26 +217,15 @@
             </dependency>
             <dependency>
                 <groupId>com.sand</groupId>
-                <artifactId>sys-provider</artifactId>
-                <version>${com.sand.sys-provider.version}</version>
+                <artifactId>sys-api</artifactId>
+                <version>${com.sand.sys-api.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.sand</groupId>
-                <artifactId>ls-backend</artifactId>
-                <version>${com.sand.ls-backend.version}</version>
+                <artifactId>sys-provider</artifactId>
+                <version>${com.sand.sys-provider.version}</version>
             </dependency>
-            <!-- >>>>>>>>>>>>>>>>>>>>>产品或项目业务-E<<<<<<<<<<<<<<<<<<<<<< -->
-            <!-- Maven插件安装 -->
-            <dependency>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>${maven-jar-plugin.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>${maven-dependency-plugin.version}</version>
-            </dependency>
+            <!-- EEE=================系统依赖=================EEE -->
         </dependencies>
     </dependencyManagement>
 

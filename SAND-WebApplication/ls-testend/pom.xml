@@ -17,14 +17,17 @@
     </parent>
 
     <dependencies>
+        <!-- 通用类库 -->
         <dependency>
             <groupId>com.sand</groupId>
             <artifactId>ls-common</artifactId>
         </dependency>
+        <!-- Mybatis Plus依赖 -->
         <dependency>
             <groupId>com.sand</groupId>
             <artifactId>ls-mybatisplus</artifactId>
         </dependency>
+        <!-- Spring Boot 单元测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
