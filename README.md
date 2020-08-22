@@ -1,13 +1,12 @@
 # 项目简介
-LS-ADMIN基于Spring Boot 2.1.3 、Mybatis Plus、Spring Security、redis、Angular的前后端分离的后台管理系统，支持前端菜单动态路由。
+整合所学知识
 # 主要特性
-前后端统一异常拦截处理，统一输出异常，避免繁琐的判断。
+分层开发，元件最小化
 # 主要功能
-菜单管理：
-用户管理：
+基础框架、通用模块、通用业务
 # 项目结构
 [base-parent]为父级工程，控制所有子工程的版本
-[ls-common]为系统的公共模块
+[ls-common]为系统的公共类库
 
 # 注意事项
 1、使用开发工具需要安装lombok插件，https://www.cnblogs.com/54hsh/p/11381659.html
@@ -27,7 +26,7 @@ LS-ADMIN基于Spring Boot 2.1.3 、Mybatis Plus、Spring Security、redis、Angu
 4、选中pom.xml文件右键点击将项目转成Maven工程（逐个选中转换）
 ![Image text](https://github.com/liusha925/sand/blob/master/SAND-Webapp/ls-backend/images/004.png)
 
-5、执行数据库脚步并更改配置文件，sql脚本在\sand\sql\ls_sys.sql
+5、执行数据库脚步并更改配置文件，sql脚本在\sand\sql\backend.sql
 ![Image text](https://github.com/liusha925/sand/blob/master/SAND-Webapp/ls-backend/images/005.png)
 
 6、项目打包（注意打包顺序），依次打包SAND-Base，SAND-Business，SAND-Product，SAND-Webapp\ls-backend（此处演示这一个服务，所以只要打包backend就可以了）
