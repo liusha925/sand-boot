@@ -32,14 +32,14 @@ public @interface EnumValidAnnotation {
   /**
    * 提示消息
    *
-   * @return
+   * @return 提示消息
    */
   String message() default StringUtil.EMPTY;
 
   /**
    * 对应的枚举类
    *
-   * @return
+   * @return 枚举类
    */
   Class<?>[] target() default {};
 

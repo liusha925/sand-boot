@@ -33,7 +33,7 @@ public @interface ExcelAnnotation {
   /**
    * 排序
    *
-   * @return
+   * @return 排序
    */
   int order() default 0;
 
@@ -85,7 +85,7 @@ public @interface ExcelAnnotation {
   /**
    * 操作类型
    *
-   * @return
+   * @return 操作类型
    */
   Type type() default Type.ALL;
 

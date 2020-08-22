@@ -53,7 +53,7 @@ public class NameChecker {
    * </ul>
    * </ul>
    *
-   * @param element
+   * @param element 元素
    */
   public void checkNames(Element element) {
     nameCheckScanner.scan(element);
@@ -69,7 +69,7 @@ public class NameChecker {
      *
      * @param e Element
      * @param p 返回类型
-     * @return
+     * @return Void
      */
     @Override
     public Void visitType(TypeElement e, Void p) {
@@ -84,7 +84,7 @@ public class NameChecker {
      *
      * @param e Element
      * @param p Void
-     * @return
+     * @return Void
      */
     @Override
     public Void visitExecutable(ExecutableElement e, Void p) {
@@ -104,7 +104,7 @@ public class NameChecker {
      *
      * @param e Element
      * @param p Void
-     * @return
+     * @return Void
      */
     @Override
     public Void visitVariable(VariableElement e, Void p) {
@@ -121,14 +121,13 @@ public class NameChecker {
      * 判断一个变量是否是常量
      *
      * @param e Element
-     * @return
+     * @return true-是，false-不是
      */
     private boolean heuristicallyConstant(VariableElement e) {
-      if (e.getEnclosingElement().getKind() == INTERFACE) {
+      if (e.getEnclosingElement().getKind() == INTERFACE
+          || (e.getKind() == FIELD && e.getModifiers().containsAll(EnumSet.of(PUBLIC, STATIC, FINAL)))) {
         return true;
-      } else if (e.getKind() == FIELD && e.getModifiers().containsAll(EnumSet.of(PUBLIC, STATIC, FINAL))) {
-        return true;
-      } else {
+      }  else {
         return false;
       }
     }

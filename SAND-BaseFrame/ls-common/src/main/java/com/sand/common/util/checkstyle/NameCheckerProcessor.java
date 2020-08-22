@@ -21,15 +21,16 @@ import java.util.Set;
  * 开发人员：@author liusha
  * 开发日期：2019/11/25 10:43
  * 功能描述：来源于《深入理解Java虚拟机》——周志明第10.4.2节
+ * <p>
+ * 可以用"*"表示支持所有的Annotations，
+ * 只支持JDK1.8的Java代码
  */
 
 /**
- * 可以用"*"表示支持所有的Annotations
- */
-@SupportedAnnotationTypes("*")
-/**
+ * 可以用"*"表示支持所有的Annotations，
  * 只支持JDK1.8的Java代码
  */
+@SupportedAnnotationTypes("*")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class NameCheckerProcessor extends AbstractProcessor {
   private NameChecker nameChecker;
@@ -37,7 +38,7 @@ public class NameCheckerProcessor extends AbstractProcessor {
   /**
    * 初始化名称“检查器”
    *
-   * @param processingEnv
+   * @param processingEnv 环境
    */
   @Override
   public void init(ProcessingEnvironment processingEnv) {
@@ -48,9 +49,9 @@ public class NameCheckerProcessor extends AbstractProcessor {
   /**
    * 对输入的语法树的各个节点进行名称检查
    *
-   * @param annotations
-   * @param roundEnv
-   * @return
+   * @param annotations 类类型
+   * @param roundEnv 环境
+   * @return boolean
    */
   @Override
   public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
