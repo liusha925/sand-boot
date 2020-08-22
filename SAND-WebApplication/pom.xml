@@ -13,7 +13,7 @@
     <modules>
         <module>backend</module>
         <module>demoApp</module>
-        <module>ls-singleweb</module>
+        <module>templateUI</module>
     </modules>
 
 </project>

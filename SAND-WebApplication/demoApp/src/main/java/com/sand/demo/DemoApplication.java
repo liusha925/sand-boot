@@ -39,7 +39,7 @@ public class DemoApplication {
     String[] newArgs = StringUtils.concatenateStringArrays(args, configs);
     SpringApplication.run(DemoApplication.class, newArgs);
     log.info("                                   \n" +
-        "【LsSingleWebApplication】启动成功 ლ(´ڡ`ლ)ﾞ \n" +
+        "【DemoApplication】启动成功 ლ(´ڡ`ლ)ﾞ \n" +
         "   _____         _   _ _____            \n" +
         "  / ____|  /\\   | \\ | |  __ \\        \n" +
         " | (___   /  \\  |  \\| | |  | |        \n" +

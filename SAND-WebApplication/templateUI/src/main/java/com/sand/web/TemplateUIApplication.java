@@ -23,10 +23,10 @@ import org.springframework.util.StringUtils;
  */
 @Slf4j
 @SpringBootApplication(scanBasePackages = "com.sand")
-public class LsSingleWebApplication {
+public class TemplateUIApplication {
 
   public static void main(String[] args) {
-    SpringApplication application = new SpringApplication(LsSingleWebApplication.class);
+    SpringApplication application = new SpringApplication(TemplateUIApplication.class);
     // 开启/关闭启动logo
     application.setBannerMode(Banner.Mode.CONSOLE);
     // 加载自定义配置参数
@@ -37,9 +37,9 @@ public class LsSingleWebApplication {
         FastJsonSafeRunner.APPLIED
     };
     String[] newArgs = StringUtils.concatenateStringArrays(args, configs);
-    SpringApplication.run(LsSingleWebApplication.class, newArgs);
+    SpringApplication.run(TemplateUIApplication.class, newArgs);
     log.info("                                   \n" +
-        "【LsSingleWebApplication】启动成功 ლ(´ڡ`ლ)ﾞ \n" +
+        "【TemplateUIApplication】启动成功 ლ(´ڡ`ლ)ﾞ \n" +
         "   _____         _   _ _____            \n" +
         "  / ____|  /\\   | \\ | |  __ \\        \n" +
         " | (___   /  \\  |  \\| | |  | |        \n" +
