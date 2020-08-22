@@ -9,8 +9,6 @@ package com.sand.web;
 
 import com.sand.common.runner.FastJsonSafeRunner;
 import com.sand.common.runner.SystemConfigRunner;
-import com.sand.redis.config.runner.RedisConfigRunner;
-import com.sand.redis.consumer.runner.RedisConsumeRunner;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
@@ -25,10 +23,10 @@ import org.springframework.util.StringUtils;
  */
 @Slf4j
 @SpringBootApplication(scanBasePackages = "com.sand")
-public class LsBackendApplication {
+public class BackendApplication {
 
   public static void main(String[] args) {
-    SpringApplication application = new SpringApplication(LsBackendApplication.class);
+    SpringApplication application = new SpringApplication(BackendApplication.class);
     // 开启/关闭启动logo
     application.setBannerMode(Banner.Mode.CONSOLE);
     // 加载自定义配置参数
@@ -45,9 +43,9 @@ public class LsBackendApplication {
 //        RedisConsumeRunner.APPLIED
     };
     String[] newArgs = StringUtils.concatenateStringArrays(args, configs);
-    SpringApplication.run(LsBackendApplication.class, newArgs);
+    SpringApplication.run(BackendApplication.class, newArgs);
     log.info("                                   \n" +
-        "【LsBackApplication】启动成功 ლ(´ڡ`ლ)ﾞ \n" +
+        "【BackApplication】启动成功 ლ(´ڡ`ლ)ﾞ \n" +
         "   _____         _   _ _____            \n" +
         "  / ____|  /\\   | \\ | |  __ \\        \n" +
         " | (___   /  \\  |  \\| | |  | |        \n" +

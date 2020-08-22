@@ -10,7 +10,7 @@ package com.sand;
 import com.sand.common.runner.SystemConfigRunner;
 import com.sand.redis.config.runner.RedisConfigRunner;
 import com.sand.redis.consumer.runner.RedisConsumeRunner;
-import com.sand.web.LsBackendApplication;
+import com.sand.web.BackendApplication;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
 import org.junit.Before;
@@ -43,7 +43,7 @@ public class JunitBootStrap {
         // 开启消费者系统
         RedisConsumeRunner.APPLIED
     };
-    SpringApplication.run(LsBackendApplication.class, configs);
+    SpringApplication.run(BackendApplication.class, configs);
     log.info(">>>>>>>>>>>>>>测试开始<<<<<<<<<<<<<<<");
   }
 

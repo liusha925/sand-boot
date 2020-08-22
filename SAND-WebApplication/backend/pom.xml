@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sand</groupId>
-    <artifactId>ls-backend</artifactId>
+    <artifactId>backend</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>后台启动容器</description>
@@ -55,7 +55,7 @@
                 <configuration>
                     <!-- 开启热部署 -->
                     <fork>true</fork>
-                    <mainClass>com.sand.web.LsBackendApplication</mainClass>
+                    <mainClass>com.sand.web.BackendApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
