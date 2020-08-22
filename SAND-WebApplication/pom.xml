@@ -12,9 +12,8 @@
 
     <modules>
         <module>backend</module>
-        <module>ls-demoend</module>
+        <module>demoApp</module>
         <module>ls-singleweb</module>
-        <module>ls-testend</module>
     </modules>
 
 </project>
