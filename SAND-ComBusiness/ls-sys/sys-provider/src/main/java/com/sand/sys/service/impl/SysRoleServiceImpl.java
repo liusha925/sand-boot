@@ -9,13 +9,13 @@ package com.sand.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.sand.common.util.Utils;
-import com.sand.common.vo.ResultVO;
-import com.sand.business.parent.enums.OperateType;
+import com.sand.base.module.enums.OperateType;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.ResultUtil;
+import com.sand.common.util.Utils;
 import com.sand.common.util.lang3.StringUtil;
 import com.sand.common.util.validator.ModelValidator;
+import com.sand.common.vo.ResultVO;
 import com.sand.sys.entity.SysRole;
 import com.sand.sys.entity.SysRoleMenu;
 import com.sand.sys.mapper.SysRoleMapper;

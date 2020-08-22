@@ -47,17 +47,17 @@
         <!-- EEE===Maven插件版本继承自spring-boot-dependencies===EEE -->
         <!-- SSS==================BaseFrame模块==================SSS -->
         <com.sand.ls-common.version>1.0.0-SNAPSHOT</com.sand.ls-common.version>
-        <com.sand.ls-logging.version>1.0.0-SNAPSHOT</com.sand.ls-logging.version>
         <com.sand.ls-mybatisplus.version>1.0.0-SNAPSHOT</com.sand.ls-mybatisplus.version>
         <com.sand.ls-redis.version>1.0.0-SNAPSHOT</com.sand.ls-redis.version>
         <com.sand.ls-security.version>1.0.0-SNAPSHOT</com.sand.ls-security.version>
         <com.sand.ls-zookeeper.version>1.0.0-SNAPSHOT</com.sand.ls-zookeeper.version>
         <!-- EEE==================BaseFrame模块==================EEE -->
         <!-- SSS==================BaseModule模块==================SSS -->
-
+        <com.sand.base-module.version>1.0.0-SNAPSHOT</com.sand.base-module.version>
+        <com.sand.logging-api.version>1.0.0-SNAPSHOT</com.sand.logging-api.version>
+        <com.sand.logging-provider.version>1.0.0-SNAPSHOT</com.sand.logging-provider.version>
         <!-- EEE==================BaseModule模块==================EEE -->
         <!-- SSS=================ComBusiness模块=================SSS -->
-        <com.sand.business-parent.version>1.0.0-SNAPSHOT</com.sand.business-parent.version>
         <com.sand.sys-api.version>1.0.0-SNAPSHOT</com.sand.sys-api.version>
         <com.sand.sys-provider.version>1.0.0-SNAPSHOT</com.sand.sys-provider.version>
         <!-- EEE=================ComBusiness模块=================EEE -->
@@ -186,11 +186,6 @@
             </dependency>
             <dependency>
                 <groupId>com.sand</groupId>
-                <artifactId>ls-logging</artifactId>
-                <version>${com.sand.ls-logging.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sand</groupId>
                 <artifactId>ls-security</artifactId>
                 <version>${com.sand.ls-security.version}</version>
             </dependency>
@@ -209,12 +204,23 @@
                 <artifactId>ls-zookeeper</artifactId>
                 <version>${com.sand.ls-zookeeper.version}</version>
             </dependency>
-            <!-- ===ComBusiness模块=== -->
+            <!-- ===BaseModule模块=== -->
             <dependency>
                 <groupId>com.sand</groupId>
-                <artifactId>business-parent</artifactId>
-                <version>${com.sand.business-parent.version}</version>
+                <artifactId>base-module</artifactId>
+                <version>${com.sand.base-module.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.sand</groupId>
+                <artifactId>logging-api</artifactId>
+                <version>${com.sand.logging-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sand</groupId>
+                <artifactId>logging-provider</artifactId>
+                <version>${com.sand.logging-provider.version}</version>
+            </dependency>
+            <!-- ===ComBusiness模块=== -->
             <dependency>
                 <groupId>com.sand</groupId>
                 <artifactId>sys-api</artifactId>

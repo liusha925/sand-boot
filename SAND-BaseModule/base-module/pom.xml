@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sand</groupId>
-    <artifactId>sys-api</artifactId>
-    <version>${com.sand.sys-api.version}</version>
+    <artifactId>base-module</artifactId>
+    <version>${com.sand.base-module.version}</version>
     <packaging>jar</packaging>
-    <description>系统API</description>
+    <description>基础模块</description>
     <!-- 父级工程 -->
     <parent>
         <groupId>com.sand</groupId>
@@ -19,11 +19,11 @@
     <dependencies>
         <dependency>
             <groupId>com.sand</groupId>
-            <artifactId>ls-security</artifactId>
+            <artifactId>ls-common</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sand</groupId>
-            <artifactId>logging-provider</artifactId>
+            <artifactId>ls-mybatisplus</artifactId>
         </dependency>
     </dependencies>
 </project>

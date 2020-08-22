@@ -7,8 +7,8 @@
  */
 package com.sand.sys.controller;
 
-import com.sand.business.parent.base.BaseController;
-import com.sand.business.parent.util.AuthenticationUtil;
+import com.sand.base.module.common.BaseController;
+import com.sand.security.web.util.AuthenticationUtil;
 import com.sand.sys.entity.SysUser;
 import com.sand.sys.service.ISysUserRoleService;
 import lombok.extern.slf4j.Slf4j;

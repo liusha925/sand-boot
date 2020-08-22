@@ -9,8 +9,8 @@ package com.sand.sys.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.sand.business.parent.base.BaseEntity;
-import com.sand.business.parent.constant.Constant;
+import com.sand.base.module.common.BaseEntity;
+import com.sand.base.module.constant.Constant;
 import com.sand.common.annotation.EnumValidAnnotation;
 import com.sand.sys.enums.MenuEnum;
 import lombok.EqualsAndHashCode;
