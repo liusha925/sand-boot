@@ -105,7 +105,7 @@
                     <appendAssemblyId>false</appendAssemblyId>
                     <!-- 打包配置符文件 -->
                     <descriptors>
-                        <descriptor>src/main/resources/assembly.xml</descriptor>
+                        <descriptor>${project.basedir}/src/main/resources/assembly.xml</descriptor>
                     </descriptors>
                 </configuration>
             </plugin>
