@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh">
+
+<head>
+    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="content-type" content="no-cache, must-revalidate"/>
+    <meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT"/>
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <link rel="stylesheet" th:href="@{provider/select2-4.0.13/css/select2.min.css}">
+    <link rel="stylesheet" th:href="@{provider/bootstrap-4.5.2-dist/css/bootstrap.css}">
+</head>
+
+<body onload="startTime()">
+<header>
+    <h3>客户画像和诊断分析</h3>
+    <div id="time"></div>
+</header>
+<div class="card newCard">
+    <div class="card-body p-0">
+        <div class="title">业务画像</div>
+        <div class="row mx-0">
+            <div class="col-7 bg_1">
+                <div class="row">
+                    <div class="col-3 pt-5 mt-5">
+                        <select id="selectId" onchange="clickaaa()" style="width: 200px">
+                            <option th:each="l,listStat:${list}"
+                                    th:text="${l.merName}"
+                                    th:selected="${l.merName}"
+                                    th:value="${l.merId}"
+                            >
+                            </option>
+                        </select>
+                        <div class="d-flex justify-content-center">
+                            <div class="total-box text-center mt-5">
+                                <h4 class="pt-5">总分</h4>
+                                <h3 class="pt-3" id="total"></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9 h-532">
+                        <!--图表-->
+                        <div id="chart" style="width: 600px;height:400px;margin-top: 60px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 position-relative h-532">
+                <img th:src="@{images/diqiu.png}" class="w-100 position-absolute" style="bottom:90px;left: 0"/>
+                <div class="cricle" id="cricle">
+                    <!-- <div class="no-rounded-circle text-left px-2">
+                     <p class="mb-0">类别名称：业务收入</p>
+                     <p class="mb-0">分值：15分</p>
+                 </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="title">风险画像</div>
+        <div class="row mx-0">
+            <div class="col-12">
+                <div class="row mx-0">
+                    <div class="col-4 px-0">
+                        <div class="list-group mt-3" id="list-tab" role="tablist">
+                            <a class="list-group-item list-group-item-action active" id="list-home-list"
+                               data-toggle="list" href="#list-home" role="tab" aria-controls="home">
+                                <img th:src="@{images/list_1.png}" class="w-100"/>
+                                <p class="pt-4" id="p1"></p>
+                            </a>
+                            <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list"
+                               href="#list-profile" role="tab" aria-controls="profile">
+                                <img th:src="@{images/list_2.png}" class="w-100"/>
+                                <p id="p2"></p>
+                            </a>
+                            <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list"
+                               href="#list-messages" role="tab" aria-controls="messages">
+                                <img th:src="@{images/list_3.png}" class="w-100"/>
+                                <p class="pt-2" id="p3"></p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="list-home" role="tabpanel"
+                                 aria-labelledby="list-home-list">
+                                <table class="table-content w-100" id="table1">
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="list-profile" role="tabpanel"
+                                 aria-labelledby="list-profile-list">
+                                <table class="table-content w-100" id="table2">
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="list-messages" role="tabpanel"
+                                 aria-labelledby="list-messages-list">
+                                <table class="table-content w-100" id="table3">
+
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 align-self-end text-center py-4">
+                <button type="button" class="btn-bg">一键诊断</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-0" style="min-height: 446px;">
+        <div class="title">诊断结果</div>
+        <div class="row mx-0" style="padding-top: 2.75rem;">
+            <div class="col-5">
+                <!--echarts区-->
+                <div id="gauge" style="width: 600px;height:400px;"></div>
+            </div>
+            <div class="col-2 px-0">
+                <div class="list">
+                    <div class="list-name"><span>A</span>营销建议</div>
+                    <div class="list-content" id="marketAdvice">
+                    </div>
+                </div>
+                <div class="list">
+                    <div class="list-name"><span>A</span>风险建议</div>
+                    <div class="list-content" id="riskAdvice">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-5">
+                <div class="row mx-0 h-100">
+                    <div class="col-12 align-self-start">
+                        <div class="row justify-content-center text-top" id="noOpen">
+                        </div>
+                    </div>
+                    <div class="col-12 align-self-end">
+                        <img th:src="@{images/3d.png}" class="w-100"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{js/index.js?v=1}"></script>
+<script th:src="@{provider/jquery/jQuery-3.5.1.js}"></script>
+<script th:src="@{/plugins/echarts/echarts.min.js}"></script>
+<script th:src="@{provider/select2-4.0.13/js/select2.js}"></script>
+<script th:src="@{provider/bootstrap-4.5.2-dist/js/bootstrap.js}"></script>
+
+<script th:inline='javascript'>
+    $(function () {
+        $("select").select2();
+        getAjax($("#selectId option:selected").val());
+        // startTime();
+    });
+</script>
+
+</body>
+
+</html>

@@ -14,6 +14,7 @@
         <module>backend</module>
         <module>demoApp</module>
         <module>templateUI</module>
+        <module>graphic</module>
     </modules>
 
 </project>

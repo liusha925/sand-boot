@@ -130,10 +130,10 @@ CREATE TABLE `sys_user_role`  (
 INSERT INTO `sys_user_role` VALUES ('1', '1');
 
 -- ----------------------------
--- Table structure for sys_log
+-- Table structure for operate_log
 -- ----------------------------
-DROP TABLE IF EXISTS `sys_log`;
-CREATE TABLE `sys_log`  (
+DROP TABLE IF EXISTS `operate_log`;
+CREATE TABLE `operate_log`  (
   `log_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '日志ID',
   `symbol` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '模块标识',
   `user_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '请求用户',

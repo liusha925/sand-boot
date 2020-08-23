@@ -25,5 +25,5 @@ public final class Constant {
   /**
    * 系统日志实现类
    */
-  public static final String SYS_LOG_SERVICE = "sysLogServiceImpl";
+  public static final String SYS_LOG_SERVICE = "operateLogServiceImpl";
 }
