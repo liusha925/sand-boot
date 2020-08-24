@@ -14,13 +14,9 @@
 			<directory>${project.basedir}/src/main/resources</directory>
 			<includes>
 				<include>*.yml</include>
-				<!--<include>*.xml</include>
-				<include>*.txt</include>-->
 			</includes>
 			<filtered>true</filtered>
 			<outputDirectory>${file.separator}config</outputDirectory>
-			<!-- 修改文件默认权限0644,需要有执行权限 -->
-			<fileMode>0755</fileMode>
 		</fileSet>
 		<!-- 打包脚本文件至bin文件夹下 -->
 		<fileSet>
@@ -28,6 +24,8 @@
 			<outputDirectory>${file.separator}</outputDirectory>
 			<!-- 修改文件默认权限0644,需要有执行权限 -->
 			<fileMode>0755</fileMode>
+			<!-- 一定要改为unix，因为脚本文件在windows上面编码，会出现dos编写问题 -->
+			<lineEnding>unix</lineEnding>
 		</fileSet>
 		<!-- 外部jar文件至lib文件夹下 -->
 		<fileSet>
@@ -36,22 +34,16 @@
 			<includes>
 				<include>*.jar</include>
 			</includes>
-			<!-- 修改文件默认权限0644,需要有执行权限 -->
-			<fileMode>0755</fileMode>
 		</fileSet>
 		<!--&lt;!&ndash; 静态资源文件至static文件夹下 &ndash;&gt;
 		<fileSet>
 			<directory>${project.basedir}/src/main/resources/static</directory>
 			<outputDirectory>${file.separator}static</outputDirectory>
-			&lt;!&ndash; 修改文件默认权限0644,需要有执行权限 &ndash;&gt;
-			<fileMode>0755</fileMode>
 		</fileSet>
 		&lt;!&ndash; 模板文件至templates文件夹下 &ndash;&gt;
 		<fileSet>
 			<directory>${project.basedir}/src/main/resources/templates</directory>
 			<outputDirectory>${file.separator}templates</outputDirectory>
-			&lt;!&ndash; 修改文件默认权限0644,需要有执行权限 &ndash;&gt;
-			<fileMode>0755</fileMode>
 		</fileSet>-->
 		<!-- 当前系统可运行的jar -->
 		<fileSet>
@@ -60,8 +52,6 @@
 			<includes>
 				<include>*.jar</include>
 			</includes>
-			<!-- 修改文件默认权限0644，需要有执行权限 -->
-			<fileMode>0755</fileMode>
 		</fileSet>
 	</fileSets>
 </assembly>

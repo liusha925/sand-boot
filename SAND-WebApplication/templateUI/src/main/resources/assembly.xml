@@ -1,55 +1,57 @@
 <assembly
-	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3 http://maven.apache.org/xsd/assembly-1.1.3.xsd">
-	<id>package</id>
-	<formats>
-		<format>zip</format>
-	</formats>
-	<!-- 指定打的包是否包含打包层目录，比如：finalName是templateUI，当值为true，所有文件被放在包内的templateUI目录下，否则直接放在包的根目录下）-->
-	<includeBaseDirectory>true</includeBaseDirectory>
-	<fileSets>
-		<!-- 打包配置至config文件夹下 -->
-		<fileSet>
-			<directory>${basedir}/src/main/resources</directory>
-			<includes>
-				<include>*.yml</include>
-				<include>*.xml</include>
-				<include>*.txt</include>
-			</includes>
-			<filtered>true</filtered>
-			<outputDirectory>${file.separator}config</outputDirectory>
-		</fileSet>
-		<!-- 打包脚本文件至bin文件夹下 -->
-		<fileSet>
-			<directory>src/main/resources/bin</directory>
-			<outputDirectory>${file.separator}</outputDirectory>
-		</fileSet>
-		<!-- 外部jar文件至lib文件夹下 -->
-		<fileSet>
-			<directory>${project.build.directory}/lib</directory>
-			<outputDirectory>${file.separator}lib</outputDirectory>
-			<includes>
-				<include>*.jar</include>
-			</includes>
-		</fileSet>
-		<!-- 静态资源文件至static文件夹下 -->
-		<fileSet>
-			<directory>src/main/resources/static</directory>
-			<outputDirectory>${file.separator}static</outputDirectory>
-		</fileSet>
-		<!-- 模板文件至templates文件夹下 -->
-		<fileSet>
-			<directory>src/main/resources/templates</directory>
-			<outputDirectory>${file.separator}templates</outputDirectory>
-		</fileSet>
-		<!-- 当前系统可运行的jar -->
-		<fileSet>
-			<directory>${project.build.directory}</directory>
-			<outputDirectory>${file.separator}</outputDirectory>
-			<includes>
-				<include>*.jar</include>
-			</includes>
-		</fileSet>
-	</fileSets>
+        xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3 http://maven.apache.org/xsd/assembly-1.1.3.xsd">
+    <id>package</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <!-- 指定打的包是否包含打包层目录，比如：finalName是templateUI，当值为true，所有文件被放在包内的templateUI目录下，否则直接放在包的根目录下）-->
+    <includeBaseDirectory>true</includeBaseDirectory>
+    <fileSets>
+        <!-- 打包配置至config文件夹下 -->
+        <fileSet>
+            <directory>${basedir}/src/main/resources</directory>
+            <includes>
+                <include>*.yml</include>
+            </includes>
+            <filtered>true</filtered>
+            <outputDirectory>${file.separator}config</outputDirectory>
+        </fileSet>
+        <!-- 打包脚本文件至bin文件夹下 -->
+        <fileSet>
+            <directory>src/main/resources/bin</directory>
+            <outputDirectory>${file.separator}</outputDirectory>
+            <!-- 修改文件默认权限0644,脚本需要有执行权限 -->
+            <fileMode>0755</fileMode>
+            <!-- 一定要改为unix，因为脚本文件在windows上面编码，会出现dos编写问题 -->
+            <lineEnding>unix</lineEnding>
+        </fileSet>
+        <!-- 外部jar文件至lib文件夹下 -->
+        <fileSet>
+            <directory>${project.build.directory}/lib</directory>
+            <outputDirectory>${file.separator}lib</outputDirectory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+        <!--&lt;!&ndash; 静态资源文件至static文件夹下 &ndash;&gt;
+        <fileSet>
+            <directory>src/main/resources/static</directory>
+            <outputDirectory>${file.separator}static</outputDirectory>
+        </fileSet>
+        &lt;!&ndash; 模板文件至templates文件夹下 &ndash;&gt;
+        <fileSet>
+            <directory>src/main/resources/templates</directory>
+            <outputDirectory>${file.separator}templates</outputDirectory>
+        </fileSet>-->
+        <!-- 当前系统可运行的jar -->
+        <fileSet>
+            <directory>${project.build.directory}</directory>
+            <outputDirectory>${file.separator}</outputDirectory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+    </fileSets>
 </assembly>
