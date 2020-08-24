@@ -11,6 +11,7 @@ package com.sand.graphic.entity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +22,7 @@ import lombok.NoArgsConstructor;
  * 功能描述：写明作用，调用方式，使用场景，以及特殊情况 <br>
  */
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName(value = "merchant_info_tbl")
