@@ -18,7 +18,7 @@
             <filtered>true</filtered>
             <outputDirectory>${file.separator}config</outputDirectory>
         </fileSet>
-        <!-- 打包脚本文件至bin文件夹下 -->
+        <!-- 打包脚本文件至文件夹下 -->
         <fileSet>
             <directory>${project.basedir}/src/main/resources/bin</directory>
             <outputDirectory>${file.separator}</outputDirectory>
@@ -35,6 +35,19 @@
                 <include>*.jar</include>
             </includes>
         </fileSet>
+        <!-- 当前系统可运行的jar -->
+        <fileSet>
+            <directory>${project.build.directory}</directory>
+            <outputDirectory>${file.separator}</outputDirectory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+        <!-- 打包说明文件至文件夹下 -->
+        <fileSet>
+            <directory>${project.basedir}/src/main/resources/doc</directory>
+            <outputDirectory>${file.separator}</outputDirectory>
+        </fileSet>
         <!--&lt;!&ndash; 静态资源文件至static文件夹下 &ndash;&gt;
         <fileSet>
             <directory>${project.basedir}/src/main/resources/static</directory>
@@ -45,13 +58,5 @@
             <directory>${project.basedir}/src/main/resources/templates</directory>
             <outputDirectory>${file.separator}templates</outputDirectory>
         </fileSet>-->
-        <!-- 当前系统可运行的jar -->
-        <fileSet>
-            <directory>${project.build.directory}</directory>
-            <outputDirectory>${file.separator}</outputDirectory>
-            <includes>
-                <include>*.jar</include>
-            </includes>
-        </fileSet>
     </fileSets>
 </assembly>

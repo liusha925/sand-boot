@@ -9,7 +9,8 @@ function radar(data, radarId) {
 
     let score = Object.values(radar)
     //返回最大值
-    let scoreMax = Math.max(...score)
+    //let scoreMax = Math.max(...score)
+    let scoreMax = 100;
     let keys = Object.keys(radar)
     keys.forEach(info => indicator.push({
         'name': info,
@@ -29,6 +30,7 @@ function radar(data, radarId) {
                 textStyle: {
                     color: '#fff',
                     //backgroundColor: '#999',
+                    fontSize: '14',
                     borderRadius: 3,
                     padding: [3, 5]
                 }
@@ -41,13 +43,23 @@ function radar(data, radarId) {
                     color: '#C2443F', // 设置网格的颜色
                 },
             },
+            splitLine: {
+                lineStyle: {
+                    color: '#5961c1'
+                }
+            },
+            axisLine: {
+                lineStyle: {
+                    color: '#5961c1'
+                }
+            }
             // 设置雷达图中间射线的颜色
 
         },
         series: [{
             name: '业务画像',
             type: 'radar',
-            areaStyle: {color: '#3e48ff',},
+            areaStyle: {color: '#3e48ff'},
             symbolSize: 8, // 拐点的大小
             tooltip: {
                 trigger: 'item'
@@ -162,10 +174,12 @@ function clickaaa() {
 
 //调用ajax方法1
 function getAjax(data) {
+    let url = "http://localhost:8888/view";
+    //url = "http://localhost:63342/demographic/ls-singleweb/static/json/view.json";
+
     $.ajax({
         type: "post",
-        url: "http://localhost:8888/view",
-        //url: "http://localhost:63342/demographic/ls-singleweb/static/json/view.json",
+        url: url,
         data: {
             merId: data
         },
@@ -179,9 +193,15 @@ function getAjax(data) {
 
             //标签图
             ret.detailList.forEach(info => {
-                let str = "<div class=\"rounded-circle\" title=\"" + info.radarScore + "\">" + info.name + "</div>";
+                let str = "<div class=\"rounded-circle\" data-placement=\"bottom\" data-toggle=\"tooltip\" title=\"分值：" + info.radarScore + "\">" +
+                    "<div class=\"circle-content d-flex align-items-center justify-content-center\"><span>" + info.name + "</span></div>" +
+                    "</div>";
                 $("#cricle").append(str);
+
             });
+            $('[data-toggle="tooltip"]').tooltip();
+
+
             //负面舆情
             let table1 = [];
             //投资监督
@@ -194,13 +214,14 @@ function getAjax(data) {
                     $("#p1").html(info.name + "</br>" + info.max + "次");
                     table1 = info.detail;
                     let showTable = $("#table1");
+                    var str;
                     showTable.empty();
                     showTable.append("<thead> <tr> <th><p>产品名称</p></th><th><p>发生日期</p></th> <th><p>负面舆情</p></th> </tr> </thead>");
                     table1.forEach(info => {
-                        var str = "<tr><td><p title='" + info.productName + "'>" + info.productName + "</p></td><td><p  title='" + info.pubOpinDate + "'>" + info.pubOpinDate + "</p></td><td><p  title='" + info.massage + "'>" + info.massage + "</p></td></tr>";
+                        str += "<tr><td><p title='" + info.productName + "'>" + info.productName + "</p></td><td><p  title='" + info.pubOpinDate + "'>" + info.pubOpinDate + "</p></td><td><p style='max-width: 370px;' title='" + info.massage + "'>" + info.massage + "</p></td></tr>";
                         //追加到table中
-                        showTable.append("<tbody>" + str + "</tbody>");
                     })
+                    showTable.append("<tbody>" + str + "</tbody>");
                 } else if (info.name == "投资监督提示") {
                     table2 = info.detail;
                     $("#p2").html(info.name + "</br>" + info.max + "次");
@@ -229,6 +250,7 @@ function getAjax(data) {
 
             })
 
+
             //营销建议与风险建议
             if (ret.gauge.marketAdvice != null) {
                 let str = "<p>" + ret.gauge.marketAdvice + "</p>"
@@ -250,8 +272,10 @@ function getAjax(data) {
 
         }
 
+
     })
 }
+
 
 function startTime() {
     var today = new Date();
@@ -283,3 +307,9 @@ function startTime() {
         startTime()
     }, 500); /* 每500毫秒执行一次，实现动态显示时间效果 */
 }
+
+$("#list-tab a").mouseenter(function () {
+    var index = $(this).index();
+    $(this).addClass("active").siblings().removeClass("active");
+    $("#nav-tabContent .tab-pane").eq(index).addClass("active show").siblings().removeClass("active show");
+})

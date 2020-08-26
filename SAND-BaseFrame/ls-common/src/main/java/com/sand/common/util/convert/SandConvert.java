@@ -330,6 +330,9 @@ public class SandConvert<K, T> {
       return defaultValue;
     }
     try {
+      if (valueStr.contains(".")) {
+        return Integer.parseInt(valueStr.substring(0, valueStr.indexOf(".")));
+      }
       return Integer.parseInt(valueStr.trim());
     } catch (Exception e) {
       return defaultValue;
@@ -937,6 +940,7 @@ public class SandConvert<K, T> {
    * <pre>
    *   System.out.println(SandConvert.digitUppercase(1234567890.987654321)); = "壹拾贰亿叁仟肆佰伍拾陆万柒仟捌佰玖拾元玖角捌分"
    * </pre>
+   *
    * @param value 数字
    * @return 中文大写数字
    */
