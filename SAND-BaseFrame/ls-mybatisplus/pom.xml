@@ -4,17 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.sand</groupId>
-    <artifactId>ls-mybatisplus</artifactId>
-    <version>${com.sand.ls-mybatisplus.version}</version>
-    <packaging>jar</packaging>
-    <description>mybatis plus框架</description>
-    <!-- 父级工程 -->
     <parent>
         <groupId>com.sand</groupId>
-        <artifactId>base-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <artifactId>sand</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../../</relativePath>
     </parent>
+
+    <artifactId>ls-mybatisplus</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <description>Mybatis Plus框架</description>
 
     <dependencies>
         <dependency>

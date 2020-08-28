@@ -6,7 +6,7 @@
 
     <groupId>com.sand</groupId>
     <artifactId>WebApplication</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
     <description>启动容器，可组装不同的业务或者产品内容或者项目内容</description>
 

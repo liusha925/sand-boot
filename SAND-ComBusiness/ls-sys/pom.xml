@@ -6,9 +6,10 @@
 
     <groupId>com.sand</groupId>
     <artifactId>ls-sys</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
     <description>系统功能</description>
+
     <modules>
         <module>sys-api</module>
         <module>sys-provider</module>

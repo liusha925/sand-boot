@@ -3,18 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
-    <groupId>com.sand</groupId>
-    <artifactId>logging-api</artifactId>
-    <version>${com.sand.logging-api.version}</version>
-    <packaging>jar</packaging>
-    <description>日志模块API</description>
-    <!-- 父级工程 -->
+
     <parent>
         <groupId>com.sand</groupId>
-        <artifactId>base-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <artifactId>sand</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../../../</relativePath>
     </parent>
+    
+    <artifactId>logging-api</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <description>日志模块API</description>
 
     <dependencies>
         <dependency>

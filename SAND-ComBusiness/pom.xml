@@ -5,10 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sand</groupId>
-    <artifactId>ComBusiness</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <artifactId>SAND-ComBusiness</artifactId>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
     <description>通用业务</description>
+
     <modules>
         <module>ls-sys</module>
     </modules>
