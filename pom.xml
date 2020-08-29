@@ -216,6 +216,11 @@
                 <artifactId>system</artifactId>
                 <version>${sand.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.sand</groupId>
+                <artifactId>user-center</artifactId>
+                <version>${sand.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
