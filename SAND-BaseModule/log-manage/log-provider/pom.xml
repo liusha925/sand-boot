@@ -11,7 +11,7 @@
         <relativePath>../../../</relativePath>
     </parent>
 
-    <artifactId>logging-provider</artifactId>
+    <artifactId>log-provider</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <description>日志模块实现</description>
@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>com.sand</groupId>
-            <artifactId>logging-api</artifactId>
+            <artifactId>log-api</artifactId>
         </dependency>
     </dependencies>
 

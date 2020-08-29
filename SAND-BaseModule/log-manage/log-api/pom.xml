@@ -11,7 +11,7 @@
         <relativePath>../../../</relativePath>
     </parent>
     
-    <artifactId>logging-api</artifactId>
+    <artifactId>log-api</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <description>日志模块API</description>

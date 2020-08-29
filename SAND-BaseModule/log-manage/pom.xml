@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sand</groupId>
-    <artifactId>logging</artifactId>
+    <artifactId>log-manage</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
     <description>日志模块</description>
 
     <modules>
-        <module>logging-api</module>
-        <module>logging-provider</module>
+        <module>log-api</module>
+        <module>log-provider</module>
     </modules>
 </project>

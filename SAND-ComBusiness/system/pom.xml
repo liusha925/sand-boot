@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>com.sand</groupId>
-            <artifactId>logging-provider</artifactId>
+            <artifactId>log-provider</artifactId>
         </dependency>
     </dependencies>
 
