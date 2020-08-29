@@ -210,15 +210,15 @@
                 <artifactId>logging-provider</artifactId>
                 <version>${sand.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.sand</groupId>
+                <artifactId>user-center</artifactId>
+                <version>${sand.version}</version>
+            </dependency>
             <!-- ===ComBusiness模块=== -->
             <dependency>
                 <groupId>com.sand</groupId>
                 <artifactId>system</artifactId>
-                <version>${sand.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sand</groupId>
-                <artifactId>user-center</artifactId>
                 <version>${sand.version}</version>
             </dependency>
         </dependencies>

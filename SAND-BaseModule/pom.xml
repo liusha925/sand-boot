@@ -13,6 +13,7 @@
     <modules>
         <module>base-module</module>
         <module>logging</module>
+        <module>user-center</module>
     </modules>
 
 </project>
