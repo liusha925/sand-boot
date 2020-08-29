@@ -8,10 +8,10 @@
         <groupId>com.sand</groupId>
         <artifactId>sand</artifactId>
         <version>1.0.0</version>
-        <relativePath>../../../</relativePath>
+        <relativePath>../../</relativePath>
     </parent>
 
-    <artifactId>sys-api</artifactId>
+    <artifactId>system</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <description>系统API</description>
@@ -26,4 +26,5 @@
             <artifactId>logging-provider</artifactId>
         </dependency>
     </dependencies>
+
 </project>

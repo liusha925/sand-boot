@@ -11,7 +11,7 @@
     <description>通用业务</description>
 
     <modules>
-        <module>ls-sys</module>
+        <module>system</module>
     </modules>
 
 </project>

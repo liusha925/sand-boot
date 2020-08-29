@@ -213,12 +213,7 @@
             <!-- ===ComBusiness模块=== -->
             <dependency>
                 <groupId>com.sand</groupId>
-                <artifactId>sys-api</artifactId>
-                <version>${sand.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sand</groupId>
-                <artifactId>sys-provider</artifactId>
+                <artifactId>system</artifactId>
                 <version>${sand.version}</version>
             </dependency>
         </dependencies>

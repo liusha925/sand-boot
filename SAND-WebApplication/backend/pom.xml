@@ -17,20 +17,15 @@
     <description>后台管理启动容器</description>
 
     <dependencies>
-        <!-- 系统模块 -->
+        <!-- System模块 -->
         <dependency>
             <groupId>com.sand</groupId>
-            <artifactId>sys-provider</artifactId>
+            <artifactId>system</artifactId>
         </dependency>
         <!-- Redis依赖 -->
         <dependency>
             <groupId>com.sand</groupId>
             <artifactId>ls-redis</artifactId>
-        </dependency>
-        <!-- Spring Security授权认证 -->
-        <dependency>
-            <groupId>com.sand</groupId>
-            <artifactId>ls-security</artifactId>
         </dependency>
         <!-- Spring Boot 单元测试 -->
         <dependency>
