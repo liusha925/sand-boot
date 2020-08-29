@@ -220,6 +220,11 @@
                 <artifactId>message-center</artifactId>
                 <version>${sand.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.sand</groupId>
+                <artifactId>valid-code</artifactId>
+                <version>${sand.version}</version>
+            </dependency>
             <!-- ===ComBusiness模块=== -->
             <dependency>
                 <groupId>com.sand</groupId>

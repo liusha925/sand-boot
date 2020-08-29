@@ -15,6 +15,7 @@
         <module>logging</module>
         <module>user-center</module>
         <module>message-center</module>
+        <module>valid-code</module>
     </modules>
 
 </project>
