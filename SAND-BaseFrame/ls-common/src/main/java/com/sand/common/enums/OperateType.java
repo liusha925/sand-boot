@@ -5,7 +5,7 @@
  * 2019/8/16   liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.module.enums;
+package com.sand.common.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -9,8 +9,8 @@ package com.sand.log.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.sand.base.module.common.BaseEntity;
-import com.sand.base.module.constant.Constant;
+import com.sand.common.base.BaseEntity;
+import com.sand.common.constant.Constant;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

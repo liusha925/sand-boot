@@ -7,7 +7,7 @@
  */
 package com.sand.sys.controller;
 
-import com.sand.base.module.constant.Constant;
+import com.sand.common.constant.Constant;
 import com.sand.common.util.ResultUtil;
 import com.sand.common.util.tree.Tree;
 import com.sand.common.vo.ResultVO;

@@ -5,7 +5,7 @@
  * 2019/8/6   liusha      新增
  * =========  ===========  =====================
  */
-package com.sand.base.module.constant;
+package com.sand.common.constant;
 
 /**
  * 功能说明：常量类

@@ -5,7 +5,7 @@
  * 2019/8/26    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.module.common;
+package com.sand.common.base;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.EqualsAndHashCode;

@@ -9,7 +9,7 @@ package com.sand.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.sand.base.module.enums.OperateType;
+import com.sand.common.enums.OperateType;
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.ResultUtil;
 import com.sand.common.util.Utils;
