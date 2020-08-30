@@ -197,11 +197,6 @@
             <!-- ===BaseModule模块=== -->
             <dependency>
                 <groupId>com.sand</groupId>
-                <artifactId>base-module</artifactId>
-                <version>${sand.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sand</groupId>
                 <artifactId>log-api</artifactId>
                 <version>${sand.version}</version>
             </dependency>
