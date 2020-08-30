@@ -5,7 +5,7 @@
  * 2020/3/19    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.web.config;
+package com.sand.user.util;
 
 import com.google.gson.Gson;
 import com.sand.common.util.convert.SandConvert;
@@ -13,7 +13,7 @@ import com.sand.common.util.global.Config;
 import com.sand.redis.config.RedisConfig;
 import com.sand.redis.manager.repository.RedisRepository;
 import com.sand.security.util.AbstractTokenUtil;
-import com.sand.sys.entity.SysUser;
+import com.sand.user.entity.AuthUser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.EqualsAndHashCode;
@@ -53,7 +53,7 @@ public class JwtTokenUtil extends AbstractTokenUtil {
    * @param user 用户信息
    * @return token
    */
-  public String generateToken(SysUser user) {
+  public String generateToken(AuthUser user) {
     String token = Jwts.builder()
         .setSubject(user.getUserId())
         .setExpiration(generateExpired())
@@ -68,7 +68,7 @@ public class JwtTokenUtil extends AbstractTokenUtil {
    * @param user  用户信息
    * @param token token
    */
-  public void putUserToken(SysUser user, String token) {
+  public void putUserToken(AuthUser user, String token) {
     int dbIndex = SandConvert.obj2Int(Config.getProperty("redis.database.user-session", "0"));
     RedisRepository redisRepository = RedisConfig.getRedisRepository(dbIndex);
     String key = new StringBuilder(REDIS_USER_KEY_TOKEN).append("_").append(user.getUserId()).toString();
@@ -80,7 +80,7 @@ public class JwtTokenUtil extends AbstractTokenUtil {
    *
    * @param user 用户信息
    */
-  public void putUserDetail(SysUser user) {
+  public void putUserDetail(AuthUser user) {
     int dbIndex = SandConvert.obj2Int(Config.getProperty("redis.database.user-info", "0"));
     RedisRepository redisRepository = RedisConfig.getRedisRepository(dbIndex);
     String key = new StringBuilder(REDIS_USER_KEY_DETAIL).append("_").append(user.getUserId()).toString();

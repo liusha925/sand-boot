@@ -17,6 +17,11 @@
     <description>后台管理启动容器</description>
 
     <dependencies>
+        <!-- 用户中心模块 -->
+        <dependency>
+            <groupId>com.sand</groupId>
+            <artifactId>user-center</artifactId>
+        </dependency>
         <!-- System模块 -->
         <dependency>
             <groupId>com.sand</groupId>

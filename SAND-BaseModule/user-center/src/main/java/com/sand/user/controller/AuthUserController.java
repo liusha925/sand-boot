@@ -5,11 +5,12 @@
  * 2019/11/27    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.security.controller;
+package com.sand.user.controller;
 
-import com.sand.common.vo.ResultVO;
 import com.sand.common.util.ParamUtil;
+import com.sand.common.vo.ResultVO;
 import com.sand.security.service.IUserAuthenticationService;
+import com.sand.user.service.IAuthUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,8 +27,8 @@ import java.util.Map;
  * 功能描述：登录认证授权
  */
 @RestController
-@RequestMapping("/auth")
-public class AuthController {
+@RequestMapping("/auth/user")
+public class AuthUserController {
   /**
    * 用户基础服务接口
    */

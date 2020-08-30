@@ -19,6 +19,10 @@ public final class Constant {
    */
   public static final String TABLE_SYS = "sys_";
   /**
+   * 授权表前缀
+   */
+  public static final String TABLE_AUTH = "auth_";
+  /**
    * 操作表前缀
    */
   public static final String TABLE_OPERATE = "operate_";

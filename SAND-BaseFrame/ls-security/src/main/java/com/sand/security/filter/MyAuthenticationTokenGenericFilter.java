@@ -8,8 +8,8 @@
 package com.sand.security.filter;
 
 import com.sand.common.util.lang3.StringUtil;
-import com.sand.security.service.IUserAuthenticationService;
 import com.sand.security.handler.MyAuthExceptionHandler;
+import com.sand.security.service.IUserAuthenticationService;
 import com.sand.security.util.AbstractTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +52,7 @@ public class MyAuthenticationTokenGenericFilter extends GenericFilterBean {
   /**
    * 用户基础服务接口
    */
-  @Autowired
+  @Autowired(required = false)
   private IUserAuthenticationService userAuthenticationService;
 
   @Override

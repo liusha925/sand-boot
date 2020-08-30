@@ -17,7 +17,18 @@
     <description>用户中心</description>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.sand</groupId>
+            <artifactId>ls-mybatisplus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sand</groupId>
+            <artifactId>ls-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sand</groupId>
+            <artifactId>ls-redis</artifactId>
+        </dependency>
     </dependencies>
 
 

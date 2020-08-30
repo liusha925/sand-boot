@@ -12,6 +12,7 @@ import com.sand.security.handler.MyAccessDeniedHandler;
 import com.sand.security.provider.MyAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -44,8 +45,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   /**
    * 用户信息服务
    */
-  @Autowired
-  private UserDetailsService userDetailsService;
+  private final UserDetailsService userDetailsService;
+
+  public WebSecurityConfig(@Qualifier("userDetailServiceImpl") UserDetailsService userDetailsService) {
+    this.userDetailsService = userDetailsService;
+  }
 
   /**
    * 认证管理器：使用spring自带的验证密码的流程
@@ -135,7 +139,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
         .authorizeRequests()
         // 允许登录接口post访问
-        .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
+        .antMatchers(HttpMethod.POST, "/auth/user/login").permitAll()
         // 允许验证码接口post访问
         .antMatchers(HttpMethod.POST, "/valid/code/*").permitAll().and();
 //        // 任何尚未匹配的URL只需要验证用户即可访问
