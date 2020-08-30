@@ -11,7 +11,7 @@ import com.sand.base.module.constant.Constant;
 import com.sand.common.util.ResultUtil;
 import com.sand.common.util.tree.Tree;
 import com.sand.common.vo.ResultVO;
-import com.sand.logging.annotation.LogAnnotation;
+import com.sand.log.annotation.LogAnnotation;
 import com.sand.sys.entity.SysMenu;
 import com.sand.sys.entity.SysUser;
 import com.sand.sys.model.SysMenuModel;

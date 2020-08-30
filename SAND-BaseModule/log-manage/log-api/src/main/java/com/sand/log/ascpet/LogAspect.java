@@ -5,15 +5,15 @@
  * 2019/9/24    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.logging.ascpet;
+package com.sand.log.ascpet;
 
 import com.sand.common.exception.BusinessException;
 import com.sand.common.util.lang3.AnnotationUtil;
 import com.sand.common.util.lang3.StringUtil;
 import com.sand.common.util.spring.SpringUtil;
 import com.sand.common.vo.ResultVO;
-import com.sand.logging.annotation.LogAnnotation;
-import com.sand.logging.service.ILogService;
+import com.sand.log.annotation.LogAnnotation;
+import com.sand.log.service.ILogService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -54,7 +54,7 @@ public class LogAspect {
   /**
    * 定义横切点：横切带有@LogAnnotation的方法
    */
-  @Pointcut("@annotation(com.sand.logging.annotation.LogAnnotation)")
+  @Pointcut("@annotation(com.sand.log.annotation.LogAnnotation)")
   public void aopMethod() {
   }
 

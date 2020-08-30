@@ -5,7 +5,7 @@
  * 2019/10/29    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.logging.service.impl;
+package com.sand.log.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sand.common.exception.BusinessException;
@@ -14,11 +14,11 @@ import com.sand.common.util.convert.SandConvert;
 import com.sand.common.util.json.JsonUtil;
 import com.sand.common.util.lang3.DateUtil;
 import com.sand.common.util.lang3.StringUtil;
-import com.sand.logging.annotation.LogAnnotation;
-import com.sand.logging.entity.OperateLog;
-import com.sand.logging.mapper.OperateLogMapper;
-import com.sand.logging.service.ILogService;
-import com.sand.logging.service.IOperateLogService;
+import com.sand.log.annotation.LogAnnotation;
+import com.sand.log.entity.OperateLog;
+import com.sand.log.mapper.OperateLogMapper;
+import com.sand.log.service.ILogService;
+import com.sand.log.service.IOperateLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

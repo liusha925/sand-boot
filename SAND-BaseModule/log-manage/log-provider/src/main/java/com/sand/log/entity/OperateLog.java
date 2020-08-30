@@ -5,7 +5,7 @@
  * 2019/10/29    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.logging.entity;
+package com.sand.log.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;

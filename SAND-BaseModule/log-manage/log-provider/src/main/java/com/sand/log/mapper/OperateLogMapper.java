@@ -5,10 +5,11 @@
  * 2019/10/29    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.logging.service;
+package com.sand.log.mapper;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.sand.logging.entity.OperateLog;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.sand.log.entity.OperateLog;
+import org.springframework.stereotype.Repository;
 
 /**
  * 功能说明：操作日志
@@ -16,5 +17,6 @@ import com.sand.logging.entity.OperateLog;
  * 开发日期：2020/08/22 15:31
  * 功能描述：操作日志
  */
-public interface IOperateLogService extends IService<OperateLog> {
+@Repository
+public interface OperateLogMapper extends BaseMapper<OperateLog> {
 }

@@ -5,7 +5,7 @@
  * 2019/8/6   liusha      新增
  * =========  ===========  =====================
  */
-package com.sand.logging.annotation;
+package com.sand.log.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
