@@ -5,7 +5,7 @@
  * 2020/3/19    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.security.web;
+package com.sand.security.service;
 
 import com.sand.common.vo.ResultVO;
 import org.springframework.security.authentication.AbstractAuthenticationToken;

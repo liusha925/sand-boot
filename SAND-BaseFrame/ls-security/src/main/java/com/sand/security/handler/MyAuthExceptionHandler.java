@@ -5,7 +5,7 @@
  * 2019/11/25    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.security.web.handler;
+package com.sand.security.handler;
 
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.sand.common.vo.ResultVO;

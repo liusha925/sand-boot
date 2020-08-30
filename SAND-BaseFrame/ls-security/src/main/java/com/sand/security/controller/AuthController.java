@@ -9,7 +9,7 @@ package com.sand.security.controller;
 
 import com.sand.common.vo.ResultVO;
 import com.sand.common.util.ParamUtil;
-import com.sand.security.web.IUserAuthenticationService;
+import com.sand.security.service.IUserAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -5,7 +5,7 @@
  * 2020/5/27    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.security.web.util;
+package com.sand.security.util;
 
 import com.sand.common.exception.BusinessException;
 import org.springframework.security.core.Authentication;

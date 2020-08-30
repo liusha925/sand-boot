@@ -5,7 +5,7 @@
  * 2019/11/25    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.security.web.handler;
+package com.sand.security.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;

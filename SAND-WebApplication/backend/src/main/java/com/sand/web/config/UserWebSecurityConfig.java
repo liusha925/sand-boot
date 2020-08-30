@@ -7,7 +7,7 @@
  */
 package com.sand.web.config;
 
-import com.sand.security.web.config.WebSecurityConfig;
+import com.sand.security.config.WebSecurityConfig;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
 /**

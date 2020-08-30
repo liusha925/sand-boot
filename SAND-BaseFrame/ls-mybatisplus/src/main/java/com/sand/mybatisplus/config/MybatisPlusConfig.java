@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * 功能说明：mybatis-plus注册配置
  * 开发人员：@author liusha
  * 开发日期：2019/9/1 9:28
- * 功能描述：分页插件
+ * 功能描述：分页插件、mapper文件扫描机制
  */
 @Configuration
 @EnableTransactionManagement

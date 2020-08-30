@@ -5,12 +5,12 @@
  * 2020/4/19    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.security.web.filter;
+package com.sand.security.filter;
 
 import com.sand.common.util.lang3.StringUtil;
-import com.sand.security.web.IUserAuthenticationService;
-import com.sand.security.web.handler.MyAuthExceptionHandler;
-import com.sand.security.web.util.AbstractTokenUtil;
+import com.sand.security.service.IUserAuthenticationService;
+import com.sand.security.handler.MyAuthExceptionHandler;
+import com.sand.security.util.AbstractTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;

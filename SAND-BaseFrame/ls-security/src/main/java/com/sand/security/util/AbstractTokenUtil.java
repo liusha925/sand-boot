@@ -5,7 +5,7 @@
  * 2019/11/26    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.security.web.util;
+package com.sand.security.util;
 
 import com.sand.common.util.ServletUtil;
 import com.sand.common.util.lang3.StringUtil;

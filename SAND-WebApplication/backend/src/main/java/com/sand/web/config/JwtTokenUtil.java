@@ -12,7 +12,7 @@ import com.sand.common.util.convert.SandConvert;
 import com.sand.common.util.global.Config;
 import com.sand.redis.config.RedisConfig;
 import com.sand.redis.manager.repository.RedisRepository;
-import com.sand.security.web.util.AbstractTokenUtil;
+import com.sand.security.util.AbstractTokenUtil;
 import com.sand.sys.entity.SysUser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

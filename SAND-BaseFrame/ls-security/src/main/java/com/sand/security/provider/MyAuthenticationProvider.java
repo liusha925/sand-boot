@@ -5,7 +5,7 @@
  * 2019/11/26    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.security.web.provider;
+package com.sand.security.provider;
 
 import com.sand.common.vo.ResultVO;
 import lombok.EqualsAndHashCode;

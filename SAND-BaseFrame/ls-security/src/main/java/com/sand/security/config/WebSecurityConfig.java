@@ -5,11 +5,11 @@
  * 2019/11/26    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.security.web.config;
+package com.sand.security.config;
 
-import com.sand.security.web.filter.MyAuthenticationTokenGenericFilter;
-import com.sand.security.web.handler.MyAccessDeniedHandler;
-import com.sand.security.web.provider.MyAuthenticationProvider;
+import com.sand.security.filter.MyAuthenticationTokenGenericFilter;
+import com.sand.security.handler.MyAccessDeniedHandler;
+import com.sand.security.provider.MyAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;

@@ -16,7 +16,7 @@ import com.sand.common.util.crypt.des.DesCryptUtil;
 import com.sand.common.util.crypt.md5.Md5Util;
 import com.sand.common.util.lang3.StringUtil;
 import com.sand.common.vo.ResultVO;
-import com.sand.security.web.IUserAuthenticationService;
+import com.sand.security.service.IUserAuthenticationService;
 import com.sand.sys.entity.SysUser;
 import com.sand.sys.service.ISysUserService;
 import com.sand.web.config.JwtTokenUtil;
