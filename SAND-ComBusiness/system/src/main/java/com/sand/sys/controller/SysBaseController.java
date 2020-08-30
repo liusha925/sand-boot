@@ -7,7 +7,7 @@
  */
 package com.sand.sys.controller;
 
-import com.sand.base.module.common.BaseController;
+import com.sand.common.base.BaseCommon;
 import com.sand.security.web.util.AuthenticationUtil;
 import com.sand.sys.entity.SysUser;
 import com.sand.sys.service.ISysUserRoleService;
@@ -24,7 +24,7 @@ import java.util.List;
  * 功能描述：写明作用，调用方式，使用场景，以及特殊情况
  */
 @Slf4j
-public class SysBaseController extends BaseController {
+public class SysBaseController extends BaseCommon {
   @Autowired
   private ISysUserRoleService userRoleService;
 

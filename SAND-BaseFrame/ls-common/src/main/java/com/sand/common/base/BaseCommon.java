@@ -5,10 +5,12 @@
  * 2019/8/26    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.base.module.common;
+package com.sand.common.base;
 
+import com.sand.common.exception.BusinessException;
 import com.sand.common.util.editor.DateEditor;
 import com.sand.common.util.editor.StringEditor;
+import com.sand.common.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -26,10 +28,17 @@ import java.util.Date;
  * 功能描述：定义所有控制器的父控制器，进行属性绑定、数据转换、异常处理
  */
 @Slf4j
-public class BaseController extends BaseCommon {
+public class BaseCommon {
   protected HttpSession session;
   protected HttpServletRequest request;
   protected HttpServletResponse response;
+
+  /**
+   * 业务处理异常
+   */
+  protected void newBusinessException(String msg) {
+    throw new BusinessException(ResultVO.Code.BUSINESS_ERROR, msg);
+  }
 
   /**
    * 属性访问器

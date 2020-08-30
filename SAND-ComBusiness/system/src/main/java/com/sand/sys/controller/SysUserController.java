@@ -44,7 +44,7 @@ public class SysUserController extends SysBaseController {
     // 查找角色信息
     userService.findRoleInfo(page.getRecords());
 
-    return ResultUtil.ok(page2map(page));
+    return ResultUtil.ok(PageUtil.page2map(page));
   }
 
 }

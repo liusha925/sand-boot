@@ -13,6 +13,7 @@ import com.sand.common.util.lang3.StringUtil;
 import com.sand.common.util.convert.SandConvert;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -39,65 +40,93 @@ public class PageUtil extends ParamUtil {
   /**
    * 获取分页参数，默认一页10
    *
-   * @param entity
-   * @return
+   * @param entity 分页对象
+   * @return 分页信息
    */
   public static Page pageParam(Object entity) {
-    return pageParam(SandConvert.obj2Map(entity), DEFAULT_PAGE_SIZE);
+    Map<String, Object> entityMap = SandConvert.obj2Map(entity);
+    return pageParam(entityMap, DEFAULT_PAGE_SIZE);
   }
 
   /**
    * 获取分页参数，默认一页10
    *
-   * @param map
-   * @return
+   * @param entityMap 分页对象
+   * @return 分页信息
    */
-  public static Page pageParam(Map<String, Object> map) {
-    return pageParam(map, DEFAULT_PAGE_SIZE);
+  public static Page pageParam(Map<String, Object> entityMap) {
+    return pageParam(entityMap, DEFAULT_PAGE_SIZE);
   }
 
   /**
    * 获取分页参数
    *
-   * @param map
-   * @param defaultSize
-   * @return
+   * @param entityMap   分页对象
+   * @param defaultSize 默认一页显示数据量
+   * @return 分页信息
    */
-  public static Page pageParam(Map<String, Object> map, int defaultSize) {
-    return pageParam(map, defaultSize, DEFAULT_MAX_PAGE_SIZE);
+  public static Page pageParam(Map<String, Object> entityMap, int defaultSize) {
+    return pageParam(entityMap, defaultSize, DEFAULT_MAX_PAGE_SIZE);
   }
 
   /**
    * 获取分页参数
    *
-   * @param map
-   * @param defaultSize
-   * @param maxSize
-   * @return
+   * @param entityMap   分页对象
+   * @param defaultSize 默认一页显示数据量
+   * @param maxSize     最多显示数据量
+   * @return 分页信息
    */
-  public static Page pageParam(Map<String, Object> map, int defaultSize, int maxSize) {
-    if (Objects.isNull(map)) {
-      map = new HashMap<>();
+  public static Page pageParam(Map<String, Object> entityMap, int defaultSize, int maxSize) {
+    if (Objects.isNull(entityMap)) {
+      entityMap = new HashMap<>();
     }
     // 每页条数
     int size;
-    String pageSize = SandConvert.obj2Str(map.get("size"));
+    String pageSize = SandConvert.obj2Str(entityMap.get("size"));
     if (StringUtil.isBlank(pageSize)) {
       size = DEFAULT_PAGE_SIZE;
     } else {
-      size = getIntValue(map, "size", defaultSize);
+      size = getIntValue(entityMap, "size", defaultSize);
     }
     // 当前页码
     int current;
-    String pageCurrent = SandConvert.obj2Str(map.get("current"));
+    String pageCurrent = SandConvert.obj2Str(entityMap.get("current"));
     if (StringUtil.isBlank(pageCurrent)) {
       current = DEFAULT_PAGE_CURRENT;
     } else {
-      current = getIntValue(map, "current", DEFAULT_PAGE_CURRENT);
+      current = getIntValue(entityMap, "current", DEFAULT_PAGE_CURRENT);
     }
     size = Math.min(size, maxSize);
     Page page = new Page(current, size);
     return page;
+  }
+
+  /**
+   * 将mybatis-plus的分页插件转换成需要的展示格式
+   *
+   * @param page 分页信息
+   * @return 分页信息
+   */
+  public static Map<String, Object> page2map(Page<?> page) {
+    return page2map(page, page.getRecords());
+  }
+
+  /**
+   * 将mybatis-plus的分页插件转换成需要的展示格式
+   *
+   * @param page    分页信息
+   * @param records 分页数据
+   * @return 分页信息
+   */
+  public static Map<String, Object> page2map(Page<?> page, List records) {
+    Map<String, Object> map = new HashMap<>();
+    map.put("records", records);
+    map.put("total", page.getTotal());
+    map.put("pages", page.getPages());
+    map.put("current", page.getCurrent());
+    map.put("size", page.getSize());
+    return map;
   }
 
 }

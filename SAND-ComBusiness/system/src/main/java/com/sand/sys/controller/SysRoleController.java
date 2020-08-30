@@ -51,7 +51,7 @@ public class SysRoleController extends SysBaseController {
     QueryWrapper<SysRole> queryWrapper = new QueryWrapper<>();
     Page<SysRole> page = (Page<SysRole>) roleService.page(rolePage, queryWrapper);
 
-    return ResultUtil.ok(page2map(page));
+    return ResultUtil.ok(PageUtil.page2map(page));
   }
 
   @RequestMapping("/add")
