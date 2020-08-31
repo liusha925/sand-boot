@@ -12,7 +12,6 @@ import com.sand.security.handler.MyAccessDeniedHandler;
 import com.sand.security.provider.MyAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -45,11 +44,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   /**
    * 用户信息服务
    */
-  private final UserDetailsService userDetailsService;
-
-  public WebSecurityConfig(@Qualifier("userDetailServiceImpl") UserDetailsService userDetailsService) {
-    this.userDetailsService = userDetailsService;
-  }
+  @Autowired
+  protected UserDetailsService userDetailsService;
 
   /**
    * 认证管理器：使用spring自带的验证密码的流程
@@ -60,8 +56,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
    * 但它一般不直接认证，其常用实现类 ProviderManager 内部会维护一个 List<AuthenticationProvider> 列表，
    * 存放里多种认证方式，默认情况下，只需要通过一个 AuthenticationProvider 的认证，就可被认为是登录成功
    *
-   * @return
-   * @throws Exception
+   * @return 认证信息
+   * @throws Exception Exception
    */
   @Bean
   @Override
@@ -73,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
    * 密码验证方式
    * 默认加密方式为BCryptPasswordEncoder
    *
-   * @return
+   * @return 密码验证方式
    */
   @Bean
   public PasswordEncoder passwordEncoder() {
@@ -83,7 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   /**
    * 加载自定义的验证失败处理方式
    *
-   * @return
+   * @return 处理方式
    */
   @Bean
   public MyAccessDeniedHandler myAccessDeniedHandler() {
@@ -93,7 +89,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   /**
    * 加载自定义的token校验过滤器
    *
-   * @return
+   * @return 过滤器
    */
   @Bean
   public MyAuthenticationTokenGenericFilter myAuthenticationTokenGenericFilter() {
@@ -113,8 +109,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
    * 密码验证方式
    * 将用户信息和密码加密方式进行注入
    *
-   * @param auth
-   * @throws Exception
+   * @param auth 授权信息
+   * @throws Exception Exception
    */
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sand.sys.mapper.SysUserMapper">
-
+    <!-- 用户基础信息 -->
     <resultMap id="sysUserResult" type="com.sand.sys.entity.SysUser">
         <id property="userId" column="user_id"/>
         <result property="username" column="username"/>
@@ -12,10 +12,24 @@
         <result property="createTime" column="create_time"/>
         <result property="updateBy" column="update_by"/>
         <result property="updateTime" column="update_time"/>
+        <association property="authUser" resultMap="authUserResult"/>
     </resultMap>
-
+    <!-- 用户认证信息 -->
+    <resultMap id="authUserResult" type="com.sand.user.entity.AuthUser">
+        <id property="userId" column="user_id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="realName" column="real_name"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
     <!-- 根据用户名加载用户信息 -->
     <select id="loadUserByUsername" parameterType="String" resultMap="sysUserResult">
-        SELECT user_id, real_name FROM sys_user WHERE username = #{username}
+        SELECT su.*, au.password
+        FROM sys_user su
+                 LEFT JOIN auth_user au ON au.user_id = su.user_id
+        WHERE su.username = #{username}
     </select>
 </mapper>

@@ -14,12 +14,12 @@
     <artifactId>system</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <description>系统API</description>
+    <description>系统信息</description>
 
     <dependencies>
         <dependency>
             <groupId>com.sand</groupId>
-            <artifactId>ls-security</artifactId>
+            <artifactId>user-center</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sand</groupId>

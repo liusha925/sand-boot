@@ -21,7 +21,7 @@ public class UserWebSecurityConfig extends WebSecurityConfig {
    * 自定义配置系统需要的URL白名单
    *
    * @param httpSecurity 安全配置
-   * @throws Exception
+   * @throws Exception Exception
    */
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {

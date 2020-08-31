@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sand.common.base.BaseEntity;
 import com.sand.common.constant.Constant;
+import com.sand.user.entity.AuthUser;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -64,6 +65,11 @@ public class SysUser extends BaseEntity implements UserDetails {
    * 是否为超级管理员
    */
   private boolean isAdmin;
+  /**
+   * 认证信息
+   */
+  @TableField(exist = false)
+  private AuthUser authUser;
   /**
    * 用户权限集合
    */
