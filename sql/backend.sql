@@ -43,10 +43,10 @@ CREATE TABLE `sys_menu`  (
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES ('1', 'treeRoot', '系统管理', 'M', '#', 1, '_item', '0', 'sys', 'glyphicon glyphicon-cog', 'admin', 'liusha', '2019-08-31 08:56:13', '2020-05-26 16:43:37', '系统管理目录');
-INSERT INTO `sys_menu` VALUES ('2', '1', '菜单管理', 'C', '/sys/menu/page', 1, '_item', '0', 'sys:menu:view', 'glyphicon glyphicon-list', 'admin', 'liusha', '2019-08-31 08:56:13', '2020-05-26 16:44:15', '菜单管理菜单');
-INSERT INTO `sys_menu` VALUES ('4ea72f530d19dc691d564b136d40aa36', '2', '菜单查询', 'F', '#', 1, '_item', '0', 'sys:menu:list', 'glyphicon glyphicon-search', 'admin', 'liusha', '2019-08-31 08:56:13', '2020-05-26 16:44:43', '菜单查询按钮');
-INSERT INTO `sys_menu` VALUES ('4ea72f530d19dc691d564b136d40aa37', '1', '用户管理', 'C', '/sys/user/page', 1, '_item', '0', 'sys:user:list', 'glyphicon glyphicon-user', 'admin', 'liusha', '2020-05-19 16:47:38', '2020-05-26 16:44:30', '用户管理菜单');
+INSERT INTO `sys_menu` VALUES ('1', 'treeRoot', '系统管理', 'M', '#', 1, '_item', '0', 'sys', 'glyphicon glyphicon-cog', 'admin', 'liusha', now(), now(), '系统管理目录');
+INSERT INTO `sys_menu` VALUES ('2', '1', '菜单管理', 'C', '/sys/menu/page', 1, '_item', '0', 'sys:menu:view', 'glyphicon glyphicon-list', 'admin', 'liusha', now(), now(), '菜单管理菜单');
+INSERT INTO `sys_menu` VALUES ('4ea72f530d19dc691d564b136d40aa36', '2', '菜单查询', 'F', '#', 1, '_item', '0', 'sys:menu:list', 'glyphicon glyphicon-search', 'admin', 'liusha', now(), now(), '菜单查询按钮');
+INSERT INTO `sys_menu` VALUES ('4ea72f530d19dc691d564b136d40aa37', '1', '用户管理', 'C', '/sys/user/page', 1, '_item', '0', 'sys:user:list', 'glyphicon glyphicon-user', 'admin', 'liusha', now(), now(), '用户管理菜单');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -71,7 +71,7 @@ CREATE TABLE `sys_role`  (
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES ('1', '超级管理员', 'admin', 0, '0', '0', '1', NULL, 'admin', '2019-09-01 08:56:40', '2019-09-01 18:41:38', '拥有至高权限');
+INSERT INTO `sys_role` VALUES ('1', '超级管理员', 'admin', 0, '0', '0', '1', NULL, 'admin', now(), now(), '拥有至高权限');
 
 -- ----------------------------
 -- Table structure for sys_role_menu
@@ -111,7 +111,7 @@ CREATE TABLE `auth_user`  (
 -- ----------------------------
 -- Records of auth_user
 -- ----------------------------
-INSERT INTO `auth_user` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '超级管理员', '超级管理员', '超级管理员', '2020-03-20 22:10:12', '2020-05-27 14:14:59', '超级管理员');
+INSERT INTO `auth_user` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '超级管理员', '上帝', '上帝', now(), now(), '超级管理员');
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -120,8 +120,11 @@ DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`  (
   `user_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户ID',
   `username` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名',
-  `password` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
-  `real_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '真实姓名',
+  `real_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '真实姓名',
+  `id_number` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '证件号码',
+  `phone` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '电话',
+  `email` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '邮箱',
+  `id_type` tinyint(1) DEFAULT 0 COMMENT '证件类型（0身份证）',
   `is_admin` tinyint(1) DEFAULT 0 COMMENT '是否为超级管理员（0否 1是）',
   `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '创建者',
   `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '更新者',
@@ -134,7 +137,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '超级管理员', 1, '超级管理员', '超级管理员', '2020-03-20 22:10:12', '2020-05-27 14:14:59', '超级管理员');
+INSERT INTO `sys_user` VALUES ('1', 'admin', '超级管理员', '360732199911111111', '18812345678','123456@qq.com', 0, 1, '上帝', '上帝', now(), now(), '超级管理员');
 
 -- ----------------------------
 -- Table structure for sys_user_role

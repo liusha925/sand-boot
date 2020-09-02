@@ -11,11 +11,14 @@ import com.sand.common.base.BaseCommon;
 import com.sand.security.util.AuthenticationUtil;
 import com.sand.sys.entity.SysUser;
 import com.sand.sys.service.ISysUserRoleService;
+import com.sand.sys.service.ISysUserService;
+import com.sand.user.entity.AuthUser;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 功能说明：系统模块基础业务
@@ -26,6 +29,8 @@ import java.util.List;
 @Slf4j
 public class SysBaseController extends BaseCommon {
   @Autowired
+  private ISysUserService userService;
+  @Autowired
   private ISysUserRoleService userRoleService;
 
   /**
@@ -35,11 +40,18 @@ public class SysBaseController extends BaseCommon {
    */
   public SysUser getSysUser() {
     Object user = AuthenticationUtil.getUser();
-    if (!(user instanceof SysUser)) {
+    if (!(user instanceof AuthUser)) {
       super.newBusinessException("用户类型非法！");
+    } else {
+      String userId = ((AuthUser) user).getUserId();
+      SysUser sysUser = userService.getById(userId);
+      if (Objects.isNull(sysUser)) {
+        super.newBusinessException("用户信息不存在！");
+      }
+      log.info("当前登录用户信息：{}", user.toString());
+      return sysUser;
     }
-    log.info("当前登录用户信息：{}", user.toString());
-    return (SysUser) user;
+    return null;
   }
 
   /**

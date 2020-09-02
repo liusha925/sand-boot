@@ -48,10 +48,10 @@ public class ParamUtil {
   /**
    * 获取整型参数（非必须），默认defaultValue
    *
-   * @param map
-   * @param key
-   * @param defaultValue
-   * @return
+   * @param map map
+   * @param key key
+   * @param defaultValue defaultValue
+   * @return 整型参数
    */
   public static int getIntValue(Map<String, Object> map, String key, int defaultValue) {
     String value = SandConvert.obj2Str(getValue(map, key, defaultValue));
@@ -64,10 +64,10 @@ public class ParamUtil {
   /**
    * 获取整型参数
    *
-   * @param map
-   * @param key
-   * @param required
-   * @return
+   * @param map map
+   * @param key key
+   * @param required required
+   * @return 整型参数
    */
   public static int getIntValue(Map<String, Object> map, String key, boolean required) {
     return Integer.parseInt(getValue(map, key, DEFAULT_PARAM_INT, required).toString());
@@ -76,9 +76,9 @@ public class ParamUtil {
   /**
    * 获取字符串参数值（必须）
    *
-   * @param map
-   * @param key
-   * @return
+   * @param map map
+   * @param key key
+   * @return 字符串参数值
    */
   public static String getStringValue(Map<String, Object> map, String key) {
     Object value = getValue(map, key, null, true);
@@ -88,10 +88,10 @@ public class ParamUtil {
   /**
    * 获取字符串参数信息（非必须）
    *
-   * @param map
-   * @param key
-   * @param defaultValue
-   * @return
+   * @param map map
+   * @param key key
+   * @param defaultValue defaultValue
+   * @return 字符串参数值
    */
   public static String getStringValue(Map<String, Object> map, String key, Object defaultValue) {
     Object value = getValue(map, key, defaultValue, false);
@@ -101,9 +101,9 @@ public class ParamUtil {
   /**
    * 获取BigDecimal参数值（必须）
    *
-   * @param map
-   * @param key
-   * @return
+   * @param map map
+   * @param key key
+   * @return BigDecimal参数值
    */
   public static BigDecimal getBigDecimalValue(Map<String, Object> map, String key) {
     Object value = getValue(map, key, null, true);
@@ -113,10 +113,10 @@ public class ParamUtil {
   /**
    * 获取BigDecimal参数值（非必须）
    *
-   * @param map
-   * @param key
-   * @param defaultValue
-   * @return
+   * @param map map
+   * @param key key
+   * @param defaultValue defaultValue
+   * @return BigDecimal参数值
    */
   public static BigDecimal getBigDecimalValue(Map<String, Object> map, String key, BigDecimal defaultValue) {
     Object value = getValue(map, key, defaultValue, false);
@@ -126,10 +126,10 @@ public class ParamUtil {
   /**
    * 长整型
    *
-   * @param map
-   * @param key
-   * @param defaultValue
-   * @return
+   * @param map map
+   * @param key key
+   * @param defaultValue defaultValue
+   * @return 长整型
    */
   public static long getLongValue(Map<String, Object> map, String key, long defaultValue) {
     Object value = getValue(map, key, defaultValue, false);
@@ -139,11 +139,10 @@ public class ParamUtil {
   /**
    * 对象
    *
-   * @param map
-   * @param key
-   * @param clazz
-   * @param <K>
-   * @return
+   * @param map map
+   * @param key key
+   * @param clazz clazz
+   * @return 对象
    */
   public static <K> K getObjectValue(Map<String, Object> map, String key, Class<K> clazz) {
     String value = getStringValue(map, key, null);
@@ -163,10 +162,10 @@ public class ParamUtil {
   /**
    * 转换带泛型的对象
    *
-   * @param map
-   * @param key
-   * @param type
-   * @return
+   * @param map map
+   * @param key key
+   * @param type type
+   * @return 带泛型的对象
    */
   public static Object getObjectValue(Map<String, Object> map, String key, TypeReference type) {
     String value = getStringValue(map, key, null);
@@ -184,9 +183,9 @@ public class ParamUtil {
   /**
    * 获取参数值（必须）
    *
-   * @param map
-   * @param key
-   * @return
+   * @param  map map
+   * @param  key key
+   * @return 参数值
    */
   public static Object getValue(Map<String, Object> map, String key) {
     return getValue(map, key, null, true);
@@ -195,10 +194,10 @@ public class ParamUtil {
   /**
    * 获取参数信息（非必须）
    *
-   * @param map
-   * @param key
-   * @param defaultValue
-   * @return
+   * @param  map map
+   * @param  key key
+   * @param  defaultValue defaultValue
+   * @return 参数值
    */
   public static Object getValue(Map<String, Object> map, String key, Object defaultValue) {
     return getValue(map, key, defaultValue, false);
@@ -207,11 +206,11 @@ public class ParamUtil {
   /**
    * 获取参数信息
    *
-   * @param map
-   * @param key
-   * @param defaultValue
-   * @param required
-   * @return
+   * @param map map
+   * @param key key
+   * @param defaultValue defaultValue
+   * @param required required
+   * @return 参数值
    */
   public static Object getValue(Map<String, Object> map, String key, Object defaultValue, boolean required) {
     if (Objects.isNull(map)) {

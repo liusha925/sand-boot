@@ -10,7 +10,6 @@ package com.sand.user.controller;
 import com.sand.common.util.ParamUtil;
 import com.sand.common.vo.ResultVO;
 import com.sand.security.service.IUserAuthenticationService;
-import com.sand.user.service.IAuthUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -45,23 +44,13 @@ public class AuthUserController {
   public ResultVO login(@RequestParam Map<String, Object> param) {
     String username = ParamUtil.getStringValue(param, "username");
     String password = ParamUtil.getStringValue(param, "password");
-
-    return authentication(param, new UsernamePasswordAuthenticationToken(username, password));
-  }
-
-  /**
-   * 登录认证
-   *
-   * @param param               登录信息
-   * @param authenticationToken 认证信息
-   * @return
-   */
-  private ResultVO authentication(Map<String, Object> param, AbstractAuthenticationToken authenticationToken) {
     // 1、认证前校验
     userAuthenticationService.beforeValidate(param);
     // 2、处理认证信息
+    AbstractAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
     Object userDetails = userAuthenticationService.handleAuthInfo(authenticationToken);
     // 3、认证后处理
     return userAuthenticationService.authAfter(userDetails);
   }
+
 }

@@ -5,8 +5,11 @@
     <resultMap id="sysUserResult" type="com.sand.sys.entity.SysUser">
         <id property="userId" column="user_id"/>
         <result property="username" column="username"/>
-        <result property="password" column="password"/>
         <result property="realName" column="real_name"/>
+        <result property="idNumber" column="id_number"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+        <result property="idType" column="id_type"/>
         <result property="isAdmin" column="is_admin"/>
         <result property="createBy" column="create_by"/>
         <result property="createTime" column="create_time"/>
@@ -20,14 +23,10 @@
         <result property="username" column="username"/>
         <result property="password" column="password"/>
         <result property="realName" column="real_name"/>
-        <result property="createBy" column="create_by"/>
-        <result property="createTime" column="create_time"/>
-        <result property="updateBy" column="update_by"/>
-        <result property="updateTime" column="update_time"/>
     </resultMap>
     <!-- 根据用户名加载用户信息 -->
     <select id="loadUserByUsername" parameterType="String" resultMap="sysUserResult">
-        SELECT su.*, au.password
+        SELECT su.*
         FROM sys_user su
                  LEFT JOIN auth_user au ON au.user_id = su.user_id
         WHERE su.username = #{username}

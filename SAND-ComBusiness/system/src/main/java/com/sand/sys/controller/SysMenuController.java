@@ -42,7 +42,7 @@ public class SysMenuController extends SysBaseController {
   @RequestMapping("/leftTree")
   public ResultVO leftTree() {
     log.info("SysMenuController leftTree");
-    Tree leftTree = getMenuTree(false);
+    Tree leftTree = this.getMenuTree(false);
 
     return ResultUtil.ok(leftTree.getChildren());
   }
@@ -50,7 +50,7 @@ public class SysMenuController extends SysBaseController {
   @RequestMapping("/tree")
   public ResultVO tree() {
     log.info("SysMenuController tree");
-    Tree menuTree = getMenuTree(true);
+    Tree menuTree = this.getMenuTree(true);
 
     return ResultUtil.ok(menuTree.getChildren());
   }
@@ -97,7 +97,7 @@ public class SysMenuController extends SysBaseController {
    */
   private Tree getMenuTree(boolean needButton) {
     Tree menuTree;
-    SysUser sysUser = getSysUser();
+    SysUser sysUser = super.getSysUser();
     // 如果是超级管理员则拥有所有菜单权限
     if (sysUser.isAdmin()) {
       menuTree = menuService.buildLeftTree(needButton);
