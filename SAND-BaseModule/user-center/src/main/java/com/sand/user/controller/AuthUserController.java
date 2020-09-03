@@ -7,12 +7,12 @@
  */
 package com.sand.user.controller;
 
-import com.sand.common.util.ParamUtil;
+import com.sand.common.util.ResultUtil;
 import com.sand.common.vo.ResultVO;
-import com.sand.user.service.IAuthUserService;
+import com.sand.user.entity.AuthUser;
+import com.sand.user.service.IAuthUserLoginService;
+import com.sand.user.service.IAuthUserRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,10 +29,15 @@ import java.util.Map;
 @RequestMapping("/auth/user")
 public class AuthUserController {
   /**
-   * 用户基础服务接口
+   * 用户登录服务
    */
   @Autowired
-  private IAuthUserService authUserService;
+  private IAuthUserLoginService authUserLoginService;
+  /**
+   * 用户注册服务
+   */
+  @Autowired
+  private IAuthUserRegisterService authUserRegisterService;
 
   /**
    * 输入用户名密码，获得token
@@ -42,15 +47,14 @@ public class AuthUserController {
    */
   @RequestMapping(value = "/login")
   public ResultVO login(@RequestParam Map<String, Object> params) {
-    String username = ParamUtil.getStringValue(params, "username");
-    String password = ParamUtil.getStringValue(params, "password");
-    // 1、认证前校验
-    authUserService.beforeValidate(params);
-    // 2、处理认证信息
-    AbstractAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-    Object userDetails = authUserService.handleAuthInfo(authenticationToken);
-    // 3、认证后处理
-    return authUserService.authAfter(userDetails);
+    // 1、登录前校验
+    authUserLoginService.loginBeforeValid(params);
+    // 2、登录逻辑
+    Object userDetails = authUserLoginService.login(params);
+    // 3、登录后处理
+    Map<String, Object> loginResult = authUserLoginService.loginAfterHandle(userDetails);
+
+    return ResultUtil.ok(loginResult, "登录成功");
   }
 
   /**
@@ -61,7 +65,14 @@ public class AuthUserController {
    */
   @RequestMapping(value = "/register")
   public ResultVO register(@RequestParam Map<String, Object> params) {
-    return authUserService.register(params);
+    // 1、注册前校验
+    authUserRegisterService.registerBeforeValid(params);
+    // 2、注册逻辑
+    AuthUser authUser = authUserRegisterService.register(params);
+    // 3、注册后处理
+    Map<String, Object> registerResult = authUserRegisterService.registerAfterHandle(authUser);
+
+    return ResultUtil.ok(registerResult, "注册成功");
   }
 
 }

@@ -15,7 +15,7 @@ import com.sand.security.handler.IUserAuthHandler;
 import com.sand.sys.entity.SysMenu;
 import com.sand.sys.entity.SysUser;
 import com.sand.user.entity.AuthUser;
-import com.sand.user.service.IAuthUserService;
+import com.sand.user.service.IAuthUserLoginService;
 import com.sand.user.util.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class UserAuthorizationService implements IUserAuthHandler {
    * 用户认证服务api
    */
   @Autowired
-  private IAuthUserService authUserService;
+  private IAuthUserLoginService authUserLoginService;
   /**
    * URLs匹配：1、？匹配一个字符；2、*匹配0个或多个字符；3、**匹配0个或多个目录。
    */
@@ -63,7 +63,7 @@ public class UserAuthorizationService implements IUserAuthHandler {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     log.info("token验证通过，开始存储用户信息userId：{}，authentication：{}", userId, authentication);
     if (StringUtil.isNotBlank(userId) && authentication == null) {
-      AuthUser user = authUserService.getById(userId);
+      AuthUser user = authUserLoginService.getById(userId);
       UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null);
       // 2、重新SecurityContextHolder.getContext().setAuthentication(authentication)存储用户认证信息
       SecurityContextHolder.getContext().setAuthentication(authenticationToken);

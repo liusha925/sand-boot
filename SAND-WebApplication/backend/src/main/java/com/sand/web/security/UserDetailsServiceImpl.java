@@ -8,18 +8,14 @@
 package com.sand.web.security;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sand.sys.entity.SysMenu;
 import com.sand.sys.entity.SysRole;
-import com.sand.sys.entity.SysRoleMenu;
 import com.sand.sys.entity.SysUser;
 import com.sand.sys.entity.SysUserRole;
-import com.sand.sys.service.ISysMenuService;
-import com.sand.sys.service.ISysRoleMenuService;
 import com.sand.sys.service.ISysRoleService;
 import com.sand.sys.service.ISysUserRoleService;
 import com.sand.sys.service.ISysUserService;
 import com.sand.user.entity.AuthUser;
-import com.sand.user.service.IAuthUserService;
+import com.sand.user.service.IAuthUserLoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -46,13 +42,13 @@ import java.util.stream.Collectors;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
   @Autowired
-  private IAuthUserService authUserService;
-  @Autowired
   private ISysUserService sysUserService;
   @Autowired
   private ISysRoleService roleService;
   @Autowired
   private ISysUserRoleService userRoleService;
+  @Autowired
+  private IAuthUserLoginService authUserLoginService;
   //  @Autowired
   ////  private ISysMenuService menuService;
 //  @Autowired
@@ -79,7 +75,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
       // 菜单权限
       List<SysMenu> menus = new ArrayList<>(menuService.listByIds(menuIds));*/
       // 填充用户认证信息
-      AuthUser dbAuthUser = authUserService.getById(dbSysUser.getAuthUser().getUserId());
+      AuthUser dbAuthUser = authUserLoginService.getById(dbSysUser.getAuthUser().getUserId());
       dbAuthUser.setAuthorities(authorities);
       return dbAuthUser;
     } else {

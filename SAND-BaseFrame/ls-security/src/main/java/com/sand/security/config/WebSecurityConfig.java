@@ -13,13 +13,10 @@ import com.sand.security.provider.MyAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,20 +29,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * 开发人员：@author liusha
  * 开发日期：2019/11/26 10:34
  * 功能描述：安全认证基础配置，开启 Spring Security
- * 方法级安全注解 @EnableGlobalMethodSecurity
- * prePostEnabled：决定Spring Security的前注解是否可用 [@PreAuthorize,@PostAuthorize,..]
- * secureEnabled：决定是否Spring Security的保障注解 [@Secured] 是否可用
- * jsr250Enabled：决定 JSR-250 annotations 注解[@RolesAllowed..] 是否可用.
  */
 @Configurable
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   /**
    * 用户信息服务
    */
   @Autowired
-  protected UserDetailsService userDetailsService;
+  protected UserDetailsService userDetailsServiceImpl;
 
   /**
    * 认证管理器：使用spring自带的验证密码的流程
@@ -114,7 +105,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
    */
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(userDetailsService)
+    auth.userDetailsService(userDetailsServiceImpl)
         .passwordEncoder(passwordEncoder());
     // 关闭密码验证方式
 //        .passwordEncoder(NoOpPasswordEncoder.getInstance());
@@ -123,7 +114,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {
     MyAuthenticationProvider authenticationProvider = new MyAuthenticationProvider();
-    authenticationProvider.setUserDetailsService(userDetailsService);
+    authenticationProvider.setUserDetailsService(userDetailsServiceImpl);
     httpSecurity
         // 关闭crsf攻击，允许跨越访问
         .csrf().disable()
@@ -132,14 +123,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 自定义验证处理器
         .exceptionHandling().accessDeniedHandler(myAccessDeniedHandler()).and()
         // 不创建HttpSession，不使用HttpSession来获取SecurityContext
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-        .authorizeRequests()
-        // 允许登录接口post访问
-        .antMatchers(HttpMethod.POST, "/auth/user/login").permitAll()
-        // 允许验证码接口post访问
-        .antMatchers(HttpMethod.POST, "/valid/code/*").permitAll().and();
-//        // 任何尚未匹配的URL只需要验证用户即可访问
-//        .anyRequest().authenticated()
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();
     httpSecurity.addFilterBefore(myAuthenticationTokenGenericFilter(), UsernamePasswordAuthenticationFilter.class);
   }
 }

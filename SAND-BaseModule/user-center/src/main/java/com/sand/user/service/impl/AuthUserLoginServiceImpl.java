@@ -11,18 +11,17 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
 import com.sand.common.util.ParamUtil;
-import com.sand.common.util.ResultUtil;
 import com.sand.common.util.crypt.des.DesCryptUtil;
 import com.sand.common.util.crypt.md5.Md5Util;
-import com.sand.common.vo.ResultVO;
 import com.sand.user.entity.AuthUser;
 import com.sand.user.mapper.AuthUserMapper;
-import com.sand.user.service.IAuthUserService;
+import com.sand.user.service.IAuthUserLoginService;
 import com.sand.user.util.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,14 +31,14 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * 功能说明：用户信息
+ * 功能说明：用户登录服务
  * 开发人员：@author liusha
  * 开发日期：2020/3/19 16:59
- * 功能描述：用户信息
+ * 功能描述：用户登录服务，登录三步曲
  */
 @Slf4j
 @Service
-public class AuthUserServiceImpl extends ServiceImpl<AuthUserMapper, AuthUser> implements IAuthUserService {
+public class AuthUserLoginServiceImpl extends ServiceImpl<AuthUserMapper, AuthUser> implements IAuthUserLoginService {
   /**
    * AuthenticationManager 接口是认证相关的核心接口，也是发起认证的入口。
    * 但它一般不直接认证，其常用实现类ProviderManager内部会维护一个List<AuthenticationProvider>认证列表，
@@ -57,15 +56,12 @@ public class AuthUserServiceImpl extends ServiceImpl<AuthUserMapper, AuthUser> i
   @Autowired
   private JwtTokenUtil jwtTokenUtil;
 
-  @Autowired
-  private IAuthUserService userService;
-
   @Override
-  public void beforeValidate(Map<String, Object> params) {
-    log.info("1、认证前校验");
+  public void loginBeforeValid(Map<String, Object> params) {
+    log.info("1、登录前校验");
     String username = ParamUtil.getStringValue(params, "username");
     String password = ParamUtil.getStringValue(params, "password");
-    AuthUser dbUser = userService.getOne(new QueryWrapper<AuthUser>().eq("username", username));
+    AuthUser dbUser = this.getOne(new QueryWrapper<AuthUser>().eq("username", username));
     if (Objects.isNull(dbUser)) {
       log.info("{}用户不存在！", username);
       throw new UsernameNotFoundException("username not found");
@@ -79,8 +75,11 @@ public class AuthUserServiceImpl extends ServiceImpl<AuthUserMapper, AuthUser> i
   }
 
   @Override
-  public Object handleAuthInfo(AbstractAuthenticationToken authenticationToken) {
-    log.info("2、处理认证信息");
+  public Object login(Map<String, Object> params) {
+    log.info("2、登录逻辑");
+    String username = ParamUtil.getStringValue(params, "username");
+    String password = ParamUtil.getStringValue(params, "password");
+    AbstractAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
     // 1、开始发起认证，认证方式由com.sand.security.provider.MyAuthenticationProvider实现
     final Authentication authentication = authenticationManagerBean.authenticate(authenticationToken);
     // 2、认证成功后，将Authentication设置到SecurityContextHolder容器中
@@ -90,30 +89,25 @@ public class AuthUserServiceImpl extends ServiceImpl<AuthUserMapper, AuthUser> i
   }
 
   @Override
-  public ResultVO authAfter(Object userDetails) {
-    log.info("3、认证后处理");
+  public Map<String, Object> loginAfterHandle(Object userDetails) {
+    log.info("3、登录后处理");
     AuthUser user = (AuthUser) userDetails;
-    // 1、存储用户信息至redis
-    AuthUser dbUser = userService.getById(user.getUserId());
+    AuthUser dbUser = this.getById(user.getUserId());
     String accessToken = jwtTokenUtil.generateToken(dbUser);
+    // 1、存储用户信息至redis
 //    jwtTokenUtil.putUserToken(dbUser, accessToken);
 //    jwtTokenUtil.putUserDetail(dbUser);
     // TODO 2、保存登录日志
     // 3、将信息返回web端
-    Map<String, Object> tokenMap = Maps.newHashMap();
-    tokenMap.put("access_token", accessToken);
-    tokenMap.put("user_id", dbUser.getUserId());
-    tokenMap.put("user_name", dbUser.getUsername());
-    tokenMap.put("real_name", dbUser.getRealName());
-    tokenMap.put("authorities", user.getAuthorities());
-    tokenMap.put("expiration", jwtTokenUtil.getExpiration());
-    tokenMap.put("token_type", JwtTokenUtil.TOKEN_PREFIX);
-    return ResultUtil.ok(tokenMap);
-  }
-
-  @Override
-  public ResultVO register(Map<String, Object> params) {
-    return null;
+    Map<String, Object> loginResult = Maps.newHashMap();
+    loginResult.put("access_token", accessToken);
+    loginResult.put("user_id", dbUser.getUserId());
+    loginResult.put("user_name", dbUser.getUsername());
+    loginResult.put("real_name", dbUser.getRealName());
+    loginResult.put("authorities", user.getAuthorities());
+    loginResult.put("expiration", jwtTokenUtil.getExpiration());
+    loginResult.put("token_type", JwtTokenUtil.TOKEN_PREFIX);
+    return loginResult;
   }
 
 }
