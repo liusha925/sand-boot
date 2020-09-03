@@ -74,7 +74,7 @@ public class SysUser extends BaseEntity {
   /**
    * 是否为超级管理员
    */
-  private boolean isAdmin;
+  private int isAdmin;
   /**
    * 认证信息
    */

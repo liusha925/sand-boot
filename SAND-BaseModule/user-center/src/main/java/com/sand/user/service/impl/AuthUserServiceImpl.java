@@ -10,14 +10,11 @@ package com.sand.user.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
-import com.sand.common.exception.BusinessException;
 import com.sand.common.util.ParamUtil;
 import com.sand.common.util.ResultUtil;
 import com.sand.common.util.crypt.des.DesCryptUtil;
 import com.sand.common.util.crypt.md5.Md5Util;
-import com.sand.common.util.lang3.StringUtil;
 import com.sand.common.vo.ResultVO;
-import com.sand.security.service.IUserAuthenticationService;
 import com.sand.user.entity.AuthUser;
 import com.sand.user.mapper.AuthUserMapper;
 import com.sand.user.service.IAuthUserService;
@@ -26,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -43,7 +39,7 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
-public class AuthUserServiceImpl extends ServiceImpl<AuthUserMapper, AuthUser> implements IAuthUserService, IUserAuthenticationService {
+public class AuthUserServiceImpl extends ServiceImpl<AuthUserMapper, AuthUser> implements IAuthUserService {
   /**
    * AuthenticationManager 接口是认证相关的核心接口，也是发起认证的入口。
    * 但它一般不直接认证，其常用实现类ProviderManager内部会维护一个List<AuthenticationProvider>认证列表，
@@ -113,24 +109,6 @@ public class AuthUserServiceImpl extends ServiceImpl<AuthUserMapper, AuthUser> i
     tokenMap.put("expiration", jwtTokenUtil.getExpiration());
     tokenMap.put("token_type", JwtTokenUtil.TOKEN_PREFIX);
     return ResultUtil.ok(tokenMap);
-  }
-
-  @Override
-  public void handleAuthToken(String token) {
-    boolean result = jwtTokenUtil.checkTokenEffective(token);
-    if (!result) {
-      throw new BusinessException(ResultVO.Code.TOKEN_FAIL);
-    }
-    String userId = jwtTokenUtil.getUserIdFromToken(token);
-    // 1、当过滤链执行完时会调用SecurityContextHolder.clearContext()把SecurityContextHolder清空
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    log.info("token验证通过，开始存储用户信息userId：{}，authentication：{}", userId, authentication);
-    if (StringUtil.isNotBlank(userId) && authentication == null) {
-      AuthUser user = userService.getById(userId);
-      UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null);
-      // 2、重新SecurityContextHolder.getContext().setAuthentication(authentication)存储用户认证信息
-      SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-    }
   }
 
 }

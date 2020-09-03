@@ -495,6 +495,7 @@ public class SandConvert<K, T> {
         return Boolean.TRUE;
       case "false":
       case "no":
+      case "0":
       case "-1":
         return Boolean.FALSE;
       default:

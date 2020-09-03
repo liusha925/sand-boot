@@ -21,5 +21,26 @@ import java.util.Map;
  * 功能描述：用户安全认证信息
  */
 public interface IAuthUserService extends IService<AuthUser> {
+  /**
+   * 1、认证前校验
+   *
+   * @param param 登录参数
+   */
+  void beforeValidate(Map<String, Object> param);
 
+  /**
+   * 2、处理认证信息
+   *
+   * @param authenticationToken 用户认证信息
+   * @return 用户基础信息
+   */
+  Object handleAuthInfo(AbstractAuthenticationToken authenticationToken);
+
+  /**
+   * 3、认证后处理
+   *
+   * @param userDetails 用户基础信息
+   * @return 登录结果与登录信息
+   */
+  ResultVO authAfter(Object userDetails);
 }

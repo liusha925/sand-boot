@@ -9,6 +9,7 @@ package com.sand.sys.controller;
 
 import com.sand.common.constant.Constant;
 import com.sand.common.util.ResultUtil;
+import com.sand.common.util.convert.SandConvert;
 import com.sand.common.util.tree.Tree;
 import com.sand.common.vo.ResultVO;
 import com.sand.log.annotation.LogAnnotation;
@@ -99,7 +100,8 @@ public class SysMenuController extends SysBaseController {
     Tree menuTree;
     SysUser sysUser = super.getSysUser();
     // 如果是超级管理员则拥有所有菜单权限
-    if (sysUser.isAdmin()) {
+    boolean isAdmin = SandConvert.obj2Boolean(sysUser.getIsAdmin());
+    if (isAdmin) {
       menuTree = menuService.buildLeftTree(needButton);
     } else {
       // 其他用户需要根据角色来查询菜单权限

@@ -25,7 +25,7 @@
         <result property="realName" column="real_name"/>
     </resultMap>
     <!-- 根据用户名加载用户信息 -->
-    <select id="loadUserByUsername" parameterType="String" resultMap="sysUserResult">
+    <select id="loadUserByUsername" resultMap="sysUserResult">
         SELECT su.*
         FROM sys_user su
                  LEFT JOIN auth_user au ON au.user_id = su.user_id

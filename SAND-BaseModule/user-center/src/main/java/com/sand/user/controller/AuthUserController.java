@@ -9,7 +9,7 @@ package com.sand.user.controller;
 
 import com.sand.common.util.ParamUtil;
 import com.sand.common.vo.ResultVO;
-import com.sand.security.service.IUserAuthenticationService;
+import com.sand.user.service.IAuthUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,7 +32,7 @@ public class AuthUserController {
    * 用户基础服务接口
    */
   @Autowired
-  private IUserAuthenticationService userAuthenticationService;
+  private IAuthUserService authUserService;
 
   /**
    * 输入用户名密码，获得token
@@ -45,12 +45,12 @@ public class AuthUserController {
     String username = ParamUtil.getStringValue(param, "username");
     String password = ParamUtil.getStringValue(param, "password");
     // 1、认证前校验
-    userAuthenticationService.beforeValidate(param);
+    authUserService.beforeValidate(param);
     // 2、处理认证信息
     AbstractAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-    Object userDetails = userAuthenticationService.handleAuthInfo(authenticationToken);
+    Object userDetails = authUserService.handleAuthInfo(authenticationToken);
     // 3、认证后处理
-    return userAuthenticationService.authAfter(userDetails);
+    return authUserService.authAfter(userDetails);
   }
 
 }

@@ -8,8 +8,8 @@
 package com.sand.security.filter;
 
 import com.sand.common.util.lang3.StringUtil;
+import com.sand.security.handler.IUserAuthHandler;
 import com.sand.security.handler.MyAuthExceptionHandler;
-import com.sand.security.service.IUserAuthenticationService;
 import com.sand.security.util.AbstractTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +50,10 @@ public class MyAuthenticationTokenGenericFilter extends GenericFilterBean {
    */
   private FilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource;
   /**
-   * 用户基础服务接口
+   * 用户认证服务接口
    */
-  @Autowired(required = false)
-  private IUserAuthenticationService userAuthenticationService;
+  @Autowired
+  private IUserAuthHandler userAuthHandler;
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -76,7 +76,7 @@ public class MyAuthenticationTokenGenericFilter extends GenericFilterBean {
       // 非白名单需验证其合法性（非白名单请求必须带token）
       String authHeader = httpRequest.getHeader(AbstractTokenUtil.TOKEN_HEADER);
       final String authToken = StringUtil.substring(authHeader, 7);
-      userAuthenticationService.handleAuthToken(authToken);
+      userAuthHandler.handleAuthToken(authToken);
       chain.doFilter(httpRequest, httpResponse);
     } catch (Exception e) {
       log.error("MyAuthenticationTokenGenericFilter异常", e);

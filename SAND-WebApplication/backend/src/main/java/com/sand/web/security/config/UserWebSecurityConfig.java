@@ -5,7 +5,7 @@
  * 2020/3/23    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.web.config;
+package com.sand.web.security.config;
 
 import com.sand.security.config.WebSecurityConfig;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,7 +27,8 @@ public class UserWebSecurityConfig extends WebSecurityConfig {
   protected void configure(HttpSecurity httpSecurity) throws Exception {
     super.configure(httpSecurity);
     httpSecurity.authorizeRequests()
-        .antMatchers("/**/*")
-        .authenticated().and();
+        // TODO 测试默认开放全部url
+        .antMatchers("/**/*").permitAll();
+//        .authenticated().and();
   }
 }
