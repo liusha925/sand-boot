@@ -61,10 +61,10 @@ public class AuthUserServiceImpl extends ServiceImpl<AuthUserMapper, AuthUser> i
   private IAuthUserService userService;
 
   @Override
-  public void beforeValidate(Map<String, Object> param) {
+  public void beforeValidate(Map<String, Object> params) {
     log.info("1、认证前校验");
-    String username = ParamUtil.getStringValue(param, "username");
-    String password = ParamUtil.getStringValue(param, "password");
+    String username = ParamUtil.getStringValue(params, "username");
+    String password = ParamUtil.getStringValue(params, "password");
     AuthUser dbUser = userService.getOne(new QueryWrapper<AuthUser>().eq("username", username));
     if (Objects.isNull(dbUser)) {
       log.info("{}用户不存在！", username);
@@ -109,6 +109,11 @@ public class AuthUserServiceImpl extends ServiceImpl<AuthUserMapper, AuthUser> i
     tokenMap.put("expiration", jwtTokenUtil.getExpiration());
     tokenMap.put("token_type", JwtTokenUtil.TOKEN_PREFIX);
     return ResultUtil.ok(tokenMap);
+  }
+
+  @Override
+  public ResultVO register(Map<String, Object> params) {
+    return null;
   }
 
 }

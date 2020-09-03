@@ -24,9 +24,9 @@ public interface IAuthUserService extends IService<AuthUser> {
   /**
    * 1、认证前校验
    *
-   * @param param 登录参数
+   * @param params 登录参数
    */
-  void beforeValidate(Map<String, Object> param);
+  void beforeValidate(Map<String, Object> params);
 
   /**
    * 2、处理认证信息
@@ -43,4 +43,12 @@ public interface IAuthUserService extends IService<AuthUser> {
    * @return 登录结果与登录信息
    */
   ResultVO authAfter(Object userDetails);
+
+  /**
+   * 注册接口
+   *
+   * @param params 注册信息
+   * @return 返回注册信息
+   */
+  ResultVO register(Map<String, Object> params);
 }
