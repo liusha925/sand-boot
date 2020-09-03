@@ -15,6 +15,10 @@
         <result property="createTime" column="create_time"/>
         <result property="updateBy" column="update_by"/>
         <result property="updateTime" column="update_time"/>
+        <result property="field1" column="field1"/>
+        <result property="field2" column="field2"/>
+        <result property="field3" column="field3"/>
+        <result property="remark" column="remark"/>
         <association property="authUser" resultMap="authUserResult"/>
     </resultMap>
     <!-- 用户认证信息 -->

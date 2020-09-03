@@ -30,7 +30,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-@ToString(exclude = {"password"}, callSuper = true)
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @TableName(Constant.TABLE_SYS + "user")
 public class SysUser extends BaseEntity {

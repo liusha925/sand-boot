@@ -48,8 +48,23 @@ public class BaseEntity implements Serializable {
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private Date updateTime;
   /**
+   * 预留字段1
+   */
+  @Length(max = 32, message = "[预留字段1]不能超过32个字符呢")
+  private String field1;
+  /**
+   * 预留字段2
+   */
+  @Length(max = 255, message = "[预留字段2]不能超过255个字符呢")
+  private String field2;
+  /**
+   * 预留字段3
+   */
+  @Length(max = 1024, message = "[预留字段3]不能超过1024个字符呢")
+  private String field3;
+  /**
    * 备注信息
    */
-  @Length(max = 512, message = "备注信息不能超过512个字符呢")
+  @Length(max = 512, message = "[备注信息]不能超过512个字符呢")
   private String remark;
 }
