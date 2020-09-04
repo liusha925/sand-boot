@@ -11,11 +11,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sand.sys.entity.SysRole;
 import com.sand.sys.entity.SysUser;
 import com.sand.sys.entity.SysUserRole;
+import com.sand.sys.handler.LoginHandler;
 import com.sand.sys.service.ISysRoleService;
 import com.sand.sys.service.ISysUserRoleService;
 import com.sand.sys.service.ISysUserService;
 import com.sand.user.entity.AuthUser;
-import com.sand.user.service.IAuthUserLoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -48,7 +48,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
   @Autowired
   private ISysUserRoleService userRoleService;
   @Autowired
-  private IAuthUserLoginService authUserLoginService;
+  private LoginHandler loginHandler;
   //  @Autowired
   ////  private ISysMenuService menuService;
 //  @Autowired
@@ -75,7 +75,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
       // 菜单权限
       List<SysMenu> menus = new ArrayList<>(menuService.listByIds(menuIds));*/
       // 填充用户认证信息
-      AuthUser dbAuthUser = authUserLoginService.getById(dbSysUser.getAuthUser().getUserId());
+      AuthUser dbAuthUser = loginHandler.getById(dbSysUser.getAuthUser().getUserId());
       dbAuthUser.setAuthorities(authorities);
       return dbAuthUser;
     } else {

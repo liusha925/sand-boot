@@ -39,7 +39,9 @@ public class UserWebSecurityConfig extends WebSecurityConfig {
         // 允许验证码接口访问
         .antMatchers("/valid/code/*").permitAll()
         // 允许登录、注册接口post访问
-        .antMatchers(HttpMethod.POST, "/auth/user/login", "/auth/user/register").permitAll();
+        .antMatchers(HttpMethod.POST, "/auth/user/login", "/auth/user/register").permitAll()
+        // 允许登录、注册接口post访问
+        .antMatchers(HttpMethod.POST, "/sys/user/login", "/sys/user/register").permitAll();
 //        // 调试可以开放【全部URL白名单】
 //        .antMatchers("/**/*").permitAll()
 //        // 调试可以开放【任何尚未匹配的URL只需要验证用户即可访问】

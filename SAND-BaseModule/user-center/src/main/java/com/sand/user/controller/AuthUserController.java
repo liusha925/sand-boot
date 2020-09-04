@@ -32,27 +32,27 @@ public class AuthUserController {
    * 用户登录服务
    */
   @Autowired
-  private IAuthUserLoginService authUserLoginService;
+  private IAuthUserLoginService authUserLoginServiceImpl;
   /**
    * 用户注册服务
    */
   @Autowired
-  private IAuthUserRegisterService authUserRegisterService;
+  private IAuthUserRegisterService authUserRegisterServiceImpl;
 
   /**
-   * 输入用户名密码，获得token
+   * 用户登录
    *
-   * @param params 用户名和密码
-   * @return 封装好的token，过期时间，token的类型map
+   * @param params 登录参数
+   * @return 登录结果
    */
   @RequestMapping(value = "/login")
   public ResultVO login(@RequestParam Map<String, Object> params) {
     // 1、登录前校验
-    authUserLoginService.loginBeforeValid(params);
+    authUserLoginServiceImpl.loginBeforeValid(params);
     // 2、登录逻辑
-    Object userDetails = authUserLoginService.login(params);
+    Object userDetails = authUserLoginServiceImpl.login(params);
     // 3、登录后处理
-    Map<String, Object> loginResult = authUserLoginService.loginAfterHandle(userDetails);
+    Map<String, Object> loginResult = authUserLoginServiceImpl.loginAfterHandle(userDetails);
 
     return ResultUtil.ok(loginResult, "登录成功");
   }
@@ -61,16 +61,16 @@ public class AuthUserController {
    * 用户注册
    *
    * @param params 注册信息
-   * @return 返回注册信息
+   * @return 注册结果
    */
   @RequestMapping(value = "/register")
   public ResultVO register(@RequestParam Map<String, Object> params) {
     // 1、注册前校验
-    authUserRegisterService.registerBeforeValid(params);
+    authUserRegisterServiceImpl.registerBeforeValid(params);
     // 2、注册逻辑
-    AuthUser authUser = authUserRegisterService.register(params);
+    AuthUser authUser = authUserRegisterServiceImpl.register(params);
     // 3、注册后处理
-    Map<String, Object> registerResult = authUserRegisterService.registerAfterHandle(authUser);
+    Map<String, Object> registerResult = authUserRegisterServiceImpl.registerAfterHandle(authUser);
 
     return ResultUtil.ok(registerResult, "注册成功");
   }
