@@ -8,10 +8,14 @@
 package com.sand.web.security.config;
 
 import com.sand.security.config.WebSecurityConfig;
+import com.sand.security.provider.MyAuthenticationProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * 功能说明：Spring Security配置
@@ -27,6 +31,27 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class UserWebSecurityConfig extends WebSecurityConfig {
   /**
+   * 用户信息服务
+   */
+  @Autowired
+  protected UserDetailsService userDetailsLoader;
+
+  /**
+   * 密码验证方式
+   * 将用户信息和密码加密方式进行注入
+   *
+   * @param auth 授权信息
+   * @throws Exception Exception
+   */
+  @Override
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    auth.userDetailsService(userDetailsLoader)
+        .passwordEncoder(passwordEncoder());
+    // 关闭密码验证方式
+//        .passwordEncoder(NoOpPasswordEncoder.getInstance());
+  }
+
+  /**
    * 自定义配置系统需要的URL白名单
    *
    * @param httpSecurity 安全配置
@@ -35,7 +60,13 @@ public class UserWebSecurityConfig extends WebSecurityConfig {
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {
     super.configure(httpSecurity);
-    httpSecurity.authorizeRequests()
+
+    MyAuthenticationProvider authenticationProvider = new MyAuthenticationProvider();
+    authenticationProvider.setUserDetailsService(userDetailsLoader);
+    httpSecurity
+        // 自定义登录认证方式
+        .authenticationProvider(authenticationProvider)
+        .authorizeRequests()
         // 允许验证码接口访问
         .antMatchers("/valid/code/*").permitAll()
         // 允许登录、注册接口post访问

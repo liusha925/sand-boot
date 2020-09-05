@@ -13,8 +13,8 @@ import com.sand.common.util.ResultUtil;
 import com.sand.common.vo.ResultVO;
 import com.sand.mybatisplus.util.PageUtil;
 import com.sand.sys.entity.SysUser;
-import com.sand.sys.handler.LoginHandler;
-import com.sand.sys.handler.RegisterHandler;
+import com.sand.sys.sercurity.LoginService;
+import com.sand.sys.sercurity.RegisterService;
 import com.sand.sys.model.SysUserModel;
 import com.sand.sys.service.ISysUserService;
 import com.sand.user.entity.AuthUser;
@@ -38,9 +38,9 @@ import java.util.Map;
 @RequestMapping("/sys/user")
 public class SysUserController extends SysBaseController {
   @Autowired
-  private LoginHandler loginHandler;
+  private LoginService loginService;
   @Autowired
-  private RegisterHandler registerHandler;
+  private RegisterService registerService;
   @Autowired
   private ISysUserService sysUserService;
 
@@ -53,11 +53,11 @@ public class SysUserController extends SysBaseController {
   @RequestMapping(value = "/login")
   public ResultVO login(@RequestParam Map<String, Object> params) {
     // 1、登录前校验
-    loginHandler.loginBeforeValid(params);
+    loginService.loginBeforeValid(params);
     // 2、登录逻辑
-    Object userDetails = loginHandler.login(params);
+    Object userDetails = loginService.login(params);
     // 3、登录后处理
-    Map<String, Object> loginResult = loginHandler.loginAfterHandle(userDetails);
+    Map<String, Object> loginResult = loginService.loginAfterHandle(userDetails);
 
     return ResultUtil.ok(loginResult, "登录成功");
   }
@@ -71,11 +71,11 @@ public class SysUserController extends SysBaseController {
   @RequestMapping(value = "/register")
   public ResultVO register(@RequestParam Map<String, Object> params) {
     // 1、注册前校验
-    registerHandler.registerBeforeValid(params);
+    registerService.registerBeforeValid(params);
     // 2、注册逻辑
-    AuthUser authUser = registerHandler.register(params);
+    AuthUser authUser = registerService.register(params);
     // 3、注册后处理
-    Map<String, Object> registerResult = registerHandler.registerAfterHandle(authUser);
+    Map<String, Object> registerResult = registerService.registerAfterHandle(authUser);
 
     return ResultUtil.ok(registerResult, "注册成功");
   }

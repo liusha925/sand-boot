@@ -54,7 +54,7 @@ public class AuthUserLoginServiceImpl extends ServiceImpl<AuthUserMapper, AuthUs
    * 从application.yml配置文件中读取token配置，如加密密钥，token有效期等值
    */
   @Autowired
-  private JwtTokenUtil jwtTokenUtil;
+  protected JwtTokenUtil jwtTokenUtil;
 
   @Override
   public void loginBeforeValid(Map<String, Object> params) {
@@ -94,11 +94,7 @@ public class AuthUserLoginServiceImpl extends ServiceImpl<AuthUserMapper, AuthUs
     AuthUser user = (AuthUser) userDetails;
     AuthUser dbUser = this.getById(user.getUserId());
     String accessToken = jwtTokenUtil.generateToken(dbUser);
-    // 1、存储用户信息至redis
-//    jwtTokenUtil.putUserToken(dbUser, accessToken);
-//    jwtTokenUtil.putUserDetail(dbUser);
-    // TODO 2、保存登录日志
-    // 3、将信息返回web端
+
     Map<String, Object> loginResult = Maps.newHashMap();
     loginResult.put("access_token", accessToken);
     loginResult.put("user_id", dbUser.getUserId());

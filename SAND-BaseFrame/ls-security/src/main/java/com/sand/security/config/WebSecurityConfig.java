@@ -9,17 +9,13 @@ package com.sand.security.config;
 
 import com.sand.security.filter.MyAuthenticationTokenGenericFilter;
 import com.sand.security.handler.MyAccessDeniedHandler;
-import com.sand.security.provider.MyAuthenticationProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -32,12 +28,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  */
 @Configurable
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-  /**
-   * 用户信息服务
-   */
-  @Autowired
-  protected UserDetailsService userDetailsServiceImpl;
-
   /**
    * 认证管理器：使用spring自带的验证密码的流程
    * <p>
@@ -96,30 +86,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     webSecurity.ignoring().antMatchers("/", "/css/**", "/js/**", "/images/**");
   }
 
-  /**
-   * 密码验证方式
-   * 将用户信息和密码加密方式进行注入
-   *
-   * @param auth 授权信息
-   * @throws Exception Exception
-   */
-  @Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(userDetailsServiceImpl)
-        .passwordEncoder(passwordEncoder());
-    // 关闭密码验证方式
-//        .passwordEncoder(NoOpPasswordEncoder.getInstance());
-  }
-
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {
-    MyAuthenticationProvider authenticationProvider = new MyAuthenticationProvider();
-    authenticationProvider.setUserDetailsService(userDetailsServiceImpl);
     httpSecurity
         // 关闭crsf攻击，允许跨越访问
         .csrf().disable()
-        // 自定义登录认证方式
-        .authenticationProvider(authenticationProvider)
         // 自定义验证处理器
         .exceptionHandling().accessDeniedHandler(myAccessDeniedHandler()).and()
         // 不创建HttpSession，不使用HttpSession来获取SecurityContext

@@ -43,7 +43,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
   public Authentication authenticate(Authentication authentication) throws AuthenticationException {
     // 与登录认证接口保持一致，此处使用框架自带的UsernamePasswordAuthenticationToken，也可以自行定义
     UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) authentication;
-    // 负责从数据库或者内存映射中加载用户信息，加载方法自行实现，此系统com.sand.web.security.UserDetailServiceImpl
+    // 负责从数据库或者内存映射中加载用户信息，加载方法自行实现
     UserDetails userDetails = userDetailsService.loadUserByUsername((String) authenticationToken.getPrincipal());
     if (userDetails == null) {
       throw new UsernameNotFoundException(ResultVO.Code.USERNAME_NOT_FOUND.getName());

@@ -5,7 +5,7 @@
  * 2020/9/4    liusha   新增
  * =========  ===========  =====================
  */
-package com.sand.sys.handler;
+package com.sand.sys.sercurity;
 
 import com.sand.user.entity.AuthUser;
 import com.sand.user.service.impl.AuthUserRegisterServiceImpl;
@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @Slf4j
 @Component
-public class RegisterHandler extends AuthUserRegisterServiceImpl {
+public class RegisterService extends AuthUserRegisterServiceImpl {
 
   @Override
   public void registerBeforeValid(Map<String, Object> params) {
