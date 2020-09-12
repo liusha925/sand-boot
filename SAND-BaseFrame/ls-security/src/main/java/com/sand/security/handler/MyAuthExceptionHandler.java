@@ -99,14 +99,14 @@ public class MyAuthExceptionHandler extends DefaultExceptionHandler {
    * @throws IOException
    */
   public static void accessDeniedException(Exception e, ServletResponse response) throws IOException {
-    ResultVO ResultVO = ResultUtil.error(com.sand.common.vo.ResultVO.Code.LOGIN_EXPIRED);
+    ResultVO resultVO = ResultUtil.error(com.sand.common.vo.ResultVO.Code.LOGIN_EXPIRED);
     if (e instanceof BadCredentialsException || e instanceof InternalAuthenticationServiceException || e instanceof UsernameNotFoundException) {
-      ResultVO = ResultUtil.error(com.sand.common.vo.ResultVO.Code.USERNAME_NOT_FOUND);
+      resultVO = ResultUtil.error(com.sand.common.vo.ResultVO.Code.USERNAME_NOT_FOUND);
     }
     if (e instanceof BusinessException) {
-      ResultVO = ResultUtil.info(null, ((BusinessException) e).getCode(), e.getMessage());
+      resultVO = ResultUtil.info(null, ((BusinessException) e).getCode(), e.getMessage());
     }
     HttpMessageConverter httpMessageConverter = SpringUtil.getBean(FastJsonHttpMessageConverter.class);
-    httpMessageConverter.write(ResultVO, MediaType.APPLICATION_JSON, new ServletServerHttpResponse((HttpServletResponse) response));
+    httpMessageConverter.write(resultVO, MediaType.APPLICATION_JSON, new ServletServerHttpResponse((HttpServletResponse) response));
   }
 }

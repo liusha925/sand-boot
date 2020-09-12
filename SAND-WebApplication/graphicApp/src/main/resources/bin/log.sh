@@ -4,6 +4,6 @@
 # description: Console log.
 
 APP_HOME=`pwd`
-APP_NAME=demoApp
+APP_NAME=graphicApp
 LOG_PATH=${APP_HOME}/logs/${APP_NAME}.out
 tail -100f ${LOG_PATH}

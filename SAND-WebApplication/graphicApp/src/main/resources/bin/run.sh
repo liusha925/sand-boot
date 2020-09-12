@@ -5,7 +5,7 @@
 
 ENV=dev
 APP_HOME=`pwd`
-APP_NAME=demoApp
+APP_NAME=graphicApp
 RUNNING_USER=root
 LOG_DATE=`date +%Y%m%d%H%M%S`
 
