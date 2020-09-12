@@ -20,7 +20,7 @@ goto :begin
 ::项目根目录
 cd ../
 ::项目依赖模块
-call mvn clean install
+call mvn clean install -Dmaven.test.skip=true
 ::容器所在目录
 cd SAND-WebApplication/backendApp
 ::休眠1s类似于Linux的sleep 1s
@@ -37,13 +37,13 @@ goto :begin
 ::项目根目录
 cd ../
 ::项目依赖模块
-call mvn clean install
+call mvn clean install -Dmaven.test.skip=true
 ::容器所在目录
 cd SAND-WebApplication/demoApp
 ::休眠1s类似于Linux的sleep 1s
 ping -n 1 127.0.0.1>nul
 ::打包并成功之后打开target目录（cls是清除当前界面的打包信息）
-call mvn clean install && cls && explorer target 
+call mvn clean install -Dmaven.test.skip=true && cls && explorer target 
 ::回到项目根目录
 cd ../
 pause
@@ -54,13 +54,13 @@ goto :begin
 ::项目根目录
 cd ../
 ::项目依赖模块
-call mvn clean install
+call mvn clean install -Dmaven.test.skip=true
 ::容器所在目录
 cd SAND-WebApplication/graphicApp
 ::休眠1s类似于Linux的sleep 1s
 ping -n 1 127.0.0.1>nul
 ::打包并成功之后打开target目录（cls是清除当前界面的打包信息）
-call mvn clean install && cls && explorer target 
+call mvn clean install -Dmaven.test.skip=true && cls && explorer target 
 ::回到项目根目录
 cd ../
 pause
