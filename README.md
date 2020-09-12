@@ -6,7 +6,7 @@
 基础框架、通用模块、通用业务、产品或个性化项目、启动容器
 # 项目结构
 
- ![项目结构](./images/项目结构.png)
+ ![项目结构](README-images/项目结构.png)
 
 ## [SAND-BaseFrame]
 
@@ -56,9 +56,13 @@ Session共享Redis：
 
 权限体系：
 
+## [SAND-ProductOrItem]
+
+产品或个性化项目：
+
 ## [SAND-WebApplication]
 
-项目容器
+项目容器：
 
 # 本地环境搭建
 
@@ -86,25 +90,25 @@ Session共享Redis：
 
 FIle>>Import
 
- ![项目导入](./images/项目导入.png)
+ ![项目导入](README-images/项目导入.png)
 
 #### 2、选中Maven
 
 选中Maven>>Existing Maven Projects
 
- ![导入maven工程](./images/导入maven工程.png)
+ ![导入maven工程](README-images/导入maven工程.png)
 
 #### 3、找到源码路径
 
 选中你的项目根路径，如图所示：
 
- ![选中maven项目](./images/选中maven项目.png)
+ ![选中maven项目](README-images/选中maven项目.png)
 
 ### IntelliJ IDEA构建
 
 直接打开项目即可，IDEA会自行完成项目的转换和构建
 
- ![打开工程](./images/打开工程.png)
+ ![打开工程](README-images/打开工程.png)
 
 `注：`不管是Eclipse还是IntelliJ IDEA，如果maven工程jar包下载缓慢的话，建议maven的settings.xml配置阿里云或华为云镜像，用如下信息替换你的settings.xml文件（**注意配置仓库地址**），待项目导入完成即完成了环境的基本搭建。
 
@@ -155,19 +159,19 @@ FIle>>Import
 
 ### 1、更改配置
 
- 找到你需要启动的容器，以demoApp容器为例：![更改配置](./images/更改配置.png)
+ 找到你需要启动的容器，以demoApp容器为例：![更改配置](README-images/更改配置.png)
 
 ### 2、执行脚本
 
 执行对应的数据库脚本文件：
 
- ![执行脚本](./images/执行脚本.png)
+ ![执行脚本](README-images/执行脚本.png)
 
 ### 3、启动项目
 
 找到项目入口并执行main方法：
 
- ![执行main方法](./images/执行main方法.png)
+ ![执行main方法](README-images/执行main方法.png)
 
 ### 4、验证结果
 
@@ -175,11 +179,26 @@ FIle>>Import
 
 http://localhost:8888/auth/user/login?username=admin&password=olCPKgwi0rk=
 
-![验证结果](./images/验证结果.png)
+![验证结果](README-images/验证结果.png)
 
 # Linux下服务部署
 
+### 1、更改配置
 
+ ![更改配置](README-images/更改配置.png)
 
+### 2、执行脚本
 
+​	执行打包脚本进行打包：
 
+ ![打包脚本](README-images/打包脚本.png)
+
+### 3、上传部署
+
+​	将打包后的文件上传至服务器：
+
+ ![打包文件](README-images/打包文件.png)
+
+​	解压后执行脚本文件：![启动脚本](README-images/启动脚本.png)
+
+注：如果启动失败，那就需要从配置和代码上查找原因了，这里只是简单的演示应用的部署
