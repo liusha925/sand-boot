@@ -21,6 +21,11 @@ import java.util.Objects;
  */
 public class AuthenticationUtil {
   /**
+   * 权限实现类
+   */
+  public static final String PERMISSION_SERVICE = "userAuthorizationService";
+
+  /**
    * 从SecurityContextHolder获取用户认证信息
    *
    * @return 用户认证信息（一般为org.springframework.security.core.userdetails.UserDetails类型）

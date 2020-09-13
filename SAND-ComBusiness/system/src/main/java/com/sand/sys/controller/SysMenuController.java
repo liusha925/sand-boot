@@ -13,12 +13,15 @@ import com.sand.common.util.convert.SandConvert;
 import com.sand.common.util.tree.Tree;
 import com.sand.common.vo.ResultVO;
 import com.sand.log.annotation.LogAnnotation;
+import com.sand.security.permission.CheckPermission;
+import com.sand.security.util.AuthenticationUtil;
 import com.sand.sys.entity.SysMenu;
 import com.sand.sys.entity.SysUser;
 import com.sand.sys.model.SysMenuModel;
 import com.sand.sys.service.ISysMenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,6 +69,8 @@ public class SysMenuController extends SysBaseController {
 
   @RequestMapping("/add")
   @LogAnnotation(symbol = "系统管理", description = "新增菜单", service = Constant.SYS_LOG_SERVICE)
+  //  @PreAuthorize("@userAuthorizationService.hasPermission(authentication ,'左侧菜单')")
+  @CheckPermission(service = AuthenticationUtil.PERMISSION_SERVICE, authKey = "sys:menu:add", authName = "新增菜单")
   public ResultVO add(@RequestBody SysMenuModel model) {
     log.info("SysMenuController add params：{}", model);
     menuService.add(model);
@@ -105,7 +110,7 @@ public class SysMenuController extends SysBaseController {
       menuTree = menuService.buildLeftTree(needButton);
     } else {
       // 其他用户需要根据角色来查询菜单权限
-      menuTree = menuService.buildLeftTree(needButton, getRoleIds());
+      menuTree = menuService.buildLeftTree(needButton, super.getRoleIds());
     }
     return menuTree;
   }
