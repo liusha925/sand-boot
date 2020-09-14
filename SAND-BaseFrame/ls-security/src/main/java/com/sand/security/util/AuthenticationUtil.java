@@ -21,11 +21,6 @@ import java.util.Objects;
  */
 public class AuthenticationUtil {
   /**
-   * 权限实现类
-   */
-  public static final String PERMISSION_SERVICE = "userAuthorizationService";
-
-  /**
    * 从SecurityContextHolder获取用户认证信息
    *
    * @return 用户认证信息（一般为org.springframework.security.core.userdetails.UserDetails类型）
@@ -34,7 +29,7 @@ public class AuthenticationUtil {
     // 需注意的是，当过滤链执行完时会调用SecurityContextHolder.clearContext()把SecurityContextHolder清空
     // 因此需在自定义过滤器中重新SecurityContextHolder.getContext().setAuthentication(authentication)保存用户认证信息，如MyAuthenticationTokenGenericFilter
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    Object user = authentication.getPrincipal();
+    Object user = authentication.getDetails();
     if (Objects.isNull(user)) {
       throw new BusinessException("用户不存在！");
     }

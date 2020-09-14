@@ -89,6 +89,7 @@ public class UserAuthorizationService implements IUserAuthHandler {
       AuthUser user = loginService.getById(userId);
       UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(), null);
       // 2、重新SecurityContextHolder.getContext().setAuthentication(authentication)存储用户认证信息
+      authenticationToken.setDetails(user);
       SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
   }
