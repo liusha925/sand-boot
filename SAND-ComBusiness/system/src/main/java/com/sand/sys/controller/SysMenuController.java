@@ -13,8 +13,6 @@ import com.sand.common.util.convert.SandConvert;
 import com.sand.common.util.tree.Tree;
 import com.sand.common.vo.ResultVO;
 import com.sand.log.annotation.LogAnnotation;
-import com.sand.security.permission.CheckPermission;
-import com.sand.security.util.AuthenticationUtil;
 import com.sand.sys.entity.SysMenu;
 import com.sand.sys.entity.SysUser;
 import com.sand.sys.model.SysMenuModel;
@@ -69,8 +67,7 @@ public class SysMenuController extends SysBaseController {
 
   @RequestMapping("/add")
   @LogAnnotation(symbol = "系统管理", description = "新增菜单", service = Constant.SYS_LOG_SERVICE)
-  //  @PreAuthorize("@userAuthorizationService.hasPermission(authentication ,'左侧菜单')")
-  @CheckPermission(service = AuthenticationUtil.PERMISSION_SERVICE, authKey = "sys:menu:add", authName = "新增菜单")
+  @PreAuthorize("@userAuthorizationService.hasPermission('sys:menu:add' ,'新增菜单')")
   public ResultVO add(@RequestBody SysMenuModel model) {
     log.info("SysMenuController add params：{}", model);
     menuService.add(model);

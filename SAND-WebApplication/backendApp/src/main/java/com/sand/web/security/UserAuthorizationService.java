@@ -13,11 +13,9 @@ import com.sand.common.util.ServletUtil;
 import com.sand.common.util.lang3.StringUtil;
 import com.sand.common.vo.ResultVO;
 import com.sand.security.handler.IUserAuthHandler;
-import com.sand.security.permission.IPermissionService;
 import com.sand.security.util.AuthenticationUtil;
 import com.sand.sys.entity.SysMenu;
 import com.sand.sys.entity.SysRoleMenu;
-import com.sand.sys.entity.SysUser;
 import com.sand.sys.enums.MenuEnum;
 import com.sand.sys.sercurity.LoginService;
 import com.sand.sys.service.ISysMenuService;
@@ -46,7 +44,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Component("userAuthorizationService")
-public class UserAuthorizationService implements IUserAuthHandler, IPermissionService {
+public class UserAuthorizationService implements IUserAuthHandler {
   /**
    * 从application.yml配置文件中读取token配置，如加密密钥，token有效期等值
    */
@@ -89,13 +87,12 @@ public class UserAuthorizationService implements IUserAuthHandler, IPermissionSe
     log.info("token验证通过，开始存储用户信息userId：{}，authentication：{}", userId, authentication);
     if (StringUtil.isNotBlank(userId) && authentication == null) {
       AuthUser user = loginService.getById(userId);
-      UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null);
+      UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(), null);
       // 2、重新SecurityContextHolder.getContext().setAuthentication(authentication)存储用户认证信息
       SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
   }
 
-  @Override
   public void hasPermission(String authKey, String authName) {
     Object principal = AuthenticationUtil.getUser();
     log.info("获取的principal信息：{}", principal);
@@ -126,33 +123,6 @@ public class UserAuthorizationService implements IUserAuthHandler, IPermissionSe
           }
         } else {
           log.info("此菜单类型{}不做权限控制", menu.getMenuType());
-        }
-      }
-    }
-    if (!hasPermission) {
-      throw new BusinessException("没有【" + authName + "】的访问权限");
-    }
-  }
-
-  /**
-   * 校验权限
-   *
-   * @param authentication 授权信息
-   * @param authName       权限名称
-   */
-  public void hasPermission(Authentication authentication, String authName) {
-    log.info("获取的Authentication信息：{}", authentication);
-    HttpServletRequest request = ServletUtil.getRequest();
-    Object principal = authentication.getPrincipal();
-    boolean hasPermission = false;
-    if (principal instanceof SysUser) {
-      // 读取用户所拥有的权限菜单
-      List<SysMenu> menus = ((SysUser) principal).getUserMenus();
-      for (SysMenu menu : menus) {
-        log.info("(menu.menuUrl={}，request.requestURI={}", menu.getMenuUrl(), request.getRequestURI());
-        if (antPathMatcher.match(menu.getMenuUrl(), request.getRequestURI())) {
-          hasPermission = true;
-          break;
         }
       }
     }

@@ -18,7 +18,7 @@ import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.filter.GenericFilterBean;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -37,14 +37,10 @@ import java.util.Objects;
  * 功能说明：token过滤器
  * 开发人员：@author liusha
  * 开发日期：2020/4/19 17:30
- * 功能描述：用户合法性校验
+ * 功能描述：用户合法性校验，使用OncePerRequestFilter确保在一次请求只通过一次filter，而不需要重复执行，如果使用GenericFilterBean则会经过两次
  */
 @Slf4j
-public class MyAuthenticationTokenGenericFilter extends GenericFilterBean {
-  /**
-   * MyAuthenticationTokenGenericFilter标记
-   */
-  private static final String FILTER_APPLIED = "__spring_security_myAuthenticationTokenGenericFilter_filterApplied";
+public class MyAuthenticationTokenGenericFilter extends OncePerRequestFilter {
   /**
    * TODO 过滤元数据，后续自己实现
    */
@@ -56,31 +52,22 @@ public class MyAuthenticationTokenGenericFilter extends GenericFilterBean {
   private IUserAuthHandler userAuthHandler;
 
   @Override
-  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-    HttpServletRequest httpRequest = (HttpServletRequest) request;
-    HttpServletResponse httpResponse = (HttpServletResponse) response;
-    // 确保每个请求仅应用一次过滤器：spring容器托管的GenericFilterBean的bean，都会自动加入到servlet的filter chain，
-    // 而WebSecurityConfig中myAuthenticationTokenGenericFilter定义的bean还额外把filter加入到了spring security中，所以会出现执行两次的情况。
-    if (httpRequest.getAttribute(FILTER_APPLIED) != null) {
-      chain.doFilter(httpRequest, httpResponse);
-      return;
-    }
-    httpRequest.setAttribute(FILTER_APPLIED, Boolean.TRUE);
+  public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
     log.info("~~~~~~~~~用户合法性校验~~~~~~~~~");
     // 白名单直接验证通过
-    if (isPermitUrl(httpRequest, httpResponse, chain)) {
-      chain.doFilter(httpRequest, httpResponse);
+    if (isPermitUrl(request, response, chain)) {
+      chain.doFilter(request, response);
       return;
     }
     try {
       // 非白名单需验证其合法性（非白名单请求必须带token）
-      String authHeader = httpRequest.getHeader(AbstractTokenUtil.TOKEN_HEADER);
+      String authHeader = request.getHeader(AbstractTokenUtil.TOKEN_HEADER);
       final String authToken = StringUtil.substring(authHeader, 7);
       userAuthHandler.handleAuthToken(authToken);
-      chain.doFilter(httpRequest, httpResponse);
+      chain.doFilter(request, response);
     } catch (Exception e) {
       log.error("MyAuthenticationTokenGenericFilter异常", e);
-      MyAuthExceptionHandler.accessDeniedException(e, httpResponse);
+      MyAuthExceptionHandler.accessDeniedException(e, response);
     }
   }
 

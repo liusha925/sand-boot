@@ -9,7 +9,6 @@ package com.sand.security.config;
 
 import com.sand.security.filter.MyAuthenticationTokenGenericFilter;
 import com.sand.security.handler.MyAccessDeniedHandler;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,7 +25,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * 开发日期：2019/11/26 10:34
  * 功能描述：安全认证基础配置，开启 Spring Security
  */
-@Configurable
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   /**
    * 认证管理器：使用spring自带的验证密码的流程

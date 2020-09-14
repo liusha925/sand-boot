@@ -72,10 +72,10 @@ public class UserWebSecurityConfig extends WebSecurityConfig {
         // 允许登录、注册接口post访问
         .antMatchers(HttpMethod.POST, "/auth/user/login", "/auth/user/register").permitAll()
         // 允许登录、注册接口post访问
-        .antMatchers(HttpMethod.POST, "/sys/user/login", "/sys/user/register").permitAll();
+        .antMatchers(HttpMethod.POST, "/sys/user/login", "/sys/user/register").permitAll()
 //        // 调试可以开放【全部URL白名单】
 //        .antMatchers("/**/*").permitAll()
-//        // 调试可以开放【任何尚未匹配的URL只需要验证用户即可访问】
-//        .anyRequest().authenticated();
+        // 除上面外的所有请求全部需要鉴权认证（这行一定要加，否则鉴权报错，<==>.antMatchers("/**/*").authenticated().and()）
+        .anyRequest().authenticated().and();
   }
 }

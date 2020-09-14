@@ -87,7 +87,7 @@ public class DefaultExceptionHandler {
   @ExceptionHandler(HttpMessageNotReadableException.class)
   public ResultVO handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
     errorLog(e);
-    return ResultUtil.error(ResultVO.Code.DESERIALIZE_ERROR);
+    return ResultUtil.info(ResultVO.Code.DESERIALIZE_ERROR.getValue(), e.getMessage());
   }
 
   /**
