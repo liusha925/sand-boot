@@ -12,7 +12,7 @@ import com.sand.common.exception.BusinessException;
 import com.sand.common.util.ServletUtil;
 import com.sand.common.util.lang3.StringUtil;
 import com.sand.common.vo.ResultVO;
-import com.sand.security.handler.IUserAuthHandler;
+import com.sand.security.handler.IUserAuthorizationHandler;
 import com.sand.security.util.AuthenticationUtil;
 import com.sand.sys.entity.SysMenu;
 import com.sand.sys.entity.SysRoleMenu;
@@ -44,7 +44,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Component("userAuthorizationService")
-public class UserAuthorizationService implements IUserAuthHandler {
+public class UserAuthorizationService implements IUserAuthorizationHandler {
   /**
    * 从application.yml配置文件中读取token配置，如加密密钥，token有效期等值
    */
@@ -110,25 +110,25 @@ public class UserAuthorizationService implements IUserAuthHandler {
       for (SysMenu menu : menus) {
         // 控制菜单权限
         if (MenuEnum.Type.C.getValue().equals(menu.getMenuType())) {
-          log.info("(menu.menuUrl={}，request.requestURI={}", menu.getMenuUrl(), request.getRequestURI());
+          log.info("menu.menuUrl={}|——|request.requestURI={}", menu.getMenuUrl(), request.getRequestURI());
           if (antPathMatcher.match(menu.getMenuUrl(), request.getRequestURI())) {
             hasPermission = true;
             break;
           }
           // 控制按钮权限
         } else if (MenuEnum.Type.F.getValue().equals(menu.getMenuType())) {
-          log.info("(menu.purview={}，request.purview={}", menu.getPurview(), authKey);
+          log.info("menu.purview={}|——|request.purview={}|", menu.getPurview(), authKey);
           if (authKey.equals(menu.getPurview())) {
             hasPermission = true;
             break;
           }
         } else {
-          log.info("此菜单类型{}不做权限控制", menu.getMenuType());
+          log.info("此菜单类型【{}】不做权限控制", menu.getMenuType());
         }
       }
     }
     if (!hasPermission) {
-      throw new BusinessException("没有【" + authName + "】的访问权限");
+      throw new BusinessException(String.format("没有【%s】的访问权限", authName));
     }
   }
 

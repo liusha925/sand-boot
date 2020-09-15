@@ -96,12 +96,12 @@ public class MyAuthExceptionHandler extends DefaultExceptionHandler {
    *
    * @param e        Exception
    * @param response 响应信息
-   * @throws IOException
+   * @throws IOException IOException
    */
   public static void accessDeniedException(Exception e, ServletResponse response) throws IOException {
-    ResultVO resultVO = ResultUtil.error(com.sand.common.vo.ResultVO.Code.LOGIN_EXPIRED);
+    ResultVO resultVO = ResultUtil.error(ResultVO.Code.LOGIN_EXPIRED);
     if (e instanceof BadCredentialsException || e instanceof InternalAuthenticationServiceException || e instanceof UsernameNotFoundException) {
-      resultVO = ResultUtil.error(com.sand.common.vo.ResultVO.Code.USERNAME_NOT_FOUND);
+      resultVO = ResultUtil.error(ResultVO.Code.USERNAME_NOT_FOUND);
     }
     if (e instanceof BusinessException) {
       resultVO = ResultUtil.info(null, ((BusinessException) e).getCode(), e.getMessage());

@@ -75,7 +75,7 @@ public class DefaultExceptionHandler {
   @ExceptionHandler(MissingServletRequestParameterException.class)
   public ResultVO handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
     errorLog(e);
-    return ResultUtil.error(ResultVO.Code.PARAM_MISSING_ERROR);
+    return ResultUtil.info(ResultVO.Code.PARAM_MISSING_ERROR.getValue(), e.getMessage());
   }
 
   /**

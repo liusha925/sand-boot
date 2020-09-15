@@ -26,6 +26,8 @@ mybatis-plus:
       logic-not-delete-value: 0
 ###################### 自定义配置 ######################
 sand:
+  # 版本号
+  version: 1.0.0
   # 安全认证授权配置
   security:
     jwt:

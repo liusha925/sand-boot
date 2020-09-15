@@ -10,6 +10,7 @@ package com.sand.common.util;
 import com.alibaba.fastjson.JSONObject;
 import com.sand.common.util.convert.SandCharset;
 import com.sand.common.util.lang3.StringUtil;
+import com.sand.common.vo.ResultVO;
 import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -292,6 +294,25 @@ public class ServletUtil {
    */
   public static String encodingFileName(String fileName) throws UnsupportedEncodingException {
     return encodingFileName(getRequest(), fileName);
+  }
+
+  /**
+   * 将字符串渲染到客户端
+   *
+   * @param response 渲染对象
+   * @param string   待渲染的字符串
+   * @return 渲染的字符串
+   */
+  public static String renderString(HttpServletResponse response, String string) {
+    try {
+      response.setContentType("application/json");
+      response.setStatus(ResultVO.Code.OK.getValue());
+      response.setCharacterEncoding(SandCharset.UTF_8);
+      response.getWriter().print(string);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 
   @Getter

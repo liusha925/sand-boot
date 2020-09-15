@@ -44,14 +44,14 @@ public class BackendApplication {
     };
     String[] newArgs = StringUtils.concatenateStringArrays(args, configs);
     SpringApplication.run(BackendApplication.class, newArgs);
-    log.info("                                   \n" +
-        "【BackApplication】启动成功 ლ(´ڡ`ლ)ﾞ \n" +
-        "   _____         _   _ _____            \n" +
-        "  / ____|  /\\   | \\ | |  __ \\        \n" +
-        " | (___   /  \\  |  \\| | |  | |        \n" +
-        "  \\___ \\ / /\\ \\ | . ` | |  | |      \n" +
-        "  ____) / ____ \\| |\\  | |__| |        \n" +
-        " |_____/_/    \\_\\_| \\_|_____/        \n" +
-        " :: SAND ::        (v1.0.0-SNAPSHOT)");
+    log.info("                                 \n" +
+        "  (*)(*)(*)  启动成功  (*)(*)(*)      \n" +
+        "     _____         _   _ _____        \n" +
+        "    / ____|  /\\   | \\ | |  __ \\    \n" +
+        "   | (___   /  \\  |  \\| | |  | |    \n" +
+        "    \\___ \\ / /\\ \\ | . ` | |  | |  \n" +
+        "    ____) / ____ \\| |\\  | |__| |    \n" +
+        "   |_____/_/    \\_\\_| \\_|_____/    \n" +
+        "   :: SAND ::           (v1.0.0)");
   }
 }

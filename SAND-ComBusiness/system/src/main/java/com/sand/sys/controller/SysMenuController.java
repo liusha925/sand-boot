@@ -66,8 +66,8 @@ public class SysMenuController extends SysBaseController {
   }
 
   @RequestMapping("/add")
-  @LogAnnotation(symbol = "系统管理", description = "新增菜单", service = Constant.SYS_LOG_SERVICE)
   @PreAuthorize("@userAuthorizationService.hasPermission('sys:menu:add' ,'新增菜单')")
+  @LogAnnotation(symbol = "系统管理", description = "新增菜单", service = Constant.SYS_LOG_SERVICE)
   public ResultVO add(@RequestBody SysMenuModel model) {
     log.info("SysMenuController add params：{}", model);
     menuService.add(model);

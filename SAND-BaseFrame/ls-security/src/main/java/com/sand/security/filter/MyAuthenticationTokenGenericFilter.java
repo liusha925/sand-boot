@@ -8,7 +8,7 @@
 package com.sand.security.filter;
 
 import com.sand.common.util.lang3.StringUtil;
-import com.sand.security.handler.IUserAuthHandler;
+import com.sand.security.handler.IUserAuthorizationHandler;
 import com.sand.security.handler.MyAuthExceptionHandler;
 import com.sand.security.util.AbstractTokenUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +49,7 @@ public class MyAuthenticationTokenGenericFilter extends OncePerRequestFilter {
    * 用户认证服务接口
    */
   @Autowired
-  private IUserAuthHandler userAuthHandler;
+  private IUserAuthorizationHandler userAuthorizationHandler;
 
   @Override
   public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -63,7 +63,7 @@ public class MyAuthenticationTokenGenericFilter extends OncePerRequestFilter {
       // 非白名单需验证其合法性（非白名单请求必须带token）
       String authHeader = request.getHeader(AbstractTokenUtil.TOKEN_HEADER);
       final String authToken = StringUtil.substring(authHeader, 7);
-      userAuthHandler.handleAuthToken(authToken);
+      userAuthorizationHandler.handleAuthToken(authToken);
       chain.doFilter(request, response);
     } catch (Exception e) {
       log.error("MyAuthenticationTokenGenericFilter异常", e);

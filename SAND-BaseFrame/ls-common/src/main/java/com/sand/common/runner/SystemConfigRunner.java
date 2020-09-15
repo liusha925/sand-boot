@@ -49,16 +49,16 @@ public class SystemConfigRunner implements ApplicationRunner {
      */
     List<String> argsList = Arrays.asList(args.getSourceArgs());
     if (argsList.contains(APPLIED)) {
-      log.info("操作系统变量信息 加载开始...");
+      log.info("操作系统信息 加载开始...");
       Map<String, String> envParams = System.getenv();
       envParams.keySet().stream().map(key -> key + "=" + envParams.get(key)).forEach(log::info);
-      log.info("...操作系统变量信息 加载完成");
-      log.info("Java环境变量信息 加载开始...");
+      log.info("...操作系统信息 加载完成");
+      log.info("JVM系统信息 加载开始...");
       Properties properties = System.getProperties();
       properties.keySet().stream().map(obj -> (String) obj).map(key -> key + "=" + properties.get(key)).forEach(log::info);
-      log.info("...Java环境变量信息 加载完成");
+      log.info("...JVM系统信息 加载完成");
     } else {
-      log.info("系统变量信息加载 未开启");
+      log.info("系统信息加载 未开启");
     }
   }
 

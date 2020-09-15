@@ -49,13 +49,13 @@ public class FastJsonSafeRunner implements ApplicationRunner {
     List<String> argsList = Arrays.asList(args.getSourceArgs());
     if (argsList.contains(APPLIED)) {
       try {
-        log.info("~~~~~~~fast json安全模式 启用");
+        log.info("Fast Json安全模式 启用");
         ParserConfig.getGlobalInstance().setSafeMode(true);
       } catch (Exception e) {
-        log.info("~~~~~~~fast json安全模式 启用异常", e);
+        log.info("Fast Json安全模式 启用异常", e);
       }
     } else {
-      log.info("fast json安全模式 未启用");
+      log.info("Fast Json安全模式 未启用");
     }
   }
 }

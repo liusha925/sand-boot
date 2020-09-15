@@ -7,9 +7,12 @@
  */
 package com.sand.sys.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sand.common.base.BaseCommon;
 import com.sand.security.util.AuthenticationUtil;
+import com.sand.sys.entity.SysRoleMenu;
 import com.sand.sys.entity.SysUser;
+import com.sand.sys.service.ISysRoleMenuService;
 import com.sand.sys.service.ISysUserRoleService;
 import com.sand.sys.service.ISysUserService;
 import com.sand.user.entity.AuthUser;
@@ -17,8 +20,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 功能说明：系统模块基础业务
@@ -32,6 +38,8 @@ public class SysBaseController extends BaseCommon {
   private ISysUserService userService;
   @Autowired
   private ISysUserRoleService userRoleService;
+  @Autowired
+  private ISysRoleMenuService roleMenuService;
 
   /**
    * 从SecurityContextHolder获取用户信息
@@ -93,5 +101,20 @@ public class SysBaseController extends BaseCommon {
     List<Object> roleIds = userRoleService.findRoleIdsByUserId(this.getUserId());
     log.info("当前登录用户roleIds：{}", roleIds);
     return ArrayUtils.toStringArray(roleIds.toArray());
+  }
+
+  /**
+   * 获取当前登录用户的菜单id集合
+   *
+   * @return 菜单id集合
+   */
+  public List<Object> getMenuIds() {
+    QueryWrapper<SysRoleMenu> queryWrapper = new QueryWrapper<>();
+    queryWrapper.select("menu_id").in("role_id", Arrays.asList(this.getRoleIds()));
+    List<Object> menuIds = roleMenuService.listObjs(queryWrapper);
+    // 过滤掉重复的菜单ID
+    menuIds = new ArrayList<>(menuIds.stream().collect(Collectors.groupingBy(Object::toString, Collectors.toList())).keySet());
+    log.info("当前登录用户menuIds：{}", menuIds);
+    return menuIds;
   }
 }

@@ -13,7 +13,7 @@ package com.sand.security.handler;
  * 开发日期：2020/9/3 13:25
  * 功能描述：处理token
  */
-public interface IUserAuthHandler {
+public interface IUserAuthorizationHandler {
   /**
    * 处理token是否有效
    *
