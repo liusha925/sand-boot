@@ -4892,7 +4892,7 @@
      * @module zrender/graphic/Group
      * @example
      *     var Group = require('zrender/container/Group');
-     *     var Circle = require('zrender/graphic/shape/Circle');
+     *     var Circle = require('zrender/web/shape/Circle');
      *     var g = new Group();
      *     g.position[0] = 100;
      *     g.position[1] = 100;
@@ -4907,7 +4907,7 @@
      */
 
     /**
-     * @alias module:zrender/graphic/Group
+     * @alias module:zrender/web/Group
      * @constructor
      * @extends module:zrender/mixin/Transformable
      * @extends module:zrender/mixin/Eventful
@@ -7465,11 +7465,11 @@
                         // (1) If image is not loaded, it will be loaded at render phase and call
                         // `dirty()` and `textBackgroundColor.image` will be replaced with the loaded
                         // image, and then the right size will be calculated here at the next tick.
-                        // See `graphic/helper/text.js`.
+                        // See `web/helper/text.js`.
                         // (2) If image loaded, and `textBackgroundColor.image` is image src string,
                         // use `imageHelper.findExistImage` to find cached image.
                         // `imageHelper.findExistImage` will always be called here before
-                        // `imageHelper.createOrUpdateImage` in `graphic/helper/text.js#renderRichText`
+                        // `imageHelper.createOrUpdateImage` in `web/helper/text.js#renderRichText`
                         // which ensures that image will not be rendered before correct size calcualted.
                         if (bgImg) {
                             bgImg = findExistImage(bgImg);
@@ -8171,15 +8171,15 @@
 
     /**
      * 可绘制的图形基类
-     * Base class of all displayable graphic objects
+     * Base class of all displayable web objects
      * @module zrender/graphic/Displayable
      */
 
 
     /**
-     * @alias module:zrender/graphic/Displayable
+     * @alias module:zrender/web/Displayable
      * @extends module:zrender/Element
-     * @extends module:zrender/graphic/mixin/RectText
+     * @extends module:zrender/web/mixin/RectText
      */
     function Displayable(opts) {
 
@@ -8437,7 +8437,7 @@
     mixin(Displayable, RectText);
 
     /**
-     * @alias zrender/graphic/Image
+     * @alias zrender/web/Image
      * @extends module:zrender/graphic/Displayable
      * @constructor
      * @param {Object} opts
@@ -13887,7 +13887,7 @@
     var pathProxyForDraw = new PathProxy(true);
 
     /**
-     * @alias module:zrender/graphic/Path
+     * @alias module:zrender/web/Path
      * @extends module:zrender/graphic/Displayable
      * @constructor
      * @param {Object} opts
@@ -14726,7 +14726,7 @@
     }
 
     /**
-     * @alias zrender/graphic/Text
+     * @alias zrender/web/Text
      * @extends module:zrender/graphic/Displayable
      * @constructor
      * @param {Object} opts
@@ -16613,7 +16613,7 @@
     }
 
     /**
-     * Update graphic element properties with or without animation according to the
+     * Update web element properties with or without animation according to the
      * configuration in series.
      *
      * Caution: this method will stop previous animation.
@@ -16626,11 +16626,11 @@
      * @param {number} [dataIndex]
      * @param {Function} [cb]
      * @example
-     *     graphic.updateProps(el, {
+     *     web.updateProps(el, {
      *         position: [100, 100]
      *     }, seriesModel, dataIndex, function () { console.log('Animation done!'); });
      *     // Or
-     *     graphic.updateProps(el, {
+     *     web.updateProps(el, {
      *         position: [100, 100]
      *     }, seriesModel, function () { console.log('Animation done!'); });
      */
@@ -16639,7 +16639,7 @@
     }
 
     /**
-     * Init graphic element properties with or without animation according to the
+     * Init web element properties with or without animation according to the
      * configuration in series.
      *
      * Caution: this method will stop previous animation.
@@ -16762,7 +16762,7 @@
                 }
                 // else {
                 //     if (el.previousProps) {
-                //         graphic.updateProps
+                //         web.updateProps
                 //     }
                 // }
             }
@@ -22307,7 +22307,7 @@
             planResult = this._plan(this.context);
         }
 
-        // Support sharding by mod, which changes the render sequence and makes the rendered graphic
+        // Support sharding by mod, which changes the render sequence and makes the rendered web
         // elements uniformed distributed when progress, especially when moving or zooming.
         var lastModBy = normalizeModBy(this._modBy);
         var lastModDataCount = this._modDataCount || 0;
@@ -22785,7 +22785,7 @@
             } else {
                 // When series is not alive (that may happen when click toolbox
                 // restore or setOption with not merge mode), series data may
-                // be still need to judge animation or something when graphic
+                // be still need to judge animation or something when web
                 // elements want to know whether fade out.
                 return inner$4(this).data;
             }
@@ -24145,7 +24145,7 @@
     proto.restoreData = function (ecModel, payload) {
         // TODO: Only restroe needed series and components, but not all components.
         // Currently `restoreData` of all of the series and component will be called.
-        // But some independent components like `title`, `legend`, `graphic`, `toolbox`,
+        // But some independent components like `title`, `legend`, `web`, `toolbox`,
         // `tooltip`, `axisPointer`, etc, do not need series refresh when `setOption`,
         // and some components like coordinate system, axes, dataZoom, visualMap only
         // need their target series refresh.
@@ -25646,7 +25646,7 @@
             updateStreamModes(this, ecModel);
 
             // We update stream modes before coordinate system updated, then the modes info
-            // can be fetched when coord sys updating (consider the barGrid extent fix). But
+            // can be fetched when coord system updating (consider the barGrid extent fix). But
             // the drawback is the full coord info can not be fetched. Fortunately this full
             // coord is not requied in stream mode updater currently.
             coordSysMgr.update(ecModel, api);
@@ -26147,7 +26147,7 @@
         // `appendData`, the initial extent of coordinate system should better
         // be fixed by axis `min`/`max` setting or initial data, otherwise if
         // the extent changed while `appendData`, the location of the painted
-        // graphic elements have to be changed, which make the usage of
+        // web elements have to be changed, which make the usage of
         // `appendData` meaningless.
 
         this._scheduler.unfinished = true;
@@ -29088,7 +29088,7 @@
         child.dataType = this.dataType;
     };
     /**
-     * Set graphic element relative to data. It can be set as null
+     * Set web element relative to data. It can be set as null
      * @param {number} idx
      * @param {module:zrender/Element} [el]
      */
@@ -47548,7 +47548,7 @@
             );
 
             // Notice: when thisTree and oldTree are the same tree (see list.cloneShallow),
-            // the oldTree is actually losted, so we can not find all of the old graphic
+            // the oldTree is actually losted, so we can not find all of the old web
             // elements from tree. So we use this stragegy: make element storage, move
             // from old storage to new storage, clear old storage.
 
@@ -51080,7 +51080,7 @@
         var defaultLabelColor;
         var baseText;
 
-        // FIXME: the logic below probably should be merged to `graphic.setLabelStyle`.
+        // FIXME: the logic below probably should be merged to `web.setLabelStyle`.
         if (showLabel || hoverShowLabel) {
             defaultLabelColor = visualColor || '#000';
 
@@ -51185,7 +51185,7 @@
      * @module echarts/chart/helper/LineDraw
      */
 
-// import IncrementalDisplayable from 'zrender/src/graphic/IncrementalDisplayable';
+// import IncrementalDisplayable from 'zrender/src/web/IncrementalDisplayable';
 
     /**
      * @alias module:echarts/component/marker/LineDraw
@@ -55569,7 +55569,7 @@
             return true; // Global panel
         }
         var panelId = cover.__brushOption.panelId;
-        // User may give cover without coord sys info,
+        // User may give cover without coord system info,
         // which is then treated as global panel.
         return panelId != null ? panels[panelId] : true;
     }
@@ -56026,7 +56026,7 @@
             createCover: function (controller, brushOption) {
                 var cover = new Group();
 
-                // Do not use graphic.Polygon because graphic.Polyline do not close the
+                // Do not use web.Polygon because web.Polyline do not close the
                 // border of the shape when drawing, which is a better experience for user.
                 cover.add(new Polyline({
                     name: 'main',
@@ -56041,7 +56041,7 @@
             },
             endCreating: function (controller, cover) {
                 cover.remove(cover.childAt(0));
-                // Use graphic.Polygon close the shape.
+                // Use web.Polygon close the shape.
                 cover.add(new Polygon({
                     name: 'main',
                     draggable: true,
@@ -57019,16 +57019,16 @@
         },
 
         /**
-         * Return the graphic data structure
+         * Return the web data structure
          *
-         * @return {module:echarts/data/Graph} graphic data structure
+         * @return {module:echarts/data/Graph} web data structure
          */
         getGraph: function () {
             return this.getData().graph;
         },
 
         /**
-         * Get edge data of graphic data structure
+         * Get edge data of web data structure
          *
          * @return {module:echarts/data/List} data structure of list
          */
@@ -63349,7 +63349,7 @@
                 )
             ) || [];
         } else if (el) {
-            // Use graphic bounding rect
+            // Use web bounding rect
             var rect = el.getBoundingRect().clone();
             rect.applyTransform(el.transform);
             point = [
@@ -67502,7 +67502,7 @@
             var Clz = graphic[graphicType.charAt(0).toUpperCase() + graphicType.slice(1)];
 
             if (__DEV__) {
-                assert$1(Clz, 'graphic type "' + graphicType + '" can not be found.');
+                assert$1(Clz, 'web type "' + graphicType + '" can not be found.');
             }
 
             el = new Clz();
@@ -67920,16 +67920,16 @@
         var graphicOption = option.graphic;
 
         // Convert
-        // {graphic: [{left: 10, type: 'circle'}, ...]}
+        // {web: [{left: 10, type: 'circle'}, ...]}
         // or
-        // {graphic: {left: 10, type: 'circle'}}
+        // {web: {left: 10, type: 'circle'}}
         // to
-        // {graphic: [{elements: [{left: 10, type: 'circle'}, ...]}]}
+        // {web: [{elements: [{left: 10, type: 'circle'}, ...]}]}
         if (isArray(graphicOption)) {
             if (!graphicOption[0] || !graphicOption[0].elements) {
                 option.graphic = [{elements: graphicOption}];
             } else {
-                // Only one graphic instance can be instantiated. (We dont
+                // Only one web instance can be instantiated. (We dont
                 // want that too many views are created in echarts._viewMap)
                 option.graphic = [option.graphic[0]];
             }
@@ -68022,7 +68022,7 @@
                 if (__DEV__) {
                     assert$1(
                         isObject$1(newElOption) || resultItem.exist,
-                        'Empty graphic option definition'
+                        'Empty web option definition'
                     );
                 }
 
@@ -68153,10 +68153,10 @@
         },
 
         /**
-         * Update graphic elements.
+         * Update web elements.
          *
          * @private
-         * @param {Object} graphicModel graphic model
+         * @param {Object} graphicModel web model
          * @param {module:echarts/ExtensionAPI} api extension API
          */
         _updateElements: function (graphicModel, api) {
@@ -68169,7 +68169,7 @@
             var elMap = this._elMap;
             var rootGroup = this.group;
 
-            // Top-down tranverse to assign graphic settings to each elements.
+            // Top-down tranverse to assign web settings to each elements.
             each$1(elOptionsToUpdate, function (elOption) {
                 var $action = elOption.$action;
                 var id = elOption.id;
@@ -68227,10 +68227,10 @@
         },
 
         /**
-         * Locate graphic elements.
+         * Locate web elements.
          *
          * @private
-         * @param {Object} graphicModel graphic model
+         * @param {Object} graphicModel web model
          * @param {module:echarts/ExtensionAPI} api extension API
          */
         _relocate: function (graphicModel, api) {
@@ -68290,13 +68290,13 @@
         var graphicType = elOption.type;
 
         if (__DEV__) {
-            assert$1(graphicType, 'graphic type MUST be set');
+            assert$1(graphicType, 'web type MUST be set');
         }
 
         var Clz = graphic[graphicType.charAt(0).toUpperCase() + graphicType.slice(1)];
 
         if (__DEV__) {
-            assert$1(Clz, 'graphic type can not be found');
+            assert$1(Clz, 'web type can not be found');
         }
 
         var el = new Clz(elOption);
@@ -68835,7 +68835,7 @@
         // FIXME
         // `subPixelOptimizeRect` may bring some gap between edge of viewpart
         // and background rect when setting like `left: 0`, `top: 0`.
-        // graphic.subPixelOptimizeRect(rect);
+        // web.subPixelOptimizeRect(rect);
 
         return rect;
     }
@@ -70794,7 +70794,7 @@
                 // align and verticalAlign will not work.
                 vAlign = null;
             }
-            // Specify tooltip position by string 'top' 'bottom' 'left' 'right' around graphic element
+            // Specify tooltip position by string 'top' 'bottom' 'left' 'right' around web element
             else if (typeof positionExpr === 'string' && el) {
                 var pos = calcTooltipPosition(
                     positionExpr, rect, contentSize
@@ -71023,7 +71023,7 @@
 * under the License.
 */
 
-// FIXME Better way to pack data in graphic element
+// FIXME Better way to pack data in web element
 
     /**
      * @action
@@ -73407,8 +73407,8 @@
      * }
      * or {
      *     panelId: ...,
-     *     coordSys: <geo coord sys>
-     *     coordSyses: [<geo coord sys>]
+     *     coordSys: <geo coord system>
+     *     coordSyses: [<geo coord system>]
      *     geoModel: <geo component>
      * }
      *
@@ -76112,7 +76112,7 @@
     /**
      * If tow dataZoomModels has the same axis controlled, we say that they are 'linked'.
      * dataZoomModels and 'links' make up one or more graphics.
-     * This function finds the graphic where the source dataZoomModel is in.
+     * This function finds the web where the source dataZoomModel is in.
      *
      * @public
      * @param {Function} forEachNode Node iterator.
@@ -78458,7 +78458,7 @@
             if (typePriority[prefix + oneType] > typePriority[prefix + controlType]) {
                 controlType = oneType;
             }
-            // Do not support that different 'shift'/'ctrl'/'alt' setting used in one coord sys.
+            // Do not support that different 'shift'/'ctrl'/'alt' setting used in one coord system.
             extend(opt, dataZoomInfo.roamControllerOpt);
         });
 
@@ -80416,7 +80416,7 @@
 
             // Text is always horizontal layout but should not be effected by
             // transform (orient/inverse). So label is built separately but not
-            // use zrender/graphic/helper/RectText, and is located based on view
+            // use zrender/web/helper/RectText, and is located based on view
             // group (according to handleLabelPoint) but not barGroup.
             var textStyleModel = this.visualMapModel.textStyleModel;
             var handleLabel = new Text({

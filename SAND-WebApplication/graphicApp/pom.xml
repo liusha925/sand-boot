@@ -62,7 +62,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.sand.graphic.GraphicApplication</mainClass>
+                            <mainClass>com.sand.web.GraphicApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

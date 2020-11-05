@@ -13,14 +13,14 @@ import com.sand.common.util.ServletUtil;
 import com.sand.common.util.lang3.StringUtil;
 import com.sand.common.vo.ResultVO;
 import com.sand.security.handler.IUserAuthorizationHandler;
-import com.sand.security.util.AuthenticationUtil;
-import com.sand.sys.entity.SysMenu;
-import com.sand.sys.entity.SysRoleMenu;
-import com.sand.sys.enums.MenuEnum;
-import com.sand.sys.sercurity.LoginService;
-import com.sand.sys.service.ISysMenuService;
-import com.sand.sys.service.ISysRoleMenuService;
-import com.sand.sys.service.ISysUserRoleService;
+import com.sand.security.util.SecurityUtil;
+import com.sand.system.entity.SysMenu;
+import com.sand.system.entity.SysRoleMenu;
+import com.sand.system.enums.MenuEnum;
+import com.sand.system.sercurity.LoginService;
+import com.sand.system.service.ISysMenuService;
+import com.sand.system.service.ISysRoleMenuService;
+import com.sand.system.service.ISysUserRoleService;
 import com.sand.user.entity.AuthUser;
 import com.sand.user.util.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -95,7 +95,7 @@ public class UserAuthorizationService implements IUserAuthorizationHandler {
   }
 
   public void hasPermission(String authKey, String authName) {
-    Object principal = AuthenticationUtil.getUser();
+    Object principal = SecurityUtil.getUser();
     log.info("获取的principal信息：{}", principal);
     boolean hasPermission = false;
     if (principal instanceof AuthUser) {
