@@ -22,6 +22,9 @@
         <fileSet>
             <directory>${project.basedir}/src/main/resources/bin</directory>
             <outputDirectory>${file.separator}</outputDirectory>
+            <includes>
+                <include>*.sh</include>
+            </includes>
             <!-- 修改文件默认权限0644,脚本需要有执行权限 -->
             <fileMode>0755</fileMode>
             <!-- 一定要改为unix，因为脚本文件在windows上面编码，会出现dos编写问题 -->
