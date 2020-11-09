@@ -30,7 +30,7 @@
         <!-- Redis依赖 -->
         <dependency>
             <groupId>com.sand</groupId>
-            <artifactId>ls-redis</artifactId>
+            <artifactId>redis</artifactId>
         </dependency>
         <!-- Spring Boot 单元测试 -->
         <dependency>

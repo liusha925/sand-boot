@@ -11,7 +11,7 @@
         <relativePath>../../</relativePath>
     </parent>
 
-    <artifactId>ls-redis</artifactId>
+    <artifactId>redis</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <description>Redis服务</description>

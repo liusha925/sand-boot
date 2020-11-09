@@ -186,7 +186,7 @@
             </dependency>
             <dependency>
                 <groupId>com.sand</groupId>
-                <artifactId>ls-redis</artifactId>
+                <artifactId>redis</artifactId>
                 <version>${sand.version}</version>
             </dependency>
             <dependency>

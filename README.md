@@ -20,7 +20,7 @@
 
 持久层Mybatis Plus：
 
-### [ls-redis]
+### [redis]
 
 Session共享Redis：
 
