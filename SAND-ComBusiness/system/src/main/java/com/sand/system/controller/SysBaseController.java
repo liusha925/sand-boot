@@ -8,7 +8,7 @@
 package com.sand.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sand.common.base.BaseCommon;
+import com.sand.core.base.BaseCommon;
 import com.sand.security.util.SecurityUtil;
 import com.sand.system.entity.SysRoleMenu;
 import com.sand.system.entity.SysUser;

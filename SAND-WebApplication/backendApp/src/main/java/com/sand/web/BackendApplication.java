@@ -7,8 +7,8 @@
  */
 package com.sand.web;
 
-import com.sand.common.runner.FastJsonSafeRunner;
-import com.sand.common.runner.SystemConfigRunner;
+import com.sand.core.runner.FastJsonSafeRunner;
+import com.sand.core.runner.SystemConfigRunner;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;

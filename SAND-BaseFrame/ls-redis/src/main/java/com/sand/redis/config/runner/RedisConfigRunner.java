@@ -7,9 +7,9 @@
  */
 package com.sand.redis.config.runner;
 
-import com.sand.common.util.convert.SandConvert;
-import com.sand.common.util.global.Config;
-import com.sand.common.util.global.PropUtil;
+import com.sand.core.util.convert.SandConvert;
+import com.sand.core.util.global.Config;
+import com.sand.core.util.global.PropUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

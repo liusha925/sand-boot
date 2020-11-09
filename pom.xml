@@ -170,7 +170,7 @@
             <!-- ===BaseFrame模块=== -->
             <dependency>
                 <groupId>com.sand</groupId>
-                <artifactId>ls-common</artifactId>
+                <artifactId>core</artifactId>
                 <version>${sand.version}</version>
             </dependency>
             <dependency>

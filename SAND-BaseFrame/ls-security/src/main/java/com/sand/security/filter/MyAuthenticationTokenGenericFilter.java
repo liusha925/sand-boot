@@ -7,7 +7,7 @@
  */
 package com.sand.security.filter;
 
-import com.sand.common.util.lang3.StringUtil;
+import com.sand.core.util.lang3.StringUtil;
 import com.sand.security.handler.IUserAuthorizationHandler;
 import com.sand.security.handler.MyAuthExceptionHandler;
 import com.sand.security.util.AbstractTokenUtil;

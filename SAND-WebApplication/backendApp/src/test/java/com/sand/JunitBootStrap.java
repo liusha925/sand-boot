@@ -7,7 +7,7 @@
  */
 package com.sand;
 
-import com.sand.common.runner.SystemConfigRunner;
+import com.sand.core.runner.SystemConfigRunner;
 import com.sand.redis.config.runner.RedisConfigRunner;
 import com.sand.redis.consumer.runner.RedisConsumeRunner;
 import com.sand.web.BackendApplication;

@@ -7,8 +7,8 @@
  */
 package com.sand.redis.util;
 
-import com.sand.common.exception.BusinessException;
-import com.sand.common.util.lang3.StringUtil;
+import com.sand.core.exception.BusinessException;
+import com.sand.core.util.lang3.StringUtil;
 import com.sand.redis.manager.RedisLockBean;
 import com.sand.redis.manager.RedisLockManager;
 import lombok.extern.slf4j.Slf4j;

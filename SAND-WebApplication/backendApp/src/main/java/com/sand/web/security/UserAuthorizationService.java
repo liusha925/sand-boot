@@ -8,10 +8,10 @@
 package com.sand.web.security;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sand.common.exception.BusinessException;
-import com.sand.common.util.ServletUtil;
-import com.sand.common.util.lang3.StringUtil;
-import com.sand.common.vo.ResultVO;
+import com.sand.core.exception.BusinessException;
+import com.sand.core.util.ServletUtil;
+import com.sand.core.util.lang3.StringUtil;
+import com.sand.core.vo.ResultVO;
 import com.sand.security.handler.IUserAuthorizationHandler;
 import com.sand.security.util.SecurityUtil;
 import com.sand.system.entity.SysMenu;

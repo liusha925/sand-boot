@@ -8,7 +8,7 @@
 package com.sand.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.sand.common.constant.Constant;
+import com.sand.core.constant.Constant;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

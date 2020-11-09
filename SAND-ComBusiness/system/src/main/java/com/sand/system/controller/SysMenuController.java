@@ -7,11 +7,11 @@
  */
 package com.sand.system.controller;
 
-import com.sand.common.constant.Constant;
-import com.sand.common.util.ResultUtil;
-import com.sand.common.util.convert.SandConvert;
-import com.sand.common.util.tree.Tree;
-import com.sand.common.vo.ResultVO;
+import com.sand.core.constant.Constant;
+import com.sand.core.util.ResultUtil;
+import com.sand.core.util.convert.SandConvert;
+import com.sand.core.util.tree.Tree;
+import com.sand.core.vo.ResultVO;
 import com.sand.log.annotation.LogAnnotation;
 import com.sand.system.entity.SysMenu;
 import com.sand.system.entity.SysUser;

@@ -7,8 +7,8 @@
  */
 package com.sand.redis.consumer.thread;
 
-import com.sand.common.util.convert.SandConvert;
-import com.sand.common.util.global.Config;
+import com.sand.core.util.convert.SandConvert;
+import com.sand.core.util.global.Config;
 import com.sand.redis.consumer.listener.RedisConsumerListener;
 import com.sand.redis.util.RedisMessageUtil;
 import lombok.extern.slf4j.Slf4j;

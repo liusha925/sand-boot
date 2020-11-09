@@ -7,7 +7,7 @@
  */
 package com.sand.system.enums;
 
-import com.sand.common.annotation.EnumValidAnnotation;
+import com.sand.core.annotation.EnumValidAnnotation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

@@ -12,7 +12,7 @@
 
 基础框架：工具类库、Mybatis Plus、Redis、Spring Security、Zookeeper
 
-### [ls-common]
+### [core]
 
 通用工具类库：
 

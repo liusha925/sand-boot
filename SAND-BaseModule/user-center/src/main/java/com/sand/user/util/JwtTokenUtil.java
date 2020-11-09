@@ -8,8 +8,8 @@
 package com.sand.user.util;
 
 import com.google.gson.Gson;
-import com.sand.common.util.convert.SandConvert;
-import com.sand.common.util.global.Config;
+import com.sand.core.util.convert.SandConvert;
+import com.sand.core.util.global.Config;
 import com.sand.redis.config.RedisConfig;
 import com.sand.redis.manager.repository.RedisRepository;
 import com.sand.security.util.AbstractTokenUtil;

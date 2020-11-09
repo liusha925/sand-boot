@@ -8,8 +8,8 @@
 package com.sand.redis.consumer.runner;
 
 import cn.hutool.core.thread.ThreadUtil;
-import com.sand.common.util.convert.SandConvert;
-import com.sand.common.util.global.Config;
+import com.sand.core.util.convert.SandConvert;
+import com.sand.core.util.global.Config;
 import com.sand.redis.config.RedisConfig;
 import com.sand.redis.consumer.thread.RedisMessageConsumeThread;
 import lombok.extern.slf4j.Slf4j;

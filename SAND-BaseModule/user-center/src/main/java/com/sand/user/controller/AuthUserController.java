@@ -7,8 +7,8 @@
  */
 package com.sand.user.controller;
 
-import com.sand.common.util.ResultUtil;
-import com.sand.common.vo.ResultVO;
+import com.sand.core.util.ResultUtil;
+import com.sand.core.vo.ResultVO;
 import com.sand.user.entity.AuthUser;
 import com.sand.user.service.IAuthUserLoginService;
 import com.sand.user.service.IAuthUserRegisterService;

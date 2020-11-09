@@ -11,7 +11,7 @@
     <description>基础框架</description>
 
     <modules>
-        <module>ls-common</module>
+        <module>core</module>
         <module>ls-mybatisplus</module>
         <module>ls-redis</module>
         <module>ls-security</module>

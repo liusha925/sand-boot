@@ -7,7 +7,7 @@
  */
 package com.sand.redis.util;
 
-import com.sand.common.util.CloseableUtil;
+import com.sand.core.util.CloseableUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;

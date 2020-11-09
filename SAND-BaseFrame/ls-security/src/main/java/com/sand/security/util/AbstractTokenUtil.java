@@ -7,8 +7,8 @@
  */
 package com.sand.security.util;
 
-import com.sand.common.util.ServletUtil;
-import com.sand.common.util.lang3.StringUtil;
+import com.sand.core.util.ServletUtil;
+import com.sand.core.util.lang3.StringUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.EqualsAndHashCode;

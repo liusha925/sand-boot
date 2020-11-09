@@ -8,11 +8,11 @@
 package com.sand.security.handler;
 
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import com.sand.common.vo.ResultVO;
-import com.sand.common.exception.BusinessException;
-import com.sand.common.exception.handler.DefaultExceptionHandler;
-import com.sand.common.util.ResultUtil;
-import com.sand.common.util.spring.SpringUtil;
+import com.sand.core.vo.ResultVO;
+import com.sand.core.exception.BusinessException;
+import com.sand.core.exception.handler.DefaultExceptionHandler;
+import com.sand.core.util.ResultUtil;
+import com.sand.core.util.spring.SpringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;

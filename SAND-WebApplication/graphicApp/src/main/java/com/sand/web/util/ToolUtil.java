@@ -7,7 +7,7 @@
  */
 package com.sand.web.util;
 
-import com.sand.common.util.convert.SandConvert;
+import com.sand.core.util.convert.SandConvert;
 
 import java.util.List;
 import java.util.Map;

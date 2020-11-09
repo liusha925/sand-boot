@@ -7,7 +7,7 @@
  */
 package com.sand.security.provider;
 
-import com.sand.common.vo.ResultVO;
+import com.sand.core.vo.ResultVO;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

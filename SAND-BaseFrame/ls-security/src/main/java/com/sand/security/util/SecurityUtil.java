@@ -7,7 +7,7 @@
  */
 package com.sand.security.util;
 
-import com.sand.common.exception.BusinessException;
+import com.sand.core.exception.BusinessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 

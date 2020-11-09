@@ -9,8 +9,8 @@ package com.sand.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sand.common.util.ResultUtil;
-import com.sand.common.vo.ResultVO;
+import com.sand.core.util.ResultUtil;
+import com.sand.core.vo.ResultVO;
 import com.sand.mybatisplus.util.PageUtil;
 import com.sand.system.entity.SysUser;
 import com.sand.system.sercurity.LoginService;

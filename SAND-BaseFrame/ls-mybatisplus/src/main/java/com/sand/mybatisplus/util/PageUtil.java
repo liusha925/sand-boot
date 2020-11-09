@@ -8,9 +8,9 @@
 package com.sand.mybatisplus.util;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sand.common.util.ParamUtil;
-import com.sand.common.util.lang3.StringUtil;
-import com.sand.common.util.convert.SandConvert;
+import com.sand.core.util.ParamUtil;
+import com.sand.core.util.lang3.StringUtil;
+import com.sand.core.util.convert.SandConvert;
 
 import java.util.HashMap;
 import java.util.List;
