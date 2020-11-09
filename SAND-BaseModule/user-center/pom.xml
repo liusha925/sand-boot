@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>com.sand</groupId>
-            <artifactId>ls-security</artifactId>
+            <artifactId>security</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sand</groupId>

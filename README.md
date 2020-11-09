@@ -24,7 +24,7 @@
 
 Session共享Redis：
 
-### [ls-security]
+### [security]
 
 安全认证Spring Security：
 

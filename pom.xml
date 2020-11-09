@@ -176,7 +176,7 @@
             </dependency>
             <dependency>
                 <groupId>com.sand</groupId>
-                <artifactId>ls-security</artifactId>
+                <artifactId>security</artifactId>
                 <version>${sand.version}</version>
             </dependency>
             <dependency>

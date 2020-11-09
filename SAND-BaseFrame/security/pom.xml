@@ -11,7 +11,7 @@
         <relativePath>../../</relativePath>
     </parent>
 
-    <artifactId>ls-security</artifactId>
+    <artifactId>security</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <description>Spring Security授权认证</description>
