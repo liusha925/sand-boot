@@ -11,7 +11,7 @@
         <relativePath>../../</relativePath>
     </parent>
 
-    <artifactId>ls-zookeeper</artifactId>
+    <artifactId>zookeeper</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <description>ZooKeeper注册中心</description>

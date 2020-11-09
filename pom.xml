@@ -191,7 +191,7 @@
             </dependency>
             <dependency>
                 <groupId>com.sand</groupId>
-                <artifactId>ls-zookeeper</artifactId>
+                <artifactId>zookeeper</artifactId>
                 <version>${sand.version}</version>
             </dependency>
             <!-- ===BaseModule模块=== -->

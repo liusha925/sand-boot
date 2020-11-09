@@ -15,7 +15,7 @@
         <module>mybatisplus</module>
         <module>redis</module>
         <module>security</module>
-        <module>ls-zookeeper</module>
+        <module>zookeeper</module>
     </modules>
 
 </project>
