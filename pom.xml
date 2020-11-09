@@ -171,7 +171,7 @@
             <!-- ===BaseFrame模块=== -->
             <dependency>
                 <groupId>com.sand</groupId>
-                <artifactId>core</artifactId>
+                <artifactId>common</artifactId>
                 <version>${sand.version}</version>
             </dependency>
             <dependency>

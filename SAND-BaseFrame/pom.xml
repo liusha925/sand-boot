@@ -11,7 +11,7 @@
     <description>基础框架</description>
 
     <modules>
-        <module>core</module>
+        <module>common</module>
         <module>mybatisplus</module>
         <module>redis</module>
         <module>security</module>
