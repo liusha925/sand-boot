@@ -25,7 +25,7 @@
         <!-- Mybatis Plus依赖 -->
         <dependency>
             <groupId>com.sand</groupId>
-            <artifactId>ls-mybatisplus</artifactId>
+            <artifactId>mybatisplus</artifactId>
         </dependency>
         <!-- Spring Boot web依赖 -->
         <dependency>

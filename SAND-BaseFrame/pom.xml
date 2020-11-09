@@ -12,7 +12,7 @@
 
     <modules>
         <module>core</module>
-        <module>ls-mybatisplus</module>
+        <module>mybatisplus</module>
         <module>ls-redis</module>
         <module>ls-security</module>
         <module>ls-zookeeper</module>

@@ -11,7 +11,7 @@
         <relativePath>../../</relativePath>
     </parent>
 
-    <artifactId>ls-mybatisplus</artifactId>
+    <artifactId>mybatisplus</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <description>Mybatis Plus框架</description>

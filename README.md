@@ -16,7 +16,7 @@
 
 通用工具类库：
 
-### [ls-mybatisplus]
+### [mybatisplus]
 
 持久层Mybatis Plus：
 

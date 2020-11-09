@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>com.sand</groupId>
-            <artifactId>ls-mybatisplus</artifactId>
+            <artifactId>mybatisplus</artifactId>
         </dependency>
     </dependencies>
 

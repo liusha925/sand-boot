@@ -20,6 +20,7 @@
         <module>SAND-BaseFrame</module>
         <module>SAND-BaseModule</module>
         <module>SAND-ComBusiness</module>
+        <module>SAND-WebApplication</module>
     </modules>
 
     <properties>
@@ -180,7 +181,7 @@
             </dependency>
             <dependency>
                 <groupId>com.sand</groupId>
-                <artifactId>ls-mybatisplus</artifactId>
+                <artifactId>mybatisplus</artifactId>
                 <version>${sand.version}</version>
             </dependency>
             <dependency>
