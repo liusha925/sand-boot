@@ -14,8 +14,8 @@
     <property name="LOG_HOME" value="${LOG_PATH:-.}" />
     <!-- 常规输出格式：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
     <property name="NORMAL_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"/>
-    <!-- 彩色输出格式：magenta：洋红，boldMagenta：粗红，yan：青色，·⊱══> -->
-    <property name="CONSOLE_LOG_PATTERN" value="%boldMagenta([%d{yyyy-MM-dd HH:mm:ss.SSS}]) %red([%thread]) %boldMagenta(%-5level) %blue(%logger{20}·⊱[%method,%line]) %magenta(·⊱═>) %cyan(%msg%n)"/>
+    <!-- 彩色输出格式：magenta：洋红，boldMagenta：粗红，yan：青色，·#══> -->
+    <property name="CONSOLE_LOG_PATTERN" value="%boldMagenta([%d{yyyy-MM-dd HH:mm:ss.SSS}]) %red([%thread]) %boldMagenta(%-5level) %blue(%logger{20}·#[%method,%line]) %magenta(·#═>) %cyan(%msg%n)"/>
 
     <!-- ===日志输出级别，OFF level > FATAL > ERROR > WARN > INFO > DEBUG > ALL level=== -->
     <logger name="com.sand" level="INFO"/>

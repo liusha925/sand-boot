@@ -2,7 +2,7 @@
 spring:
   profiles:
     # dev-开发环境 test-测试环境 prod-生产环境
-    active: dev
+    active: test
   devtools:
     restart:
       # 热部署开关
