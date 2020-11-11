@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 说明：
     1、日志级别及文件 日志记录采用分级记录，级别与日志文件名相对应，不同级别的日志信息记录到不同的日志文件中。
-    2、日志级别可以根据开发环境进行配置，放方便统一管理查看日志，日志文件路径统一由LOG_PATH:-.配置在/home/项目名称/logs
+    2、日志级别可以根据开发环境进行配置，为方便统一管理查看日志，日志文件路径统一由LOG_PATH:-.配置在/home/项目名称/logs
 -->
 <configuration>
     <!-- 引入默认设置 -->
@@ -102,7 +102,7 @@
 
     <!-- ======开发环境：打印控制台和输出到文件====== -->
     <springProfile name="dev"><!-- 由application.yml中的spring.profiles.active配置 -->
-        <root level="INFO">
+        <root level="DEBUG">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="INFO_FILE"/>
             <appender-ref ref="ERROR_FILE"/>
