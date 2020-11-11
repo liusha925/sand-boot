@@ -20,8 +20,6 @@ import com.sand.log.mapper.OperateLogMapper;
 import com.sand.log.service.ILogService;
 import com.sand.log.service.IOperateLogService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,7 +38,6 @@ import java.util.Map;
 @Slf4j
 @Service
 public class OperateLogServiceImpl extends ServiceImpl<OperateLogMapper, OperateLog> implements ILogService, IOperateLogService {
-  private static final Logger logger = LoggerFactory.getLogger(OperateLogServiceImpl.class);
 
   @Override
   public Object init() {
@@ -107,13 +104,13 @@ public class OperateLogServiceImpl extends ServiceImpl<OperateLogMapper, Operate
   @Override
   @Transactional(rollbackFor = BusinessException.class)
   public void save(Object obj, long exeTime, int exeStatus) {
-    OperateLog log = (OperateLog) obj;
-    log.setExeTime(SandConvert.obj2Str(exeTime));
-    log.setExeStatus(exeStatus);
-    logger.info(new StringBuilder().append("用户：").append(StringUtil.isBlank(log.getUserName()) ? "匿名用户" : log.getUserName()).append("，于")
-        .append(DateUtil.getNow(DateUtil.Format.F1_YYYY_MM_DD_HH_MM_SS_SSS)).append("进行了[").append(log.getRemark()).append("]操作")
-        .append("，耗时").append(log.getExeTime()).append("毫秒，URL：").append(log.getUrl()).toString());
-    super.save(log);
+    OperateLog operateLog = (OperateLog) obj;
+    operateLog.setExeTime(SandConvert.obj2Str(exeTime));
+    operateLog.setExeStatus(exeStatus);
+    log.info(new StringBuilder().append("用户：").append(StringUtil.isBlank(operateLog.getUserName()) ? "匿名用户" : operateLog.getUserName()).append("，于")
+        .append(DateUtil.getNow(DateUtil.Format.F1_YYYY_MM_DD_HH_MM_SS_SSS)).append("进行了[").append(operateLog.getRemark()).append("]操作")
+        .append("，耗时").append(operateLog.getExeTime()).append("毫秒，URL：").append(operateLog.getUrl()).toString());
+    super.save(operateLog);
   }
 
 }

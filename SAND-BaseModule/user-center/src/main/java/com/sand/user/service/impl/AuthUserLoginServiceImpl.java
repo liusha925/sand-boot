@@ -11,8 +11,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
 import com.sand.core.util.ParamUtil;
+import com.sand.core.util.ServletUtil;
 import com.sand.core.util.crypt.des.DesCryptUtil;
 import com.sand.core.util.crypt.md5.Md5Util;
+import com.sand.core.util.lang3.DateUtil;
+import com.sand.core.util.lang3.StringUtil;
 import com.sand.user.entity.AuthUser;
 import com.sand.user.mapper.AuthUserMapper;
 import com.sand.user.service.IAuthUserLoginService;
@@ -36,7 +39,7 @@ import java.util.Objects;
  * 开发日期：2020/3/19 16:59
  * 功能描述：用户登录服务，登录三步曲
  */
-@Slf4j
+@Slf4j(topic = "user-login")
 @Service
 public class AuthUserLoginServiceImpl extends ServiceImpl<AuthUserMapper, AuthUser> implements IAuthUserLoginService {
   /**
@@ -58,25 +61,21 @@ public class AuthUserLoginServiceImpl extends ServiceImpl<AuthUserMapper, AuthUs
 
   @Override
   public void loginBeforeValid(Map<String, Object> params) {
-    log.info("1、登录前校验");
     String username = ParamUtil.getStringValue(params, "username");
     String password = ParamUtil.getStringValue(params, "password");
     AuthUser dbUser = this.getOne(new QueryWrapper<AuthUser>().eq("username", username));
     if (Objects.isNull(dbUser)) {
-      log.info("{}用户不存在！", username);
       throw new UsernameNotFoundException("username not found");
     }
     // 先将前端DES加密的密码解密再做md5加密比对
     String md5Password = Md5Util.encryptStr(DesCryptUtil.decrypt(password));
     if (!md5Password.equals(dbUser.getPassword())) {
-      log.info("{}用户密码错误！", username);
       throw new UsernameNotFoundException("password is error");
     }
   }
 
   @Override
   public Object login(Map<String, Object> params) {
-    log.info("2、登录逻辑");
     String username = ParamUtil.getStringValue(params, "username");
     String password = ParamUtil.getStringValue(params, "password");
     AbstractAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
@@ -90,7 +89,6 @@ public class AuthUserLoginServiceImpl extends ServiceImpl<AuthUserMapper, AuthUs
 
   @Override
   public Map<String, Object> loginAfterHandle(Object userDetails) {
-    log.info("3、登录后处理");
     AuthUser user = (AuthUser) userDetails;
     AuthUser dbUser = this.getById(user.getUserId());
     String accessToken = jwtTokenUtil.generateToken(dbUser);
@@ -103,6 +101,11 @@ public class AuthUserLoginServiceImpl extends ServiceImpl<AuthUserMapper, AuthUs
     loginResult.put("authorities", user.getAuthorities());
     loginResult.put("expiration", jwtTokenUtil.getExpiration());
     loginResult.put("token_type", JwtTokenUtil.TOKEN_PREFIX);
+    // 记录登录日志
+    log.info("用户【" + (StringUtil.isBlank(dbUser.getUsername()) ? "【匿名用户" : dbUser.getUsername()) +
+        "】于" + DateUtil.getNow(DateUtil.Format.F1_YYYY_MM_DD_HH_MM_SS_SSS) +
+        "通过【" + ServletUtil.getOSAndBrowser() + "】进行登录，IP：" + ServletUtil.getRemoteAddress());
+
     return loginResult;
   }
 
