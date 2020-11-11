@@ -6,9 +6,9 @@ spring:
   # 数据库
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://39.99.191.11:3306/risk_evaluation?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false
+    url: jdbc:mysql://localhost:3306/risk_evaluation?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false
     username: root
-    password: 111111
+    password: root
   # 模板引擎
   thymeleaf:
     # 模板前缀
