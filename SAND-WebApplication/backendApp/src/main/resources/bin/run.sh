@@ -4,35 +4,22 @@
 # description: JAVA APP start|stop|restart|status.
 
 ENV=dev
-APP_HOME=`pwd`
-APP_NAME=backendApp
 RUNNING_USER=root
+APP_NAME=backendApp
 LOG_DATE=`date +%Y%m%d%H%M%S`
+LOG_HOME=/home/${APP_NAME}/logs
 
 dirname $0|grep "^/" >/dev/null
 
-#获取APP路径
-if [[ $? -eq 0 ]]; then
-   APP_HOME=`dirname $0`
-else
-    dirname $0|grep "^\." >/dev/null:
-    temp=$?
-    if [[ ${temp} -eq 0 ]]; then
-        APP_HOME=`dirname $0|sed "s#^.#$APP_HOME#"`
-    else
-        APP_HOME=`dirname $0|sed "s#^#$APP_HOME/#"`
-    fi
-fi
-
 #创建日志路径
-if [[ ! -d "$APP_HOME/logs" ]]; then
-  mkdir ${APP_HOME}/logs
+if [[ ! -d "$LOG_HOME" ]]; then
+  mkdir -p ${LOG_HOME}
 fi
 
 #实时日志
-LOG_PATH=${APP_HOME}/logs/${APP_NAME}.out
+LOG_PATH=${LOG_HOME}/${APP_NAME}.out
 #GC日志信息
-GC_LOG_PATH=${APP_HOME}/logs/gc-${APP_NAME}-${LOG_DATE}.log
+GC_LOG_PATH=${LOG_HOME}/gc-${APP_NAME}-${LOG_DATE}.log
 #JMX监控参数
 JMX="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1091 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"
 #JVM启动参数
@@ -53,7 +40,7 @@ start() {
     JAVA_CMD="nohup java -jar $JVM_OPTS $APP_FILE >> $LOG_PATH 2>&1 &"
     echo "---------------------------------"
     su  ${RUNNING_USER} -c "$JAVA_CMD"
-    echo "启动完成，按CTRL+C退出日志界面即可>>>>>"
+    echo "启动完成，按CTRL+C退出日志界面即可>>>"
     echo "---------------------------------"
     sleep 2s
     tail -f ${LOG_PATH}

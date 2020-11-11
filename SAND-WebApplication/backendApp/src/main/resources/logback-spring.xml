@@ -102,7 +102,7 @@
 
     <!-- ======开发环境：打印控制台和输出到文件====== -->
     <springProfile name="dev"><!-- 由application.yml中的spring.profiles.active配置 -->
-        <root level="DEBUG">
+        <root level="DEBUG  ">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="INFO_FILE"/>
             <appender-ref ref="ERROR_FILE"/>

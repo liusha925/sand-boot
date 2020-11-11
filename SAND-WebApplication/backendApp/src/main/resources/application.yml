@@ -9,4 +9,4 @@ spring:
       enabled: true
 ####################### 日志配置 #######################
 logging:
-  path: /home/backend/logs
+  path: /home/backendApp/logs
