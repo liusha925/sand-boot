@@ -36,13 +36,15 @@
         <fastjson.version>1.2.70</fastjson.version>
         <reflections.version>0.9.11</reflections.version>
         <UserAgentUtils.version>1.21</UserAgentUtils.version>
-        <!-- Jackson 最新反序列化漏洞(CVE-2019-14361和CVE-2019-14439)修复 -->
+        <!-- 低于此版本存在 【Jackson 最新反序列化漏洞(CVE-2019-14361和CVE-2019-14439)】 -->
         <jackson-databind.version>2.9.10</jackson-databind.version>
         <hutool.version>5.3.2</hutool.version>
         <easypoi.version>3.1.0</easypoi.version>
         <zookeeper.version>3.4.6</zookeeper.version>
         <zkclient.version>0.1</zkclient.version>
         <curator.version>2.5.0</curator.version>
+        <!-- 低于此版本存在 【CVE-2020-26217 XStream远程代码执行漏洞】 -->
+        <xstream.version>1.4.14</xstream.version>
 
         <maven.skip>true</maven.skip>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
@@ -167,6 +169,11 @@
                 <groupId>org.apache.curator</groupId>
                 <artifactId>curator-test</artifactId>
                 <version>${curator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>${xstream.version}</version>
             </dependency>
 
             <!-- ===BaseFrame模块=== -->
