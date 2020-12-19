@@ -6,8 +6,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ls_sys?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false
-    username:
-    password:
+    username: hsh
+    password: hsh666
 ################### mybatis-plus配置 ###################
 mybatis-plus:
   # 扫描表实体注册别名，参考https://mp.baomidou.com/config/#typealiasespackage
