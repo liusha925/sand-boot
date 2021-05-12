@@ -1,5 +1,7 @@
 package com.sand.core.thread.pool;
 
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +28,11 @@ public class ThreadPoolHandler {
     private ExecutorService threadPool;
 
     /**
+     * 线程任务
+     */
+    private ThreadPoolTaskExecutor taskExecutor;
+
+    /**
      * <p>
      * 功能描述：构造函数
      * </p>
@@ -35,6 +42,7 @@ public class ThreadPoolHandler {
      */
     public ThreadPoolHandler() {
         init();
+        initExecutor();
     }
 
     /**
@@ -46,20 +54,48 @@ public class ThreadPoolHandler {
      * 修改记录：新建
      */
     public void init() {
-        // Java虚拟机可用的处理器数量
-        int availableProcessors = Runtime.getRuntime().availableProcessors();
-        // 最大线程池大小=Java虚拟机可用的处理器数量 / 2
-        int maximumPoolSize = availableProcessors / 2;
-        maximumPoolSize = maximumPoolSize < 2 ? 2 : maximumPoolSize;
-        // 核心线程池大小=最大线程池大小 / 4
-        int corePoolSize = maximumPoolSize / 4;
-        corePoolSize = corePoolSize < 1 ? 1 : corePoolSize;
-        // 线程池中超过 corePoolSize 数目的空闲线程最大存活时间 TimeUnit.SECONDS
-        long keepAliveTime = 10;
-        // 阻塞任务队列
-        BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<>(16);
-        System.out.println("availableProcessors=" + availableProcessors + "，maximumPoolSize=" + maximumPoolSize + "，corePoolSize=" + corePoolSize);
+        // 核心线程池大小 = CPU核数
+        int corePoolSize = Runtime.getRuntime().availableProcessors();
+        // 最大线程池大小 = CPU核数 * 2
+        int maximumPoolSize = corePoolSize * 2;
+        // 线程池中超过 corePoolSize 数目的空闲线程最大存活时间
+        long keepAliveTime = 60;
+        // 阻塞任务队列最大容量 1024
+        BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<>(1024);
+        System.out.println("corePoolSize=" + corePoolSize + "，maximumPoolSize=" + maximumPoolSize);
         threadPool = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, TimeUnit.SECONDS, workQueue, new ThreadPoolExecutor.CallerRunsPolicy());
+        System.out.println("threadPool 初始化完成");
+    }
+
+    /**
+     * <p>
+     * 功能描述：初始化
+     * </p>
+     * 开发人员：hsh
+     * 开发时间：2021/5/12 17:32
+     * 修改记录：新建
+     */
+    public void initExecutor() {
+        if (null == taskExecutor) {
+            taskExecutor = new ThreadPoolTaskExecutor();
+        }
+        // CPU核数
+        int cpuNum = Runtime.getRuntime().availableProcessors();
+        // 核心线程大小
+        taskExecutor.setCorePoolSize(cpuNum);
+        // 最大线程大小
+        taskExecutor.setMaxPoolSize(cpuNum * 2);
+        // 队列最大容量
+        taskExecutor.setQueueCapacity(500);
+        // 当提交的任务个数大于 QueueCapacity，就需要设置该参数，
+        // 但spring提供的都不太满足业务场景，可以自定义一个，也可以注意不要超过 QueueCapacity 即可
+        taskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+        taskExecutor.setWaitForTasksToCompleteOnShutdown(true);
+        // 线程池中超过 corePoolSize 数目的空闲线程最大存活时间
+        taskExecutor.setAwaitTerminationSeconds(60);
+        taskExecutor.setThreadNamePrefix("Thread-Pool-Task-Executor-");
+        taskExecutor.initialize();
+        System.out.println("taskExecutor 初始化完成");
     }
 
     /**
