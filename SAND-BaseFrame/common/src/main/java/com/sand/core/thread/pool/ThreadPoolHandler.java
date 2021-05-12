@@ -91,7 +91,7 @@ public class ThreadPoolHandler {
                 batchDataList = dataList.subList(i * batchSize, (i + 1) * batchSize);
             }
             final List<Map<String, Object>> tempDataList = batchDataList;
-            Runnable runnable = new Runnable() {
+            Runnable task = new Runnable() {
 
                 @Override
                 public void run() {
@@ -107,7 +107,7 @@ public class ThreadPoolHandler {
                     }
                 }
             };
-            threadPool.submit(runnable);
+            threadPool.submit(task);
         }
         threadPool.shutdown();
     }
