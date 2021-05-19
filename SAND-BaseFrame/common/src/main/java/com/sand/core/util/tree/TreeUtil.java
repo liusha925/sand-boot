@@ -29,6 +29,47 @@ public final class TreeUtil {
   public static final String TREE_ROOT = "treeRoot";
 
   /**
+   * 根据pid，构建子集
+   *
+   * @param buildList 待构建集合
+   * @param pid       父节点
+   * @param <T>       Tree
+   * @return 子集合，树形结构取 resultList[0] 即可
+   */
+  public static <T extends Tree> List<T> buildSubList(List<T> buildList, String pid) {
+    List<T> resultList = new ArrayList<>();
+    for (T tree : buildList) {
+      if (pid.equals(tree.getId())) {
+        // 包括当前父级节点
+        resultList.add(tree);
+        buildSub(resultList, buildList, tree);
+      }
+    }
+    return resultList;
+  }
+
+  /**
+   * 构建子节点
+   *
+   * @param resultList 构建结果集合
+   * @param buildList  待构建集合
+   * @param rootTree   父节点
+   * @param <T>        Tree（Tree.children需要初始化）
+   * @return 子节点
+   */
+  public static <T extends Tree> T buildSub(List<T> resultList, List<T> buildList, T rootTree) {
+    for (T tree : buildList) {
+      if (rootTree.getId().equals(tree.getPid())) {
+        resultList.add(tree);
+        // 组建树形结构
+        rootTree.getChildren().add(tree);
+        buildSub(resultList, buildList, tree);
+      }
+    }
+    return rootTree;
+  }
+
+  /**
    * 添加根节点
    *
    * @param trees    原有的树形结构
