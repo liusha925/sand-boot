@@ -18,6 +18,8 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.TimeZone;
 
@@ -496,7 +498,7 @@ public class DateUtil extends DateUtils {
    * </pre>
    *
    * @param startDate 开始日期
-   * @param endDate 结束日期
+   * @param endDate   结束日期
    * @return 相差？天
    */
   public static long daysBetween(Date startDate, Date endDate) {
@@ -721,4 +723,157 @@ public class DateUtil extends DateUtils {
     }
     return false;
   }
+
+  /**
+   * <p>
+   * 功能描述：判断当前日期是否在周几到周几时间范围内
+   * </p>
+   * <pre>
+   *     System.out.println(DateUtil.timeQuantum("周一:00:00:00", "周日:23:59:59")); = true
+   *     System.out.println(DateUtil.timeQuantum("周日:23:59:59", "周日:23:59:59")); = false
+   * </pre>
+   * 开发人员：gy-hsh
+   * 开发时间：2021/5/19 17:03
+   * 修改记录：新建
+   *
+   * @param stTime stTime
+   * @param edTime edTime
+   * @return boolean
+   */
+  public static boolean timeQuantum(String stTime, String edTime) {
+    // 获得一个日历
+    Calendar cal = Calendar.getInstance();
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    Date nowDate = new Date();
+    // 固定年月日为当前时间，只比较时间
+    String[] sdfSplit = sdf.format(nowDate).split(" ");
+    String[] weekDays = {"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
+    String[] stTimeSplit = stTime.split(":");
+    String[] edTimeSplit = edTime.split(":");
+    cal.setTime(nowDate);
+    // 指示一个星期中的某天。
+    int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
+    // 当前时间星期几
+    String nowDateWeek = weekDays[w];
+    // 如果开始时间大约结束时间就互换 如：周二 到周一
+    if (getIndex(stTimeSplit[0]) > getIndex(edTimeSplit[0])) {
+      String temp = stTimeSplit[0];
+      stTimeSplit[0] = edTimeSplit[0];
+      edTimeSplit[0] = temp;
+    }
+    // 判断当前时间 是否在时间段中
+    if (getIndex(nowDateWeek) >= getIndex(stTimeSplit[0]) && getIndex(nowDateWeek) <= getIndex(edTimeSplit[0])) {
+      // 是否为同一天
+      if (stTimeSplit[0].equals(edTimeSplit[0])) {
+        try {
+          Date stParse = sdf.parse(sdfSplit[0] + " " + stTimeSplit[1] + ":" + stTimeSplit[2]);
+          Date edParse = sdf.parse(sdfSplit[0] + " " + edTimeSplit[1] + ":" + edTimeSplit[2]);
+          // 当前时间在时间段范围内
+          if (nowDate.getTime() >= stParse.getTime() && nowDate.getTime() <= edParse.getTime()) {
+            return true;
+          } else {
+            return false;
+          }
+        } catch (ParseException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+        // 比较当前时间是否在此时间段内
+      } else {//不是同一天
+        // 当前星期几等于开始星期几 或者等于结束星期几
+        if (getIndex(nowDateWeek) == getIndex(stTimeSplit[0]) || getIndex(nowDateWeek) == getIndex(edTimeSplit[0])) {
+          try {
+            Date stParse = sdf.parse(sdfSplit[0] + " " + stTimeSplit[1] + ":" + stTimeSplit[2]);
+            Date edParse = sdf.parse(sdfSplit[0] + " " + edTimeSplit[1] + ":" + edTimeSplit[2]);
+            // 当前周几等于 开始周几
+            if (getIndex(nowDateWeek) == getIndex(stTimeSplit[0])) {
+              if (nowDate.getTime() >= stParse.getTime()) {
+                return true;
+              }
+              return false;
+            } else {// 当前周几等于 结束周几
+              if (nowDate.getTime() <= edParse.getTime()) {
+                return true;
+              }
+              return false;
+            }
+          } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
+        } else {//不等于，包括在中间 当前为周三 ，开始为周一结束为周五
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  /**
+   * <p>
+   * 功能描述：将星期转换成数字
+   * </p>
+   * <pre>
+   *     System.out.println(DateUtil.getIndex("周一")); = 1
+   * </pre>
+   * 开发人员：gy-hsh
+   * 开发时间：2021/5/19 16:58
+   * 修改记录：新建
+   *
+   * @param week week
+   * @return java.lang.Integer
+   */
+  public static Integer getIndex(String week) {
+    String[] weekDays = {"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
+    for (int i = 0; i < weekDays.length; i++) {
+      if (week.equals(weekDays[i])) {
+        if (i == 0) {
+          return 7;
+        }
+        return i;
+      }
+    }
+    return 0;
+  }
+
+  /**
+   * <p>
+   * 功能描述：通过传入的日期，获取所在周的周一至周日
+   * </p>
+   * <pre>
+   *     System.out.println(DateUtil.getWeekDate(new Date())); = {sundayDate=2021-05-23, mondayDate=2021-05-17}
+   * </pre>
+   * 开发人员：gy-hsh
+   * 开发时间：2021/5/19 17:17
+   * 修改记录：新建
+   *
+   * @param date date
+   * @return java.util.Map<java.lang.String, java.lang.Object>
+   */
+  public static Map<String, Object> getWeekDate(Date date) {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(date);
+    // 按中国的习惯一个星期的第一天是星期一
+    cal.setFirstDayOfWeek(Calendar.MONDAY);
+    // 获得当前日期是一个星期的第几天
+    int dayWeek = cal.get(Calendar.DAY_OF_WEEK);
+    if (dayWeek == 1) {
+      dayWeek = 8;
+    }
+    // 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
+    cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - dayWeek);
+    Date mondayDate = cal.getTime();
+    String weekBegin = sdf.format(mondayDate);
+
+    cal.add(Calendar.DATE, 4 + cal.getFirstDayOfWeek());
+    Date sundayDate = cal.getTime();
+    String weekEnd = sdf.format(sundayDate);
+
+    Map<String, Object> dateMap = new HashMap(4);
+    dateMap.put("mondayDate", weekBegin);
+    dateMap.put("sundayDate", weekEnd);
+    return dateMap;
+  }
+
 }
