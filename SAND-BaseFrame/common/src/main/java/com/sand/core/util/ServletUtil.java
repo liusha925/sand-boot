@@ -7,6 +7,7 @@
  */
 package com.sand.core.util;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sand.core.util.convert.SandCharset;
 import com.sand.core.util.lang3.StringUtil;
@@ -344,5 +345,7 @@ public class ServletUtil {
     }
     return fileName;
   }
-
+  public static void main(String[] args) {
+    System.out.println("JSONArray=" + new JSONArray().toString());
+  }
 }

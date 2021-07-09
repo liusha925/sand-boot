@@ -42,7 +42,7 @@ public class LoginService extends AuthUserLoginServiceImpl {
 //    jwtTokenUtil.putUserToken(dbUser, accessToken);
 //    jwtTokenUtil.putUserDetail(dbUser);
 //    // TODO 2、保存登录日志
-//    String userId = ParamUtil.getStringValue(loginResult, "user_id");
+//    String userId = MapUtil.getStringValue(loginResult, "user_id");
 //    List<SysUserRole> userRoles = userRoleService.list(new QueryWrapper<SysUserRole>().eq("user_id", userId));
 //    Set<String> roleIds = userRoles.stream().map(SysUserRole::getRoleId).collect(Collectors.toSet());
 //    List<SysRole> roles = new ArrayList<>(roleService.listByIds(roleIds));

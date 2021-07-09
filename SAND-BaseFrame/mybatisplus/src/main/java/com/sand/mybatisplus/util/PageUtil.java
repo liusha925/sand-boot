@@ -8,7 +8,7 @@
 package com.sand.mybatisplus.util;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sand.core.util.ParamUtil;
+import com.sand.core.util.MapUtil;
 import com.sand.core.util.lang3.StringUtil;
 import com.sand.core.util.convert.SandConvert;
 
@@ -23,7 +23,7 @@ import java.util.Objects;
  * 开发日期：2019/8/16 14:29
  * 功能描述：参数获取工具类
  */
-public class PageUtil extends ParamUtil {
+public class PageUtil extends MapUtil {
   /**
    * 默认分页条数
    */

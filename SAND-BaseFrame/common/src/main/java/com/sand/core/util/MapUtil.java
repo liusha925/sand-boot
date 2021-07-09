@@ -25,13 +25,13 @@ import java.util.Objects;
  * 开发日期：2019/8/16 14:29
  * 功能描述：参数获取工具类
  */
-public class ParamUtil {
+public class MapUtil {
   /**
    * 默认整型参数值
    */
   protected static final int DEFAULT_PARAM_INT = 0;
 
-  public ParamUtil() {
+  public MapUtil() {
   }
 
   /**

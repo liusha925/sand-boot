@@ -10,7 +10,7 @@ package com.sand.user.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
-import com.sand.core.util.ParamUtil;
+import com.sand.core.util.MapUtil;
 import com.sand.core.util.ServletUtil;
 import com.sand.core.util.crypt.des.DesCryptUtil;
 import com.sand.core.util.crypt.md5.Md5Util;
@@ -61,8 +61,8 @@ public class AuthUserLoginServiceImpl extends ServiceImpl<AuthUserMapper, AuthUs
 
   @Override
   public void loginBeforeValid(Map<String, Object> params) {
-    String username = ParamUtil.getStringValue(params, "username");
-    String password = ParamUtil.getStringValue(params, "password");
+    String username = MapUtil.getStringValue(params, "username");
+    String password = MapUtil.getStringValue(params, "password");
     AuthUser dbUser = this.getOne(new QueryWrapper<AuthUser>().eq("username", username));
     if (Objects.isNull(dbUser)) {
       throw new UsernameNotFoundException("username not found");
@@ -76,8 +76,8 @@ public class AuthUserLoginServiceImpl extends ServiceImpl<AuthUserMapper, AuthUs
 
   @Override
   public Object login(Map<String, Object> params) {
-    String username = ParamUtil.getStringValue(params, "username");
-    String password = ParamUtil.getStringValue(params, "password");
+    String username = MapUtil.getStringValue(params, "username");
+    String password = MapUtil.getStringValue(params, "password");
     AbstractAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
     // 1、开始发起认证，认证方式由com.sand.security.provider.MyAuthenticationProvider实现
     final Authentication authentication = authenticationManagerBean.authenticate(authenticationToken);
