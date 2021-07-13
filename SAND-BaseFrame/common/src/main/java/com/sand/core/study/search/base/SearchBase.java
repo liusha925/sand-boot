@@ -1,6 +1,6 @@
-package com.sand.core.search.base;
+package com.sand.core.study.search.base;
 
-import com.sand.core.search.bean.SortBean;
+import com.sand.core.study.search.bean.SortBean;
 
 import java.util.ArrayList;
 import java.util.HashMap;

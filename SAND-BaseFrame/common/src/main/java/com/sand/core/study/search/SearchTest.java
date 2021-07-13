@@ -1,6 +1,6 @@
-package com.sand.core.search;
+package com.sand.core.study.search;
 
-import com.sand.core.search.base.SearchBase;
+import com.sand.core.study.search.base.SearchBase;
 
 import java.util.List;
 
