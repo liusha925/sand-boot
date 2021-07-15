@@ -1,4 +1,4 @@
-package com.sand.core.study.observer;
+package com.sand.core.snapshots.observer;
 
 import java.util.Observable;
 

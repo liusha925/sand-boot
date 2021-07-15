@@ -1,6 +1,6 @@
-package com.sand.core.study.search.base;
+package com.sand.core.snapshots.search.handler;
 
-import com.sand.core.study.search.bean.SortBean;
+import com.sand.core.snapshots.search.bean.SortBean;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import java.util.List;
  * 开发时间：2021/7/8 9:26 <br>
  * 功能描述：写明作用，调用方式，使用场景，以及特殊情况 <br>
  */
-public class SearchBase {
+public class SearchHandler {
     /**
      * details 存储搜素对象的详细信息，其中key作为区分Object的唯一标识
      */
@@ -29,7 +29,7 @@ public class SearchBase {
     /**
      * 这里把构造方法设置成私有为的是单例模式
      */
-    private SearchBase() {
+    private SearchHandler() {
 
     }
 
@@ -41,8 +41,8 @@ public class SearchBase {
      * 开发时间：2021/7/8 9:29
      * 修改记录：新建
      */
-    private static class LazyLoadSearchBase {
-        private static final SearchBase searchBase = new SearchBase();
+    private static class LazyLoadSearchHandler {
+        private static final SearchHandler SEARCH_HANDLER = new SearchHandler();
     }
 
     /**
@@ -53,10 +53,10 @@ public class SearchBase {
      * 开发时间：2021/7/8 9:30
      * 修改记录：新建
      *
-     * @return com.sand.core.search.base.SearchBase
+     * @return com.sand.core.search.base.SearchHandler
      */
-    public static SearchBase getSearchBase() {
-        return LazyLoadSearchBase.searchBase;
+    public static SearchHandler getSearchBase() {
+        return LazyLoadSearchHandler.SEARCH_HANDLER;
     }
 
     /**

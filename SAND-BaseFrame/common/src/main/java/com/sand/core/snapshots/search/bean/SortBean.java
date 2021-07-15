@@ -1,4 +1,4 @@
-package com.sand.core.study.search.bean;
+package com.sand.core.snapshots.search.bean;
 
 import lombok.Data;
 

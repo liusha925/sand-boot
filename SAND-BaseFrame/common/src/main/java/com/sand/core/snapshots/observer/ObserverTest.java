@@ -1,4 +1,4 @@
-package com.sand.core.study.observer;
+package com.sand.core.snapshots.observer;
 
 /**
  * 功能说明：观察模式测试类 <br>
