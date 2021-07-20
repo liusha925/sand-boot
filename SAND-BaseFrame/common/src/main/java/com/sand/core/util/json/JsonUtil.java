@@ -7,9 +7,11 @@
  */
 package com.sand.core.util.json;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.InputStream;
@@ -25,6 +27,36 @@ import java.io.OutputStream;
 public class JsonUtil {
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final ObjectWriter OBJECT_WRITER = OBJECT_MAPPER.writerWithDefaultPrettyPrinter();
+
+  /**
+   * <p>
+   * 功能描述：判断 json 格式
+   * </p>
+   * 开发人员：@author gy-hsh
+   * 开发时间：2021/7/20 13:51
+   * 修改记录：新建
+   *
+   * @param content content
+   * @return boolean true-不是 false-是
+   */
+  public boolean isJson(String content) {
+    if (StringUtils.isEmpty(content)) {
+      return false;
+    }
+    boolean isJsonObject = true;
+    boolean isJsonArray = true;
+    try {
+      JSONObject.parseObject(content);
+    } catch (Exception e) {
+      isJsonObject = false;
+    }
+    try {
+      JSONObject.parseArray(content);
+    } catch (Exception e) {
+      isJsonArray = false;
+    }
+    return isJsonObject || isJsonArray;
+  }
 
   /**
    * 将数值以json串的形式写入文件中
