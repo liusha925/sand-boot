@@ -24,6 +24,9 @@ public class BaiDuMapUtil {
      * <p>
      * 功能描述：获取百度地图经度
      * </p>
+     * <pre>
+     *   System.out.println(BaiDuMapUtil.getBaiDuMapLongitude("浙江省/杭州市/西湖区/三坝雅苑")); = 120.1059612010161
+     * </pre>
      * 开发人员：@author hsh
      * 开发时间：2021/7/21 17:51
      * 修改记录：新建
@@ -32,8 +35,8 @@ public class BaiDuMapUtil {
      * @return double
      */
     @SuppressWarnings({"unchecked"})
-    public static double getLongitude(String address) {
-        Map baiDuLenLet = getBaiDuLenLet(address);
+    public static double getBaiDuMapLongitude(String address) {
+        Map baiDuLenLet = getBaiDuMapLngAndLat(address);
         return MapUtil.getObjectValue(baiDuLenLet, "lng", Double.class);
     }
 
@@ -41,6 +44,9 @@ public class BaiDuMapUtil {
      * <p>
      * 功能描述：获取百度地图纬度
      * </p>
+     * <pre>
+     *   System.out.println(BaiDuMapUtil.getBaiDuMapLatitude("浙江省/杭州市/西湖区/三坝雅苑")); = 30.31159304861119
+     * </pre>
      * 开发人员：@author hsh
      * 开发时间：2021/7/21 17:50
      * 修改记录：新建
@@ -49,8 +55,8 @@ public class BaiDuMapUtil {
      * @return double
      */
     @SuppressWarnings({"unchecked"})
-    public static double getLatitude(String address) {
-        Map baiDuLenLet = getBaiDuLenLet(address);
+    public static double getBaiDuMapLatitude(String address) {
+        Map baiDuLenLet = getBaiDuMapLngAndLat(address);
         return MapUtil.getObjectValue(baiDuLenLet, "lat", Double.class);
     }
 
@@ -58,6 +64,9 @@ public class BaiDuMapUtil {
      * <p>
      * 功能描述：根据地址获取百度地图经、纬度
      * </p>
+     * <pre>
+     *   System.out.println(BaiDuMapUtil.getBaiDuMapLngAndLat("浙江省/杭州市/西湖区/三坝雅苑")); = {lng=120.1059612010161, lat=30.31159304861119}
+     * </pre>
      * 开发人员：@author hsh
      * 开发时间：2021/7/21 17:50
      * 修改记录：新建
@@ -66,7 +75,7 @@ public class BaiDuMapUtil {
      * @return java.util.Map
      */
     @SuppressWarnings({"unchecked"})
-    public static Map getBaiDuLenLet(String address) {
+    public static Map getBaiDuMapLngAndLat(String address) {
         Map baiDuLenLet = new HashMap(8);
         String baiDuMapInfo = getBaiDuMapInfo(address);
         if (StringUtils.isNotBlank(baiDuMapInfo)) {
@@ -84,6 +93,9 @@ public class BaiDuMapUtil {
      * <p>
      * 功能描述：根据地址获取百度地图信息
      * </p>
+     * <pre>
+     *   System.out.println(BaiDuMapUtil.getBaiDuMapInfo("浙江省/杭州市/西湖区/三坝雅苑")); = {"status":0,"result":{"location":{"lng":120.1059612010161,"lat":30.31159304861119},"precise":1,"confidence":70,"comprehension":100,"level":"地产小区"}}
+     * </pre>
      * 开发人员：@author hsh
      * 开发时间：2021/7/21 17:49
      * 修改记录：新建
@@ -125,14 +137,10 @@ public class BaiDuMapUtil {
             baiDuMapInfo = result.toString();
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("获取百度地图信息异常");
+            log.error("地址[{}]百度地图信息获取异常", address);
         }
-        log.info("百度地图信息：{}", baiDuMapInfo);
+        log.info("地址[{}]百度地图信息：{}", address, baiDuMapInfo);
         return baiDuMapInfo;
     }
 
-    public static void main(String[] args) {
-        System.out.println("latitude=" + BaiDuMapUtil.getLatitude("浙江省/杭州市/西湖区/三坝雅苑"));
-        System.out.println("longitude=" + BaiDuMapUtil.getLongitude("浙江省/杭州市/西湖区/三坝雅苑"));
-    }
 }
