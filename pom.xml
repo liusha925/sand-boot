@@ -38,7 +38,7 @@
         <UserAgentUtils.version>1.21</UserAgentUtils.version>
         <!-- 低于此版本存在 【Jackson 最新反序列化漏洞(CVE-2019-14361和CVE-2019-14439)】 -->
         <jackson-databind.version>2.9.10</jackson-databind.version>
-        <hutool.version>5.3.2</hutool.version>
+        <hutool.version>5.7.9</hutool.version>
         <easypoi.version>3.1.0</easypoi.version>
         <zookeeper.version>3.4.6</zookeeper.version>
         <zkclient.version>0.1</zkclient.version>
