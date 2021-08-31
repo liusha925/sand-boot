@@ -81,7 +81,7 @@ public class MapUtil {
    * @return 字符串参数值
    */
   public static String getStringValue(Map<String, Object> map, String key) {
-    Object value = getValue(map, key, null, true);
+    Object value = getValue(map, key, "", true);
     return Objects.isNull(value) ? null : StringUtils.deleteWhitespace(value.toString());
   }
 

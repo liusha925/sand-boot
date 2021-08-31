@@ -92,4 +92,24 @@ public class YS7TokenUtil {
             tokenLock.unlock();
         }
     }
+
+    /**
+     * <p>
+     * 功能描述：获取总页码数
+     * </p>
+     * 开发人员：@author gy-hsh
+     * 开发时间：2021/8/31 19:27
+     * 修改记录：新建
+     *
+     * @param retJson retJson
+     * @return int
+     */
+    public static int getTotalPageNum(JSONObject retJson) {
+        String retPage = retJson.getStr("page");
+        JSONObject retJsonPage = JSONUtil.parseObj(retPage);
+        int total = retJsonPage.getInt("total");
+        int size = retJsonPage.getInt("size");
+        int totalPageNum = (total + size - 1) / size;
+        return totalPageNum;
+    }
 }

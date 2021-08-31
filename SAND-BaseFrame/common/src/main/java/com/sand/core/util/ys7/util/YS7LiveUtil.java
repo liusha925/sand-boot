@@ -15,15 +15,11 @@ import java.util.Map;
  * 开发时间：2021/8/23 18:00 <br>
  * 功能描述：参考文档 https://open.ys7.com/doc/zh <br>
  */
-public class YS7LiveUtil {
+public class YS7LiveUtil extends YS7TokenUtil {
     /**
      * 萤石直播请求地址
      */
     public static final String LIVE_URL = "https://open.ys7.com/api/lapp/live";
-    /**
-     * [获取用户下直播视频列表，获取指定有效期的直播地址，开通直播功能，获取直播地址、关闭直播功能]
-     */
-    public static final String[] URL = {"/video/list", "/address/limited", "/video/open", "/address/get", "/video/close"};
 
     /**
      * 获取用户下直播视频列表
@@ -83,12 +79,21 @@ public class YS7LiveUtil {
         param.put("accessToken", accessToken);
         param.put("pageStart", pageStart);
         param.put("pageSize", pageSize);
-        String retStr = HttpUtil.post(LIVE_URL + URL[0], param);
+        String retStr = HttpUtil.post(LIVE_URL + "/video/list", param);
+
         JSONObject retJson = JSONUtil.parseObj(retStr);
         int code = retJson.getInt("code");
         if (YS7Status.CODE_200.getCode() == code) {
             String retDataStr = retJson.getStr("data");
-            return JSONUtil.toList(retDataStr, Map.class);
+            List<Map> resultList = JSONUtil.toList(retDataStr, Map.class);
+            int totalPageNum = getTotalPageNum(retJson);
+            // 页面起止从0开始，所以(page+1)处理
+            int start = (pageStart + 1);
+            if (start < totalPageNum) {
+                resultList.addAll(getVideoList(accessToken, start, pageSize));
+            }
+
+            return resultList;
         } else {
             String msg = retJson.getStr("msg");
             throw new Exception("萤石【获取用户下直播视频列表】失败：" + msg);
@@ -160,7 +165,7 @@ public class YS7LiveUtil {
         param.put("deviceSerial", deviceSerial);
         param.put("channelNo", channelNo);
         param.put("expireTime", expireTime);
-        String retStr = HttpUtil.post(LIVE_URL + URL[1], param);
+        String retStr = HttpUtil.post(LIVE_URL + "/address/limited", param);
         JSONObject retJson = JSONUtil.parseObj(retStr);
         int code = retJson.getInt("code");
         if (YS7Status.CODE_200.getCode() == code) {
@@ -209,7 +214,7 @@ public class YS7LiveUtil {
      * @throws java.lang.Exception java.lang.Exception
      */
     public static List<Map> openVideo(String accessToken, String source) throws Exception {
-        return getLiveResultList(accessToken, source, LIVE_URL + URL[2]);
+        return getLiveResultList(accessToken, source, LIVE_URL + "/video/open");
     }
 
     /**
@@ -249,7 +254,7 @@ public class YS7LiveUtil {
      * @throws java.lang.Exception java.lang.Exception
      */
     public static List<Map> getAddress(String accessToken, String source) throws Exception {
-        return getLiveResultList(accessToken, source, LIVE_URL + URL[3]);
+        return getLiveResultList(accessToken, source, LIVE_URL + "/address/get");
     }
 
     /**
@@ -289,7 +294,7 @@ public class YS7LiveUtil {
      * @throws java.lang.Exception java.lang.Exception
      */
     public static List<Map> closeVideo(String accessToken, String source) throws Exception {
-        return getLiveResultList(accessToken, source, LIVE_URL + URL[4]);
+        return getLiveResultList(accessToken, source, LIVE_URL + "/video/close");
     }
 
     /**
@@ -321,6 +326,11 @@ public class YS7LiveUtil {
             String msg = retJson.getStr("msg");
             throw new Exception(url + "萤石【获取直播结果】失败：" + msg);
         }
+    }
+
+    public static void main(String[] args) throws Exception {
+        final List<Map> videoList = YS7LiveUtil.getVideoList("6e853c15e196429d8e68efb217a64766", "83f144ae193630cf11a56c34e16172b4");
+        System.out.println(videoList);
     }
 
 }
