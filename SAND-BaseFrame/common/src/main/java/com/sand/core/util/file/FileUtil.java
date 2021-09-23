@@ -7,6 +7,34 @@ package com.sand.core.util.file;
  * 功能描述：写明作用，调用方式，使用场景，以及特殊情况 <br>
  */
 public class FileUtil {
+    /**
+     * <p>
+     * 功能描述：获取文件大小
+     * </p>
+     * 开发人员：hsh
+     * 开发时间：2021/5/12 17:41
+     * 修改记录：新建
+     *
+     * @param size 字节大小
+     * @return 转换后值
+     */
+    public String convertFileSize(long size) {
+        long kb = 1024;
+        long mb = kb * 1024;
+        long gb = mb * 1024;
+        if (size >= gb) {
+            return String.format("%.1f GB", (float) size / gb);
+        } else if (size >= mb) {
+            float f = (float) size / mb;
+            return String.format(f > 100 ? "%.0f MB" : "%.1f MB", f);
+        } else if (size >= kb) {
+            float f = (float) size / kb;
+            return String.format(f > 100 ? "%.0f KB" : "%.1f KB", f);
+        } else {
+            return String.format("%d B", size);
+        }
+    }
+
 
     /**
      * <p>
@@ -16,8 +44,8 @@ public class FileUtil {
      * 开发时间：2021/5/12 17:41
      * 修改记录：新建
      *
-     * @param size size
-     * @return java.lang.String
+     * @param size 字节大小
+     * @return 转换后值
      */
     public static String getFileSize(long size) {
         // 如果字节数少于1024，则直接以B为单位，否则先除于1024，后3位因太少无意义
