@@ -15,7 +15,6 @@
         <module>user-center</module>
         <module>message-center</module>
         <module>valid-code</module>
-        <module>nexus</module>
     </modules>
 
 </project>

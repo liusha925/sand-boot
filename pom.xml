@@ -45,6 +45,8 @@
         <curator.version>2.5.0</curator.version>
         <!-- 低于此版本存在 【CVE-2020-26217 XStream远程代码执行漏洞】 -->
         <xstream.version>1.4.14</xstream.version>
+        <!-- 文件服务器fastDFS -->
+        <fastdfs.version>1.27</fastdfs.version>
 
         <maven.skip>true</maven.skip>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
@@ -193,7 +195,11 @@
                 <artifactId>commons-io</artifactId>
                 <version>2.5</version>
             </dependency>
-
+            <dependency>
+                <groupId>cn.bestwu</groupId>
+                <artifactId>fastdfs-client-java</artifactId>
+                <version>${fastdfs.version}</version>
+            </dependency>
             <!-- ===BaseFrame模块=== -->
             <dependency>
                 <groupId>com.sand</groupId>

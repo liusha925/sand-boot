@@ -8,7 +8,6 @@
         <groupId>com.sand</groupId>
         <artifactId>sand</artifactId>
         <version>1.0.0</version>
-        <relativePath>../../</relativePath>
     </parent>
 
     <artifactId>mybatisplus</artifactId>
