@@ -44,7 +44,7 @@
         <zkclient.version>0.1</zkclient.version>
         <curator.version>2.5.0</curator.version>
         <!-- 低于此版本存在 【CVE-2020-26217 XStream远程代码执行漏洞】 -->
-        <xstream.version>1.4.14</xstream.version>
+        <xstream.version>1.4.18</xstream.version>
         <!-- 文件服务器fastDFS -->
         <fastdfs.version>1.27</fastdfs.version>
 
