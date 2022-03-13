@@ -55,13 +55,13 @@ public class ThreadPoolHandler {
      */
     public void init() {
         // 核心线程池大小 = CPU核数
-        int corePoolSize = Runtime.getRuntime().availableProcessors();
+        int corePoolSize = Runtime.getRuntime().availableProcessors() + 1;
         // 最大线程池大小 = CPU核数 * 2
         int maximumPoolSize = corePoolSize * 2;
         // 线程池中超过 corePoolSize 数目的空闲线程最大存活时间
-        long keepAliveTime = 60;
+        long keepAliveTime = 30;
         // 阻塞任务队列最大容量 1024
-        BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<>(1024);
+        BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<>(128);
         System.out.println("corePoolSize=" + corePoolSize + "，maximumPoolSize=" + maximumPoolSize);
         threadPool = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, TimeUnit.SECONDS, workQueue, new ThreadPoolExecutor.CallerRunsPolicy());
         System.out.println("threadPool 初始化完成");
