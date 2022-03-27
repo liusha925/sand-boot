@@ -1,6 +1,7 @@
 package com.sand.core.util.idworker;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  * 功能说明：ID生成器 <br>
@@ -8,41 +9,34 @@ import org.springframework.beans.factory.annotation.Value;
  * 开发时间：2022/3/27 12:06 <br>
  * 功能描述：生成全局唯一ID <br>
  */
+@Component
 public class IdWorker {
     /**
      * 工作机器ID(0~31)
      */
-    private static long workerId;
+    @Value("${snowflake.workerId:22}")
+    private long workerId;
     /**
      * 数据中心ID(0~31)
      */
-    private static long datacenterId;
-
-    @Value("${snowflake.workerId:22}")
-    public void setWorkerId(long workerId) {
-        IdWorker.workerId = workerId;
-    }
-
-    @Value("${snowflake.datacenterId:33}")
-    public void setDatacenterId(long datacenterId) {
-        IdWorker.datacenterId = datacenterId;
-    }
+    @Value("${snowflake.datacenterId:23}")
+    private long datacenterId;
 
     /**
-     * 通过雪花算法获取唯一ID
+     * 通过[雪花算法]获取唯一ID
      *
      * @return ID
      */
-    public static long getIdBySnowflake() {
+    public long getIdBySnowflake() {
         return SnowflakeIdWorker.getInstance(workerId, datacenterId).nextId();
     }
-
 
     public static void main(String[] args) {
         for (int i = 0; i < 10; i++) {
             new Thread(() -> {
                 for (int j = 0; j < 10; j++) {
-                    System.out.println(Thread.currentThread().getName() + "：" + getIdBySnowflake());
+                    IdWorker idWorker = new IdWorker();
+                    System.out.println(Thread.currentThread().getName() + "：" + idWorker.getIdBySnowflake());
                 }
             }).start();
         }

@@ -83,7 +83,7 @@ public class SnowflakeIdWorker {
     /**
      * 构造函数（私有化）
      *
-     * @param workerId     工作ID (0~31)
+     * @param workerId     工作机器ID (0~31)
      * @param datacenterId 数据中心ID (0~31)
      */
     private SnowflakeIdWorker(long workerId, long datacenterId) {
@@ -100,8 +100,8 @@ public class SnowflakeIdWorker {
     /**
      * 访问入口
      *
-     * @param workerId     workerId
-     * @param datacenterId datacenterId
+     * @param workerId     工作机器ID (0~31)
+     * @param datacenterId 数据中心ID (0~31)
      * @return SnowflakeIdWorker
      */
     public static SnowflakeIdWorker getInstance(long workerId, long datacenterId) {
