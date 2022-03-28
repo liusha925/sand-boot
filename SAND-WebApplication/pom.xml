@@ -12,7 +12,6 @@
 
     <modules>
         <module>backendApp</module>
-        <module>graphicApp</module>
     </modules>
 
 </project>
