@@ -99,7 +99,7 @@ public class SnowflakeIdWorker {
      *
      * @return java.lang.Long
      */
-    private static Long getWorkId() {
+    public static Long getWorkId() {
         try {
             String hostAddress = Inet4Address.getLocalHost().getHostAddress();
             int[] ints = StringUtils.toCodePoints(hostAddress);
@@ -125,7 +125,7 @@ public class SnowflakeIdWorker {
      *
      * @return java.lang.Long
      */
-    private static Long getDataCenterId() {
+    public static Long getDataCenterId() {
         int[] ints = StringUtils.toCodePoints(SystemUtils.getHostName());
         int sums = 0;
         for (int i : ints) {
@@ -134,9 +134,14 @@ public class SnowflakeIdWorker {
         return (long) (sums % 32);
     }
 
+    public SnowflakeIdWorker() {
+        this.workerId = getWorkId();
+        this.dataCenterId = getDataCenterId();
+    }
+
     /**
      * <p>
-     * 功能描述：构造函数私有化
+     * 功能描述：构造函数
      * </p>
      * 开发人员：@author shaohua.huang
      * 开发时间：2022/3/28 13:32
@@ -145,7 +150,7 @@ public class SnowflakeIdWorker {
      * @param workerId     工作机器ID (0~31)
      * @param dataCenterId 数据中心ID (0~31)
      */
-    private SnowflakeIdWorker(long workerId, long dataCenterId) {
+    public SnowflakeIdWorker(long workerId, long dataCenterId) {
         if (workerId > maxWorkerId || workerId < 0) {
             throw new IllegalArgumentException(String.format("workerId can't be greater than %d or less than 0", maxWorkerId));
         }
@@ -166,7 +171,7 @@ public class SnowflakeIdWorker {
      *
      * @return long 生成的唯一id
      */
-    private synchronized long nextId() {
+    public synchronized long nextId() {
         long timestamp = timeGen();
         // 如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
         if (timestamp < lastTimestamp) {
