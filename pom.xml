@@ -33,11 +33,11 @@
         <jjwt.version>0.6.0</jjwt.version>
         <redis-clients.version>2.9.0</redis-clients.version>
         <!-- v1.2.70以下版本存在0day漏洞 -->
-        <fastjson.version>1.2.70</fastjson.version>
+        <fastjson.version>1.2.75</fastjson.version>
         <reflections.version>0.9.11</reflections.version>
         <UserAgentUtils.version>1.21</UserAgentUtils.version>
-        <!-- 低于此版本存在 【Jackson 最新反序列化漏洞(CVE-2019-14361和CVE-2019-14439)】 -->
-        <jackson-databind.version>2.9.10</jackson-databind.version>
+        <!-- 低于v2.9.10存在 【Jackson 最新反序列化漏洞(CVE-2019-14361和CVE-2019-14439)】 -->
+        <jackson-databind.version>2.13.2.1</jackson-databind.version>
         <hutool.version>5.7.9</hutool.version>
         <easypoi.version>3.1.0</easypoi.version>
         <zookeeper.version>3.4.6</zookeeper.version>
