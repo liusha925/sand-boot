@@ -126,12 +126,16 @@ public class SnowflakeIdWorker {
      * @return java.lang.Long
      */
     public static Long getDataCenterId() {
-        int[] ints = StringUtils.toCodePoints(SystemUtils.getHostName());
-        int sums = 0;
-        for (int i : ints) {
-            sums += i;
+        try {
+            int[] ints = StringUtils.toCodePoints(SystemUtils.getHostName());
+            int sums = 0;
+            for (int i : ints) {
+                sums += i;
+            }
+            return (long) (sums % 32);
+        } catch (Exception e) {
+            return RandomUtils.nextLong(0, 31);
         }
-        return (long) (sums % 32);
     }
 
     public SnowflakeIdWorker() {
