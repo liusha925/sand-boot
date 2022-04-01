@@ -6,6 +6,8 @@ import org.apache.commons.lang3.SystemUtils;
 
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * 功能说明：雪花算法 <br>
@@ -83,6 +85,10 @@ public class SnowflakeIdWorker {
      * 使用单例
      */
     private static SnowflakeIdWorker idWorker;
+    /**
+     * DateTimeFormatter
+     */
+    public static final DateTimeFormatter MILLISECOND = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
 
     static {
         idWorker = new SnowflakeIdWorker(getWorkId(), getDataCenterId());
@@ -238,8 +244,22 @@ public class SnowflakeIdWorker {
 
     /**
      * <p>
-     * 功能描述：唯一id生成入口
-     * 只能通过 SnowflakeIdWorker.generateId() 访问生成
+     * 功能描述：获取当前时间
+     * </p>
+     * 开发人员：@author shaohua.huang
+     * 开发时间：2022/4/1 8:57
+     * 修改记录：新建
+     *
+     * @return java.lang.String 当前时间（毫秒）
+     */
+    public static String getMillisecond() {
+        return LocalDateTime.now().format(MILLISECOND);
+    }
+
+    /**
+     * <p>
+     * 功能描述：id生成入口
+     * 通过 SnowflakeIdWorker.generateId() 访问生成
      * </p>
      * 开发人员：@author shaohua.huang
      * 开发时间：2022/3/28 13:35
@@ -252,13 +272,28 @@ public class SnowflakeIdWorker {
     }
 
     /**
+     * <p>
+     * 功能描述：id生成入口
+     * 通过 SnowflakeIdWorker.generateIdStr() 访问生成
+     * </p>
+     * 开发人员：@author shaohua.huang
+     * 开发时间：2022/3/28 13:38
+     * 修改记录：新建
+     *
+     * @return java.lang.String 唯一id
+     */
+    public static synchronized String generateIdStr() {
+        return getMillisecond() + idWorker.nextId();
+    }
+
+    /**
      * 验证
      */
     public static void main(String[] args) {
         for (int i = 0; i < 10; i++) {
             new Thread(() -> {
                 for (int j = 0; j < 10; j++) {
-                    System.out.println(Thread.currentThread().getName() + "：" + SnowflakeIdWorker.generateId());
+                    System.out.println(Thread.currentThread().getName() + "：" + SnowflakeIdWorker.generateIdStr());
                 }
             }).start();
         }
