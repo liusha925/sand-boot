@@ -40,7 +40,7 @@
         <jackson-databind.version>2.13.2.1</jackson-databind.version>
         <hutool.version>5.7.9</hutool.version>
         <easypoi.version>3.1.0</easypoi.version>
-        <zookeeper.version>3.4.6</zookeeper.version>
+        <zookeeper.version>3.4.14</zookeeper.version>
         <zkclient.version>0.1</zkclient.version>
         <curator.version>2.5.0</curator.version>
         <!-- 低于此版本存在 【CVE-2020-26217 XStream远程代码执行漏洞】 -->
