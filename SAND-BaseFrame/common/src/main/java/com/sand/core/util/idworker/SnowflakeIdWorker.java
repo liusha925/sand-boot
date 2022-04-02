@@ -82,13 +82,13 @@ public class SnowflakeIdWorker {
      */
     private long lastTimestamp = -1L;
     /**
+     * DateTimeFormatter
+     */
+    private static final DateTimeFormatter MILLISECOND = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
+    /**
      * 使用单例
      */
     private static SnowflakeIdWorker idWorker;
-    /**
-     * DateTimeFormatter
-     */
-    public static final DateTimeFormatter MILLISECOND = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
 
     static {
         idWorker = new SnowflakeIdWorker(getWorkId(), getDataCenterId());
@@ -144,11 +144,6 @@ public class SnowflakeIdWorker {
         }
     }
 
-    public SnowflakeIdWorker() {
-        this.workerId = getWorkId();
-        this.dataCenterId = getDataCenterId();
-    }
-
     /**
      * <p>
      * 功能描述：构造函数
@@ -160,7 +155,7 @@ public class SnowflakeIdWorker {
      * @param workerId     工作机器ID (0~31)
      * @param dataCenterId 数据中心ID (0~31)
      */
-    public SnowflakeIdWorker(long workerId, long dataCenterId) {
+    private SnowflakeIdWorker(long workerId, long dataCenterId) {
         if (workerId > maxWorkerId || workerId < 0) {
             throw new IllegalArgumentException(String.format("workerId can't be greater than %d or less than 0", maxWorkerId));
         }
@@ -181,7 +176,7 @@ public class SnowflakeIdWorker {
      *
      * @return long 生成的唯一id
      */
-    public synchronized long nextId() {
+    private synchronized long nextId() {
         long timestamp = timeGen();
         // 如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
         if (timestamp < lastTimestamp) {
