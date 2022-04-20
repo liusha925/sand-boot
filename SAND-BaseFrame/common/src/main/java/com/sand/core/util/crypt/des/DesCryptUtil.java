@@ -68,4 +68,8 @@ public class DesCryptUtil {
     }
   }
 
+  public static void main(String[] args) {
+    System.out.println(DesCryptUtil.encrypt("123456"));
+  }
+
 }
