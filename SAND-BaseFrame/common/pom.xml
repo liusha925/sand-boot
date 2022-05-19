@@ -14,7 +14,7 @@
     <artifactId>common</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <description>通用工具类库</description>
+    <description>通用工具类库！</description>
 
     <dependencies>
         <dependency>
